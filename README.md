@@ -61,3 +61,11 @@ GitHub의 `jennie-ys/thesis` 저장소를 Cloudflare Pages에 연결하고 다�
 실제 수집 시에는 별도의 **비공개 응답 저장소**를 준비하고 Cloudflare 환경 변수 `GITHUB_OWNER`, `GITHUB_REPO`와 secret `GITHUB_TOKEN`을 설정합니다. 토큰은 해당 비공개 저장소의 Contents 쓰기 권한만 부여하고 소스 코드나 공개 저장소에 넣지 않습니다. 현재 공개 코드 저장소인 `thesis`를 응답 저장소로 설정하지 마세요.
 
 저장소가 설정되면 원본과 같이 `responses/YYYY-MM-DD/` 아래에 정식 응답과 제출 전 백업을 기록합니다. 정식 저장이 실패하면 완료 처리하지 않고 재시도를 안내합니다. `gas/experiment_receiver.gs`는 원본의 선택적 Google Apps Script 참고 파일이며 현재 웹페이지와 연결되어 있지 않습니다.
+
+## GitHub Pages 확인용 미리보기
+
+`docs/index.html`은 화면·디자인·이미지 목록을 포함한 단일 HTML입니다. 내려받아 브라우저에서 직접 열 수도 있습니다. 응답 제출과 백업은 메모리에서만 처리하며 외부 서버로 전송하지 않습니다. 미리보기 세션은 실제 실험과 별도로 저장하며 상단의 **처음부터 다시 보기**로 초기화합니다.
+
+소스를 변경한 뒤 `npm run build:preview`를 실행하고 변경된 `docs/index.html`을 함께 커밋합니다. 원본과 동일한 학습 시간과 조건별 과제 분기를 유지하며, 원본의 skip 버튼으로 빠르게 단계를 검토할 수 있습니다.
+
+GitHub 저장소 **Settings → Pages**에서 **Deploy from a branch**, **main**, **/docs**를 선택해 저장하면 확인용 페이지가 배포됩니다. Cloudflare용 앱과 별도로 동작합니다.
