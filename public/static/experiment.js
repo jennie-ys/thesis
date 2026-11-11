@@ -8,6 +8,37 @@
   const $ = id => document.getElementById(id)
   const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]))
   const normalize = value => value.normalize('NFKC').replace(/\s/g, '')
+  function normalizePostSurvey(source = {}) {
+    const number = (value, min, max) => {
+      if (value === null || value === undefined || value === '') return null
+      const n = Number(value)
+      return Number.isInteger(n) && n >= min && n <= max ? n : null
+    }
+    const old = source._ai_survey || {}
+    const knowledge = source.ai_knowledge || old, attitude = source.ai_attitude || old
+    const trust = source.ai_trust || {}
+    const t1 = trust.ai_t1 ?? source.ai_can_be_wrong ?? null
+    const t2 = t1 === 'yes' ? number(trust.ai_t2 ?? source.ai_expected_accuracy, 0, 100) : null
+    return {
+      pk1: number(source.pk1, 1, 7),
+      pk2: number(source.pk2, 0, 100),
+      ai_knowledge: Object.fromEntries(Array.from({length:6}, (_,i) => {
+        const key = 'ai_k'+(i+1), value = knowledge[key]
+        return [key, value === '맞다' || value === '틀리다' ? value : null]
+      })),
+      ai_attitude: Object.fromEntries(Array.from({length:8}, (_,i) => {
+        const key = 'ai_a'+(i+1); return [key, number(attitude[key], 1, 4)]
+      })),
+      ai_trust: {
+        ai_t1: t1 === 'yes' || t1 === 'no' ? t1 : null,
+        ai_t2: t2,
+        ai_t2_status: t1 === 'no' ? 'not_applicable' : trust.ai_t2_status === 'skipped' ? 'skipped' : t2 !== null ? 'answered' : 'unanswered',
+      },
+      q6_age: source.q6_age ?? null,
+      q6_gender: source.q6_gender ?? null,
+      q6_major: source.q6_major ?? null,
+    }
+  }
   function freshState() {
     return { version:'two-group-v2', participantId:crypto.randomUUID(), group:null, screen:'group', index:0, round:1,
       phase:'initial', learning:[], initialExam:[], task:[], finalExam:[], jol:{}, survey:{}, pages:[],
@@ -73,10 +104,10 @@
       case 'step-ps-2': showAiSurvey(); break
       case 'step-ai-survey': showAiSurveyB(); break
       case 'step-ai-survey-b': showAiErrorBelief(); break
-      case 'step-ai-error-belief': psData.ai_can_be_wrong = null; psData.ai_expected_accuracy = null; showPS3(); break
+      case 'step-ai-error-belief': psData.ai_trust = {ai_t1:null, ai_t2:null, ai_t2_status:'skipped'}; showPS3(); break
       case 'step-ps-3': state.submissionSaved = false; go('step-done'); break
       default:
-        state = freshState(); psData = state.survey
+        state = freshState(); psData = normalizePostSurvey(state.survey); state.survey = psData
         document.querySelectorAll('.step input').forEach(input => { input.value = input.type === 'radio' ? input.value : ''; input.checked = false })
         persist(); render()
     }
@@ -341,7 +372,7 @@
       nb.addEventListener('click', () => {
         const val = document.querySelector('input[name="q4"]:checked')?.value
         if (!val) { _showErr('ps1-err', '응답을 선택해 주세요.'); return }
-        psData.pk1 = val
+        psData.pk1 = Number(val)
         showPS2()
       }, { once: true })
     }
@@ -359,7 +390,7 @@
         const val = inp?.value?.trim()
         if (!val || !Number.isInteger(Number(val)) || Number(val)<0 || Number(val)>100) { _showErr('ps2-err', '0~100 사이의 숫자를 입력해 주세요.'); if (inp) inp.focus(); return }
         nb.removeEventListener('click', onPS2Click)
-        psData.pk2 = val
+        psData.pk2 = Number(val)
         showAiSurvey()   // ← Q5 다음에 AI 설문으로 이동
       }
       nb.addEventListener('click', onPS2Click)
@@ -395,11 +426,10 @@
   const LIKERT4_LABELS = ['전혀 그렇지 않다', '그렇지 않다', '그렇다', '매우 그렇다']
 
   // ── 공통: 문항 목록을 카드에 순차 주입하는 헬퍼 ──────────────
-  function _buildSurveyPage(items, cardId, errId, nextRowId, btnId, sectionText, onComplete) {
+  function _buildSurveyPage(items, cardId, errId, nextRowId, btnId, sectionText, sectionKey, onComplete) {
     const card = $(cardId), nextRow = $(nextRowId)
     card.innerHTML = ''; nextRow.style.display = 'none'
-    if (!psData._ai_survey) psData._ai_survey = {}
-    const answers = psData._ai_survey
+    const answers = psData[sectionKey]
     let shown = 0
     const heading = document.createElement('p'); heading.className = 'ai-survey-section'; heading.textContent = sectionText; card.appendChild(heading)
     function revealNext() {
@@ -409,11 +439,11 @@
       const labels = item.type === 'yn' ? ['맞다','틀리다'] : LIKERT4_LABELS
       wrap.innerHTML = `<p class="ai-survey-q">${escape(item.text)}</p><div class="${item.type === 'yn' ? 'ai-choice-yn' : 'ai-choice-likert4'}">${labels.map((label,i) => {
         const value = item.type === 'yn' ? label : String(i+1)
-        return `<label class="ai-radio-label"><input type="radio" name="${item.name}" value="${value}" ${answers[item.name] === value ? 'checked' : ''}/><span>${label}</span></label>`
+        return `<label class="ai-radio-label"><input type="radio" name="${item.name}" value="${value}" ${String(answers[item.name]) === value ? 'checked' : ''}/><span>${label}</span></label>`
       }).join('')}</div>`
       card.appendChild(wrap)
       wrap.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
-        answers[item.name] = r.value; persist()
+        answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); persist()
         if (items.slice(0,shown).every(q=>answers[q.name]) && shown < items.length) revealNext()
         nextRow.style.display = items.every(q=>answers[q.name]) ? '' : 'none'
       }))
@@ -435,9 +465,9 @@
       AI_SURVEY_ITEMS_A,
       'ai-survey-card', 'ai-survey-err', 'ai-survey-next-row', 'btn-ai-survey-next',
       '다음 문항들은 생성형 AI에 관한 내용입니다. 각 문장이 맞다고 생각하면 "맞다", 틀리다고 생각하면 "틀리다"를 선택해 주십시오.',
+      'ai_knowledge',
       (answersA) => {
-        if (!psData._ai_survey) psData._ai_survey = {}
-        Object.assign(psData._ai_survey, answersA)
+        Object.assign(psData.ai_knowledge, answersA)
         showAiSurveyB()
       }
     )
@@ -450,9 +480,9 @@
       AI_SURVEY_ITEMS_B,
       'ai-survey-b-card', 'ai-survey-b-err', 'ai-survey-b-next-row', 'btn-ai-survey-b-next',
       '다음 문항들은 생성형 AI에 대한 귀하의 생각을 묻는 문항입니다. 각 문장에 대해 동의 정도를 선택해 주십시오.',
+      'ai_attitude',
       (answersB) => {
-        if (!psData._ai_survey) psData._ai_survey = {}
-        Object.assign(psData._ai_survey, answersB)
+        Object.assign(psData.ai_attitude, answersB)
         showAiErrorBelief()
       }
     )
@@ -461,13 +491,15 @@
   function showAiErrorBelief() {
     showStep('step-ai-error-belief')
     const followup = $('ai-belief-followup'), input = $('ai-expected-accuracy')
-    const selected = psData.ai_can_be_wrong
-    document.querySelectorAll('input[name="ai_can_be_wrong"]').forEach(r => {
+    const trust = psData.ai_trust
+    const selected = trust.ai_t1
+    document.querySelectorAll('input[name="ai_t1"]').forEach(r => {
       r.checked = r.value === selected
       r.onchange = () => {
-        psData.ai_can_be_wrong = r.value
+        trust.ai_t1 = r.value
+        trust.ai_t2_status = r.value === 'no' ? 'not_applicable' : trust.ai_t2 === null ? 'unanswered' : 'answered'
         if (r.value === 'no') {
-          psData.ai_expected_accuracy = null
+          trust.ai_t2 = null
           if (state.surveyDraft) delete state.surveyDraft['ai-expected-accuracy']
           input.value = ''; showPS3(); return
         }
@@ -475,10 +507,11 @@
       }
     })
     followup.hidden = selected !== 'yes'
-    input.value = selected === 'yes' ? (psData.ai_expected_accuracy ?? state.surveyDraft?.['ai-expected-accuracy'] ?? '') : ''
+    input.value = selected === 'yes' ? (trust.ai_t2 ?? state.surveyDraft?.['ai-expected-accuracy'] ?? '') : ''
     input.oninput = () => {
       const raw = input.value.trim(), value = Number(raw)
-      psData.ai_expected_accuracy = raw && Number.isInteger(value) && value >= 0 && value <= 100 ? value : null
+      trust.ai_t2 = raw && Number.isInteger(value) && value >= 0 && value <= 100 ? value : null
+      trust.ai_t2_status = trust.ai_t2 === null ? 'unanswered' : 'answered'
       persist()
     }
     bind('btn-ai-belief-next', () => {
@@ -486,7 +519,7 @@
       if (!raw || !Number.isInteger(value) || value < 0 || value > 100) {
         _showErr('ai-belief-err', '0~100 사이의 정수를 입력해 주세요.'); input.focus(); return
       }
-      psData.ai_expected_accuracy = value; showPS3()
+      trust.ai_t2 = value; trust.ai_t2_status = 'answered'; showPS3()
     })
   }
 
@@ -509,9 +542,9 @@
     if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
     Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major}); persist(); btn.disabled = true
     leavePage()
-    const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData._ai_survey?.[q.name] === q.correct]))
+    const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_knowledge[q.name] === null ? null : psData.ai_knowledge[q.name] === q.correct]))
     const responses = {
-      _version:config.version, _group:state.group, ...psData,
+      _version:config.version, _group:state.group, _survey_schema_version:2, ...normalizePostSurvey(psData),
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
       _jol:{after_learning:state.jol.learning, initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
@@ -552,7 +585,7 @@
       try { state = JSON.parse(sessionStorage.getItem(STATE_KEY)) } catch (_) {}
       if (!state || state.version !== config.version) state = freshState()
       if (state.group && !config.groups.some(g=>g.id===state.group)) state = freshState()
-      psData = state.survey
+      psData = normalizePostSurvey(state.survey); state.survey = psData
       const drafts = state.surveyDraft || {}
       document.querySelectorAll('.step input').forEach(input => {
         const key = input.type === 'radio' ? input.name : input.id

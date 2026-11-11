@@ -8,7 +8,7 @@
     "deploy": "npm run build && wrangler pages deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "build:preview": "npm run build && node scripts/build-preview.mjs",
-    "test": "npm run build:preview && node tests/protocol.mjs && node tests/presentation.mjs"
+    "test": "npm run build:preview && node tests/protocol.mjs && node tests/presentation.mjs && node tests/survey-storage.mjs"
   },
   "dependencies": {
     "hono": "^4.12.12"

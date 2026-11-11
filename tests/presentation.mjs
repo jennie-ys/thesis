@@ -36,6 +36,7 @@ for(const screen of expected){
   if(screen==='math')assert(!active.querySelector('#math-timer'))
   if(screen==='task')assert(active.textContent.includes('이 이미지의 피부 병변 범주를 선택하세요.')&&!active.textContent.includes('초기 진단'))
   button.click();await wait()
+  if(screen==='step-ai-error-belief')assert.deepEqual(state().survey.ai_trust,{ai_t1:null,ai_t2:null,ai_t2_status:'skipped'})
 }
 assert.equal(state().screen,'group')
 assert.deepEqual(errors,[])

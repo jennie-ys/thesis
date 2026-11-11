@@ -261,7 +261,7 @@ app.get('/', c => c.html(/* html */`<!DOCTYPE html>
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-2b : AI 지식 설문 (맞다/틀리다)
 ══════════════════════════════════════════════════════════ -->
-<div id="step-ai-survey" class="step">
+<div id="step-ai-survey" class="step" data-survey-scale="ai_knowledge">
   <div class="page-wrap">
     <div class="card" id="ai-survey-card">
       <!-- JS가 문항을 순차적으로 주입 -->
@@ -276,7 +276,7 @@ app.get('/', c => c.html(/* html */`<!DOCTYPE html>
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-2c : AI 태도 설문 (동의 정도)
 ══════════════════════════════════════════════════════════ -->
-<div id="step-ai-survey-b" class="step">
+<div id="step-ai-survey-b" class="step" data-survey-scale="ai_attitude">
   <div class="page-wrap">
     <div class="card" id="ai-survey-b-card">
       <!-- JS가 문항을 순차적으로 주입 -->
@@ -291,12 +291,12 @@ app.get('/', c => c.html(/* html */`<!DOCTYPE html>
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-3 : Q6 인구통계
 ══════════════════════════════════════════════════════════ -->
-<div id="step-ai-error-belief" class="step">
+<div id="step-ai-error-belief" class="step" data-survey-scale="ai_trust">
   <div class="page-wrap"><div class="card">
     <fieldset><legend>AI가 오답을 낼 수 있다고 생각하나요?</legend>
       <div class="ai-choice-yn">
-        <label class="ai-radio-label"><input type="radio" name="ai_can_be_wrong" value="yes" /><span>예</span></label>
-        <label class="ai-radio-label"><input type="radio" name="ai_can_be_wrong" value="no" /><span>아니오</span></label>
+        <label class="ai-radio-label"><input type="radio" name="ai_t1" value="yes" /><span>예</span></label>
+        <label class="ai-radio-label"><input type="radio" name="ai_t1" value="no" /><span>아니오</span></label>
       </div>
     </fieldset>
     <div id="ai-belief-followup" hidden>
