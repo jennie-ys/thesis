@@ -9,7 +9,7 @@ const config = await get('experiment-config')
 assert.deepEqual(config.groups.map(g=>g.id), ['intervention','no-intervention'])
 assert.equal(config.categories.length,5)
 assert(!html.includes('흑색종'))
-assert(config.groups.every(g=>g.initialInstruction===null))
+assert(config.groups.every(g=>g.taskInstruction&&g.boldPhrases.length))
 const sets = {}
 for (const [path,key] of [['images','slides'],['initial-exam-images','exams'],['task-images','tasks'],['exam-images','exams']]) {
   const data = await get(path); const trials = data[key]; sets[path] = trials
@@ -54,7 +54,7 @@ for (const group of config.groups.map(g=>g.id)) {
   await click('btn-initial-exam-next'); assert.equal(read().initialExam.length,0)
   for(let i=0;i<30;i++){
     const trial = sets['initial-exam-images'][i]
-    assert.equal(d.querySelectorAll('input[type="radio"]').length,10) // hidden post-survey radios only
+    assert.equal(element('#experiment-root').querySelectorAll('input[type="radio"]').length,0)
     assert(!element('.stimulus-empty').textContent.includes(trial.correctCategory))
     const reference=element('#category-reference').textContent
     assert(config.categories.every(cat=>reference.includes(cat)))
@@ -63,10 +63,17 @@ for (const group of config.groups.map(g=>g.id)) {
   }
   assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/24\s*\/ 30점/)
   await click('btn-next'); await jol('jol-ai-prediction',70); await click('btn-next')
+  assert.equal(read().screen,'task-notice')
+  const groupConfig=config.groups.find(g=>g.id===group)
+  assert.deepEqual([...element('#experiment-root').querySelectorAll('strong')].map(e=>e.textContent),groupConfig.boldPhrases)
+  assert.equal(element('.instruct-body').textContent,groupConfig.taskInstruction.replaceAll('\n\n',''))
+  assert(!element('.instruct-body').textContent.includes("'"))
+  assert.equal(element('.instruct-body').textContent.includes('66.7%'),group==='intervention')
+  await click('btn-next')
   for(let i=0;i<30;i++){
     assert.equal(read().screen,'task'); assert.equal(read().phase,'initial')
     assert.equal(d.querySelectorAll('input[name="initial"]').length,5)
-    assert(!d.getElementById('confidence-input'))
+    assert(!d.getElementById('confidence-input')); assert(!d.querySelector('.task-choice-alpha'))
     check('input[name="initial"]'); await click('btn-initial-next')
     assert.equal(read().phase,'ai'); assert.equal(element('.ai-result-empty').textContent,'')
     assert([...d.querySelectorAll('input[name="initial"]')].every(e=>e.disabled))
@@ -74,7 +81,7 @@ for (const group of config.groups.map(g=>g.id)) {
     check('input[name="final"]'); await click('btn-final-next')
   }
   await jol('jol-task',80); await jol('jol-no-ai',60)
-  assert.equal(read().screen,'math-intro'); await click('btn-next'); assert.equal(read().screen,'math')
+  assert.equal(read().screen,'math-intro'); await click('btn-next'); assert.equal(read().screen,'math'); assert(!d.getElementById('math-timer'))
   if(group==='intervention'){
     for(let i=0;i<100;i++){
       const current=read().math; const problem=current.problems[current.answers.length]
@@ -101,10 +108,22 @@ for (const group of config.groups.map(g=>g.id)) {
   for(let i=2;i<=6;i++)check('input[name="ai_k'+i+'"]')
   await click('btn-ai-survey-next')
   for(let i=1;i<=8;i++)check('input[name="ai_a'+i+'"]')
-  await click('btn-ai-survey-b-next'); fill('q6-age','25'); check('input[name="q6_gender"]'); fill('q6-major','테스트');await click('btn-ps3-submit')
+  await click('btn-ai-survey-b-next')
+  assert.equal(read().screen,'step-ai-error-belief');assert(element('#ai-belief-followup').hidden)
+  check('input[name="ai_can_be_wrong"][value="yes"]');assert(!element('#ai-belief-followup').hidden)
+  if(group==='intervention'){
+    await click('btn-ai-belief-next');assert.equal(read().screen,'step-ai-error-belief')
+    fill('ai-expected-accuracy','101');await click('btn-ai-belief-next');assert.equal(read().screen,'step-ai-error-belief')
+    fill('ai-expected-accuracy','0');await click('btn-ai-belief-next')
+  }else{
+    fill('ai-expected-accuracy','80');check('input[name="ai_can_be_wrong"][value="no"]')
+  }
+  assert.equal(read().screen,'step-ps-3')
+  fill('q6-age','25'); check('input[name="q6_gender"]'); fill('q6-major','테스트');await click('btn-ps3-submit')
   for(let i=0;i<200&&read().screen!=='step-done';i++)await tick()
   assert.equal(read().screen,'step-done');assert.match(element('#submission-result').textContent,/제출되지/)
   const responses=read().lastResponses
+  assert.equal(responses.ai_can_be_wrong,group==='intervention'?'yes':'no');assert.equal(responses.ai_expected_accuracy,group==='intervention'?0:null);
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,24)
   assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
   assert.deepEqual(Object.keys(responses._jol),['after_learning','initial_exam_prediction','ai_exam_prediction','after_ai_task'])

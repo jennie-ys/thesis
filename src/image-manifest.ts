@@ -1,9 +1,17 @@
-// 실험 자극 및 그룹별 초기 지시문 설정. 실제 이미지·AI 내용은 추후 입력합니다.
+// 실험 자극 및 그룹별 AI 과제 직전 지시문 설정. 실제 이미지·AI 내용은 추후 입력합니다.
 export const CATEGORIES = ['광선각화증', '기저세포암', '멜라닌세포성 모반', '피부섬유종', '혈관 병변']
 const CODES = ['AK', 'BCC', 'NV', 'DF', 'VASC']
 export const GROUPS = [
-  { id: 'intervention', label: 'intervention', initialInstruction: null as string | null },
-  { id: 'no-intervention', label: 'no-intervention', initialInstruction: null as string | null },
+  {
+    id: 'intervention', label: 'intervention',
+    taskInstruction: '이제부터 피부 병변 이미지를 분류하는 과제에서 AI의 답변을 참고할 수 있습니다.\n\n이 과제에 사용되는 AI는 모든 문항에 정확하게 답하지 않습니다. 실제로 이번 과제에서 제시되는 AI 답변의 정답률은 약 66.7%이며, 약 3문항 중 1문항에서는 잘못된 답변을 제시합니다.\n\nAI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택해 주십시오.',
+    boldPhrases: ['66.7%', '3문항 중 1문항에서는 잘못된 답변', 'AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택해 주십시오.'],
+  },
+  {
+    id: 'no-intervention', label: 'no-intervention',
+    taskInstruction: '이제부터 피부 병변 이미지를 분류하는 과제에서 AI의 답변을 참고할 수 있습니다.\n\n각 문항에서는 AI가 해당 이미지를 어떤 범주로 분류했는지 확인할 수 있습니다.\n\nAI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택해 주십시오.',
+    boldPhrases: ['AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택해 주십시오.'],
+  },
 ]
 
 // 6블록 × 5범주. 그룹과 관계없이 동일한 순서와 자극을 사용합니다.

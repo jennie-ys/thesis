@@ -1,4 +1,4 @@
-/** Two common procedures; only the initial instruction is configurable by group. */
+/** Two common procedures; only the pre-task AI instruction differs by group. */
 ;(() => {
   'use strict'
   const STATE_KEY = '__exp_v2_state__'
@@ -53,7 +53,8 @@
       case 'initial-exam': missingTrials(initialExams,state.initialExam); go('initial-feedback'); break
       case 'initial-feedback': go('jol-ai-prediction'); break
       case 'jol-ai-prediction': state.jol.aiPrediction = null; go('task-intro'); break
-      case 'task-intro': go('task',{index:state.task.length,phase:'initial'}); break
+      case 'task-intro': go('task-notice'); break
+      case 'task-notice': go('task',{index:state.task.length,phase:'initial'}); break
       case 'task':
         for (const item of tasks.slice(state.task.length)) {
           const pending = state.pendingTask?.trial_id === item.id ? state.pendingTask : {}
@@ -71,7 +72,8 @@
       case 'step-ps-1': showPS2(); break
       case 'step-ps-2': showAiSurvey(); break
       case 'step-ai-survey': showAiSurveyB(); break
-      case 'step-ai-survey-b': showPS3(); break
+      case 'step-ai-survey-b': showAiErrorBelief(); break
+      case 'step-ai-error-belief': psData.ai_can_be_wrong = null; psData.ai_expected_accuracy = null; showPS3(); break
       case 'step-ps-3': state.submissionSaved = false; go('step-done'); break
       default:
         state = freshState(); psData = state.survey
@@ -99,7 +101,7 @@
     return `<div class="stimulus-empty" role="img" aria-label="이미지가 없는 사례 영역"><p>이미지 영역</p></div>`
   }
   function choices(name, chosen = null, locked = false) {
-    return `<div class="task-choices">${config.categories.map((cat, i) => `<label class="task-choice"><input type="radio" name="${name}" value="${escape(cat)}" ${chosen === cat ? 'checked' : ''} ${locked ? 'disabled' : ''}/><span class="task-choice-alpha">${String.fromCharCode(65+i)}.</span><span>${escape(cat)}</span></label>`).join('')}</div>`
+    return `<div class="task-choices">${config.categories.map(cat => `<label class="task-choice"><input type="radio" name="${name}" value="${escape(cat)}" ${chosen === cat ? 'checked' : ''} ${locked ? 'disabled' : ''}/><span>${escape(cat)}</span></label>`).join('')}</div>`
   }
   function error(message) { $('screen-error').textContent = message }
   function errorArea() { return '<p id="screen-error" class="inline-err" role="alert"></p>' }
@@ -126,8 +128,7 @@
         config.groups.forEach(g => bind('btn-group-'+g.id, () => go('instruction', {group:g.id})))
         break
       case 'instruction': {
-        const instruction = config.groups.find(g => g.id === state.group)?.initialInstruction
-        info('실험 안내', `<p class="instruct-lead">지금부터 실험을 시작합니다.</p><p>실험에 참여하는 동안, 컴퓨터를 이용한 다른 작업(예. 카카오톡, 인터넷 서핑 등)을 할 수 없습니다.</p><p>모든 실험단계에 집중하여 성심성의껏 참여해 주시길 요청드립니다.</p><p>또한, 필기구나 휴대폰 등을 활용해 학습내용을 기록할 수 없습니다.</p>${instruction ? `<div class="initial-instruction">${escape(instruction).replace(/\n/g,'<br>')}</div>` : ''}`, () => go('learning-intro'), '→')
+        info('실험 안내', `<p class="instruct-lead">지금부터 실험을 시작합니다.</p><p>실험에 참여하는 동안, 컴퓨터를 이용한 다른 작업(예. 카카오톡, 인터넷 서핑 등)을 할 수 없습니다.</p><p>모든 실험단계에 집중하여 성심성의껏 참여해 주시길 요청드립니다.</p><p>또한, 필기구나 휴대폰 등을 활용해 학습내용을 기록할 수 없습니다.</p>`, () => go('learning-intro'), '→')
         break
       }
       case 'learning-intro':
@@ -156,8 +157,18 @@
         jolScreen('AI 협업 과제 수행 예측', '다음에는 AI 분석 결과를 참고하여 피부 병변 분류 시험을 다시 볼 수 있습니다. AI 분석 결과를 참고한다면, 몇 %의 문제를 맞힐 수 있을 것이라고 생각하나요?', 'aiPrediction', 'task-intro')
         break
       case 'task-intro':
-        info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변 분류 과제를 시작합니다.</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요.</p>", () => go('task', {index:state.task.length, phase:'initial'}), "과제 시작하기")
+        info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변 분류 과제를 시작합니다.</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요.</p>", () => go('task-notice'), "과제 시작하기")
         break
+      case 'task-notice': {
+        const group = config.groups.find(g => g.id === state.group) || config.groups.find(g => g.id === 'no-intervention')
+        const paragraphs = group.taskInstruction.split('\n\n').map(paragraph => {
+          let content = escape(paragraph)
+          for (const phrase of group.boldPhrases) content = content.replace(escape(phrase), `<strong>${escape(phrase)}</strong>`)
+          return `<p>${content}</p>`
+        }).join('')
+        info('', paragraphs, () => go('task', {index:state.task.length, phase:'initial'}), '과제 시작하기')
+        break
+      }
       case 'task': renderTask(); break
       case 'jol-task':
         jolScreen('AI 협업 과제 정확도 추정', '앞서 진행된 AI 협업 피부 병변 분류 과제에서 얼마나 정답을 맞혔다고 생각하나요? 0에서 100 사이의 값으로 표시하십시오.<br><span>최종적으로 제출한 답변에 대한 정답률을 예측해보세요</span>', 'jol1', 'jol-no-ai')
@@ -258,7 +269,7 @@
     const math = state.math
     if (Date.now() >= math.deadline || math.answers.length >= math.problems.length) { endMath(); return }
     const p = math.problems[math.answers.length]
-    shell('수학 문제', card(`<p id="math-timer" class="math-timer"></p><p class="math-question">${p.a} ${p.op} ${p.b} = ?</p><form id="math-form" class="math-input-row"><input id="math-answer" type="number" class="math-input" placeholder="답을 입력하세요" autocomplete="off"/>${button('btn-math-submit','확인')}</form>${errorArea()}`))
+    shell('수학 문제', card(`<p class="math-question">${p.a} ${p.op} ${p.b} = ?</p><form id="math-form" class="math-input-row"><input id="math-answer" type="number" class="math-input" placeholder="답을 입력하세요" autocomplete="off"/>${button('btn-math-submit','확인')}</form>${errorArea()}`))
     const submit = e => {
       e.preventDefault(); if (Date.now() >= math.deadline) { endMath(); return }
       const raw = $('math-answer').value.trim(), answer = Number(raw)
@@ -268,9 +279,7 @@
     }
     $('math-form').onsubmit = submit; bind('btn-math-submit', submit)
     const tick = () => {
-      const remaining = Math.max(0, Math.ceil((math.deadline-Date.now())/1000))
-      if (remaining === 0) { endMath(); return }
-      $('math-timer').textContent = `${Math.floor(remaining/60)}:${String(remaining%60).padStart(2,'0')}`
+      if (Date.now() >= math.deadline) endMath()
     }
     tick(); interval = setInterval(tick, 250); $('math-answer').focus()
   }
@@ -297,7 +306,7 @@
     document.querySelectorAll('.step').forEach(el => el.classList.toggle('active', el.id === id)); window.scrollTo(0,0)
   }
   function restoreSurvey() {
-    const restore = {'step-ps-0':goToPostSurvey, 'step-ps-1':showPS1, 'step-ps-2':showPS2, 'step-ai-survey':showAiSurvey, 'step-ai-survey-b':showAiSurveyB, 'step-ps-3':showPS3}
+    const restore = {'step-ps-0':goToPostSurvey, 'step-ps-1':showPS1, 'step-ps-2':showPS2, 'step-ai-survey':showAiSurvey, 'step-ai-survey-b':showAiSurveyB, 'step-ai-error-belief':showAiErrorBelief, 'step-ps-3':showPS3}
     if (restore[state.screen]) restore[state.screen]()
     else {
       activateSurvey(state.screen)
@@ -444,9 +453,41 @@
       (answersB) => {
         if (!psData._ai_survey) psData._ai_survey = {}
         Object.assign(psData._ai_survey, answersB)
-        showPS3()
+        showAiErrorBelief()
       }
     )
+  }
+
+  function showAiErrorBelief() {
+    showStep('step-ai-error-belief')
+    const followup = $('ai-belief-followup'), input = $('ai-expected-accuracy')
+    const selected = psData.ai_can_be_wrong
+    document.querySelectorAll('input[name="ai_can_be_wrong"]').forEach(r => {
+      r.checked = r.value === selected
+      r.onchange = () => {
+        psData.ai_can_be_wrong = r.value
+        if (r.value === 'no') {
+          psData.ai_expected_accuracy = null
+          if (state.surveyDraft) delete state.surveyDraft['ai-expected-accuracy']
+          input.value = ''; showPS3(); return
+        }
+        followup.hidden = false; input.focus(); persist()
+      }
+    })
+    followup.hidden = selected !== 'yes'
+    input.value = selected === 'yes' ? (psData.ai_expected_accuracy ?? state.surveyDraft?.['ai-expected-accuracy'] ?? '') : ''
+    input.oninput = () => {
+      const raw = input.value.trim(), value = Number(raw)
+      psData.ai_expected_accuracy = raw && Number.isInteger(value) && value >= 0 && value <= 100 ? value : null
+      persist()
+    }
+    bind('btn-ai-belief-next', () => {
+      const raw = input.value.trim(), value = Number(raw)
+      if (!raw || !Number.isInteger(value) || value < 0 || value > 100) {
+        _showErr('ai-belief-err', '0~100 사이의 정수를 입력해 주세요.'); input.focus(); return
+      }
+      psData.ai_expected_accuracy = value; showPS3()
+    })
   }
 
   // 13-3: Q6 인구통계 + 최종 제출

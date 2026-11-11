@@ -291,6 +291,23 @@ app.get('/', c => c.html(/* html */`<!DOCTYPE html>
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-3 : Q6 인구통계
 ══════════════════════════════════════════════════════════ -->
+<div id="step-ai-error-belief" class="step">
+  <div class="page-wrap"><div class="card">
+    <fieldset><legend>AI가 오답을 낼 수 있다고 생각하나요?</legend>
+      <div class="ai-choice-yn">
+        <label class="ai-radio-label"><input type="radio" name="ai_can_be_wrong" value="yes" /><span>예</span></label>
+        <label class="ai-radio-label"><input type="radio" name="ai_can_be_wrong" value="no" /><span>아니오</span></label>
+      </div>
+    </fieldset>
+    <div id="ai-belief-followup" hidden>
+      <label for="ai-expected-accuracy">평소에 생각했던 AI의 정답률은 얼마인가요? 0에서 100까지의 숫자로 답변해주세요.</label>
+      <div class="math-input-row"><input id="ai-expected-accuracy" class="math-input" type="number" min="0" max="100" step="1" placeholder="0 – 100" /><span>%</span></div>
+      <p id="ai-belief-err" class="inline-err" role="alert"></p>
+      <div class="btn-row"><button id="btn-ai-belief-next" type="button" class="btn-primary">다음 →</button></div>
+    </div>
+  </div></div>
+</div>
+
 <div id="step-ps-3" class="step">
   <div class="page-wrap">
     <div class="card">

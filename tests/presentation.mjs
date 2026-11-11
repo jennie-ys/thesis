@@ -11,7 +11,7 @@ d.dispatchEvent(new w.Event('DOMContentLoaded'))
 const wait=()=>new Promise(r=>setTimeout(r,2))
 await wait()
 const state=()=>JSON.parse(w.sessionStorage.getItem('__preview_exp_v2_state__'))
-const expected=['group','instruction','learning-intro','learning','learning-break','learning','jol-learning','jol-initial-exam','initial-exam-intro','initial-exam','initial-feedback','jol-ai-prediction','task-intro','task','jol-task','jol-no-ai','math-intro','math','final-exam-intro','final-exam','step-ps-0','step-ps-1','step-ps-2','step-ai-survey','step-ai-survey-b','step-ps-3','step-done']
+const expected=['group','instruction','learning-intro','learning','learning-break','learning','jol-learning','jol-initial-exam','initial-exam-intro','initial-exam','initial-feedback','jol-ai-prediction','task-intro','task-notice','task','jol-task','jol-no-ai','math-intro','math','final-exam-intro','final-exam','step-ps-0','step-ps-1','step-ps-2','step-ai-survey','step-ai-survey-b','step-ai-error-belief','step-ps-3','step-done']
 for(const screen of expected){
   assert.equal(state().screen,screen)
   const root=d.getElementById('experiment-root'), active=root.hidden ? d.querySelector('.step.active') : root
@@ -33,6 +33,7 @@ for(const screen of expected){
     assert.match(hint.style.color,/#808080|rgb\(128, 128, 128\)/)
     input.value='50';assert.equal(w.getComputedStyle(input).color,'rgb(17, 17, 17)')
   }
+  if(screen==='math')assert(!active.querySelector('#math-timer'))
   if(screen==='task')assert(active.textContent.includes('이 이미지의 피부 병변 범주를 선택하세요.')&&!active.textContent.includes('초기 진단'))
   button.click();await wait()
 }
