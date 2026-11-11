@@ -34,9 +34,14 @@ for(const screen of expected){
     input.value='50';assert.equal(w.getComputedStyle(input).color,'rgb(17, 17, 17)')
   }
   if(screen==='math')assert(!active.querySelector('#math-timer'))
+  if(screen==='task-intro'){
+    assert.equal(active.querySelector('.instruct-lead').textContent,'학습이 끝났습니다. 지금부터 피부 병변에 대한 AI 협업 분류 과제를 시작합니다')
+    assert.equal(active.querySelector('.instruct-ready').textContent,'준비되었으면 다음 버튼을 눌러주세요.')
+    assert.equal(active.querySelector('#btn-next').textContent,'다음→')
+  }
   if(screen==='task')assert(active.textContent.includes('이 이미지의 피부 병변 범주를 선택하세요.')&&!active.textContent.includes('초기 진단'))
   button.click();await wait()
-  if(screen==='step-ai-error-belief')assert.deepEqual(state().survey.ai_trust,{ai_t1:null,ai_t2:null,ai_t2_status:'skipped'})
+  if(screen==='step-ai-error-belief')assert.deepEqual(state().survey.ai_t,{ai_t1:null,ai_t2:null,ai_t2_status:'skipped'})
 }
 assert.equal(state().screen,'group')
 assert.deepEqual(errors,[])

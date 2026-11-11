@@ -1207,7 +1207,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-2b : AI 지식 설문 (맞다/틀리다)
 ══════════════════════════════════════════════════════════ -->
-<div id="step-ai-survey" class="step" data-survey-scale="ai_knowledge">
+<div id="step-ai-survey" class="step" data-survey-scale="ai_k">
   <div class="page-wrap">
     <div class="card" id="ai-survey-card">
       <!-- JS가 문항을 순차적으로 주입 -->
@@ -1222,7 +1222,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-2c : AI 태도 설문 (동의 정도)
 ══════════════════════════════════════════════════════════ -->
-<div id="step-ai-survey-b" class="step" data-survey-scale="ai_attitude">
+<div id="step-ai-survey-b" class="step" data-survey-scale="ai_a">
   <div class="page-wrap">
     <div class="card" id="ai-survey-b-card">
       <!-- JS가 문항을 순차적으로 주입 -->
@@ -1237,7 +1237,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 <!-- ══════════════════════════════════════════════════════════
      STEP 13-3 : Q6 인구통계
 ══════════════════════════════════════════════════════════ -->
-<div id="step-ai-error-belief" class="step" data-survey-scale="ai_trust">
+<div id="step-ai-error-belief" class="step" data-survey-scale="ai_t">
   <div class="page-wrap"><div class="card">
     <fieldset><legend>AI가 오답을 낼 수 있다고 생각하나요?</legend>
       <div class="ai-choice-yn">
@@ -1328,21 +1328,21 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       return Number.isInteger(n) && n >= min && n <= max ? n : null
     }
     const old = source._ai_survey || {}
-    const knowledge = source.ai_knowledge || old, attitude = source.ai_attitude || old
-    const trust = source.ai_trust || {}
+    const knowledge = source.ai_k || source.ai_knowledge || old, attitude = source.ai_a || source.ai_attitude || old
+    const trust = source.ai_t || source.ai_trust || {}
     const t1 = trust.ai_t1 ?? source.ai_can_be_wrong ?? null
     const t2 = t1 === 'yes' ? number(trust.ai_t2 ?? source.ai_expected_accuracy, 0, 100) : null
     return {
       pk1: number(source.pk1, 1, 7),
       pk2: number(source.pk2, 0, 100),
-      ai_knowledge: Object.fromEntries(Array.from({length:6}, (_,i) => {
+      ai_k: Object.fromEntries(Array.from({length:6}, (_,i) => {
         const key = 'ai_k'+(i+1), value = knowledge[key]
         return [key, value === '맞다' || value === '틀리다' ? value : null]
       })),
-      ai_attitude: Object.fromEntries(Array.from({length:8}, (_,i) => {
+      ai_a: Object.fromEntries(Array.from({length:8}, (_,i) => {
         const key = 'ai_a'+(i+1); return [key, number(attitude[key], 1, 4)]
       })),
-      ai_trust: {
+      ai_t: {
         ai_t1: t1 === 'yes' || t1 === 'no' ? t1 : null,
         ai_t2: t2,
         ai_t2_status: t1 === 'no' ? 'not_applicable' : trust.ai_t2_status === 'skipped' ? 'skipped' : t2 !== null ? 'answered' : 'unanswered',
@@ -1417,7 +1417,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       case 'step-ps-2': showAiSurvey(); break
       case 'step-ai-survey': showAiSurveyB(); break
       case 'step-ai-survey-b': showAiErrorBelief(); break
-      case 'step-ai-error-belief': psData.ai_trust = {ai_t1:null, ai_t2:null, ai_t2_status:'skipped'}; showPS3(); break
+      case 'step-ai-error-belief': psData.ai_t = {ai_t1:null, ai_t2:null, ai_t2_status:'skipped'}; showPS3(); break
       case 'step-ps-3': state.submissionSaved = false; go('step-done'); break
       default:
         state = freshState(); psData = normalizePostSurvey(state.survey); state.survey = psData
@@ -1501,7 +1501,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
         jolScreen('AI 협업 과제 수행 예측', '다음에는 AI 분석 결과를 참고하여 피부 병변 분류 시험을 다시 볼 수 있습니다. AI 분석 결과를 참고한다면, 몇 %의 문제를 맞힐 수 있을 것이라고 생각하나요?', 'aiPrediction', 'task-intro')
         break
       case 'task-intro':
-        info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변 분류 과제를 시작합니다.</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요.</p>", () => go('task-notice'), "과제 시작하기")
+        info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변에 대한 AI 협업 분류 과제를 시작합니다</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 <strong>다음 버튼을 눌러주세요.</strong></p>", () => go('task-notice'), "다음→")
         break
       case 'task-notice': {
         const group = config.groups.find(g => g.id === state.group) || config.groups.find(g => g.id === 'no-intervention')
@@ -1778,9 +1778,9 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       AI_SURVEY_ITEMS_A,
       'ai-survey-card', 'ai-survey-err', 'ai-survey-next-row', 'btn-ai-survey-next',
       '다음 문항들은 생성형 AI에 관한 내용입니다. 각 문장이 맞다고 생각하면 "맞다", 틀리다고 생각하면 "틀리다"를 선택해 주십시오.',
-      'ai_knowledge',
+      'ai_k',
       (answersA) => {
-        Object.assign(psData.ai_knowledge, answersA)
+        Object.assign(psData.ai_k, answersA)
         showAiSurveyB()
       }
     )
@@ -1793,9 +1793,9 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       AI_SURVEY_ITEMS_B,
       'ai-survey-b-card', 'ai-survey-b-err', 'ai-survey-b-next-row', 'btn-ai-survey-b-next',
       '다음 문항들은 생성형 AI에 대한 귀하의 생각을 묻는 문항입니다. 각 문장에 대해 동의 정도를 선택해 주십시오.',
-      'ai_attitude',
+      'ai_a',
       (answersB) => {
-        Object.assign(psData.ai_attitude, answersB)
+        Object.assign(psData.ai_a, answersB)
         showAiErrorBelief()
       }
     )
@@ -1804,7 +1804,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   function showAiErrorBelief() {
     showStep('step-ai-error-belief')
     const followup = $('ai-belief-followup'), input = $('ai-expected-accuracy')
-    const trust = psData.ai_trust
+    const trust = psData.ai_t
     const selected = trust.ai_t1
     document.querySelectorAll('input[name="ai_t1"]').forEach(r => {
       r.checked = r.value === selected
@@ -1855,9 +1855,9 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
     Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major}); persist(); btn.disabled = true
     leavePage()
-    const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_knowledge[q.name] === null ? null : psData.ai_knowledge[q.name] === q.correct]))
+    const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
     const responses = {
-      _version:config.version, _group:state.group, _survey_schema_version:2, ...normalizePostSurvey(psData),
+      _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
       _jol:{after_learning:state.jol.learning, initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
