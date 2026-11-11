@@ -23,12 +23,68 @@
     leavePage(); Object.assign(state, patch, { screen }); persist(); render()
   }
   function clearTimers() { clearTimeout(timer); clearInterval(interval); timer = interval = null; renderEpoch++ }
+  function attachSkipControl() {
+    if ((config && !config.previewControls) || $('temporary-skip')) return
+    const controls = document.createElement('nav')
+    controls.className = 'temporary-controls'; controls.setAttribute('aria-label', '임시 검토 도구')
+    const skip = document.createElement('button')
+    skip.id = 'temporary-skip'; skip.type = 'button'; skip.className = 'btn-skip'
+    skip.textContent = '(임시) skip →'; skip.onclick = skipCurrentScreen
+    controls.appendChild(skip); document.body.appendChild(controls)
+  }
+  function skipCurrentScreen() {
+    if (!state || !config) { location.reload(); return }
+    state.skips ||= []
+    state.skips.push({screen:state.screen,index:state.index,phase:state.phase,round:state.round,at:new Date().toISOString()})
+    const missingTrials = (items, answers) => {
+      for (const item of items.slice(answers.length)) {
+        answers.push({trial_id:item.id,correctCategory:item.correctCategory,chosen:null,correct:null,skipped:true,duration_ms:null})
+      }
+    }
+    switch (state.screen) {
+      case 'group': go('instruction'); break
+      case 'instruction': go('learning-intro'); break
+      case 'learning-intro': go('learning',{index:0,round:1}); break
+      case 'learning': go(state.round === 1 ? 'learning-break' : 'jol-learning'); break
+      case 'learning-break': go('learning',{index:0,round:2}); break
+      case 'jol-learning': state.jol.learning = null; go('jol-initial-exam'); break
+      case 'jol-initial-exam': state.jol.initialExamPrediction = null; go('initial-exam-intro'); break
+      case 'initial-exam-intro': go('initial-exam',{index:state.initialExam.length}); break
+      case 'initial-exam': missingTrials(initialExams,state.initialExam); go('initial-feedback'); break
+      case 'initial-feedback': go('jol-ai-prediction'); break
+      case 'jol-ai-prediction': state.jol.aiPrediction = null; go('task-intro'); break
+      case 'task-intro': go('task',{index:state.task.length,phase:'initial'}); break
+      case 'task':
+        for (const item of tasks.slice(state.task.length)) {
+          const pending = state.pendingTask?.trial_id === item.id ? state.pendingTask : {}
+          state.task.push({trial_id:item.id,correctCategory:item.correctCategory,aiCategory:item.aiCategory,aiReason:item.aiReason,
+            initial:null,final:null,phase_durations_ms:{},...pending,skipped:true})
+        }
+        state.pendingTask = null; go('jol-task',{phase:'initial'}); break
+      case 'jol-task': state.jol.jol1 = null; go('jol-no-ai'); break
+      case 'jol-no-ai': state.jol.jol2 = null; go('math-intro'); break
+      case 'math-intro': startMath(); break
+      case 'math': endMath(true); break
+      case 'final-exam-intro': go('final-exam',{index:state.finalExam.length}); break
+      case 'final-exam': missingTrials(finalExams,state.finalExam); goToPostSurvey(); break
+      case 'step-ps-0': showPS1(); break
+      case 'step-ps-1': showPS2(); break
+      case 'step-ps-2': showAiSurvey(); break
+      case 'step-ai-survey': showAiSurveyB(); break
+      case 'step-ai-survey-b': showPS3(); break
+      case 'step-ps-3': state.submissionSaved = false; go('step-done'); break
+      default:
+        state = freshState(); psData = state.survey
+        document.querySelectorAll('.step input').forEach(input => { input.value = input.type === 'radio' ? input.value : ''; input.checked = false })
+        persist(); render()
+    }
+  }
   function button(id, text, extra = '') { return `<button id="${id}" type="button" class="btn-primary" ${extra}>${text}</button>` }
   function bind(id, fn) { $(id).onclick = fn }
   function shell(title, body, footer = '') {
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'))
     $('experiment-root').hidden = false
-    $('experiment-root').innerHTML = `<header class="page-header"><h1>${title}</h1></header>${body}${footer}`
+    $('experiment-root').innerHTML = `${body}${footer}`
     window.scrollTo(0, 0)
   }
   function card(body) { return `<div class="card">${body}</div>` }
@@ -37,15 +93,10 @@
     const b = $(id), epoch = renderEpoch; b.hidden = true
     timer = setTimeout(() => { if (epoch === renderEpoch) b.hidden = false }, config.phaseDelayMs)
   }
-  function previewSkip(id, fn) {
-    if (!config.previewControls) return
-    const b = document.createElement('button'); b.id = id; b.className = 'btn-skip'; b.textContent = '(미리보기) 이 단계 건너뛰기'; b.type = 'button'
-    b.onclick = fn; $('experiment-root').appendChild(b)
-  }
   function stimulus(trial) {
     if (trial.url) return `<img class="task-img" src="${escape(trial.url)}" alt="피부 병변 사례" />`
     // Do not display the hidden category or category-coded trial ID on test/task screens.
-    return `<div class="stimulus-empty" role="img" aria-label="이미지가 없는 사례 영역"><p>사례 ${String(state.index + 1).padStart(2, '0')}</p><p>이미지 영역</p></div>`
+    return `<div class="stimulus-empty" role="img" aria-label="이미지가 없는 사례 영역"><p>이미지 영역</p></div>`
   }
   function choices(name, chosen = null, locked = false) {
     return `<div class="task-choices">${config.categories.map((cat, i) => `<label class="task-choice"><input type="radio" name="${name}" value="${escape(cat)}" ${chosen === cat ? 'checked' : ''} ${locked ? 'disabled' : ''}/><span class="task-choice-alpha">${String.fromCharCode(65+i)}.</span><span>${escape(cat)}</span></label>`).join('')}</div>`
@@ -54,7 +105,7 @@
   function errorArea() { return '<p id="screen-error" class="inline-err" role="alert"></p>' }
   function score(answers) { return { correct:answers.filter(a => a.correct).length, total:answers.length } }
   function jolScreen(title, text, key, destination) {
-    shell(title, card(`<form id="jol-form" novalidate><label class="jol-question" for="jol-input">${text}</label><div class="math-input-row"><input id="jol-input" class="math-input" type="number" min="0" max="100" step="1" placeholder="0 – 100" value="${state.jol[key] ?? ''}" /><span>%</span></div><p>0~100 사이의 숫자를 입력해주세요.</p>${errorArea()}${next('btn-jol-next')}</form>`))
+    shell(title, card(`<form id="jol-form" novalidate><label class="jol-question" for="jol-input">${text}</label><div class="math-input-row"><input id="jol-input" class="math-input" type="number" min="0" max="100" step="1" placeholder="0 – 100" value="${state.jol[key] ?? ''}" /><span>%</span></div>${errorArea()}${next('btn-jol-next')}</form>`))
     const submit = e => {
       e.preventDefault(); const raw = $('jol-input').value.trim(), value = Number(raw)
       if (!raw || !Number.isInteger(value) || value < 0 || value > 100) { error('0~100 사이의 정수를 입력해 주세요.'); $('jol-input').focus(); return }
@@ -67,6 +118,7 @@
   }
   function render() {
     clearTimers(); phaseStarted = Date.now()
+    attachSkipControl()
     if (state.screen.startsWith('step-')) { restoreSurvey(); return }
     switch (state.screen) {
       case 'group':
@@ -75,24 +127,24 @@
         break
       case 'instruction': {
         const instruction = config.groups.find(g => g.id === state.group)?.initialInstruction
-        info('실험 안내', `<p class="instruct-lead">지금부터 실험을 시작합니다.</p><p>실험에 참여하는 동안, 컴퓨터를 이용한 다른 작업(예. 카카오톡, 인터넷 서핑 등)을 할 수 없습니다.</p><p>모든 실험단계에 집중하여 성심성의껏 참여해 주시길 요청드립니다.</p><p>또한, 필기구나 휴대폰 등을 활용해 학습내용을 기록할 수 없습니다.</p>${instruction ? `<div class="initial-instruction">${escape(instruction).replace(/\n/g,'<br>')}</div>` : ''}`, () => go('learning-intro'), '다음 →')
+        info('실험 안내', `<p class="instruct-lead">지금부터 실험을 시작합니다.</p><p>실험에 참여하는 동안, 컴퓨터를 이용한 다른 작업(예. 카카오톡, 인터넷 서핑 등)을 할 수 없습니다.</p><p>모든 실험단계에 집중하여 성심성의껏 참여해 주시길 요청드립니다.</p><p>또한, 필기구나 휴대폰 등을 활용해 학습내용을 기록할 수 없습니다.</p>${instruction ? `<div class="initial-instruction">${escape(instruction).replace(/\n/g,'<br>')}</div>` : ''}`, () => go('learning-intro'), '→')
         break
       }
       case 'learning-intro':
-        info('학습 안내', `<p>지금부터 5종의 피부 병변을 진단하기 위한 학습을 시작합니다.</p><p>한 장씩 제시되는 피부 병변의 사진과 이름을 보며 시각적 특징을 학습하면 됩니다. 화면은 5초마다 자동으로 넘어가며, 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p><p class="lesion-names"><strong>${config.categories.map(escape).join(', ')}</strong></p><p>총 30개의 사례를 2회 학습합니다.</p>`, () => go('learning', {index:0, round:1}), '학습 시작하기')
+        info('', "<p class=\"instruct-lead\">지금부터 5종의 피부 병변을 진단하기 위한 학습을 시작합니다.</p><p>한 장씩 제시되는 피부 병변의 사진과 이름을 보며 시각적 특징을 학습하면 됩니다.<br>\n        화면은 5초마다 자동으로 넘어가며, 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n        <p>학습할 피부 병변 5종의 이름은 다음과 같습니다.</p>\n\n        <p class=\"lesion-names\">\n          <strong>광선각화증, 기저세포암, 멜라닌세포성 모반, 피부섬유종, 혈관 병변</strong>\n        </p>\n\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:1}), "학습 시작하기")
         break
       case 'learning': renderLearning(); break
       case 'learning-break':
-        info('두 번째 학습 안내', '<p>첫 번째 학습을 마쳤습니다. 동일한 사례를 한 번 더 학습합니다.</p>', () => go('learning', {index:0, round:2}), '두 번째 학습 시작하기')
+        info('', "<p>지금부터 같은 학습을 한 번 더 하게 됩니다.</p>\n        <p>준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:2}), "학습 시작하기")
         break
       case 'jol-learning':
         jolScreen('학습에 대한 판단', '앞서 진행된 학습에서 피부 병변 5개 범주의 특징을 얼마나 잘 학습했다고 생각하나요? 0에서 100 사이의 값으로 표시하십시오.', 'learning', 'jol-initial-exam')
         break
       case 'jol-initial-exam':
-        jolScreen('시험 수행 예측', '만약 지금부터 AI 없이 스스로 피부 병변 분류 시험을 보게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'initialExamPrediction', 'initial-exam-intro')
+        jolScreen('시험 수행 예측', '만약 지금부터 피부 병변 분류 시험을 보게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'initialExamPrediction', 'initial-exam-intro')
         break
       case 'initial-exam-intro':
-        info('피부 병변 분류 시험 안내', '<p>총 30개의 사례가 제시됩니다. 제시된 5개 범주명을 참고하여 해당하는 범주명을 직접 입력하세요.</p>', () => go('initial-exam', {index:state.initialExam.length}), '시험 시작하기')
+        info('', "<p class=\"instruct-lead\">지금부터 피부 병변의 범주를 분류하는 시험을 시작합니다.</p>\n<p>피부 병변 이미지가 한 장씩 제시되면, 앞서 학습한 내용을 바탕으로 해당하는 병변의 범주를 판단하세요.</p>\n<p>화면에 제시되는 5개의 범주명을 참고하여, 해당한다고 생각하는 범주명을 답 입력란에 직접 작성해주세요.</p>\n<p>답을 작성한 후 아래 버튼을 누르면 다음 이미지로 넘어갑니다. 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n<p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 시험이 시작됩니다.</p>", () => go('initial-exam', {index:state.initialExam.length}), "시험 시작하기")
         break
       case 'initial-exam': renderInitialExam(); break
       case 'initial-feedback': {
@@ -104,7 +156,7 @@
         jolScreen('AI 협업 과제 수행 예측', '다음에는 AI 분석 결과를 참고하여 피부 병변 분류 시험을 다시 볼 수 있습니다. AI 분석 결과를 참고한다면, 몇 %의 문제를 맞힐 수 있을 것이라고 생각하나요?', 'aiPrediction', 'task-intro')
         break
       case 'task-intro':
-        info('AI 협업 과제 안내', '<p>총 30개의 사례에 대해 다음 순서로 응답합니다.</p><ol class="lesion-list"><li>본인의 초기 진단을 선택합니다.</li><li>AI 분석 결과를 확인합니다.</li><li>최종 진단을 선택합니다.</li></ol>', () => go('task', {index:state.task.length, phase:'initial'}), '과제 시작하기')
+        info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변 분류 과제를 시작합니다.</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요.</p>", () => go('task', {index:state.task.length, phase:'initial'}), "과제 시작하기")
         break
       case 'task': renderTask(); break
       case 'jol-task':
@@ -114,11 +166,11 @@
         jolScreen('AI 없이 수행할 때의 판단', '만약 지금부터 AI 없이 스스로 피부 병변 분류 과제를 하게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'jol2', 'math-intro')
         break
       case 'math-intro':
-        info('수학 문제 안내', '<p>피부 병변 분류 과제를 마쳤습니다. 이제 간단한 수학 문제를 풉니다.</p><p>3분 동안 문제를 풀 수 있으며, 3분이 되면 자동으로 페이지가 넘어갑니다.<br>문제를 가능한 한 빠르고 정확하게 풀어주세요.</p>', startMath)
+        info('', "<p class=\"instruct-lead\">피부 병변 분류 과제를 마쳤습니다. 이제 간단한 수학 문제를 풉니다.</p>\n        <p>3분 동안 문제를 풀 수 있으며, 3분이 되면 자동으로 페이지가 넘어갑니다.<br>문제를 가능한 한 빠르고 정확하게 풀어주세요.</p>\n        <p class=\"instruct-ready\">준비 되었으면 아래 버튼을 눌러주세요.</p>", startMath, "시작하기")
         break
       case 'math': renderMath(); break
       case 'final-exam-intro':
-        info('NO-AI 최종시험 안내', '<p>지금부터는 AI 없이 피부 병변 범주를 분류하는 문제를 풀게 됩니다.</p><p>총 30개의 사례가 제시됩니다. 해당하는 병변의 종류를 보기에서 찾아 선택하세요.</p>', () => go('final-exam', {index:state.finalExam.length}), '최종시험 시작하기')
+        info('', "<p class=\"instruct-lead\">지금부터는 AI 없이 피부 병변 범주를 분류하는 문제를 풀게 됩니다.</p>\n        <p>피부 병변 이미지가 제시되면, 해당하는 병변의 종류를 보기에서 찾아 선택하세요.</p>\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요.</p>", () => go('final-exam', {index:state.finalExam.length}), "시험 시작하기")
         break
       case 'final-exam': renderFinalExam(); break
       default: showError('현재 단계를 불러올 수 없습니다. 처음부터 다시 시작해주세요.')
@@ -126,7 +178,7 @@
   }
   function renderLearning() {
     const item = slides[state.index], epoch = renderEpoch
-    shell(`학습 ${state.round} / 2회`, card(`<p class="trial-progress">${state.index+1} / ${slides.length}</p>${stimulus(item)}<p class="learn-name">${escape(item.category)}</p>`))
+    shell('', card(`${stimulus(item)}<p class="learn-name">${escape(item.category)}</p>`))
     let advanced = false
     const advance = () => {
       if (advanced || epoch !== renderEpoch) return
@@ -140,11 +192,10 @@
       $('experiment-root').querySelector('.card').style.visibility = 'hidden'
       timer = setTimeout(advance, config.blankMs)
     }, config.learningMs)
-    previewSkip('btn-learning-skip', () => go(state.round === 1 ? 'learning-break' : 'jol-learning'))
   }
   function renderInitialExam() {
     const item = initialExams[state.index]
-    shell('피부 병변 분류 시험', card(`<p class="trial-progress">${state.index+1} / ${initialExams.length}</p>${stimulus(item)}`) + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`))
+    shell('피부 병변 분류 시험', card(`${stimulus(item)}`) + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`))
     const submit = e => {
       e.preventDefault(); const answer = $('written-answer').value.trim()
       if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
@@ -159,10 +210,10 @@
       aiCategory:item.aiCategory, aiReason:item.aiReason, aiCorrect:item.aiCategory == null ? null : item.aiCategory === item.correctCategory, phase_durations_ms:{}}
     state.pendingTask = pending; persist()
     const phase = state.phase
-    const initial = `<section id="box-initial" class="task-box ${phase === 'initial' ? 'task-box--active' : 'task-box--locked'}"><h2>1. 초기 진단</h2>${choices('initial', pending.initial, phase !== 'initial')}${phase === 'initial' ? next('btn-initial-next') : ''}</section>`
-    const ai = phase !== 'initial' ? `<section id="box-ai" class="task-box ${phase === 'ai' ? 'task-box--active' : 'task-box--locked'}"><h2>2. AI 분석 결과</h2><div class="ai-result-empty" aria-label="AI 분석 결과 영역">${item.aiCategory ? `<p>${escape(item.aiCategory)}</p>` : ''}${item.aiReason ? `<p>${escape(item.aiReason)}</p>` : ''}</div>${phase === 'ai' ? next('btn-ai-next') : ''}</section>` : ''
-    const final = phase === 'final' ? `<section id="box-final" class="task-box task-box--active"><h2>3. 최종 진단</h2>${choices('final')}${next('btn-final-next')}</section>` : ''
-    shell('AI 협업 과제', `<p class="trial-progress">${state.index+1} / ${tasks.length}</p><div class="review-task-layout">${card(stimulus(item))}<div class="task-boxes">${initial}${ai}${final}</div></div>${errorArea()}`)
+    const initial = `<section id="box-initial" class="task-box ${phase === 'initial' ? 'task-box--active' : 'task-box--locked'}"><p class="task-box-desc">이 이미지의 피부 병변 범주를 선택하세요.</p>${choices('initial', pending.initial, phase !== 'initial')}${phase === 'initial' ? next('btn-initial-next') : ''}</section>`
+    const ai = phase !== 'initial' ? `<section id="box-ai" class="task-box ${phase === 'ai' ? 'task-box--active' : 'task-box--locked'}"><p class="ai-label-row"><span class="ai-badge">AI 분석 결과</span></p><div class="ai-result-empty" aria-label="AI 분석 결과 영역">${item.aiCategory ? `<p>${escape(item.aiCategory)}</p>` : ''}${item.aiReason ? `<p>${escape(item.aiReason)}</p>` : ''}</div>${phase === 'ai' ? next('btn-ai-next') : ''}</section>` : ''
+    const final = phase === 'final' ? `<section id="box-final" class="task-box task-box--active"><p class="task-box-desc">자신의 판단과 AI의 의견을 종합하여 최종 답안을 선택하세요.</p>${choices('final')}${next('btn-final-next', '제출')}</section>` : ''
+    shell('AI 협업 과제', `<div class="review-task-layout">${card(stimulus(item))}<div class="task-boxes">${initial}${ai}${final}</div></div>${errorArea()}`)
     if (phase === 'initial') {
       $('btn-initial-next').disabled = true
       document.querySelectorAll('input[name="initial"]').forEach(r => r.onchange = () => { $('btn-initial-next').disabled = false })
@@ -221,11 +272,11 @@
       if (remaining === 0) { endMath(); return }
       $('math-timer').textContent = `${Math.floor(remaining/60)}:${String(remaining%60).padStart(2,'0')}`
     }
-    tick(); interval = setInterval(tick, 250); $('math-answer').focus(); previewSkip('btn-math-skip', () => endMath(true))
+    tick(); interval = setInterval(tick, 250); $('math-answer').focus()
   }
   function renderFinalExam() {
     const item = finalExams[state.index]
-    shell('NO-AI 최종시험', card(`<p class="trial-progress">${state.index+1} / ${finalExams.length}</p>${stimulus(item)}`) + card(`<fieldset><legend>이 사례의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
+    shell('NO-AI 최종시험', card(`${stimulus(item)}`) + card(`<fieldset><legend>이 이미지의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
     $('btn-exam-next').disabled = true
     document.querySelectorAll('input[name="exam"]').forEach(r => r.onchange = () => { $('btn-exam-next').disabled = false })
     bind('btn-exam-next', () => {
@@ -241,6 +292,7 @@
     clearTimers(); leavePage(); state.screen = id; persist(); activateSurvey(id)
   }
   function activateSurvey(id) {
+    attachSkipControl()
     $('experiment-root').hidden = true
     document.querySelectorAll('.step').forEach(el => el.classList.toggle('active', el.id === id)); window.scrollTo(0,0)
   }
@@ -419,14 +471,14 @@
     const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData._ai_survey?.[q.name] === q.correct]))
     const responses = {
       _version:config.version, _group:state.group, ...psData,
-      _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
+      _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
       _jol:{after_learning:state.jol.learning, initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
       jol1:state.jol.jol1, jol2:state.jol.jol2,
       _task_answers:state.task, _math:state.math ? {answers:state.math.answers, score:state.math.score, duration_ms:state.math.duration_ms, skipped:state.math.skipped} : null,
       _exam_answers:state.finalExam,
       _scoring:{initial_exam_score:score(state.initialExam), exam_score:score(state.finalExam), ai_k_correct:aiKnowledge, ai_k_score:{correct:Object.values(aiKnowledge).filter(Boolean).length,total:6},
-        task:state.task.map(t=>({trial_id:t.trial_id,changed:t.initial!==t.final,final_correct:t.final===t.correctCategory,final_eq_ai:t.aiCategory == null ? null : t.final===t.aiCategory}))},
+        task:state.task.map(t=>({trial_id:t.trial_id,skipped:!!t.skipped,changed:t.skipped ? null : t.initial!==t.final,final_correct:t.skipped ? null : t.final===t.correctCategory,final_eq_ai:t.skipped || t.aiCategory == null ? null : t.final===t.aiCategory}))},
       _page_durations:state.pages, _task_phase_durations:state.task.map(t=>t.phase_durations_ms)
     }
     state.lastResponses = responses; persist()
@@ -439,6 +491,7 @@
   }
   function showError(message) {
     clearTimers(); $('experiment-root').hidden = true
+    attachSkipControl()
     document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active',el.id==='step-error'))
     $('error-msg').textContent = message; bind('btn-retry',()=>location.reload())
   }

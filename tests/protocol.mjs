@@ -70,7 +70,7 @@ for (const group of config.groups.map(g=>g.id)) {
     check('input[name="initial"]'); await click('btn-initial-next')
     assert.equal(read().phase,'ai'); assert.equal(element('.ai-result-empty').textContent,'')
     assert([...d.querySelectorAll('input[name="initial"]')].every(e=>e.disabled))
-    await click('btn-ai-next'); assert.equal(read().phase,'final')
+    await click('btn-ai-next'); assert.equal(read().phase,'final'); assert(element('#box-final').textContent.includes('자신의 판단과 AI의 의견을 종합하여 최종 답안을 선택하세요.')); assert(!element('#box-final').textContent.includes('최종 진단'))
     check('input[name="final"]'); await click('btn-final-next')
   }
   await jol('jol-task',80); await jol('jol-no-ai',60)

@@ -46,7 +46,7 @@ npm test
 - `public/static/style.css`: 공통 디자인입니다.
 - `docs/index.html`: 서버 없이 열 수 있는 확인용 단일 HTML입니다.
 
-미리보기의 상단 버튼으로 처음부터 다시 볼 수 있습니다. 학습·수학 단계의 검토용 skip 버튼은 `previewControls`로 관리합니다. 실제 연구 전에는 `false`로 변경하세요. 새 자극을 넣은 뒤 `npm run build:preview`로 확인용 파일을 다시 생성합니다.
+미리보기의 상단 버튼으로 처음부터 다시 볼 수 있습니다. 모든 화면의 임시 skip 버튼은 `previewControls`로 관리합니다. 스킵한 화면과 미응답 시행은 별도로 기록하며 실제 응답 값을 만들지 않습니다. 실제 연구 전에는 `false`로 변경하세요. 새 자극을 넣은 뒤 `npm run build:preview`로 확인용 파일을 다시 생성합니다.
 
 ## 응답 데이터
 
@@ -74,3 +74,7 @@ Cloudflare에서 실제 수집을 하려면 별도의 **비공개 응답 저장�
 | Root directory | 저장소 루트 |
 
 `wrangler.jsonc`에 Pages 출력 경로와 `nodejs_compat` 설정이 포함되어 있습니다. Cloudflare 인증 후 `npm run deploy -- --project-name thesis`로 배포할 수 있습니다. `gas/experiment_receiver.gs`는 연결되지 않은 원본 참고 파일입니다.
+
+## 화면 및 지시문
+
+페이지 상단 제목·진행 막대·시행 번호는 표시하지 않습니다. 총점 피드백의 점수와 수학 과제의 제한 시간은 유지합니다. 기존 안내 문구는 원본을 사용하고, 학습 범주 수만 5종으로 맞췄습니다. 새 주관식 시험 안내는 원본 문체를 따라 작성했습니다. 첫 시험 예측 JOL에는 AI를 언급하지 않습니다. AI 협업의 문제 문구는 원본의 질문 형식으로 표시합니다. 입력란 placeholder는 회색이고 참가자가 입력한 값은 검정입니다.

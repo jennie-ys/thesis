@@ -324,8 +324,8 @@ app.get('/', c => c.html(/* html */`<!DOCTYPE html>
 </div>
 
 
-<div id="step-done" class="step"><div class="page-wrap"><div class="card"><h1>실험에 참여해 주셔서 감사합니다.</h1><p id="submission-result"></p></div></div></div>
-<div id="step-error" class="step"><div class="page-wrap"><div class="card"><h1>진행 오류</h1><p id="error-msg" class="inline-err"></p><button id="btn-retry" class="btn-secondary">다시 시도</button></div></div></div>
+<div id="step-done" class="step"><div class="page-wrap"><div class="card"><p>실험에 참여해 주셔서 감사합니다.</p><p id="submission-result"></p></div></div></div>
+<div id="step-error" class="step"><div class="page-wrap"><div class="card"><p id="error-msg" class="inline-err"></p><button id="btn-retry" class="btn-secondary">다시 시도</button></div></div></div>
 <script src="/static/experiment.js"></script>
 </body></html>`))
 export default app

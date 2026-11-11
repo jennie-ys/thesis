@@ -36,12 +36,9 @@ const adapter = `
 })();`
 let html = await (await app.request('/')).text()
 html = html.replace('<title>온라인 실험 참가</title>', '<title>Thesis · 실험 절차 미리보기</title>')
-html = html.replace('<link rel="stylesheet" href="/static/style.css" />', `<style>${css}
-.preview-bar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; padding:12px 24px; border-bottom:1px solid #d4d4d4; background:#f3f3f3; color:#111111; font-size:14px; }
-.preview-bar button { border:1px solid #111111; background:#ffffff; color:#111111; padding:6px 12px; border-radius:4px; cursor:pointer; font:inherit; }
-</style>`)
-html = html.replace('<body>', '<body><aside class="preview-bar" aria-label="미리보기 안내"><p><strong>확인용 미리보기</strong> · 응답은 서버에 저장되지 않습니다. · 이미지·AI 분석·초기 개입 지시문은 추후 입력합니다.</p><button id="preview-reset" type="button">처음부터 다시 보기</button></aside>')
-html = html.replace('<script src="/static/experiment.js"></script>', `<script>${inline(adapter)}</script>\n<script>${inline(experiment)}</script>`)
+html = html.replace('<link rel="stylesheet" href="/static/style.css" />', `<style>${css}</style>`)
+const footer = '<footer class="preview-footer"><span>미리보기에서는 응답을 서버에 저장하지 않습니다.</span><button id="preview-reset" type="button">처음부터 다시 보기</button></footer>'
+html = html.replace('<script src="/static/experiment.js"></script>', `${footer}<script>${inline(adapter)}</script>\n<script>${inline(experiment)}</script>`)
 const output = new URL('../docs/', import.meta.url)
 await mkdir(output, { recursive: true })
 await writeFile(new URL('index.html', output), html)

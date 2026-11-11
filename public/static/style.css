@@ -1118,3 +1118,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .ai-result-empty p + p { margin-top:.7rem; }
 .initial-instruction { border-top:1px solid #d4d4d4; margin-top:1.5rem; padding-top:1.5rem; white-space:normal; }
 @media(max-width:760px) { .review-task-layout { grid-template-columns:1fr; } .branch-btn { min-width:180px; } }
+
+/* Input hints are gray; participant-entered values remain black. */
+input, textarea, select { color:#111111; -webkit-text-fill-color:#111111; }
+input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-color:#808080; opacity:1; }
+.temporary-controls { max-width:900px; margin:0 auto; padding:0 2.5rem 2rem; display:flex; justify-content:flex-end; }
+.preview-footer { max-width:900px; margin:0 auto; padding:1rem 2.5rem; font-size:.85rem; color:#111111; display:flex; flex-wrap:wrap; align-items:center; gap:1rem; }
+.preview-footer button { border:1px solid #111111; background:#ffffff; color:#111111; padding:6px 12px; border-radius:4px; cursor:pointer; font:inherit; }
