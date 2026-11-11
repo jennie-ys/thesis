@@ -7,7 +7,8 @@
     "preview": "wrangler pages dev",
     "deploy": "npm run build && wrangler pages deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "build:preview": "npm run build && node scripts/build-preview.mjs"
+    "build:preview": "npm run build && node scripts/build-preview.mjs",
+    "test": "npm run build:preview && node tests/protocol.mjs"
   },
   "dependencies": {
     "hono": "^4.12.12"
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@hono/vite-build": "^1.2.0",
     "@hono/vite-dev-server": "^0.18.2",
+    "jsdom": "31.0.0",
     "vite": "^6.3.5",
     "wrangler": "^4.4.0"
   }

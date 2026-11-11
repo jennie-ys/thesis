@@ -3,16 +3,11 @@ import app from '../dist/_worker.js'
 
 // Reuse the actual server-rendered screens and API manifests, without a server.
 const inline = value => value.replace(/<\/script/gi, '<\\/script')
-const svg = await readFile(new URL('../public/static/placeholder.svg', import.meta.url), 'utf8')
-const placeholder = 'data:image/svg+xml;base64,' + Buffer.from(svg).toString('base64')
 const routes = {}
-for (const [path, key] of [['images', 'slides'], ['task-images', 'tasks'], ['exam-images', 'exams']]) {
+for (const path of ['experiment-config', 'images', 'initial-exam-images', 'task-images', 'exam-images']) {
   const response = await app.request('/api/' + path)
-  if (!response.ok) throw new Error('Cannot build image manifest: ' + path)
-  const data = await response.json()
-  // Placeholders are intentional in the review version until new images arrive.
-  data[key] = data[key].map(item => ({ ...item, url: placeholder }))
-  routes['/api/' + path] = data
+  if (!response.ok) throw new Error('Cannot build experiment configuration: ' + path)
+  routes['/api/' + path] = await response.json()
 }
 const css = await readFile(new URL('../public/static/style.css', import.meta.url), 'utf8')
 const experiment = (await readFile(new URL('../public/static/experiment.js', import.meta.url), 'utf8'))
@@ -45,7 +40,7 @@ html = html.replace('<link rel="stylesheet" href="/static/style.css" />', `<styl
 .preview-bar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; padding:12px 24px; border-bottom:1px solid #d4d4d4; background:#f3f3f3; color:#111111; font-size:14px; }
 .preview-bar button { border:1px solid #111111; background:#ffffff; color:#111111; padding:6px 12px; border-radius:4px; cursor:pointer; font:inherit; }
 </style>`)
-html = html.replace('<body>', '<body><aside class="preview-bar" aria-label="미리보기 안내"><p><strong>확인용 미리보기</strong> · 응답은 서버에 저장되지 않습니다. · 이미지는 업로드 대기 중입니다.</p><button id="preview-reset" type="button">처음부터 다시 보기</button></aside>')
+html = html.replace('<body>', '<body><aside class="preview-bar" aria-label="미리보기 안내"><p><strong>확인용 미리보기</strong> · 응답은 서버에 저장되지 않습니다. · 이미지·AI 분석·초기 개입 지시문은 추후 입력합니다.</p><button id="preview-reset" type="button">처음부터 다시 보기</button></aside>')
 html = html.replace('<script src="/static/experiment.js"></script>', `<script>${inline(adapter)}</script>\n<script>${inline(experiment)}</script>`)
 const output = new URL('../docs/', import.meta.url)
 await mkdir(output, { recursive: true })
