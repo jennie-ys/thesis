@@ -45,11 +45,11 @@ for (const group of config.groups.map(g=>g.id)) {
   await click('btn-group-'+group); await click('btn-next')
   assert.equal(read().screen,'learning-intro'); await click('btn-next')
   await click('btn-next') // Wait for the first learning round's break screen.
-  for(let i=0;i<3000 && read().screen!=='jol-learning';i++) await tick()
+  for(let i=0;i<3000 && read().screen!=='jol-initial-exam';i++) await tick()
   assert.equal(read().learning.length,60)
   for(const round of [1,2]) assert.equal(read().learning.filter(t=>t.round===round).length,30)
-  fill('jol-input','101'); await click('btn-jol-next'); assert.equal(read().screen,'jol-learning')
-  await jol('jol-learning',0); await jol('jol-initial-exam',100); await click('btn-next')
+  fill('jol-input','101'); await click('btn-jol-next'); assert.equal(read().screen,'jol-initial-exam')
+  await jol('jol-initial-exam',100); await click('btn-next')
   assert.equal(read().screen,'initial-exam')
   await click('btn-initial-exam-next'); assert.equal(read().initialExam.length,0)
   for(let i=0;i<30;i++){
@@ -132,7 +132,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(!('_ai_survey' in responses));assert(!('ai_can_be_wrong' in responses));assert(!('ai_expected_accuracy' in responses))
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,24)
   assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
-  assert.deepEqual(Object.keys(responses._jol),['after_learning','initial_exam_prediction','ai_exam_prediction','after_ai_task'])
+  assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])
   assert.deepEqual(responses._jol.after_ai_task,{jol1:80,jol2:60})
   assert(responses._task_answers.every(t=>Object.keys(t.phase_durations_ms).join(',')==='initial_ms,ai_ms,final_ms'))
   assert.equal(responses.ai_k.ai_k1,'틀리다')
@@ -142,7 +142,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(Object.keys(responses.ai_t).every(key=>key.startsWith('ai_t')))
   assert.deepEqual(errors,[])
   summaries.push(read().pages.map(p=>[p.screen,p.index,p.phase,p.round]))
-  process.stdout.write(group+': 60 learning presentations, 5 JOLs, 30 written trials, score, 30 T-format tasks, math, 30 final trials and unchanged surveys PASS\n')
+  process.stdout.write(group+': 60 learning presentations, 4 JOLs, 30 written trials, score, 30 T-format tasks, math, 30 final trials and unchanged surveys PASS\n')
   dom.window.close()
 }
 // Exclude the different number of math practice responses used by the two tests.

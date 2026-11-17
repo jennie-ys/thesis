@@ -1389,9 +1389,8 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       case 'group': go('instruction'); break
       case 'instruction': go('learning-intro'); break
       case 'learning-intro': go('learning',{index:0,round:1}); break
-      case 'learning': go(state.round === 1 ? 'learning-break' : 'jol-learning'); break
+      case 'learning': go(state.round === 1 ? 'learning-break' : 'jol-initial-exam'); break
       case 'learning-break': go('learning',{index:0,round:2}); break
-      case 'jol-learning': state.jol.learning = null; go('jol-initial-exam'); break
       case 'jol-initial-exam': state.jol.initialExamPrediction = null; go('initial-exam-intro'); break
       case 'initial-exam-intro': go('initial-exam',{index:state.initialExam.length}); break
       case 'initial-exam': missingTrials(initialExams,state.initialExam); go('initial-feedback'); break
@@ -1482,9 +1481,6 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       case 'learning-break':
         info('', "<p>지금부터 같은 학습을 한 번 더 하게 됩니다.</p>\n        <p>준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:2}), "학습 시작하기")
         break
-      case 'jol-learning':
-        jolScreen('학습에 대한 판단', '앞서 진행된 학습에서 피부 병변 5개 범주의 특징을 얼마나 잘 학습했다고 생각하나요? 0에서 100 사이의 값으로 표시하십시오.', 'learning', 'jol-initial-exam')
-        break
       case 'jol-initial-exam':
         jolScreen('시험 수행 예측', '만약 지금부터 피부 병변 분류 시험을 보게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'initialExamPrediction', 'initial-exam-intro')
         break
@@ -1540,7 +1536,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       advanced = true
       state.learning.push({trial_id:item.id, round:state.round, duration_ms:Date.now()-phaseStarted})
       if (state.index+1 < slides.length) go('learning', {index:state.index+1})
-      else go(state.round === 1 ? 'learning-break' : 'jol-learning')
+      else go(state.round === 1 ? 'learning-break' : 'jol-initial-exam')
     }
     timer = setTimeout(() => {
       if (epoch !== renderEpoch) return
@@ -1860,7 +1856,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
-      _jol:{after_learning:state.jol.learning, initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
+      _jol:{initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
       jol1:state.jol.jol1, jol2:state.jol.jol2,
       _task_answers:state.task, _math:state.math ? {answers:state.math.answers, score:state.math.score, duration_ms:state.math.duration_ms, skipped:state.math.skipped} : null,
       _exam_answers:state.finalExam,
@@ -1898,6 +1894,8 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       try { state = JSON.parse(sessionStorage.getItem(STATE_KEY)) } catch (_) {}
       if (!state || state.version !== config.version) state = freshState()
       if (state.group && !config.groups.some(g=>g.id===state.group)) state = freshState()
+      if (state.screen === 'jol-learning') state.screen = 'jol-initial-exam'
+      state.jol ||= {}; delete state.jol.learning
       psData = normalizePostSurvey(state.survey); state.survey = psData
       const drafts = state.surveyDraft || {}
       document.querySelectorAll('.step input').forEach(input => {

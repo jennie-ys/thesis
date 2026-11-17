@@ -11,7 +11,7 @@ d.dispatchEvent(new w.Event('DOMContentLoaded'))
 const wait=()=>new Promise(r=>setTimeout(r,2))
 await wait()
 const state=()=>JSON.parse(w.sessionStorage.getItem('__preview_exp_v2_state__'))
-const expected=['group','instruction','learning-intro','learning','learning-break','learning','jol-learning','jol-initial-exam','initial-exam-intro','initial-exam','initial-feedback','jol-ai-prediction','task-intro','task-notice','task','jol-task','jol-no-ai','math-intro','math','final-exam-intro','final-exam','step-ps-0','step-ps-1','step-ps-2','step-ai-survey','step-ai-survey-b','step-ai-error-belief','step-ps-3','step-done']
+const expected=['group','instruction','learning-intro','learning','learning-break','learning','jol-initial-exam','initial-exam-intro','initial-exam','initial-feedback','jol-ai-prediction','task-intro','task-notice','task','jol-task','jol-no-ai','math-intro','math','final-exam-intro','final-exam','step-ps-0','step-ps-1','step-ps-2','step-ai-survey','step-ai-survey-b','step-ai-error-belief','step-ps-3','step-done']
 for(const screen of expected){
   assert.equal(state().screen,screen)
   const root=d.getElementById('experiment-root'), active=root.hidden ? d.querySelector('.step.active') : root
@@ -26,7 +26,7 @@ for(const screen of expected){
     assert(active.textContent.includes('지금부터 피부 병변의 범주를 분류하는 시험을 시작합니다.'))
     assert(active.textContent.includes('범주명을 답 입력란에 직접 작성해주세요.'))
   }
-  if(screen==='jol-learning'){
+  if(screen==='jol-initial-exam'){
     const input=d.getElementById('jol-input');assert.equal(input.value,'');assert.equal(input.placeholder,'0 – 100')
     const rules=[...d.styleSheets].flatMap(sheet=>[...sheet.cssRules])
     const hint=rules.filter(rule=>rule.selectorText?.includes('input::placeholder')).at(-1)
