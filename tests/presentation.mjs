@@ -34,6 +34,18 @@ for(const screen of expected){
     input.value='50';assert.equal(w.getComputedStyle(input).color,'rgb(17, 17, 17)')
   }
   if(screen==='math')assert(!active.querySelector('#math-timer'))
+  if(screen==='task'||screen==='final-exam'){
+    const choiceGrid=active.querySelector('.task-choices')
+    assert.equal(choiceGrid.children.length,6)
+    assert.equal(w.getComputedStyle(choiceGrid).display,'grid')
+    assert.equal(w.getComputedStyle(choiceGrid).gridTemplateColumns.replace(/\s/g,'').replace(/0px/g,'0'),'repeat(3,minmax(0,1fr))')
+    if(screen==='task'){
+      const layout=active.querySelector('.review-task-layout')
+      assert.equal(w.getComputedStyle(layout).gridTemplateColumns,'1fr')
+      assert(layout.children[0].querySelector('.task-img'))
+      assert(layout.children[1].classList.contains('task-boxes'))
+    }
+  }
   if(screen==='task-intro'){
     assert.equal(active.querySelector('.instruct-lead').textContent,'학습이 끝났습니다. 지금부터 피부 병변에 대한 AI 협업 분류 과제를 시작합니다')
     assert.equal(active.querySelector('.instruct-ready').textContent,'준비되었으면 다음 버튼을 눌러주세요.')

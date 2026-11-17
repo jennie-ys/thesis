@@ -62,7 +62,14 @@ for (const group of config.groups.map(g=>g.id)) {
     const reference=element('#category-reference').textContent
     assert(config.categories.every(cat=>reference.includes(cat)))
     assert(!read().inputEvents);
-    fill('written-answer',i<12 ? ' '+trial.correctCategory.replace(' ','  ')+' ' : '모르겠다')
+    if(i===0){
+      for(const invalid of ['', '모르겠다', '흑색죵', ' 혈관 병변', '혈관병변', '혈관  병변', '혈관 병변 ']){
+        fill('written-answer',invalid);await click('btn-initial-exam-next')
+        assert.equal(read().screen,'initial-exam');assert.equal(read().initialExam.length,0)
+        assert.equal(element('#screen-error').textContent,'보기에서 골라 입력하세요')
+      }
+    }
+    fill('written-answer',i<12 ? trial.correctCategory : config.categories.find(c=>c!==trial.correctCategory))
     await click('btn-initial-exam-next')
   }
   assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/12\s*\/ 18점/)

@@ -7,7 +7,6 @@
   let state
   const $ = id => document.getElementById(id)
   const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]))
-  const normalize = value => value.normalize('NFKC').replace(/\s/g, '')
   function normalizePostSurvey(source = {}) {
     const number = (value, min, max) => {
       if (value === null || value === undefined || value === '') return null
@@ -118,6 +117,7 @@
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'))
     $('experiment-root').hidden = false
     $('experiment-root').classList.toggle('task-screen', state.screen === 'task')
+    $('experiment-root').classList.toggle('final-exam-screen', state.screen === 'final-exam')
     $('experiment-root').innerHTML = `${body}${footer}`
     window.scrollTo(0, 0)
   }
@@ -276,10 +276,10 @@
     const item = initialExams[state.index]
     shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><div class="math-input-row baseline-answer-row"><input id="written-answer" type="text" class="math-input written-answer" autocomplete="off" spellcheck="false" />${button('btn-initial-exam-next', '다음 →')}</div>${errorArea()}</form>`, 'initial-exam-card'))
     const submit = e => {
-      e.preventDefault(); const answer = $('written-answer').value.trim()
-      if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
+      e.preventDefault(); const answer = $('written-answer').value
+      if (!config.categories.includes(answer)) { error('보기에서 골라 입력하세요'); $('written-answer').focus(); return }
       commitResponse('written-answer',answer); state.initialExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen:answer,
-        correct:normalize(answer) === normalize(item.correctCategory), duration_ms:elapsed()})
+        correct:answer === item.correctCategory, duration_ms:elapsed()})
       go(state.index+1 < initialExams.length ? 'initial-exam' : 'initial-feedback', {index:state.index+1})
     }
     $('initial-exam-form').onsubmit = submit; bind('btn-initial-exam-next', submit); $('written-answer').focus()

@@ -1158,15 +1158,15 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 .ai-survey-item { scroll-margin-block:2rem; }
 .ai-survey-item:focus { outline:none; }
 
-/* Desktop AI collaboration: wide answer column and compact vertical stack. */
-.page-wrap.task-screen { max-width:1440px; padding:1.25rem 1.5rem 1rem; gap:.6rem; }
-.task-screen .review-task-layout { grid-template-columns:minmax(240px, .8fr) minmax(620px, 2fr); gap:1rem; }
+/* AI collaboration: centered image above the response panels. */
+.page-wrap.task-screen { max-width:1000px; padding:1.25rem 1.5rem 1rem; gap:.6rem; }
+.task-screen .review-task-layout { grid-template-columns:1fr; gap:.6rem; }
 .task-screen .review-task-layout > .card { padding:1rem; min-width:0; }
 .task-screen .task-img { margin-inline:auto; }
 .task-screen .task-boxes { min-width:0; gap:.5rem; }
 .task-screen .task-box { padding:.65rem .8rem; }
 .task-screen .task-box-desc { font-size:.95rem; line-height:1.4; margin-bottom:.4rem; }
-.task-screen .task-choices { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.4rem; margin-top:.35rem; }
+.task-screen .task-choices, .final-exam-screen .task-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.4rem; margin-top:.35rem; }
 .task-screen .task-choice { min-width:0; padding:.45rem .5rem; gap:.35rem; font-size:.9rem; line-height:1.35; }
 .task-screen .task-choice span { overflow-wrap:anywhere; }
 .task-screen .btn-row { margin-top:.5rem; }
@@ -1176,7 +1176,6 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 .task-screen .ai-result-empty p + p { margin-top:.35rem; }
 @media(max-width:959px) {
   .task-screen .review-task-layout { grid-template-columns:1fr; }
-  .task-screen .task-choices { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .page-wrap.task-screen { padding:1rem; }
 }
 
@@ -1374,7 +1373,6 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   let state
   const $ = id => document.getElementById(id)
   const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]))
-  const normalize = value => value.normalize('NFKC').replace(/\s/g, '')
   function normalizePostSurvey(source = {}) {
     const number = (value, min, max) => {
       if (value === null || value === undefined || value === '') return null
@@ -1485,6 +1483,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'))
     $('experiment-root').hidden = false
     $('experiment-root').classList.toggle('task-screen', state.screen === 'task')
+    $('experiment-root').classList.toggle('final-exam-screen', state.screen === 'final-exam')
     $('experiment-root').innerHTML = `${body}${footer}`
     window.scrollTo(0, 0)
   }
@@ -1643,10 +1642,10 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     const item = initialExams[state.index]
     shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><div class="math-input-row baseline-answer-row"><input id="written-answer" type="text" class="math-input written-answer" autocomplete="off" spellcheck="false" />${button('btn-initial-exam-next', '다음 →')}</div>${errorArea()}</form>`, 'initial-exam-card'))
     const submit = e => {
-      e.preventDefault(); const answer = $('written-answer').value.trim()
-      if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
+      e.preventDefault(); const answer = $('written-answer').value
+      if (!config.categories.includes(answer)) { error('보기에서 골라 입력하세요'); $('written-answer').focus(); return }
       commitResponse('written-answer',answer); state.initialExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen:answer,
-        correct:normalize(answer) === normalize(item.correctCategory), duration_ms:elapsed()})
+        correct:answer === item.correctCategory, duration_ms:elapsed()})
       go(state.index+1 < initialExams.length ? 'initial-exam' : 'initial-feedback', {index:state.index+1})
     }
     $('initial-exam-form').onsubmit = submit; bind('btn-initial-exam-next', submit); $('written-answer').focus()
