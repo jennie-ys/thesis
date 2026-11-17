@@ -21,7 +21,7 @@ const finalExam = stimulusOrder.stages['final-exam']
 
 export function getExperimentConfig() {
   return {
-    version: 'two-group-v3-images',
+    version: 'two-group-v4-final-old',
     categories: CATEGORIES,
     groups: GROUPS,
     learningRounds: 2,

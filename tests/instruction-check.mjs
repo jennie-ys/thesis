@@ -10,7 +10,7 @@ async function open(state){
   w.document.dispatchEvent(new w.Event('DOMContentLoaded'));await new Promise(r=>setTimeout(r,10))
   return {dom,w,d:w.document,errors,read:()=>JSON.parse(w.sessionStorage.getItem(key))}
 }
-const seed={version:'two-group-v3-images',participantId:'gate-test',group:'intervention',screen:'task-notice',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:{},pages:[],pageEntered:Date.now(),math:null}
+const seed={version:'two-group-v4-final-old',participantId:'gate-test',group:'intervention',screen:'task-notice',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:{},pages:[],pageEntered:Date.now(),math:null}
 let app=await open(seed)
 const click=id=>app.d.getElementById(id).click()
 click('temporary-skip');assert.equal(app.read().screen,'task-check');assert(!app.d.getElementById('btn-checked-task-start'))

@@ -7,6 +7,8 @@ UPLOAD=ROOT.parent/'upload'
 CATS=dict(AK='광선각화증',BCC='기저세포암',NV='멜라닌세포성 모반',DF='피부섬유종',VASC='혈관 병변')
 rng=random.Random(20261117)
 sets={}
+order_path=ROOT/'data/stimulus-order.json'
+previous=json.loads(order_path.read_text()) if order_path.exists() else None
 # Only regenerate the asset directory owned by this importer.
 for folder in [ROOT/'public/static/stimuli',ROOT/'docs/static/stimuli']:
  if folder.exists():shutil.rmtree(folder)
@@ -24,21 +26,22 @@ for archive,stage in [('1 study.zip','learning'),('2 baseline test.zip','initial
    with Image.open(dest) as im:im.verify()
    with Image.open(dest) as im:width,height=im.size
    rows.append(dict(id=f'{stage}-{code}-{Path(name).stem}',imageId=Path(name).stem,filename=name,categoryCode=code,correctCategory=CATS[code],novelty=novelty,sourceSubset=folder if novelty else None,url='/'+rel.as_posix(),sha256=hashlib.sha256(raw).hexdigest(),width=width,height=height))
- # User-approved correction: final VASC/old contained three AK images.
+ # Final old must be exactly study minus baseline, independently for every category.
  if stage=='final-exam':
-  incorrect=[r for r in rows if r['categoryCode']=='VASC' and r['novelty']=='old']
-  baseline={r['imageId'] for r in sets['initial-exam']}
-  replacements=[r for r in sets['learning'] if r['categoryCode']=='VASC' and r['imageId'] not in baseline]
-  assert len(incorrect)==len(replacements)==3
-  for r in incorrect:(ROOT/'public'/r['url'].lstrip('/')).unlink()
-  rows=[r for r in rows if r not in incorrect]
-  for original in replacements:
-   r={k:v for k,v in original.items() if k not in ['position','block','category']}
-   rel=Path('static/stimuli/final-exam/VASC/old')/r['filename']
-   dest=ROOT/'public'/rel;dest.parent.mkdir(parents=True,exist_ok=True)
-   shutil.copyfile(ROOT/'public'/original['url'].lstrip('/'),dest)
-   r.update(id=f"final-exam-VASC-{r['imageId']}",url='/'+rel.as_posix(),novelty='old',sourceSubset='old_study_456',sourceCorrection='User approved replacing mislabeled AK files with unused VASC learning images')
-   rows.append(r)
+  old=[r for r in rows if r['novelty']=='old']
+  for r in old:(ROOT/'public'/r['url'].lstrip('/')).unlink()
+  rows=[r for r in rows if r['novelty']!='old']
+  baseline={r['sha256'] for r in sets['initial-exam']}
+  for code in CATS:
+   replacements=[r for r in sets['learning'] if r['categoryCode']==code and r['sha256'] not in baseline]
+   assert len(replacements)==3
+   for original in replacements:
+    r={k:v for k,v in original.items() if k not in ['position','block','category']}
+    rel=Path('static/stimuli/final-exam')/code/'old'/r['filename']
+    dest=ROOT/'public'/rel;dest.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copyfile(ROOT/'public'/original['url'].lstrip('/'),dest)
+    r.update(id=f"final-exam-{code}-{r['imageId']}",url='/'+rel.as_posix(),novelty='old',sourceSubset='study-minus-baseline',sourceCorrection='Final old equals study minus baseline, by category and image bytes')
+    rows.append(r)
  if stage in ['learning','ai-task']:
   pools={c:[r for r in rows if r['categoryCode']==c] for c in CATS}
   for p in pools.values():rng.shuffle(p)
@@ -53,6 +56,20 @@ for archive,stage in [('1 study.zip','learning'),('2 baseline test.zip','initial
    rng.shuffle(rows)
    if all(a['categoryCode']!=b['categoryCode'] for a,b in zip(rows,rows[1:])):break
   order=rows
+ if stage=='final-exam' and previous:
+  # Preserve the published category/old-new sequence and all still-valid image positions.
+  slots=previous['stages'][stage]
+  available={r['id']:r for r in rows}
+  retained={slot['id'] for slot in slots if slot['id'] in available}
+  pool=[r for r in rows if r['id'] not in retained]
+  order=[]
+  for slot in slots:
+   if slot['id'] in retained:r=available[slot['id']]
+   else:
+    r=next(r for r in sorted(pool,key=lambda t:t['filename']) if r['categoryCode']==slot['categoryCode'] and r['novelty']==slot['novelty'])
+    pool.remove(r)
+   order.append(r)
+  assert not pool
  for i,r in enumerate(order):r['position']=i+1
  if stage=='learning':
   # Repeated rounds use this same fixed sequence; its boundary also avoids repeats.
@@ -60,7 +77,7 @@ for archive,stage in [('1 study.zip','learning'),('2 baseline test.zip','initial
  if stage=='ai-task':
   for r in order:r.update(aiCategory=None,aiReason=None,aiCorrect=None)
  sets[stage]=order
-(ROOT/'data/stimulus-order.json').write_text(json.dumps({'orderVersion':'stimuli-20261117-v1','seed':20261117,'stages':sets},ensure_ascii=False,indent=2)+'\n')
+(ROOT/'data/stimulus-order.json').write_text(json.dumps({'orderVersion':'stimuli-20261117-v2','seed':20261117,'stages':sets},ensure_ascii=False,indent=2)+'\n')
 with (ROOT/'data/stimulus-order.csv').open('w') as f:
  writer=csv.DictWriter(f,fieldnames=['stage','position','block','imageId','categoryCode','correctCategory','novelty','sourceSubset','url']);writer.writeheader()
  for stage,rows in sets.items():

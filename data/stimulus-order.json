@@ -1,5 +1,5 @@
 {
-  "orderVersion": "stimuli-20261117-v1",
+  "orderVersion": "stimuli-20261117-v2",
   "seed": 20261117,
   "stages": {
     "learning": [
@@ -1216,11 +1216,12 @@
         "categoryCode": "NV",
         "correctCategory": "멜라닌세포성 모반",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/NV/old/ISIC_0106322.jpg",
         "sha256": "dda6998883aad8c7bf9beb4b58f75548592cdf001a3bf52a246d63a69ea260c8",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 1
       },
       {
@@ -1244,12 +1245,12 @@
         "categoryCode": "VASC",
         "correctCategory": "혈관 병변",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/VASC/old/ISIC_5866736.jpg",
         "sha256": "182e1a52adaf524a556b66e3ec1445bcdab980c42740c9dddc8c87abe0c4a0d7",
         "width": 600,
         "height": 450,
-        "sourceCorrection": "User approved replacing mislabeled AK files with unused VASC learning images",
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 3
       },
       {
@@ -1267,17 +1268,18 @@
         "position": 4
       },
       {
-        "id": "final-exam-BCC-ISIC_0195347",
-        "imageId": "ISIC_0195347",
-        "filename": "ISIC_0195347.jpg",
+        "id": "final-exam-BCC-ISIC_0369681",
+        "imageId": "ISIC_0369681",
+        "filename": "ISIC_0369681.jpg",
         "categoryCode": "BCC",
         "correctCategory": "기저세포암",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
-        "url": "/static/stimuli/final-exam/BCC/old/ISIC_0195347.jpg",
-        "sha256": "aff1a327bf738f103082ab3cc9d9ae0203ba9979373e94d18b1138b8cf216b16",
+        "sourceSubset": "study-minus-baseline",
+        "url": "/static/stimuli/final-exam/BCC/old/ISIC_0369681.jpg",
+        "sha256": "d73c6ddd67f626971e20121fa01063db06d5a8fa58938f3a2caa2e9aa175e523",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 5
       },
       {
@@ -1287,26 +1289,27 @@
         "categoryCode": "VASC",
         "correctCategory": "혈관 병변",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/VASC/old/ISIC_3849096.jpg",
         "sha256": "d94285c237963d873c83da08938d692a191e150bf8d71b9d5497b2cd73cb5134",
         "width": 600,
         "height": 450,
-        "sourceCorrection": "User approved replacing mislabeled AK files with unused VASC learning images",
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 6
       },
       {
-        "id": "final-exam-AK-ISIC_0260732",
-        "imageId": "ISIC_0260732",
-        "filename": "ISIC_0260732.jpg",
+        "id": "final-exam-AK-ISIC_0496864",
+        "imageId": "ISIC_0496864",
+        "filename": "ISIC_0496864.jpg",
         "categoryCode": "AK",
         "correctCategory": "광선각화증",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
-        "url": "/static/stimuli/final-exam/AK/old/ISIC_0260732.jpg",
-        "sha256": "fda1cbf852b87c9f17cb7f8690f22e9c2e6af5a5747be5cade317d45726d61d4",
+        "sourceSubset": "study-minus-baseline",
+        "url": "/static/stimuli/final-exam/AK/old/ISIC_0496864.jpg",
+        "sha256": "1ea80590e6b5d47609d7302a8516b166e23d8ee50854949df12706ef2661f58a",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 7
       },
       {
@@ -1330,11 +1333,12 @@
         "categoryCode": "DF",
         "correctCategory": "피부섬유종",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/DF/old/ISIC_1342857.jpg",
         "sha256": "c691b8c49df909cdca257076f7c38ff25a3ead9e5cadf13c9ceb331a1932771c",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 9
       },
       {
@@ -1358,11 +1362,12 @@
         "categoryCode": "NV",
         "correctCategory": "멜라닌세포성 모반",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/NV/old/ISIC_0115114.jpg",
         "sha256": "d22a4d7ca824618815fb462ba5d57fbf0e2de8fd8378a221dce81f428ed49648",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 11
       },
       {
@@ -1428,11 +1433,12 @@
         "categoryCode": "BCC",
         "correctCategory": "기저세포암",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/BCC/old/ISIC_0381913.jpg",
         "sha256": "4593e749c82266614bbdb1baaa9d965965dfbcad62632d72d6ccf89ccdad720d",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 16
       },
       {
@@ -1470,11 +1476,12 @@
         "categoryCode": "NV",
         "correctCategory": "멜라닌세포성 모반",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/NV/old/ISIC_0101767.jpg",
         "sha256": "61e2345cadbae8f67a17b14c54e18b71478594b221470e03d4b47cdbe4e2f055",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 19
       },
       {
@@ -1492,31 +1499,33 @@
         "position": 20
       },
       {
-        "id": "final-exam-AK-ISIC_0146067",
-        "imageId": "ISIC_0146067",
-        "filename": "ISIC_0146067.jpg",
+        "id": "final-exam-AK-ISIC_0707479",
+        "imageId": "ISIC_0707479",
+        "filename": "ISIC_0707479.jpg",
         "categoryCode": "AK",
         "correctCategory": "광선각화증",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
-        "url": "/static/stimuli/final-exam/AK/old/ISIC_0146067.jpg",
-        "sha256": "32597566546b15b8dde669cd50453e9ca0319f8098b820f009ed798c6deeda3a",
+        "sourceSubset": "study-minus-baseline",
+        "url": "/static/stimuli/final-exam/AK/old/ISIC_0707479.jpg",
+        "sha256": "7a0c0c5e9a773bea56055288d1d31bc4048c3e34f052a6b56b7ff4c59cca06f2",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 21
       },
       {
-        "id": "final-exam-DF-ISIC_1176432",
-        "imageId": "ISIC_1176432",
-        "filename": "ISIC_1176432.jpg",
+        "id": "final-exam-DF-ISIC_4324758",
+        "imageId": "ISIC_4324758",
+        "filename": "ISIC_4324758.jpg",
         "categoryCode": "DF",
         "correctCategory": "피부섬유종",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
-        "url": "/static/stimuli/final-exam/DF/old/ISIC_1176432.jpg",
-        "sha256": "81d4073e20438818f5165ca48b46ef2dec2ebcb61537f537dd66d91f9179fe0a",
+        "sourceSubset": "study-minus-baseline",
+        "url": "/static/stimuli/final-exam/DF/old/ISIC_4324758.jpg",
+        "sha256": "ead14278d1dca3ab2727f62a1ed384d03f12a7d31b84c1efa5887a4e1f8c5d80",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 22
       },
       {
@@ -1554,12 +1563,12 @@
         "categoryCode": "VASC",
         "correctCategory": "혈관 병변",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/VASC/old/ISIC_5409072.jpg",
         "sha256": "ce5c3bceaec5ce38cd17498180640fe6001daace8d69c77fb47b2269e476314d",
         "width": 600,
         "height": 450,
-        "sourceCorrection": "User approved replacing mislabeled AK files with unused VASC learning images",
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 25
       },
       {
@@ -1569,11 +1578,12 @@
         "categoryCode": "AK",
         "correctCategory": "광선각화증",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/AK/old/ISIC_0605910.jpg",
         "sha256": "bcbc32775f9a794e09ec51b428537d787dbc2a10c078eb9619d698933e1b2f6e",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 26
       },
       {
@@ -1583,11 +1593,12 @@
         "categoryCode": "BCC",
         "correctCategory": "기저세포암",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
+        "sourceSubset": "study-minus-baseline",
         "url": "/static/stimuli/final-exam/BCC/old/ISIC_0377749.jpg",
         "sha256": "d32d0f7b718a31ba045bf7e86b147686caf4bc942cb053ab7c8595942ad6c402",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 27
       },
       {
@@ -1619,17 +1630,18 @@
         "position": 29
       },
       {
-        "id": "final-exam-DF-ISIC_0919412",
-        "imageId": "ISIC_0919412",
-        "filename": "ISIC_0919412.jpg",
+        "id": "final-exam-DF-ISIC_4959784",
+        "imageId": "ISIC_4959784",
+        "filename": "ISIC_4959784.jpg",
         "categoryCode": "DF",
         "correctCategory": "피부섬유종",
         "novelty": "old",
-        "sourceSubset": "old_study_456",
-        "url": "/static/stimuli/final-exam/DF/old/ISIC_0919412.jpg",
-        "sha256": "97a22713d6c6070ed2a1419d014a2ca1bd67161a393b00b4cfcc29f4d4e64a7e",
+        "sourceSubset": "study-minus-baseline",
+        "url": "/static/stimuli/final-exam/DF/old/ISIC_4959784.jpg",
+        "sha256": "62f29777e6e4f5dab120eacd8357d992c27db487fb40f9e3bc95618a77da4d23",
         "width": 600,
         "height": 450,
+        "sourceCorrection": "Final old equals study minus baseline, by category and image bytes",
         "position": 30
       }
     ]
