@@ -69,7 +69,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert.equal(element('.instruct-body').textContent,groupConfig.taskInstruction.replaceAll('\n',''))
   if(group==='intervention') {
     assert.equal(element('.intervention-instruction').querySelectorAll('p').length,5)
-    assert(element('.instruct-body').textContent.endsWith("준비되었으면 '과제 시작하기' 버튼을 누르십시오."))
+    assert(element('.instruct-body').textContent.endsWith("준비되었으면 다음 버튼을 눌러주세요."))
     assert.equal(w.getComputedStyle(element('.intervention-instruction')).fontSize,'17.6px')
     assert.equal(w.getComputedStyle(element('.intervention-evidence')).fontSize,'19.2px')
     const paragraphs=element('.intervention-instruction').querySelectorAll('p')
@@ -82,6 +82,20 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(!element('.instruct-body').textContent.includes('**'))
   assert.equal(element('.instruct-body').textContent.includes('67.8%'),group==='intervention')
   await click('btn-next')
+  if(group==='intervention'){
+    assert.equal(read().screen,'task-check');assert(!d.getElementById('btn-checked-task-start'))
+    await click('btn-instruction-check');assert.equal(read().screen,'task-check')
+    fill('instruction-check-answer','70');await click('btn-instruction-check')
+    assert.equal(read().screen,'task-notice');assert.equal(read().instructionCheck.passed,false)
+    assert.equal(read().instructionCheck.attempts.length,1)
+    assert.equal(element('#btn-next').textContent,'다음→');await click('btn-next')
+    assert.equal(read().screen,'task-check');assert.equal(element('#instruction-check-answer').value,'')
+    fill('instruction-check-answer','67.80');await click('btn-instruction-check')
+    assert.equal(read().screen,'task-check');assert(read().instructionCheck.passed)
+    assert.equal(element('#btn-checked-task-start').textContent,'과제 시작하기')
+    assert(element('#instruction-check-answer').disabled)
+    await click('btn-checked-task-start')
+  }
   for(let i=0;i<30;i++){
     assert.equal(read().screen,'task'); assert.equal(read().phase,'initial')
     assert.equal(d.querySelectorAll('input[name="initial"]').length,5)
@@ -142,6 +156,8 @@ for (const group of config.groups.map(g=>g.id)) {
   assert.deepEqual(Object.keys(responses).slice(3,8),['pk1','pk2','ai_k','ai_a','ai_t'])
   assert.equal(typeof responses.pk1,'number');assert.equal(typeof responses.pk2,'number')
   assert(!('_ai_survey' in responses));assert(!('ai_can_be_wrong' in responses));assert(!('ai_expected_accuracy' in responses))
+  assert.equal(responses._instruction_check?.passed ?? null,group==='intervention'?true:null)
+  if(group==='intervention')assert.deepEqual(responses._instruction_check.attempts.map(a=>[a.answer,a.correct]),[[70,false],[67.8,true]])
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,24)
   assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
   assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])
@@ -158,6 +174,6 @@ for (const group of config.groups.map(g=>g.id)) {
   dom.window.close()
 }
 // Exclude the different number of math practice responses used by the two tests.
-const common = rows => rows.filter(([screen])=>screen!=='math')
+const common = rows => rows.filter(([screen])=>!['math','task-notice','task-check'].includes(screen))
 assert.deepEqual(common(summaries[0]),common(summaries[1]))
 process.stdout.write('Both groups follow the identical non-instruction procedure PASS\n')

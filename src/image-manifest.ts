@@ -4,8 +4,8 @@ const CODES = ['AK', 'BCC', 'NV', 'DF', 'VASC']
 export const GROUPS = [
   {
     id: 'intervention', label: 'intervention',
-    taskInstruction: "이제부터 피부 병변 이미지를 분류하는 과제에서 AI의 답변을 참고할 수 있습니다.\n\nAI는 피부 병변의 시각적 특징을 분석하여 답변을 제시하지만,\n모든 이미지를 정확하게 분류하는 것은 아닙니다.\n\n예를 들어, 선행 연구에서 네 종류의 피부질환 사진 500장을 평가한 GPT-4o 모델의 진단 정확도는 67.8%로 보고되었습니다(Cirkel et al., 2026). 즉, 약 3문항 중 1문항의 비율로 잘못된 답변이 제시될 수 있습니다. 다만 어떤 문항에서 AI가 정답 또는 오답을 제시하는지는 알 수 없습니다.\n\n따라서, AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택하십시오.\n\n준비되었으면 '과제 시작하기' 버튼을 누르십시오.",
-    boldPhrases: ["AI의 답변을 참고", "진단 정확도는 67.8%", "약 3문항 중 1문항의 비율로 잘못된 답변", "AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택하십시오.", "준비되었으면 '과제 시작하기' 버튼을 누르십시오."],
+    taskInstruction: "이제부터 피부 병변 이미지를 분류하는 과제에서 AI의 답변을 참고할 수 있습니다.\n\nAI는 피부 병변의 시각적 특징을 분석하여 답변을 제시하지만,\n모든 이미지를 정확하게 분류하는 것은 아닙니다.\n\n예를 들어, 선행 연구에서 네 종류의 피부질환 사진 500장을 평가한 GPT-4o 모델의 진단 정확도는 67.8%로 보고되었습니다(Cirkel et al., 2026). 즉, 약 3문항 중 1문항의 비율로 잘못된 답변이 제시될 수 있습니다. 다만 어떤 문항에서 AI가 정답 또는 오답을 제시하는지는 알 수 없습니다.\n\n따라서, AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택하십시오.\n\n준비되었으면 다음 버튼을 눌러주세요.",
+    boldPhrases: ["AI의 답변을 참고", "진단 정확도는 67.8%", "약 3문항 중 1문항의 비율로 잘못된 답변", "AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택하십시오.", "준비되었으면 다음 버튼을 눌러주세요."],
   },
   {
     id: 'no-intervention', label: 'no-intervention',
@@ -44,6 +44,7 @@ export function getExperimentConfig() {
     learningMs: 5000,
     blankMs: 100,
     phaseDelayMs: 3000,
+    instructionCheckAccuracy: 67.8,
     mathDurationMs: 180000,
     previewControls: true,
     stimuliPending: true,

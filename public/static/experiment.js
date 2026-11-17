@@ -42,7 +42,7 @@
   function freshState() {
     return { version:'two-group-v2', participantId:crypto.randomUUID(), group:null, screen:'group', index:0, round:1,
       phase:'initial', learning:[], initialExam:[], task:[], finalExam:[], jol:{}, survey:{}, pages:[],
-      math:null, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
+      math:null, instructionCheck:{passed:false,attempts:[]}, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
   }
   function persist() { sessionStorage.setItem(STATE_KEY, JSON.stringify(state)) }
   function leavePage() {
@@ -84,7 +84,8 @@
       case 'initial-feedback': go('jol-ai-prediction'); break
       case 'jol-ai-prediction': state.jol.aiPrediction = null; go('task-intro'); break
       case 'task-intro': go('task-notice'); break
-      case 'task-notice': go('task',{index:state.task.length,phase:'initial'}); break
+      case 'task-notice': go(state.group === 'intervention' ? 'task-check' : 'task',{index:state.task.length,phase:'initial'}); break
+      case 'task-check': go('task-notice'); break
       case 'task':
         for (const item of tasks.slice(state.task.length)) {
           const pending = state.pendingTask?.trial_id === item.id ? state.pendingTask : {}
@@ -195,10 +196,14 @@
           return `<p${className}>${content.replace(/\n/g, '<br>')}</p>`
         }).join('')
         const content = group.id === 'intervention' ? `<div class="intervention-instruction">${paragraphs}</div>` : paragraphs
-        info('', content, () => go('task', {index:state.task.length, phase:'initial'}), '과제 시작하기')
+        info('', content, () => go(state.group === 'intervention' ? 'task-check' : 'task', {index:state.task.length, phase:'initial'}), state.group === 'intervention' ? '다음→' : '과제 시작하기')
         break
       }
-      case 'task': renderTask(); break
+      case 'task-check': renderInstructionCheck(); break
+      case 'task':
+        if (state.group === 'intervention' && !state.instructionCheck.passed) go('task-notice')
+        else renderTask()
+        break
       case 'jol-task':
         jolScreen('AI 협업 과제 정확도 추정', '앞서 진행된 AI 협업 피부 병변 분류 과제에서 얼마나 정답을 맞혔다고 생각하나요? 0에서 100 사이의 값으로 표시하십시오.<br><span>최종적으로 제출한 답변에 대한 정답률을 예측해보세요</span>', 'jol1', 'jol-no-ai')
         break
@@ -215,6 +220,32 @@
       case 'final-exam': renderFinalExam(); break
       default: showError('현재 단계를 불러올 수 없습니다. 처음부터 다시 시작해주세요.')
     }
+  }
+  function renderInstructionCheck() {
+    if (state.group !== 'intervention') { go('task',{index:state.task.length,phase:'initial'}); return }
+    const check = state.instructionCheck, passed = check.passed
+    const answered = passed ? check.attempts.at(-1)?.answer ?? config.instructionCheckAccuracy : ''
+    shell('', card(`<form id="instruction-check-form" novalidate><label class="jol-question" for="instruction-check-answer">앞서 제시된 선행연구에서 GPT-4o의 피부질환 진단 정확도는 몇 %였나요?</label><div class="math-input-row"><input id="instruction-check-answer" class="math-input" type="number" min="0" max="100" step="0.1" placeholder="정확도를 입력하세요" value="${answered}" ${passed ? 'disabled' : ''}/><span>%</span></div>${errorArea()}${passed ? '<p role="status">정답입니다.</p>'+next('btn-checked-task-start','과제 시작하기') : next('btn-instruction-check','확인')}</form>`))
+    if (passed) {
+      $('instruction-check-form').onsubmit = e => e.preventDefault()
+      bind('btn-checked-task-start', () => go('task',{index:state.task.length,phase:'initial'}))
+      return
+    }
+    const submit = event => {
+      event.preventDefault()
+      const raw = $('instruction-check-answer').value.trim(), answer = Number(raw)
+      if (!raw || !Number.isFinite(answer) || answer < 0 || answer > 100) {
+        error('0~100 사이의 숫자로 입력해 주세요.'); $('instruction-check-answer').focus(); return
+      }
+      const correct = answer === config.instructionCheckAccuracy
+      check.attempts.push({attempt:check.attempts.length+1,answer,correct,duration_ms:Date.now()-phaseStarted,submitted_at:new Date().toISOString()})
+      check.passed = correct; persist()
+      if (correct) render()
+      else go('task-notice')
+    }
+    $('instruction-check-form').onsubmit = submit
+    bind('btn-instruction-check',submit)
+    $('instruction-check-answer').focus()
   }
   function renderLearning() {
     const item = slides[state.index], epoch = renderEpoch
@@ -543,6 +574,7 @@
     const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
     const responses = {
       _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
+      _instruction_check:state.group === 'intervention' ? state.instructionCheck : null,
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
       _jol:{initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
@@ -585,6 +617,7 @@
       if (state.group && !config.groups.some(g=>g.id===state.group)) state = freshState()
       if (state.screen === 'jol-learning') state.screen = 'jol-initial-exam'
       state.jol ||= {}; delete state.jol.learning
+      state.instructionCheck ||= {passed:false,attempts:[]}
       psData = normalizePostSurvey(state.survey); state.survey = psData
       const drafts = state.surveyDraft || {}
       document.querySelectorAll('.step input').forEach(input => {
