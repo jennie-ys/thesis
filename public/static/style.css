@@ -1130,3 +1130,5 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 .instruct-body .intervention-instruction { font-size:1.1rem; line-height:1.85; font-weight:400; }
 .intervention-instruction p { font-weight:400; }
 .intervention-instruction strong { font-weight:700; }
+
+.intervention-instruction .intervention-evidence { font-size:1.2rem; }

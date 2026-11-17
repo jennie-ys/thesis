@@ -188,10 +188,11 @@
         break
       case 'task-notice': {
         const group = config.groups.find(g => g.id === state.group) || config.groups.find(g => g.id === 'no-intervention')
-        const paragraphs = group.taskInstruction.split('\n\n').map(paragraph => {
+        const paragraphs = group.taskInstruction.split('\n\n').map((paragraph, index) => {
           let content = escape(paragraph)
           for (const phrase of group.boldPhrases) content = content.replace(escape(phrase), `<strong>${escape(phrase)}</strong>`)
-          return `<p>${content}</p>`
+          const className = group.id === 'intervention' && index === 2 ? ' class="intervention-evidence"' : ''
+          return `<p${className}>${content.replace(/\n/g, '<br>')}</p>`
         }).join('')
         const content = group.id === 'intervention' ? `<div class="intervention-instruction">${paragraphs}</div>` : paragraphs
         info('', content, () => go('task', {index:state.task.length, phase:'initial'}), '과제 시작하기')
