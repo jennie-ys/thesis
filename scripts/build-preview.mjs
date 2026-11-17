@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile, cp } from 'node:fs/promises'
 import app from '../dist/_worker.js'
 
 // Reuse the actual server-rendered screens and API manifests, without a server.
@@ -12,7 +12,7 @@ for (const path of ['experiment-config', 'images', 'initial-exam-images', 'task-
 const css = await readFile(new URL('../public/static/style.css', import.meta.url), 'utf8')
 const experiment = (await readFile(new URL('../public/static/experiment.js', import.meta.url), 'utf8'))
   .replaceAll('__exp_', '__preview_exp_')
-const adapter = `
+const makeAdapter = routes => `
 ;(() => {
   const routes = ${JSON.stringify(routes).replaceAll('<', '\\u003c')};
   // Every request stays in this document. No participant data is transmitted.
@@ -34,13 +34,30 @@ const adapter = `
     location.reload();
   });
 })();`
-let html = await (await app.request('/')).text()
+const baseHtml = await (await app.request('/')).text()
+let html = baseHtml
 html = html.replace('<title>온라인 실험 참가</title>', '<title>Thesis · 실험 절차 미리보기</title>')
 html = html.replace('<link rel="stylesheet" href="/static/style.css" />', `<style>${css}</style>`)
 const footer = '<footer class="preview-footer"><span>미리보기에서는 응답을 서버에 저장하지 않습니다.</span><button id="preview-reset" type="button">처음부터 다시 보기</button></footer>'
-html = html.replace('<script src="/static/experiment.js"></script>', `${footer}<script>${inline(adapter)}</script>\n<script>${inline(experiment)}</script>`)
+html = html.replace('<script src="/static/experiment.js"></script>', `${footer}<script>${inline(makeAdapter(routes))}</script>\n<script>${inline(experiment)}</script>`)
 const output = new URL('../docs/', import.meta.url)
 await mkdir(output, { recursive: true })
-await writeFile(new URL('index.html', output), html)
+// GitHub Pages uses relative asset URLs; Cloudflare's public assets keep /static URLs.
+const pageRoutes = structuredClone(routes)
+const embeddedRoutes = structuredClone(routes)
+for (const path of Object.keys(routes)) {
+  const keys = ['slides','exams','tasks']
+  for (const key of keys) {
+    for (let i=0; i<(routes[path][key] || []).length; i++) {
+      const url = routes[path][key][i].url
+      pageRoutes[path][key][i].url = '.' + url
+      const bytes = await readFile(new URL('../public' + url, import.meta.url))
+      embeddedRoutes[path][key][i].url = 'data:image/jpeg;base64,' + bytes.toString('base64')
+    }
+  }
+}
+await writeFile(new URL('index.html', output), html.replace(inline(makeAdapter(routes)), inline(makeAdapter(pageRoutes))))
+await cp(new URL('../public/static/stimuli/',import.meta.url),new URL('static/stimuli/',output),{recursive:true})
+await writeFile(new URL('../../index.html',import.meta.url),html.replace(inline(makeAdapter(routes)),inline(makeAdapter(embeddedRoutes))))
 await writeFile(new URL('.nojekyll', output), '')
 console.log('Built docs/index.html: standalone preview, no API server required.')

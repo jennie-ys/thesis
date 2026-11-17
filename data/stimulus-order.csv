@@ -1,0 +1,106 @@
+stage,position,block,imageId,categoryCode,correctCategory,novelty,sourceSubset,url
+learning,1,1,ISIC_1176432,DF,피부섬유종,,,/static/stimuli/learning/DF/cases/ISIC_1176432.jpg
+learning,2,1,ISIC_0496864,AK,광선각화증,,,/static/stimuli/learning/AK/cases/ISIC_0496864.jpg
+learning,3,1,ISIC_0106322,NV,멜라닌세포성 모반,,,/static/stimuli/learning/NV/cases/ISIC_0106322.jpg
+learning,4,1,ISIC_0195347,BCC,기저세포암,,,/static/stimuli/learning/BCC/cases/ISIC_0195347.jpg
+learning,5,1,ISIC_3849096,VASC,혈관 병변,,,/static/stimuli/learning/VASC/cases/ISIC_3849096.jpg
+learning,6,2,ISIC_0377749,BCC,기저세포암,,,/static/stimuli/learning/BCC/cases/ISIC_0377749.jpg
+learning,7,2,ISIC_0101767,NV,멜라닌세포성 모반,,,/static/stimuli/learning/NV/cases/ISIC_0101767.jpg
+learning,8,2,ISIC_4324758,DF,피부섬유종,,,/static/stimuli/learning/DF/cases/ISIC_4324758.jpg
+learning,9,2,ISIC_0478016,AK,광선각화증,,,/static/stimuli/learning/AK/cases/ISIC_0478016.jpg
+learning,10,2,ISIC_0552734,VASC,혈관 병변,,,/static/stimuli/learning/VASC/cases/ISIC_0552734.jpg
+learning,11,3,ISIC_0369681,BCC,기저세포암,,,/static/stimuli/learning/BCC/cases/ISIC_0369681.jpg
+learning,12,3,ISIC_0080219,NV,멜라닌세포성 모반,,,/static/stimuli/learning/NV/cases/ISIC_0080219.jpg
+learning,13,3,ISIC_0919412,DF,피부섬유종,,,/static/stimuli/learning/DF/cases/ISIC_0919412.jpg
+learning,14,3,ISIC_0605910,AK,광선각화증,,,/static/stimuli/learning/AK/cases/ISIC_0605910.jpg
+learning,15,3,ISIC_5409072,VASC,혈관 병변,,,/static/stimuli/learning/VASC/cases/ISIC_5409072.jpg
+learning,16,4,ISIC_0097262,NV,멜라닌세포성 모반,,,/static/stimuli/learning/NV/cases/ISIC_0097262.jpg
+learning,17,4,ISIC_4959784,DF,피부섬유종,,,/static/stimuli/learning/DF/cases/ISIC_4959784.jpg
+learning,18,4,ISIC_0707479,AK,광선각화증,,,/static/stimuli/learning/AK/cases/ISIC_0707479.jpg
+learning,19,4,ISIC_5866736,VASC,혈관 병변,,,/static/stimuli/learning/VASC/cases/ISIC_5866736.jpg
+learning,20,4,ISIC_0365517,BCC,기저세포암,,,/static/stimuli/learning/BCC/cases/ISIC_0365517.jpg
+learning,21,5,ISIC_0146067,AK,광선각화증,,,/static/stimuli/learning/AK/cases/ISIC_0146067.jpg
+learning,22,5,ISIC_0115114,NV,멜라닌세포성 모반,,,/static/stimuli/learning/NV/cases/ISIC_0115114.jpg
+learning,23,5,ISIC_0811703,DF,피부섬유종,,,/static/stimuli/learning/DF/cases/ISIC_0811703.jpg
+learning,24,5,ISIC_0381913,BCC,기저세포암,,,/static/stimuli/learning/BCC/cases/ISIC_0381913.jpg
+learning,25,5,ISIC_1996485,VASC,혈관 병변,,,/static/stimuli/learning/VASC/cases/ISIC_1996485.jpg
+learning,26,6,ISIC_0368554,BCC,기저세포암,,,/static/stimuli/learning/BCC/cases/ISIC_0368554.jpg
+learning,27,6,ISIC_1342857,DF,피부섬유종,,,/static/stimuli/learning/DF/cases/ISIC_1342857.jpg
+learning,28,6,ISIC_0073863,NV,멜라닌세포성 모반,,,/static/stimuli/learning/NV/cases/ISIC_0073863.jpg
+learning,29,6,ISIC_0686612,VASC,혈관 병변,,,/static/stimuli/learning/VASC/cases/ISIC_0686612.jpg
+learning,30,6,ISIC_0260732,AK,광선각화증,,,/static/stimuli/learning/AK/cases/ISIC_0260732.jpg
+initial-exam,1,,ISIC_0073863,NV,멜라닌세포성 모반,old,old_study_123,/static/stimuli/initial-exam/NV/old/ISIC_0073863.jpg
+initial-exam,2,,ISIC_1996485,VASC,혈관 병변,old,old_study_123,/static/stimuli/initial-exam/VASC/old/ISIC_1996485.jpg
+initial-exam,3,,ISIC_1176432,DF,피부섬유종,old,old_study_123,/static/stimuli/initial-exam/DF/old/ISIC_1176432.jpg
+initial-exam,4,,ISIC_0260732,AK,광선각화증,old,old_study_123,/static/stimuli/initial-exam/AK/old/ISIC_0260732.jpg
+initial-exam,5,,ISIC_0552734,VASC,혈관 병변,old,old_study_123,/static/stimuli/initial-exam/VASC/old/ISIC_0552734.jpg
+initial-exam,6,,ISIC_0919412,DF,피부섬유종,old,old_study_123,/static/stimuli/initial-exam/DF/old/ISIC_0919412.jpg
+initial-exam,7,,ISIC_0368554,BCC,기저세포암,old,old_study_123,/static/stimuli/initial-exam/BCC/old/ISIC_0368554.jpg
+initial-exam,8,,ISIC_0811703,DF,피부섬유종,old,old_study_123,/static/stimuli/initial-exam/DF/old/ISIC_0811703.jpg
+initial-exam,9,,ISIC_0097262,NV,멜라닌세포성 모반,old,old_study_123,/static/stimuli/initial-exam/NV/old/ISIC_0097262.jpg
+initial-exam,10,,ISIC_0478016,AK,광선각화증,old,old_study_123,/static/stimuli/initial-exam/AK/old/ISIC_0478016.jpg
+initial-exam,11,,ISIC_0686612,VASC,혈관 병변,old,old_study_123,/static/stimuli/initial-exam/VASC/old/ISIC_0686612.jpg
+initial-exam,12,,ISIC_0365517,BCC,기저세포암,old,old_study_123,/static/stimuli/initial-exam/BCC/old/ISIC_0365517.jpg
+initial-exam,13,,ISIC_0080219,NV,멜라닌세포성 모반,old,old_study_123,/static/stimuli/initial-exam/NV/old/ISIC_0080219.jpg
+initial-exam,14,,ISIC_0195347,BCC,기저세포암,old,old_study_123,/static/stimuli/initial-exam/BCC/old/ISIC_0195347.jpg
+initial-exam,15,,ISIC_0146067,AK,광선각화증,old,old_study_123,/static/stimuli/initial-exam/AK/old/ISIC_0146067.jpg
+ai-task,1,1,ISIC_1115156,AK,광선각화증,new,ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK),/static/stimuli/ai-task/AK/new/ISIC_1115156.jpg
+ai-task,2,1,ISIC_8020470,VASC,혈관 병변,new,ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC),/static/stimuli/ai-task/VASC/new/ISIC_8020470.jpg
+ai-task,3,1,ISIC_0913648,BCC,기저세포암,new,ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC),/static/stimuli/ai-task/BCC/new/ISIC_0913648.jpg
+ai-task,4,1,ISIC_0356038,NV,멜라닌세포성 모반,new,ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV),/static/stimuli/ai-task/NV/new/ISIC_0356038.jpg
+ai-task,5,1,ISIC_6043617,DF,피부섬유종,new,ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF),/static/stimuli/ai-task/DF/new/ISIC_6043617.jpg
+ai-task,6,2,ISIC_0382621,BCC,기저세포암,new,ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC),/static/stimuli/ai-task/BCC/new/ISIC_0382621.jpg
+ai-task,7,2,ISIC_0970615,AK,광선각화증,new,ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK),/static/stimuli/ai-task/AK/new/ISIC_0970615.jpg
+ai-task,8,2,ISIC_7134919,VASC,혈관 병변,new,ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC),/static/stimuli/ai-task/VASC/new/ISIC_7134919.jpg
+ai-task,9,2,ISIC_0125513,NV,멜라닌세포성 모반,new,ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV),/static/stimuli/ai-task/NV/new/ISIC_0125513.jpg
+ai-task,10,2,ISIC_5844410,DF,피부섬유종,new,ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF),/static/stimuli/ai-task/DF/new/ISIC_5844410.jpg
+ai-task,11,3,ISIC_1099402,AK,광선각화증,new,ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK),/static/stimuli/ai-task/AK/new/ISIC_1099402.jpg
+ai-task,12,3,ISIC_5813817,DF,피부섬유종,new,ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF),/static/stimuli/ai-task/DF/new/ISIC_5813817.jpg
+ai-task,13,3,ISIC_6141128,VASC,혈관 병변,new,ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC),/static/stimuli/ai-task/VASC/new/ISIC_6141128.jpg
+ai-task,14,3,ISIC_0216815,NV,멜라닌세포성 모반,new,ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV),/static/stimuli/ai-task/NV/new/ISIC_0216815.jpg
+ai-task,15,3,ISIC_1230479,BCC,기저세포암,new,ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC),/static/stimuli/ai-task/BCC/new/ISIC_1230479.jpg
+ai-task,16,4,ISIC_0167803,NV,멜라닌세포성 모반,new,ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV),/static/stimuli/ai-task/NV/new/ISIC_0167803.jpg
+ai-task,17,4,ISIC_8462138,VASC,혈관 병변,new,ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC),/static/stimuli/ai-task/VASC/new/ISIC_8462138.jpg
+ai-task,18,4,ISIC_1217127,BCC,기저세포암,new,ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC),/static/stimuli/ai-task/BCC/new/ISIC_1217127.jpg
+ai-task,19,4,ISIC_6943256,DF,피부섬유종,new,ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF),/static/stimuli/ai-task/DF/new/ISIC_6943256.jpg
+ai-task,20,4,ISIC_1119486,AK,광선각화증,new,ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK),/static/stimuli/ai-task/AK/new/ISIC_1119486.jpg
+ai-task,21,5,ISIC_0174869,NV,멜라닌세포성 모반,new,ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV),/static/stimuli/ai-task/NV/new/ISIC_0174869.jpg
+ai-task,22,5,ISIC_1076265,AK,광선각화증,new,ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK),/static/stimuli/ai-task/AK/new/ISIC_1076265.jpg
+ai-task,23,5,ISIC_0962183,BCC,기저세포암,new,ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC),/static/stimuli/ai-task/BCC/new/ISIC_0962183.jpg
+ai-task,24,5,ISIC_6192197,VASC,혈관 병변,new,ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC),/static/stimuli/ai-task/VASC/new/ISIC_6192197.jpg
+ai-task,25,5,ISIC_6558326,DF,피부섬유종,new,ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF),/static/stimuli/ai-task/DF/new/ISIC_6558326.jpg
+ai-task,26,6,ISIC_8190843,VASC,혈관 병변,new,ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC),/static/stimuli/ai-task/VASC/new/ISIC_8190843.jpg
+ai-task,27,6,ISIC_0179367,NV,멜라닌세포성 모반,new,ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV),/static/stimuli/ai-task/NV/new/ISIC_0179367.jpg
+ai-task,28,6,ISIC_6312345,DF,피부섬유종,new,ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF),/static/stimuli/ai-task/DF/new/ISIC_6312345.jpg
+ai-task,29,6,ISIC_0723926,AK,광선각화증,new,ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK),/static/stimuli/ai-task/AK/new/ISIC_0723926.jpg
+ai-task,30,6,ISIC_1186941,BCC,기저세포암,new,ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC),/static/stimuli/ai-task/BCC/new/ISIC_1186941.jpg
+final-exam,1,,ISIC_0106322,NV,멜라닌세포성 모반,old,old_study_456,/static/stimuli/final-exam/NV/old/ISIC_0106322.jpg
+final-exam,2,,ISIC_2983004,AK,광선각화증,new,new,/static/stimuli/final-exam/AK/new/ISIC_2983004.jpg
+final-exam,3,,ISIC_5866736,VASC,혈관 병변,old,old_study_456,/static/stimuli/final-exam/VASC/old/ISIC_5866736.jpg
+final-exam,4,,ISIC_1025100,NV,멜라닌세포성 모반,new,new,/static/stimuli/final-exam/NV/new/ISIC_1025100.jpg
+final-exam,5,,ISIC_0195347,BCC,기저세포암,old,old_study_456,/static/stimuli/final-exam/BCC/old/ISIC_0195347.jpg
+final-exam,6,,ISIC_3849096,VASC,혈관 병변,old,old_study_456,/static/stimuli/final-exam/VASC/old/ISIC_3849096.jpg
+final-exam,7,,ISIC_0260732,AK,광선각화증,old,old_study_456,/static/stimuli/final-exam/AK/old/ISIC_0260732.jpg
+final-exam,8,,ISIC_8614567,VASC,혈관 병변,new,new,/static/stimuli/final-exam/VASC/new/ISIC_8614567.jpg
+final-exam,9,,ISIC_1342857,DF,피부섬유종,old,old_study_456,/static/stimuli/final-exam/DF/old/ISIC_1342857.jpg
+final-exam,10,,ISIC_2232926,BCC,기저세포암,new,new,/static/stimuli/final-exam/BCC/new/ISIC_2232926.jpg
+final-exam,11,,ISIC_0115114,NV,멜라닌세포성 모반,old,old_study_456,/static/stimuli/final-exam/NV/old/ISIC_0115114.jpg
+final-exam,12,,ISIC_7009788,DF,피부섬유종,new,new,/static/stimuli/final-exam/DF/new/ISIC_7009788.jpg
+final-exam,13,,ISIC_2231864,BCC,기저세포암,new,new,/static/stimuli/final-exam/BCC/new/ISIC_2231864.jpg
+final-exam,14,,ISIC_7454975,DF,피부섬유종,new,new,/static/stimuli/final-exam/DF/new/ISIC_7454975.jpg
+final-exam,15,,ISIC_8791057,VASC,혈관 병변,new,new,/static/stimuli/final-exam/VASC/new/ISIC_8791057.jpg
+final-exam,16,,ISIC_0381913,BCC,기저세포암,old,old_study_456,/static/stimuli/final-exam/BCC/old/ISIC_0381913.jpg
+final-exam,17,,ISIC_3004699,AK,광선각화증,new,new,/static/stimuli/final-exam/AK/new/ISIC_3004699.jpg
+final-exam,18,,ISIC_8705648,DF,피부섬유종,new,new,/static/stimuli/final-exam/DF/new/ISIC_8705648.jpg
+final-exam,19,,ISIC_0101767,NV,멜라닌세포성 모반,old,old_study_456,/static/stimuli/final-exam/NV/old/ISIC_0101767.jpg
+final-exam,20,,ISIC_2122841,BCC,기저세포암,new,new,/static/stimuli/final-exam/BCC/new/ISIC_2122841.jpg
+final-exam,21,,ISIC_0146067,AK,광선각화증,old,old_study_456,/static/stimuli/final-exam/AK/old/ISIC_0146067.jpg
+final-exam,22,,ISIC_1176432,DF,피부섬유종,old,old_study_456,/static/stimuli/final-exam/DF/old/ISIC_1176432.jpg
+final-exam,23,,ISIC_2977779,AK,광선각화증,new,new,/static/stimuli/final-exam/AK/new/ISIC_2977779.jpg
+final-exam,24,,ISIC_1029957,NV,멜라닌세포성 모반,new,new,/static/stimuli/final-exam/NV/new/ISIC_1029957.jpg
+final-exam,25,,ISIC_5409072,VASC,혈관 병변,old,old_study_456,/static/stimuli/final-exam/VASC/old/ISIC_5409072.jpg
+final-exam,26,,ISIC_0605910,AK,광선각화증,old,old_study_456,/static/stimuli/final-exam/AK/old/ISIC_0605910.jpg
+final-exam,27,,ISIC_0377749,BCC,기저세포암,old,old_study_456,/static/stimuli/final-exam/BCC/old/ISIC_0377749.jpg
+final-exam,28,,ISIC_8600102,VASC,혈관 병변,new,new,/static/stimuli/final-exam/VASC/new/ISIC_8600102.jpg
+final-exam,29,,ISIC_0769255,NV,멜라닌세포성 모반,new,new,/static/stimuli/final-exam/NV/new/ISIC_0769255.jpg
+final-exam,30,,ISIC_0919412,DF,피부섬유종,old,old_study_456,/static/stimuli/final-exam/DF/old/ISIC_0919412.jpg

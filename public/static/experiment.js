@@ -579,6 +579,9 @@
     const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
     const responses = {
       _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
+      _stimulus_order_version:config.stimulusOrderVersion,
+      _ai_mapping_pending:config.aiMappingPending,
+      _stimulus_manifest:[...slides,...initialExams,...tasks,...finalExams].map(({id,imageId,categoryCode,novelty,position,block})=>({id,imageId,categoryCode,novelty,position,block})),
       _instruction_check:state.group === 'intervention' ? state.instructionCheck : null,
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
@@ -611,12 +614,31 @@
     state.surveyDraft[input.type === 'radio' ? input.name : input.id] = input.value
     persist()
   }
+  // Keep decoded images alive throughout the session, before any timed trial starts.
+  const imageCache = new Map()
+  async function preloadStimuli() {
+    const urls = [...new Set([...slides,...initialExams,...tasks,...finalExams].map(t=>t.url).filter(Boolean))]
+    let cursor = 0
+    await Promise.all(Array.from({length:Math.min(6,urls.length)},async () => {
+      while(cursor < urls.length) {
+        const url = urls[cursor++], image = new Image()
+        await new Promise((resolve,reject) => {
+          image.onload = resolve
+          image.onerror = () => reject(new Error('이미지를 불러오지 못했습니다. 연결을 확인한 뒤 새로고침해 주세요.'))
+          image.src = url
+        })
+        if (image.decode) await image.decode()
+        imageCache.set(url,image)
+      }
+    }))
+  }
   async function init() {
     if (initStarted) return; initStarted = true
     try {
       const get = async path => { const r = await fetch(path); if (!r.ok) throw new Error('실험 설정을 불러올 수 없습니다.'); return r.json() }
       const data = await Promise.all(['/api/experiment-config','/api/images','/api/initial-exam-images','/api/task-images','/api/exam-images'].map(get))
       ;[config, {slides}, {exams:initialExams}, {tasks}, {exams:finalExams}] = data
+      await preloadStimuli()
       try { state = JSON.parse(sessionStorage.getItem(STATE_KEY)) } catch (_) {}
       if (!state || state.version !== config.version) state = freshState()
       if (state.group && !config.groups.some(g=>g.id===state.group)) state = freshState()

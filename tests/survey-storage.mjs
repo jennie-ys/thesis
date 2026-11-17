@@ -14,8 +14,8 @@ for(const example of [
 ]){
   const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message))
   const dom=new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:vc}),w=dom.window
-  w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{}
-  w.sessionStorage.setItem(key,JSON.stringify({version:'two-group-v2',participantId:'storage-test',group:'intervention',screen:'step-ai-error-belief',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:example.survey,pages:[],pageEntered:Date.now(),math:null}))
+  w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{}
+  w.sessionStorage.setItem(key,JSON.stringify({version:'two-group-v3-images',participantId:'storage-test',group:'intervention',screen:'step-ai-error-belief',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:example.survey,pages:[],pageEntered:Date.now(),math:null}))
   for(const script of w.document.querySelectorAll('script'))w.eval(script.textContent)
   w.document.dispatchEvent(new w.Event('DOMContentLoaded'))
   await new Promise(r=>setTimeout(r,5))

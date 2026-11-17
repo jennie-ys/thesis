@@ -5,7 +5,7 @@ const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8')
 const errors=[], vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message))
 const dom=new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:vc})
 const w=dom.window,d=w.document
-w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{}
+w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{}
 for(const script of d.querySelectorAll('script'))w.eval(script.textContent)
 d.dispatchEvent(new w.Event('DOMContentLoaded'))
 const wait=()=>new Promise(r=>setTimeout(r,2))

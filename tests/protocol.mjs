@@ -13,9 +13,10 @@ assert(config.groups.every(g=>g.taskInstruction&&g.boldPhrases.length))
 const sets = {}
 for (const [path,key] of [['images','slides'],['initial-exam-images','exams'],['task-images','tasks'],['exam-images','exams']]) {
   const data = await get(path); const trials = data[key]; sets[path] = trials
-  assert.equal(trials.length,30); assert.equal(new Set(trials.map(t=>t.id)).size,30)
-  assert(trials.every(t=>t.url===null))
-  for(const category of config.categories) assert.equal(trials.filter(t=>t.correctCategory===category).length,6)
+  const count = path==='initial-exam-images'?15:30
+  assert.equal(trials.length,count); assert.equal(new Set(trials.map(t=>t.id)).size,count)
+  assert(trials.every(t=>t.url.startsWith('/static/stimuli/')))
+  for(const category of config.categories) assert.equal(trials.filter(t=>t.correctCategory===category).length,count/5)
 }
 assert(sets['task-images'].every(t=>t.aiCategory===null&&t.aiReason===null))
 const summaries = []
@@ -24,7 +25,7 @@ for (const group of config.groups.map(g=>g.id)) {
   console.on('jsdomError',err=>errors.push(err.message))
   const dom = new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:console})
   const w = dom.window, d = w.document
-  w.scrollTo = () => {}; w.HTMLElement.prototype.scrollIntoView = () => {}
+  w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo = () => {}; w.HTMLElement.prototype.scrollIntoView = () => {}
   w.fetch = () => { throw Error('Unexpected external request') }
   const timeout = w.setTimeout.bind(w); w.setTimeout = (fn,delay,...args) => timeout(fn,0,...args)
   for(const script of d.querySelectorAll('script')) w.eval(script.textContent)
@@ -52,16 +53,16 @@ for (const group of config.groups.map(g=>g.id)) {
   await jol('jol-initial-exam',100); await click('btn-next')
   assert.equal(read().screen,'initial-exam')
   await click('btn-initial-exam-next'); assert.equal(read().initialExam.length,0)
-  for(let i=0;i<30;i++){
+  for(let i=0;i<sets['initial-exam-images'].length;i++){
     const trial = sets['initial-exam-images'][i]
     assert.equal(element('#experiment-root').querySelectorAll('input[type="radio"]').length,0)
-    assert(!element('.stimulus-empty').textContent.includes(trial.correctCategory))
+    assert.equal(element('.task-img').alt,'피부 병변 사례')
     const reference=element('#category-reference').textContent
     assert(config.categories.every(cat=>reference.includes(cat)))
-    fill('written-answer',i<24 ? ' '+trial.correctCategory.replace(' ','  ')+' ' : '모르겠다')
+    fill('written-answer',i<12 ? ' '+trial.correctCategory.replace(' ','  ')+' ' : '모르겠다')
     await click('btn-initial-exam-next')
   }
-  assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/24\s*\/ 30점/)
+  assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/12\s*\/ 15점/)
   await click('btn-next'); await jol('jol-ai-prediction',70); await click('btn-next')
   assert.equal(read().screen,'task-notice')
   const groupConfig=config.groups.find(g=>g.id===group)
@@ -160,7 +161,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(!('_ai_survey' in responses));assert(!('ai_can_be_wrong' in responses));assert(!('ai_expected_accuracy' in responses))
   assert.equal(responses._instruction_check?.passed ?? null,group==='intervention'?true:null)
   if(group==='intervention')assert.deepEqual(responses._instruction_check.attempts.map(a=>[a.answer,a.correct]),[[70,false],[67.8,true]])
-  assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,24)
+  assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,12)
   assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
   assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])
   assert.deepEqual(responses._jol.after_ai_task,{jol1:80,jol2:60})
@@ -172,7 +173,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(Object.keys(responses.ai_t).every(key=>key.startsWith('ai_t')))
   assert.deepEqual(errors,[])
   summaries.push(read().pages.map(p=>[p.screen,p.index,p.phase,p.round]))
-  process.stdout.write(group+': 60 learning presentations, 4 JOLs, 30 written trials, score, 30 T-format tasks, math, 30 final trials and unchanged surveys PASS\n')
+  process.stdout.write(group+': 60 learning presentations, 4 JOLs, 15 written trials, score, 30 T-format tasks, math, 30 final trials and unchanged surveys PASS\n')
   dom.window.close()
 }
 // Exclude the different number of math practice responses used by the two tests.

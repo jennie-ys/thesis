@@ -5,12 +5,12 @@ const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8'),
 async function open(state){
   const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message))
   const dom=new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:vc}),w=dom.window
-  w.scrollTo=()=>{};w.sessionStorage.setItem(key,JSON.stringify(state))
+  w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo=()=>{};w.sessionStorage.setItem(key,JSON.stringify(state))
   for(const script of w.document.querySelectorAll('script'))w.eval(script.textContent)
   w.document.dispatchEvent(new w.Event('DOMContentLoaded'));await new Promise(r=>setTimeout(r,10))
   return {dom,w,d:w.document,errors,read:()=>JSON.parse(w.sessionStorage.getItem(key))}
 }
-const seed={version:'two-group-v2',participantId:'gate-test',group:'intervention',screen:'task-notice',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:{},pages:[],pageEntered:Date.now(),math:null}
+const seed={version:'two-group-v3-images',participantId:'gate-test',group:'intervention',screen:'task-notice',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:{},pages:[],pageEntered:Date.now(),math:null}
 let app=await open(seed)
 const click=id=>app.d.getElementById(id).click()
 click('temporary-skip');assert.equal(app.read().screen,'task-check');assert(!app.d.getElementById('btn-checked-task-start'))
