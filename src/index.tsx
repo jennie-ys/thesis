@@ -1,11 +1,10 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
-import { serveStatic } from 'hono/cloudflare-workers'
 import { getExperimentConfig, getLearningImages, getInitialExamImages, getTaskImages, getExamImages } from './image-manifest'
 
-type Bindings = { GITHUB_TOKEN: string; GITHUB_OWNER: string; GITHUB_REPO: string }
+type Bindings = { GITHUB_TOKEN: string; GITHUB_OWNER: string; GITHUB_REPO: string; ASSETS: { fetch(request: Request): Promise<Response> } }
 const app = new Hono<{ Bindings: Bindings }>()
-app.use('/static/*', serveStatic({ root: './public' }))
+app.get('/static/*', c => c.env?.ASSETS ? c.env.ASSETS.fetch(c.req.raw) : c.notFound())
 app.use('/api/*', cors())
 app.get('/api/experiment-config', c => c.json(getExperimentConfig()))
 app.get('/api/images', c => c.json(getLearningImages()))

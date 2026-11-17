@@ -1,10 +1,10 @@
 import { readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
 import { JSDOM, VirtualConsole } from 'jsdom'
-import app from '../dist/_worker.js'
+import app from '../dist/index.js'
 const html = await readFile(new URL('../docs/index.html', import.meta.url), 'utf8')
 const tick = () => new Promise(resolve => setTimeout(resolve, 2))
-const get = async path => (await app.request('/api/' + path)).json()
+const get = async path => (await app.fetch(new Request('https://experiment.local/api/' + path))).json()
 const config = await get('experiment-config')
 assert.deepEqual(config.groups.map(g=>g.id), ['intervention','no-intervention'])
 assert.equal(config.categories.length,5)

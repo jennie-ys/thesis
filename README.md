@@ -116,3 +116,9 @@ intervention 문구의 두 번째 문단은 쉼표 뒤에서 줄을 바꾸며, �
 intervention 안내의 “다음→” 버튼은 별도의 진단 정확도 확인 문항으로 이동합니다. 정답은 선행연구 수치인 67.8%입니다. 다른 수치로 답하면 지시문으로 돌아가고, 정답이면 같은 확인 페이지에 “과제 시작하기” 버튼이 표시됩니다. no-intervention에는 이 문항을 제시하지 않습니다.
 
 확인 문항에서는 임시 skip도 지시문으로 돌아가도록 하여 정답 확인 없이 과제를 시작할 수 없게 했습니다. 새로고침 시 확인 상태와 시도 내역을 복원하며, 제출 데이터의 `_instruction_check`에 통과 여부와 각 시도의 응답·정오답·반응시간·제출시각을 저장합니다. no-intervention에서는 null입니다.
+
+## Cloudflare Workers 배포
+
+기존 Worker `thesis`와 `thesis.jennie-283.workers.dev` 주소에 배포합니다. Workers 프로젝트의 Settings → Builds에서 Build command는 `npm run build`, Deploy command는 `npx wrangler deploy`, Root directory는 저장소 루트(`/`)로 설정합니다. API token은 기존 Worker 배포 권한이 있는 `thesis build token`을 사용합니다. Pages용 토큰과 `wrangler pages deploy`는 이 배포에 사용하지 않습니다.
+
+`wrangler.jsonc`의 main은 `dist/index.js`, 정적 파일 디렉터리는 `dist`, 바인딩은 `ASSETS`입니다. 빌드된 Worker 스크립트는 `.assetsignore`로 정적 파일 업로드에서 제외합니다. 이미지·CSS·JS는 Workers Static Assets로 제공하며 API와 실험 화면은 같은 Worker에서 제공합니다. 응답 저장용 GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO는 이 Worker의 런타임 변수·Secret에서 별도로 설정합니다.

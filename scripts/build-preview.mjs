@@ -1,11 +1,12 @@
 import { mkdir, readFile, writeFile, cp } from 'node:fs/promises'
-import app from '../dist/_worker.js'
+import app from '../dist/index.js'
+const request = path => app.fetch(new Request('https://experiment.local' + path))
 
 // Reuse the actual server-rendered screens and API manifests, without a server.
 const inline = value => value.replace(/<\/script/gi, '<\\/script')
 const routes = {}
 for (const path of ['experiment-config', 'images', 'initial-exam-images', 'task-images', 'exam-images']) {
-  const response = await app.request('/api/' + path)
+  const response = await request('/api/' + path)
   if (!response.ok) throw new Error('Cannot build experiment configuration: ' + path)
   routes['/api/' + path] = await response.json()
 }
@@ -34,7 +35,7 @@ const makeAdapter = routes => `
     location.reload();
   });
 })();`
-const baseHtml = await (await app.request('/')).text()
+const baseHtml = await (await request('/')).text()
 let html = baseHtml
 html = html.replace('<title>온라인 실험 참가</title>', '<title>Thesis · 실험 절차 미리보기</title>')
 html = html.replace('<link rel="stylesheet" href="/static/style.css" />', `<style>${css}</style>`)
