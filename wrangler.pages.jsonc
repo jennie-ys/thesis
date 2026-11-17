@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "thesis",
+  "compatibility_date": "2026-04-13",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "pages_build_output_dir": "./dist",
+  "vars": {
+    "GITHUB_OWNER": "jennie-ys",
+    "GITHUB_REPO": "thesis"
+  }
+}

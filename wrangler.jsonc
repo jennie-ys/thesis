@@ -5,9 +5,14 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "pages_build_output_dir": "./dist",
   "vars": {
     "GITHUB_OWNER": "jennie-ys",
     "GITHUB_REPO": "thesis"
-  }
+  },
+  "main": "dist/_worker.js",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "workers_dev": true
 }
