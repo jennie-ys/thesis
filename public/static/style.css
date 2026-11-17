@@ -1125,3 +1125,8 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 .temporary-controls { max-width:900px; margin:0 auto; padding:0 2.5rem 2rem; display:flex; justify-content:flex-end; }
 .preview-footer { max-width:900px; margin:0 auto; padding:1rem 2.5rem; font-size:.85rem; color:#111111; display:flex; flex-wrap:wrap; align-items:center; gap:1rem; }
 .preview-footer button { border:1px solid #111111; background:#ffffff; color:#111111; padding:6px 12px; border-radius:4px; cursor:pointer; font:inherit; }
+
+/* Increase only the intervention instruction text (from .96rem to 1.1rem). */
+.instruct-body .intervention-instruction { font-size:1.1rem; line-height:1.85; font-weight:400; }
+.intervention-instruction p { font-weight:400; }
+.intervention-instruction strong { font-weight:700; }

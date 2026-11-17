@@ -193,7 +193,8 @@
           for (const phrase of group.boldPhrases) content = content.replace(escape(phrase), `<strong>${escape(phrase)}</strong>`)
           return `<p>${content}</p>`
         }).join('')
-        info('', paragraphs, () => go('task', {index:state.task.length, phase:'initial'}), '과제 시작하기')
+        const content = group.id === 'intervention' ? `<div class="intervention-instruction">${paragraphs}</div>` : paragraphs
+        info('', content, () => go('task', {index:state.task.length, phase:'initial'}), '과제 시작하기')
         break
       }
       case 'task': renderTask(); break

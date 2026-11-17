@@ -67,8 +67,13 @@ for (const group of config.groups.map(g=>g.id)) {
   const groupConfig=config.groups.find(g=>g.id===group)
   assert.deepEqual([...element('#experiment-root').querySelectorAll('strong')].map(e=>e.textContent),groupConfig.boldPhrases)
   assert.equal(element('.instruct-body').textContent,groupConfig.taskInstruction.replaceAll('\n\n',''))
-  assert(!element('.instruct-body').textContent.includes("'"))
-  assert.equal(element('.instruct-body').textContent.includes('66.7%'),group==='intervention')
+  if(group==='intervention') {
+    assert.equal(element('.intervention-instruction').querySelectorAll('p').length,5)
+    assert(element('.instruct-body').textContent.endsWith("준비되었으면 '과제 시작하기' 버튼을 누르십시오."))
+    assert.equal(w.getComputedStyle(element('.intervention-instruction')).fontSize,'17.6px')
+  }
+  assert(!element('.instruct-body').textContent.includes('**'))
+  assert.equal(element('.instruct-body').textContent.includes('67.8%'),group==='intervention')
   await click('btn-next')
   for(let i=0;i<30;i++){
     assert.equal(read().screen,'task'); assert.equal(read().phase,'initial')
