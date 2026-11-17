@@ -1147,6 +1147,38 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 /* Hide empty validation boxes; center learning images with their category text. */
 .inline-err:empty { display: none !important; }
 .learning-card .task-img { margin-inline: auto; }
+
+/* Center the baseline exam and final-exam stimulus. */
+.exam-image-card .task-img { margin-inline:auto; }
+.initial-exam-card { text-align:center; }
+.initial-exam-card #initial-exam-form { display:flex; flex-direction:column; align-items:center; }
+.initial-exam-card .written-answer { width:min(100%, 420px); margin:1rem auto 0; text-align:center; }
+.initial-exam-card .btn-row { justify-content:center; width:100%; }
+.initial-exam-card .inline-err { align-self:center; }
+.ai-survey-item { scroll-margin-block:2rem; }
+.ai-survey-item:focus { outline:none; }
+
+/* Desktop AI collaboration: wide answer column and compact vertical stack. */
+.page-wrap.task-screen { max-width:1440px; padding:1.25rem 1.5rem 1rem; gap:.6rem; }
+.task-screen .review-task-layout { grid-template-columns:minmax(240px, .8fr) minmax(620px, 2fr); gap:1rem; }
+.task-screen .review-task-layout > .card { padding:1rem; min-width:0; }
+.task-screen .task-img { margin-inline:auto; }
+.task-screen .task-boxes { min-width:0; gap:.5rem; }
+.task-screen .task-box { padding:.65rem .8rem; }
+.task-screen .task-box-desc { font-size:.95rem; line-height:1.4; margin-bottom:.4rem; }
+.task-screen .task-choices { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.4rem; margin-top:.35rem; }
+.task-screen .task-choice { min-width:0; padding:.45rem .5rem; gap:.35rem; font-size:.9rem; line-height:1.35; }
+.task-screen .task-choice span { overflow-wrap:anywhere; }
+.task-screen .btn-row { margin-top:.5rem; }
+.task-screen .btn-primary { padding:.45rem 1rem; min-height:36px; font-size:.95rem; }
+.task-screen .ai-label-row { margin-bottom:.35rem; }
+.task-screen .ai-result-empty { min-height:36px; padding:.55rem .7rem; font-size:.95rem; line-height:1.45; }
+.task-screen .ai-result-empty p + p { margin-top:.35rem; }
+@media(max-width:959px) {
+  .task-screen .review-task-layout { grid-template-columns:1fr; }
+  .task-screen .task-choices { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .page-wrap.task-screen { padding:1rem; }
+}
 </style>
 </head>
 <body>
@@ -1446,6 +1478,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   function shell(title, body, footer = '') {
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'))
     $('experiment-root').hidden = false
+    $('experiment-root').classList.toggle('task-screen', state.screen === 'task')
     $('experiment-root').innerHTML = `${body}${footer}`
     window.scrollTo(0, 0)
   }
@@ -1602,7 +1635,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   }
   function renderInitialExam() {
     const item = initialExams[state.index]
-    shell('피부 병변 분류 시험', card(`${stimulus(item)}`) + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`))
+    shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`, 'initial-exam-card'))
     const submit = e => {
       e.preventDefault(); const answer = $('written-answer').value.trim()
       if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
@@ -1681,7 +1714,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   }
   function renderFinalExam() {
     const item = finalExams[state.index]
-    shell('NO-AI 최종시험', card(`${stimulus(item)}`) + card(`<fieldset><legend>이 이미지의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
+    shell('NO-AI 최종시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<fieldset><legend>이 이미지의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
     $('btn-exam-next').disabled = true
     document.querySelectorAll('input[name="exam"]').forEach(r => r.onchange = () => { $('btn-exam-next').disabled = false })
     bind('btn-exam-next', () => {
@@ -1802,13 +1835,18 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       if (shown >= items.length) return
       const item = items[shown++]
       const wrap = document.createElement('div'); wrap.className = 'ai-survey-item'; wrap.id = 'ai-item-' + item.name
+      wrap.tabIndex = -1; wrap.setAttribute('role','group'); wrap.setAttribute('aria-labelledby','ai-question-' + item.name)
       const labels = item.type === 'yn' ? ['맞다','틀리다'] : LIKERT4_LABELS
-      wrap.innerHTML = `<p class="ai-survey-q">${escape(item.text)}</p><div class="${item.type === 'yn' ? 'ai-choice-yn' : 'ai-choice-likert4'}">${labels.map((label,i) => {
+      wrap.innerHTML = `<p class="ai-survey-q" id="ai-question-${item.name}">${escape(item.text)}</p><div class="${item.type === 'yn' ? 'ai-choice-yn' : 'ai-choice-likert4'}">${labels.map((label,i) => {
         const value = item.type === 'yn' ? label : String(i+1)
         return `<label class="ai-radio-label"><input type="radio" name="${item.name}" value="${value}" ${String(answers[item.name]) === value ? 'checked' : ''}/><span>${label}</span></label>`
       }).join('')}</div>`
       card.appendChild(wrap)
       fieldShown.set(item.name, performance.now())
+      if (!answers[item.name]) {
+        wrap.focus({preventScroll:true})
+        wrap.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth',block:'center'})
+      }
       wrap.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
         answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); persist()
         if (items.slice(0,shown).every(q=>answers[q.name]) && shown < items.length) revealNext()

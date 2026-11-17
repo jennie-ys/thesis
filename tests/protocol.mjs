@@ -25,7 +25,7 @@ for (const group of config.groups.map(g=>g.id)) {
   console.on('jsdomError',err=>errors.push(err.message))
   const dom = new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:console})
   const w = dom.window, d = w.document
-  w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo = () => {}; w.HTMLElement.prototype.scrollIntoView = () => {}
+  w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo = () => {}; const scrollTargets=[]; w.HTMLElement.prototype.scrollIntoView = function(){scrollTargets.push(this.id)}
   w.fetch = () => { throw Error('Unexpected external request') }
   const timeout = w.setTimeout.bind(w); w.setTimeout = (fn,delay,...args) => timeout(fn,0,...args)
   for(const script of d.querySelectorAll('script')) w.eval(script.textContent)
@@ -135,10 +135,11 @@ for (const group of config.groups.map(g=>g.id)) {
   assert.equal(read().screen,'step-ps-0'); await click('btn-ps0-next');check('input[name="q4"]');await click('btn-ps1-next')
   fill('q5-input','50');await click('btn-ps2-next')
   check('input[name="ai_k1"]');check('input[name="ai_k1"][value="틀리다"]')
+  assert.equal(d.activeElement.id,'ai-item-ai_k2');assert.equal(scrollTargets.at(-1),'ai-item-ai_k2')
   assert.equal(d.querySelectorAll('.ai-survey-item').length,2) // Revising an earlier answer does not reveal extra questions.
-  for(let i=2;i<=6;i++)check('input[name="ai_k'+i+'"]')
+  for(let i=2;i<=6;i++){assert.equal(d.activeElement.id,'ai-item-ai_k'+i);check('input[name="ai_k'+i+'"]')}
   await click('btn-ai-survey-next')
-  for(let i=1;i<=8;i++)check('input[name="ai_a'+i+'"]')
+  for(let i=1;i<=8;i++){assert.equal(d.activeElement.id,'ai-item-ai_a'+i);assert.equal(scrollTargets.at(-1),'ai-item-ai_a'+i);check('input[name="ai_a'+i+'"]')}
   await click('btn-ai-survey-b-next')
   assert.equal(read().screen,'step-ai-error-belief');assert.equal(element('.step.active').dataset.surveyScale,'ai_t');assert.equal(element('.step.active').querySelectorAll('input[type=radio]').length,2);assert(element('#ai-belief-followup').hidden)
   check('input[name="ai_t1"][value="yes"]');assert(!element('#ai-belief-followup').hidden)

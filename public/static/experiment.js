@@ -117,6 +117,7 @@
   function shell(title, body, footer = '') {
     document.querySelectorAll('.step').forEach(el => el.classList.remove('active'))
     $('experiment-root').hidden = false
+    $('experiment-root').classList.toggle('task-screen', state.screen === 'task')
     $('experiment-root').innerHTML = `${body}${footer}`
     window.scrollTo(0, 0)
   }
@@ -273,7 +274,7 @@
   }
   function renderInitialExam() {
     const item = initialExams[state.index]
-    shell('피부 병변 분류 시험', card(`${stimulus(item)}`) + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`))
+    shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`, 'initial-exam-card'))
     const submit = e => {
       e.preventDefault(); const answer = $('written-answer').value.trim()
       if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
@@ -352,7 +353,7 @@
   }
   function renderFinalExam() {
     const item = finalExams[state.index]
-    shell('NO-AI 최종시험', card(`${stimulus(item)}`) + card(`<fieldset><legend>이 이미지의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
+    shell('NO-AI 최종시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<fieldset><legend>이 이미지의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
     $('btn-exam-next').disabled = true
     document.querySelectorAll('input[name="exam"]').forEach(r => r.onchange = () => { $('btn-exam-next').disabled = false })
     bind('btn-exam-next', () => {
@@ -473,13 +474,18 @@
       if (shown >= items.length) return
       const item = items[shown++]
       const wrap = document.createElement('div'); wrap.className = 'ai-survey-item'; wrap.id = 'ai-item-' + item.name
+      wrap.tabIndex = -1; wrap.setAttribute('role','group'); wrap.setAttribute('aria-labelledby','ai-question-' + item.name)
       const labels = item.type === 'yn' ? ['맞다','틀리다'] : LIKERT4_LABELS
-      wrap.innerHTML = `<p class="ai-survey-q">${escape(item.text)}</p><div class="${item.type === 'yn' ? 'ai-choice-yn' : 'ai-choice-likert4'}">${labels.map((label,i) => {
+      wrap.innerHTML = `<p class="ai-survey-q" id="ai-question-${item.name}">${escape(item.text)}</p><div class="${item.type === 'yn' ? 'ai-choice-yn' : 'ai-choice-likert4'}">${labels.map((label,i) => {
         const value = item.type === 'yn' ? label : String(i+1)
         return `<label class="ai-radio-label"><input type="radio" name="${item.name}" value="${value}" ${String(answers[item.name]) === value ? 'checked' : ''}/><span>${label}</span></label>`
       }).join('')}</div>`
       card.appendChild(wrap)
       fieldShown.set(item.name, performance.now())
+      if (!answers[item.name]) {
+        wrap.focus({preventScroll:true})
+        wrap.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth',block:'center'})
+      }
       wrap.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
         answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); persist()
         if (items.slice(0,shown).every(q=>answers[q.name]) && shown < items.length) revealNext()
