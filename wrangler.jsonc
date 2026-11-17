@@ -5,9 +5,9 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "main": "dist/index.js",
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
+  "pages_build_output_dir": "./dist",
+  "vars": {
+    "GITHUB_OWNER": "jennie-ys",
+    "GITHUB_REPO": "thesis"
   }
 }

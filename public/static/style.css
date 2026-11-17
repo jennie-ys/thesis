@@ -1137,3 +1137,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 .intervention-instruction strong { font-weight:700; }
 
 .intervention-instruction .intervention-evidence { font-size:1.2rem; }
+
+/* Hide empty validation boxes; center learning images with their category text. */
+.inline-err:empty { display: none !important; }
+.learning-card .task-img { margin-inline: auto; }

@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile, cp } from 'node:fs/promises'
-import app from '../dist/index.js'
+import app from '../dist/_worker.js'
 const request = path => app.fetch(new Request('https://experiment.local' + path))
 
 // Reuse the actual server-rendered screens and API manifests, without a server.

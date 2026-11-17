@@ -49,10 +49,10 @@ app.post('/api/submit', async (c) => {
   )
 
   if (isConfigured) {
-    // ── GitHub Contents API: responses/{날짜}/{pid_8자리}_{timestamp}.json ──
-    const safeId   = participant_id.slice(0, 8).replace(/[^a-z0-9]/gi, '_')
+    // ── GitHub Contents API: response/{participant_id}.json ──
+    const safeId   = participant_id.replace(/[^a-z0-9_-]/gi, '_').slice(0, 100)
     const tsMs     = Date.now()
-    const filePath = `responses/${dateStr}/${safeId}_${tsMs}.json`
+    const filePath = `response/${safeId}.json`
     // Cloudflare Workers 런타임: unescape()가 없으므로 TextEncoder 방식으로 base64 인코딩
     // 청크 처리로 스택 오버플로우 방지 (대용량 JSON 안전)
     const jsonStr  = JSON.stringify(payload, null, 2)
@@ -62,6 +62,11 @@ app.post('/api/submit', async (c) => {
     const content  = btoa(binary)
 
     try {
+      // Retrying a participant's submission updates the same JSON file.
+      const fileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`
+      const existing = await fetch(fileUrl, { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'experiment-webapp' } })
+      if (!existing.ok && existing.status !== 404) return c.json({ error: 'response_storage_failed' }, 502)
+      const sha = existing.ok ? ((await existing.json()) as { sha: string }).sha : undefined
       const ghRes = await fetch(
         `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
         {
@@ -75,7 +80,8 @@ app.post('/api/submit', async (c) => {
           },
           body: JSON.stringify({
             message: `[응답] ${dateStr} | ${safeId} | group:${group}`,
-            content
+            content,
+            ...(sha ? { sha } : {})
           })
         }
       )
@@ -97,14 +103,14 @@ app.post('/api/submit', async (c) => {
     }
   }
 
-  // 저장소 미설정 시에는 절차 미리보기로만 완료합니다.
-  return c.json({ status: 'preview', saved: false })
+  // A live experiment must never silently complete without durable storage.
+  return c.json({ error: 'response_storage_not_configured' }, 503)
 })
 
 // ─────────────────────────────────────────────────────────────
 // POST /api/backup  — 제출 직전 sessionStorage raw 데이터를 GitHub에 백업
 //   • 성공/실패 모두 200 반환 (제출 흐름을 절대 막지 않음)
-//   • 저장 경로: responses/{날짜}/{pid}_backup_{timestamp}.json
+//   • 저장 경로: response/backups/{participant_id}_backup_{timestamp}.json
 //   • 정식 응답 파일과 구분: 파일명에 _backup_ 포함
 // ─────────────────────────────────────────────────────────────
 app.post('/api/backup', async (c) => {
@@ -128,9 +134,9 @@ app.post('/api/backup', async (c) => {
 
     const now      = new Date().toISOString()
     const dateStr  = now.slice(0, 10)
-    const safeId   = participant_id.slice(0, 8).replace(/[^a-z0-9]/gi, '_')
+    const safeId   = participant_id.replace(/[^a-z0-9_-]/gi, '_').slice(0, 100)
     const tsMs     = Date.now()
-    const filePath = `responses/${dateStr}/${safeId}_backup_${tsMs}.json`
+    const filePath = `response/backups/${safeId}_backup_${tsMs}.json`
 
     const payload  = { participant_id, backed_up_at: now, session_raw }
     const jsonStr  = JSON.stringify(payload, null, 2)

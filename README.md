@@ -117,8 +117,15 @@ intervention 안내의 “다음→” 버튼은 별도의 진단 정확도 확�
 
 확인 문항에서는 임시 skip도 지시문으로 돌아가도록 하여 정답 확인 없이 과제를 시작할 수 없게 했습니다. 새로고침 시 확인 상태와 시도 내역을 복원하며, 제출 데이터의 `_instruction_check`에 통과 여부와 각 시도의 응답·정오답·반응시간·제출시각을 저장합니다. no-intervention에서는 null입니다.
 
-## Cloudflare Workers 배포
 
-기존 Worker `thesis`와 `thesis.jennie-283.workers.dev` 주소에 배포합니다. Workers 프로젝트의 Settings → Builds에서 Build command는 `npm run build`, Deploy command는 `npx wrangler deploy`, Root directory는 저장소 루트(`/`)로 설정합니다. API token은 기존 Worker 배포 권한이 있는 `thesis build token`을 사용합니다. Pages용 토큰과 `wrangler pages deploy`는 이 배포에 사용하지 않습니다.
+## Cloudflare Pages 및 응답 저장
 
-`wrangler.jsonc`의 main은 `dist/index.js`, 정적 파일 디렉터리는 `dist`, 바인딩은 `ASSETS`입니다. 빌드된 Worker 스크립트는 `.assetsignore`로 정적 파일 업로드에서 제외합니다. 이미지·CSS·JS는 Workers Static Assets로 제공하며 API와 실험 화면은 같은 Worker에서 제공합니다. 응답 저장용 GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO는 이 Worker의 런타임 변수·Secret에서 별도로 설정합니다.
+배포 대상은 `https://thesis-cz5.pages.dev/`인 기존 Pages 프로젝트입니다. 저장소는 Pages의 `dist/_worker.js` 빌드 형식으로 구성되어 있습니다. 기존 빌드 작업에서 업로드한다면 기존에 성공한 배포 명령의 프로젝트 이름 `thesis`를 유지합니다. pages.dev 주소의 접미사만 보고 프로젝트 이름을 변경하지 않습니다.
+
+런타임의 `GITHUB_TOKEN`은 대상 저장소 Contents 읽기·쓰기 권한이 필요합니다. `GITHUB_OWNER=jennie-ys`, `GITHUB_REPO=thesis`는 wrangler 설정에 포함되어 있습니다. Pages 프로젝트의 Production 환경 Secret에 GitHub 토큰을 설정해야 합니다. Cloudflare 배포 토큰과 다른 값입니다. 응답 저장이 미설정이면 서버는 503을 반환하고 참가자에게 제출 재시도를 안내하며 완료 처리하지 않습니다.
+
+완료 응답은 `response/{participant_id}.json`에 저장합니다. 재시도는 기존 파일 SHA를 읽어 같은 파일을 갱신합니다. 원시 세션 백업은 `response/backups/`에 보관합니다. 응답 커밋으로 사이트가 재배포되지 않도록 Cloudflare 빌드의 제외 경로에 `response/**`를 추가합니다.
+
+RT는 밀리초 단위입니다. 시행의 duration_ms와 AI 초기·AI 확인·최종 단계 RT에 더해 `_jol_rt_ms`에 JOL 4문항의 제출 RT, 수학 각 답안에 duration_ms를 기록합니다. `_input_events`는 화면·문항·단계·필드명·값·입력/선택 이벤트와 performance.now 기반 RT를 보관합니다. 순차 공개 설문은 각 문항 공개 시점부터 측정합니다. 새로고침은 새 제시 구간으로 측정하며 이전 입력 이벤트는 세션에 보존합니다. 스킵은 응답과 별도 기록하며 응답값/RT를 임의로 만들지 않습니다.
+
+기존 Workers 전환 커밋은 실제 Pages 배포 확인에 따라 복구했습니다. Pages 배포 토큰을 쓰는 기존 빌드 명령(`CLOUDFLARE_API_TOKEN="$PAGES_DEPLOY_TOKEN" ... wrangler pages deploy dist --project-name=thesis --branch=main`)을 유지합니다. Workers 직접 배포 명령으로 변경하지 않습니다.

@@ -3,7 +3,7 @@
   'use strict'
   const STATE_KEY = '__exp_v2_state__'
   let config, slides, initialExams, tasks, finalExams
-  let timer = null, interval = null, renderEpoch = 0, phaseStarted = Date.now(), initStarted = false
+  let timer = null, interval = null, renderEpoch = 0, phaseStarted = performance.now(), initStarted = false
   let state
   const $ = id => document.getElementById(id)
   const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]))
@@ -40,9 +40,9 @@
     }
   }
   function freshState() {
-    return { version:'two-group-v2', participantId:crypto.randomUUID(), group:null, screen:'group', index:0, round:1,
+    return { version:config.version, participantId:crypto.randomUUID(), group:null, screen:'group', index:0, round:1,
       phase:'initial', learning:[], initialExam:[], task:[], finalExam:[], jol:{}, survey:{}, pages:[],
-      math:null, instructionCheck:{passed:false,attempts:[]}, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
+      inputEvents:[], jolRT:{}, math:null, instructionCheck:{passed:false,attempts:[]}, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
   }
   function persist() { sessionStorage.setItem(STATE_KEY, JSON.stringify(state)) }
   function leavePage() {
@@ -120,7 +120,7 @@
     $('experiment-root').innerHTML = `${body}${footer}`
     window.scrollTo(0, 0)
   }
-  function card(body) { return `<div class="card">${body}</div>` }
+  function card(body, className = '') { return `<div class="card ${className}">${body}</div>` }
   function next(id = 'btn-next', label = '다음 →') { return `<div class="btn-row">${button(id, label)}</div>` }
   function delayed(id) {
     const b = $(id), epoch = renderEpoch; b.hidden = true
@@ -142,15 +142,17 @@
     const submit = e => {
       e.preventDefault(); const raw = $('jol-input').value.trim(), value = Number(raw)
       if (!raw || !Number.isInteger(value) || value < 0 || value > 100) { error('0~100 사이의 정수를 입력해 주세요.'); $('jol-input').focus(); return }
-      state.jol[key] = value; go(destination)
+      state.jol[key] = value; state.jolRT[key] = elapsed(); go(destination)
     }
     $('jol-form').onsubmit = submit; bind('btn-jol-next', submit); delayed('btn-jol-next')
   }
   function info(title, text, fn, label = '시작하기') {
     shell(title, card(`<div class="instruct-body">${text}</div>${next('btn-next', label)}`)); bind('btn-next', fn)
   }
+  const fieldShown = new Map()
+  function elapsed() { return Math.max(0, performance.now()-phaseStarted) }
   function render() {
-    clearTimers(); phaseStarted = Date.now()
+    clearTimers(); phaseStarted = performance.now()
     attachSkipControl()
     if (state.screen.startsWith('step-')) { restoreSurvey(); return }
     switch (state.screen) {
@@ -244,7 +246,7 @@
         error('0~100 사이의 숫자로 입력해 주세요.'); $('instruction-check-answer').focus(); return
       }
       const correct = answer === config.instructionCheckAccuracy
-      check.attempts.push({attempt:check.attempts.length+1,answer,correct,duration_ms:Date.now()-phaseStarted,submitted_at:new Date().toISOString()})
+      check.attempts.push({attempt:check.attempts.length+1,answer,correct,duration_ms:elapsed(),submitted_at:new Date().toISOString()})
       check.passed = correct; check.pendingReview = !correct; persist()
       render()
     }
@@ -254,12 +256,12 @@
   }
   function renderLearning() {
     const item = slides[state.index], epoch = renderEpoch
-    shell('', card(`${stimulus(item)}<p class="learn-name">${escape(item.category)}</p>`))
+    shell('', card(`${stimulus(item)}<p class="learn-name">${escape(item.category)}</p>`, 'learning-card'))
     let advanced = false
     const advance = () => {
       if (advanced || epoch !== renderEpoch) return
       advanced = true
-      state.learning.push({trial_id:item.id, round:state.round, duration_ms:Date.now()-phaseStarted})
+      state.learning.push({trial_id:item.id, round:state.round, duration_ms:elapsed()})
       if (state.index+1 < slides.length) go('learning', {index:state.index+1})
       else go(state.round === 1 ? 'learning-break' : 'jol-initial-exam')
     }
@@ -276,7 +278,7 @@
       e.preventDefault(); const answer = $('written-answer').value.trim()
       if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
       state.initialExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen:answer,
-        correct:normalize(answer) === normalize(item.correctCategory), duration_ms:Date.now()-phaseStarted})
+        correct:normalize(answer) === normalize(item.correctCategory), duration_ms:elapsed()})
       go(state.index+1 < initialExams.length ? 'initial-exam' : 'initial-feedback', {index:state.index+1})
     }
     $('initial-exam-form').onsubmit = submit; bind('btn-initial-exam-next', submit); $('written-answer').focus()
@@ -296,18 +298,18 @@
       bind('btn-initial-next', () => {
         const chosen = document.querySelector('input[name="initial"]:checked')?.value
         if (!chosen) return
-        pending.initial = chosen; pending.phase_durations_ms.initial_ms = Date.now()-phaseStarted
+        pending.initial = chosen; pending.phase_durations_ms.initial_ms = elapsed()
         go('task', {phase:'ai'})
       }); delayed('btn-initial-next')
     } else if (phase === 'ai') {
-      bind('btn-ai-next', () => { pending.phase_durations_ms.ai_ms = Date.now()-phaseStarted; go('task', {phase:'final'}) }); delayed('btn-ai-next')
+      bind('btn-ai-next', () => { pending.phase_durations_ms.ai_ms = elapsed(); go('task', {phase:'final'}) }); delayed('btn-ai-next')
     } else {
       $('btn-final-next').disabled = true
       document.querySelectorAll('input[name="final"]').forEach(r => r.onchange = () => { $('btn-final-next').disabled = false })
       bind('btn-final-next', () => {
         const chosen = document.querySelector('input[name="final"]:checked')?.value
         if (!chosen) return
-        pending.final = chosen; pending.phase_durations_ms.final_ms = Date.now()-phaseStarted
+        pending.final = chosen; pending.phase_durations_ms.final_ms = elapsed()
         state.task.push(pending); state.pendingTask = null
         go(state.index+1 < tasks.length ? 'task' : 'jol-task', {index:state.index+1, phase:'initial'})
       }); delayed('btn-final-next')
@@ -340,7 +342,7 @@
       const raw = $('math-answer').value.trim(), answer = Number(raw)
       if (!raw || !Number.isInteger(answer)) { error('숫자로 답을 입력해 주세요.'); return }
       const correct = answer === p.answer; if (correct) math.score++
-      math.answers.push({q:`${p.a}${p.op}${p.b}`, userAns:answer, correct}); persist(); render()
+      math.answers.push({q:`${p.a}${p.op}${p.b}`, userAns:answer, correct, duration_ms:elapsed(), submitted_at:new Date().toISOString()}); persist(); render()
     }
     $('math-form').onsubmit = submit; bind('btn-math-submit', submit)
     const tick = () => {
@@ -356,7 +358,7 @@
     bind('btn-exam-next', () => {
       const chosen = document.querySelector('input[name="exam"]:checked')?.value
       if (!chosen) return
-      state.finalExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen, correct:chosen === item.correctCategory, duration_ms:Date.now()-phaseStarted})
+      state.finalExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen, correct:chosen === item.correctCategory, duration_ms:elapsed()})
       if (state.index+1 < finalExams.length) go('final-exam', {index:state.index+1})
       else goToPostSurvey()
     })
@@ -366,6 +368,7 @@
     clearTimers(); leavePage(); state.screen = id; persist(); activateSurvey(id)
   }
   function activateSurvey(id) {
+    phaseStarted = performance.now(); fieldShown.clear()
     attachSkipControl()
     $('experiment-root').hidden = true
     document.querySelectorAll('.step').forEach(el => el.classList.toggle('active', el.id === id)); window.scrollTo(0,0)
@@ -476,6 +479,7 @@
         return `<label class="ai-radio-label"><input type="radio" name="${item.name}" value="${value}" ${String(answers[item.name]) === value ? 'checked' : ''}/><span>${label}</span></label>`
       }).join('')}</div>`
       card.appendChild(wrap)
+      fieldShown.set(item.name, performance.now())
       wrap.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
         answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); persist()
         if (items.slice(0,shown).every(q=>answers[q.name]) && shown < items.length) revealNext()
@@ -537,7 +541,7 @@
           if (state.surveyDraft) delete state.surveyDraft['ai-expected-accuracy']
           input.value = ''; showPS3(); return
         }
-        followup.hidden = false; input.focus(); persist()
+        followup.hidden = false; fieldShown.set('ai-expected-accuracy',performance.now()); input.focus(); persist()
       }
     })
     followup.hidden = selected !== 'yes'
@@ -582,6 +586,10 @@
       _stimulus_order_version:config.stimulusOrderVersion,
       _ai_mapping_pending:config.aiMappingPending,
       _stimulus_manifest:[...slides,...initialExams,...tasks,...finalExams].map(({id,imageId,categoryCode,novelty,position,block})=>({id,imageId,categoryCode,novelty,position,block})),
+      _rt_schema_version:1,
+      _input_events:state.inputEvents,
+      _jol_rt_ms:state.jolRT,
+      _rt_definition:{unit:'ms',clock:'performance.now',input:'Time from current screen/item presentation to input or selection; progressive survey items start when revealed',submission:'Time from current presentation to valid submission; reload starts a new presentation segment'},
       _instruction_check:state.group === 'intervention' ? state.instructionCheck : null,
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
@@ -606,6 +614,21 @@
     attachSkipControl()
     document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active',el.id==='step-error'))
     $('error-msg').textContent = message; bind('btn-retry',()=>location.reload())
+  }
+  function recordInput(event) {
+    const input = event.target
+    if (!input.matches('input,textarea,select') || input.disabled) return
+    const survey = input.closest('.step')
+    if (survey && !survey.classList.contains('active')) return
+    if (!survey && !input.closest('#experiment-root')) return
+    if (input.type === 'radio' && !input.checked) return
+    const field = input.name || input.id
+    const now = performance.now(), started = fieldShown.get(field) ?? phaseStarted
+    const trial = state.screen === 'initial-exam' ? initialExams[state.index] : state.screen === 'task' ? tasks[state.index] : state.screen === 'final-exam' ? finalExams[state.index] : null
+    state.inputEvents.push({screen:state.screen,index:state.index,phase:state.phase,round:state.round,trial_id:trial?.id ?? null,math_index:state.screen==='math'?state.math.answers.length:null,field,value:input.value,event:event.type,rt_ms:Math.max(0,now-started),screen_rt_ms:elapsed(),recorded_at:new Date().toISOString()})
+    const container=survey || $('experiment-root')
+    container.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
+    persist()
   }
   function saveSurveyDraft(event) {
     const input = event.target
@@ -645,6 +668,7 @@
       if (state.screen === 'jol-learning') state.screen = 'jol-initial-exam'
       state.jol ||= {}; delete state.jol.learning
       state.instructionCheck ||= {passed:false,attempts:[]}
+      state.inputEvents ||= []; state.jolRT ||= {}
       psData = normalizePostSurvey(state.survey); state.survey = psData
       const drafts = state.surveyDraft || {}
       document.querySelectorAll('.step input').forEach(input => {
@@ -654,6 +678,8 @@
           else input.value = drafts[key]
         }
       })
+      document.addEventListener('change',recordInput,true)
+      document.addEventListener('input',recordInput,true)
       document.addEventListener('change', saveSurveyDraft)
       document.addEventListener('input', saveSurveyDraft)
       state.pageEntered = Date.now(); persist(); render()

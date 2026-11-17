@@ -4,11 +4,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "wrangler dev",
-    "deploy": "npm run build && wrangler deploy",
+    "preview": "wrangler pages dev",
+    "deploy": "npm run build && wrangler pages deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "build:preview": "npm run build && node scripts/build-preview.mjs",
-    "test": "npm run build:preview && node tests/protocol.mjs && node tests/presentation.mjs && node tests/survey-storage.mjs && node tests/instruction-check.mjs && node tests/stimulus-order.mjs && node tests/worker-deployment.mjs"
+    "test": "npm run build:preview && node tests/protocol.mjs && node tests/presentation.mjs && node tests/survey-storage.mjs && node tests/instruction-check.mjs && node tests/stimulus-order.mjs && node tests/response-storage.mjs"
   },
   "dependencies": {
     "hono": "^4.12.12"

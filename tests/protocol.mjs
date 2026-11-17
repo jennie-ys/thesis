@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
 import { JSDOM, VirtualConsole } from 'jsdom'
-import app from '../dist/index.js'
+import app from '../dist/_worker.js'
 const html = await readFile(new URL('../docs/index.html', import.meta.url), 'utf8')
 const tick = () => new Promise(resolve => setTimeout(resolve, 2))
 const get = async path => (await app.fetch(new Request('https://experiment.local/api/' + path))).json()
@@ -52,7 +52,9 @@ for (const group of config.groups.map(g=>g.id)) {
   fill('jol-input','101'); await click('btn-jol-next'); assert.equal(read().screen,'jol-initial-exam')
   await jol('jol-initial-exam',100); await click('btn-next')
   assert.equal(read().screen,'initial-exam')
+  assert.equal(w.getComputedStyle(element('#screen-error')).display,'none')
   await click('btn-initial-exam-next'); assert.equal(read().initialExam.length,0)
+  assert.notEqual(w.getComputedStyle(element('#screen-error')).display,'none')
   for(let i=0;i<sets['initial-exam-images'].length;i++){
     const trial = sets['initial-exam-images'][i]
     assert.equal(element('#experiment-root').querySelectorAll('input[type="radio"]').length,0)
@@ -161,6 +163,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(!('_ai_survey' in responses));assert(!('ai_can_be_wrong' in responses));assert(!('ai_expected_accuracy' in responses))
   assert.equal(responses._instruction_check?.passed ?? null,group==='intervention'?true:null)
   if(group==='intervention')assert.deepEqual(responses._instruction_check.attempts.map(a=>[a.answer,a.correct]),[[70,false],[67.8,true]])
+  assert(responses._input_events.length>0);assert(responses._input_events.every(e=>Number.isFinite(e.rt_ms)&&e.rt_ms>=0));assert(responses._input_events.some(e=>e.screen==='step-ai-error-belief'&&e.field==='ai_t1'));assert.equal(Object.keys(responses._jol_rt_ms).length,4)
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,12)
   assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
   assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])
