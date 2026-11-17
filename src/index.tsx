@@ -151,7 +151,9 @@ app.post('/api/backup', async (c) => {
     const tsMs     = Date.now()
     const filePath = `response/backups/${safeId}_backup_${tsMs}.json`
 
-    const payload  = { participant_id, backed_up_at: now, session_raw }
+    const committed = session_raw.responses || session_raw.state?.lastResponses
+    if (!committed) return c.json({ status:'skip', reason:'no_submitted_responses' })
+    const payload = { participant_id, backed_up_at:now, session_raw:{ responses:scoreResponses(committed) } }
     const jsonStr  = JSON.stringify(payload, null, 2)
     const encoded  = new TextEncoder().encode(jsonStr)
     let binary = ''

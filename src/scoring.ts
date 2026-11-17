@@ -3,6 +3,7 @@ const normalize = (value: unknown) => typeof value === 'string' ? value.normaliz
 const answered = (value: unknown) => typeof value === 'string' && value.trim().length > 0
 export function scoreResponses(source: any) {
   const responses = structuredClone(source)
+  delete responses._input_events
   const grade = (rows: any[], trials: any[], task = false) => {
     const byId = new Map(trials.map(t => [t.id,t]))
     return (rows || []).map(row => {

@@ -20,7 +20,7 @@ try{
  let r=await app.fetch(request(),env);assert.equal(r.status,200);assert.equal((await r.json()).saved,'github')
  r=await app.fetch(request(),env);assert.equal(r.status,200);assert.equal(writes[1].sha,'previous-sha')
  const decoded=JSON.parse(Buffer.from(writes[0].content,'base64').toString('utf8'))
- assert.deepEqual(decoded.responses._input_events,body.responses._input_events)
+ assert(!('_input_events' in decoded.responses))
  assert.deepEqual(decoded.responses._jol_rt_ms,body.responses._jol_rt_ms)
  assert.equal(decoded.responses._initial_exam_answers[0].correct,true)
  assert.equal(decoded.responses._initial_exam_answers[0].duration_ms,234.5)

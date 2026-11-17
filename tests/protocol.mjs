@@ -61,6 +61,7 @@ for (const group of config.groups.map(g=>g.id)) {
     assert.equal(element('.task-img').alt,'피부 병변 사례')
     const reference=element('#category-reference').textContent
     assert(config.categories.every(cat=>reference.includes(cat)))
+    assert(!read().inputEvents);
     fill('written-answer',i<12 ? ' '+trial.correctCategory.replace(' ','  ')+' ' : '모르겠다')
     await click('btn-initial-exam-next')
   }
@@ -136,6 +137,7 @@ for (const group of config.groups.map(g=>g.id)) {
   fill('q5-input','50');await click('btn-ps2-next')
   check('input[name="ai_k1"]');check('input[name="ai_k1"][value="틀리다"]')
   assert.equal(d.activeElement.id,'ai-item-ai_k2');assert.equal(scrollTargets.at(-1),'ai-item-ai_k2')
+  assert.equal(Object.values(read().submittedResponses).filter(t=>t.field==='ai_k1').length,1);assert.equal(Object.values(read().submittedResponses).find(t=>t.field==='ai_k1').value,'틀리다')
   assert.equal(d.querySelectorAll('.ai-survey-item').length,2) // Revising an earlier answer does not reveal extra questions.
   for(let i=2;i<=6;i++){assert.equal(d.activeElement.id,'ai-item-ai_k'+i);check('input[name="ai_k'+i+'"]')}
   await click('btn-ai-survey-next')
@@ -170,7 +172,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(!('_ai_survey' in responses));assert(!('ai_can_be_wrong' in responses));assert(!('ai_expected_accuracy' in responses))
   assert.equal(responses._instruction_check?.passed ?? null,group==='intervention'?true:null)
   if(group==='intervention')assert.deepEqual(responses._instruction_check.attempts.map(a=>[a.answer,a.correct]),[[70,false],[67.8,true]])
-  assert(responses._input_events.length>0);assert(responses._input_events.every(e=>Number.isFinite(e.rt_ms)&&e.rt_ms>=0));assert(responses._input_events.some(e=>e.screen==='step-ai-error-belief'&&e.field==='ai_t1'));assert.equal(Object.keys(responses._jol_rt_ms).length,4)
+  assert(!('_input_events' in responses));assert(responses._submitted_responses.length>0);assert(responses._submitted_responses.every(e=>Number.isFinite(e.rt_ms)&&e.rt_ms>=0));assert(responses._submitted_responses.some(e=>e.field==='ai_t1'));assert.equal(Object.keys(responses._jol_rt_ms).length,4)
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,12)
   assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
   assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])

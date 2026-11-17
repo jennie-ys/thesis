@@ -1403,7 +1403,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   function freshState() {
     return { version:config.version, participantId:crypto.randomUUID(), group:null, screen:'group', index:0, round:1,
       phase:'initial', learning:[], initialExam:[], task:[], finalExam:[], jol:{}, survey:{}, pages:[],
-      inputEvents:[], jolRT:{}, math:null, instructionCheck:{passed:false,attempts:[]}, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
+      submittedResponses:{}, jolRT:{}, math:null, instructionCheck:{passed:false,attempts:[]}, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
   }
   function persist() { sessionStorage.setItem(STATE_KEY, JSON.stringify(state)) }
   function leavePage() {
@@ -1504,7 +1504,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     const submit = e => {
       e.preventDefault(); const raw = $('jol-input').value.trim(), value = Number(raw)
       if (!raw || !Number.isInteger(value) || value < 0 || value > 100) { error('0~100 사이의 정수를 입력해 주세요.'); $('jol-input').focus(); return }
-      state.jol[key] = value; state.jolRT[key] = elapsed(); go(destination)
+      commitResponse(key,value); state.jol[key] = value; state.jolRT[key] = elapsed(); go(destination)
     }
     $('jol-form').onsubmit = submit; bind('btn-jol-next', submit); delayed('btn-jol-next')
   }
@@ -1639,7 +1639,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     const submit = e => {
       e.preventDefault(); const answer = $('written-answer').value.trim()
       if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
-      state.initialExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen:answer,
+      commitResponse('written-answer',answer); state.initialExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen:answer,
         correct:normalize(answer) === normalize(item.correctCategory), duration_ms:elapsed()})
       go(state.index+1 < initialExams.length ? 'initial-exam' : 'initial-feedback', {index:state.index+1})
     }
@@ -1660,7 +1660,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       bind('btn-initial-next', () => {
         const chosen = document.querySelector('input[name="initial"]:checked')?.value
         if (!chosen) return
-        pending.initial = chosen; pending.phase_durations_ms.initial_ms = elapsed()
+        commitResponse('initial',chosen); pending.initial = chosen; pending.phase_durations_ms.initial_ms = elapsed()
         go('task', {phase:'ai'})
       }); delayed('btn-initial-next')
     } else if (phase === 'ai') {
@@ -1671,7 +1671,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       bind('btn-final-next', () => {
         const chosen = document.querySelector('input[name="final"]:checked')?.value
         if (!chosen) return
-        pending.final = chosen; pending.phase_durations_ms.final_ms = elapsed()
+        commitResponse('final',chosen); pending.final = chosen; pending.phase_durations_ms.final_ms = elapsed()
         state.task.push(pending); state.pendingTask = null
         go(state.index+1 < tasks.length ? 'task' : 'jol-task', {index:state.index+1, phase:'initial'})
       }); delayed('btn-final-next')
@@ -1704,7 +1704,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       const raw = $('math-answer').value.trim(), answer = Number(raw)
       if (!raw || !Number.isInteger(answer)) { error('숫자로 답을 입력해 주세요.'); return }
       const correct = answer === p.answer; if (correct) math.score++
-      math.answers.push({q:`${p.a}${p.op}${p.b}`, userAns:answer, correct, duration_ms:elapsed(), submitted_at:new Date().toISOString()}); persist(); render()
+      commitResponse('math-answer',answer); math.answers.push({q:`${p.a}${p.op}${p.b}`, userAns:answer, correct, duration_ms:elapsed(), submitted_at:new Date().toISOString()}); persist(); render()
     }
     $('math-form').onsubmit = submit; bind('btn-math-submit', submit)
     const tick = () => {
@@ -1720,7 +1720,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     bind('btn-exam-next', () => {
       const chosen = document.querySelector('input[name="exam"]:checked')?.value
       if (!chosen) return
-      state.finalExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen, correct:chosen === item.correctCategory, duration_ms:elapsed()})
+      commitResponse('exam',chosen); state.finalExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen, correct:chosen === item.correctCategory, duration_ms:elapsed()})
       if (state.index+1 < finalExams.length) go('final-exam', {index:state.index+1})
       else goToPostSurvey()
     })
@@ -1771,7 +1771,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       nb.addEventListener('click', () => {
         const val = document.querySelector('input[name="q4"]:checked')?.value
         if (!val) { _showErr('ps1-err', '응답을 선택해 주세요.'); return }
-        psData.pk1 = Number(val)
+        commitResponse('pk1',Number(val)); psData.pk1 = Number(val)
         showPS2()
       }, { once: true })
     }
@@ -1789,7 +1789,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
         const val = inp?.value?.trim()
         if (!val || !Number.isInteger(Number(val)) || Number(val)<0 || Number(val)>100) { _showErr('ps2-err', '0~100 사이의 숫자를 입력해 주세요.'); if (inp) inp.focus(); return }
         nb.removeEventListener('click', onPS2Click)
-        psData.pk2 = Number(val)
+        commitResponse('pk2',Number(val)); psData.pk2 = Number(val)
         showAiSurvey()   // ← Q5 다음에 AI 설문으로 이동
       }
       nb.addEventListener('click', onPS2Click)
@@ -1848,7 +1848,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
         wrap.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth',block:'center'})
       }
       wrap.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
-        answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); persist()
+        answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); commitResponse(item.name,answers[item.name]); persist()
         if (items.slice(0,shown).every(q=>answers[q.name]) && shown < items.length) revealNext()
         nextRow.style.display = items.every(q=>answers[q.name]) ? '' : 'none'
       }))
@@ -1901,14 +1901,15 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     document.querySelectorAll('input[name="ai_t1"]').forEach(r => {
       r.checked = r.value === selected
       r.onchange = () => {
-        trust.ai_t1 = r.value
+        commitResponse('ai_t1',r.value); trust.ai_t1 = r.value
         trust.ai_t2_status = r.value === 'no' ? 'not_applicable' : trust.ai_t2 === null ? 'unanswered' : 'answered'
         if (r.value === 'no') {
           trust.ai_t2 = null
+          for (const [key,row] of Object.entries(state.submittedResponses)) if (row.field==='ai_t2') delete state.submittedResponses[key]
           if (state.surveyDraft) delete state.surveyDraft['ai-expected-accuracy']
           input.value = ''; showPS3(); return
         }
-        followup.hidden = false; fieldShown.set('ai-expected-accuracy',performance.now()); input.focus(); persist()
+        followup.hidden = false; fieldShown.set('ai_t2',performance.now()); input.focus(); persist()
       }
     })
     followup.hidden = selected !== 'yes'
@@ -1924,7 +1925,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       if (!raw || !Number.isInteger(value) || value < 0 || value > 100) {
         _showErr('ai-belief-err', '0~100 사이의 정수를 입력해 주세요.'); input.focus(); return
       }
-      trust.ai_t2 = value; trust.ai_t2_status = 'answered'; showPS3()
+      commitResponse('ai_t2',value); trust.ai_t2 = value; trust.ai_t2_status = 'answered'; showPS3()
     })
   }
 
@@ -1945,6 +1946,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     if (!age || !Number.isInteger(Number(age)) || Number(age)<0 || Number(age)>120) { _showErr('ps3-err','만 나이를 0~120 사이의 정수로 입력해 주세요.'); return }
     if (!gender) { _showErr('ps3-err','성별을 선택해 주세요.'); return }
     if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
+    commitResponse('q6_age',Number(age)); commitResponse('q6_gender',gender); commitResponse('q6_major',major)
     Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major}); persist(); btn.disabled = true
     leavePage()
     const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
@@ -1953,10 +1955,10 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       _stimulus_order_version:config.stimulusOrderVersion,
       _ai_mapping_pending:config.aiMappingPending,
       _stimulus_manifest:[...slides,...initialExams,...tasks,...finalExams].map(({id,imageId,categoryCode,novelty,position,block})=>({id,imageId,categoryCode,novelty,position,block})),
-      _rt_schema_version:1,
-      _input_events:state.inputEvents,
+      _rt_schema_version:2,
+      _submitted_responses:Object.values(state.submittedResponses),
       _jol_rt_ms:state.jolRT,
-      _rt_definition:{unit:'ms',clock:'performance.now',input:'Time from current screen/item presentation to input or selection; progressive survey items start when revealed',submission:'Time from current presentation to valid submission; reload starts a new presentation segment'},
+      _rt_definition:{unit:'ms',clock:'performance.now',response:'Time from current screen/item presentation to accepted response; only the final committed value is retained; progressive survey items start when revealed',submission:'Time from current presentation to valid submission; reload starts a new presentation segment'},
       _instruction_check:state.group === 'intervention' ? state.instructionCheck : null,
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
@@ -1971,7 +1973,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     state.lastResponses = responses; persist()
     const submission={participant_id:state.participantId,responses}
     try { localStorage.setItem('__preview_exp_pending_'+state.participantId,JSON.stringify(submission)) } catch (_) {}
-    try { await fetch('/api/backup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,session_raw:{state}})}) } catch (_) { /* Main submission remains retryable. */ }
+    try { await fetch('/api/backup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,session_raw:{responses}})}) } catch (_) { /* Main submission remains retryable. */ }
     try {
       const res = await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,responses})})
       const data = await res.json(); if (!res.ok || data.error) throw new Error(data.message || '응답 저장에 실패했습니다. 오류 코드: '+(data.error || res.status))
@@ -1996,20 +1998,21 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
     document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active',el.id==='step-error'))
     $('error-msg').textContent = message; bind('btn-retry',()=>location.reload())
   }
-  function recordInput(event) {
-    const input = event.target
-    if (!input.matches('input,textarea,select') || input.disabled) return
-    const survey = input.closest('.step')
-    if (survey && !survey.classList.contains('active')) return
-    if (!survey && !input.closest('#experiment-root')) return
-    if (input.type === 'radio' && !input.checked) return
-    const field = input.name || input.id
-    const now = performance.now(), started = fieldShown.get(field) ?? phaseStarted
-    const trial = state.screen === 'initial-exam' ? initialExams[state.index] : state.screen === 'task' ? tasks[state.index] : state.screen === 'final-exam' ? finalExams[state.index] : null
-    state.inputEvents.push({screen:state.screen,index:state.index,phase:state.phase,round:state.round,trial_id:trial?.id ?? null,math_index:state.screen==='math'?state.math.answers.length:null,field,value:input.value,event:event.type,rt_ms:Math.max(0,now-started),screen_rt_ms:elapsed(),recorded_at:new Date().toISOString()})
-    const container=survey || $('experiment-root')
-    container.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
+  function commitResponse(field, value) {
+    const now=performance.now(), started=fieldShown.get(field) ?? phaseStarted
+    const trial=state.screen==='initial-exam'?initialExams[state.index]:state.screen==='task'?tasks[state.index]:state.screen==='final-exam'?finalExams[state.index]:null
+    const mathIndex=state.screen==='math'?state.math.answers.length:null
+    const key=[state.screen,trial?.id ?? '',state.phase,mathIndex ?? '',field].join('|')
+    if (state.submittedResponses[key]?.value === value) return
+    // One final committed value per field. Revisions replace it; typing is never logged.
+    state.submittedResponses[key]={screen:state.screen,trial_id:trial?.id ?? null,phase:state.phase,math_index:mathIndex,field,value,rt_ms:Math.max(0,now-started),submitted_at:new Date().toISOString()}
     persist()
+  }
+  function clearInputError(event) {
+    const input=event.target
+    if (!input.matches('input,textarea,select')) return
+    const container=input.closest('.step.active') || input.closest('#experiment-root')
+    container?.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
   }
   function saveSurveyDraft(event) {
     const input = event.target
@@ -2049,7 +2052,8 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
       if (state.screen === 'jol-learning') state.screen = 'jol-initial-exam'
       state.jol ||= {}; delete state.jol.learning
       state.instructionCheck ||= {passed:false,attempts:[]}
-      state.inputEvents ||= []; state.jolRT ||= {}
+      delete state.inputEvents; if(state.lastResponses) delete state.lastResponses._input_events
+      state.submittedResponses ||= {}; state.jolRT ||= {}
       psData = normalizePostSurvey(state.survey); state.survey = psData
       const drafts = state.surveyDraft || {}
       document.querySelectorAll('.step input').forEach(input => {
@@ -2059,8 +2063,8 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
           else input.value = drafts[key]
         }
       })
-      document.addEventListener('change',recordInput,true)
-      document.addEventListener('input',recordInput,true)
+      document.addEventListener('change',clearInputError,true)
+      document.addEventListener('input',clearInputError,true)
       document.addEventListener('change', saveSurveyDraft)
       document.addEventListener('input', saveSurveyDraft)
       state.pageEntered = Date.now(); persist(); render()
