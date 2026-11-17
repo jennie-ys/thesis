@@ -16,7 +16,7 @@ for(const screen of expected){
   assert.equal(state().screen,screen)
   const root=d.getElementById('experiment-root'), active=root.hidden ? d.querySelector('.step.active') : root
   assert.equal(active.querySelectorAll('h1,h2,h3,.page-header,[role="progressbar"],.trial-progress,.task-progress-track,.task-progress-text').length,0)
-  assert(!/\b\d+\s*\/\s*30\b/.test(active.textContent.replace(/\s+/g,' ')) || screen==='initial-feedback')
+  assert(!/\b\d+\s*\/\s*36\b/.test(active.textContent.replace(/\s+/g,' ')) || screen==='initial-feedback')
   assert(!d.querySelector('.preview-bar'))
   const button=d.getElementById('temporary-skip');assert(button&&!button.hidden&&!button.disabled)
   if(screen==='learning-break')assert.deepEqual([...active.querySelectorAll('.instruct-body p')].map(e=>e.textContent),['지금부터 같은 학습을 한 번 더 하게 됩니다.','준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.'])

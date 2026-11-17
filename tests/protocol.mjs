@@ -7,18 +7,18 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 2))
 const get = async path => (await app.fetch(new Request('https://experiment.local/api/' + path))).json()
 const config = await get('experiment-config')
 assert.deepEqual(config.groups.map(g=>g.id), ['intervention','no-intervention'])
-assert.equal(config.categories.length,5)
-assert(!html.includes('흑색종'))
+assert.equal(config.categories.length,6)
+assert(html.includes('흑색종'))
 assert(config.groups.every(g=>g.taskInstruction&&g.boldPhrases.length))
 const sets = {}
 for (const [path,key] of [['images','slides'],['initial-exam-images','exams'],['task-images','tasks'],['exam-images','exams']]) {
   const data = await get(path); const trials = data[key]; sets[path] = trials
-  const count = path==='initial-exam-images'?15:30
+  const count = path==='initial-exam-images'?18:36
   assert.equal(trials.length,count); assert.equal(new Set(trials.map(t=>t.id)).size,count)
   assert(trials.every(t=>t.url.startsWith('/static/stimuli/')))
-  for(const category of config.categories) assert.equal(trials.filter(t=>t.correctCategory===category).length,count/5)
+  for(const category of config.categories) assert.equal(trials.filter(t=>t.correctCategory===category).length,count/6)
 }
-assert(sets['task-images'].every(t=>t.aiCategory===null&&t.aiReason===null))
+assert(sets['task-images'].every(t=>config.categories.includes(t.aiCategory)&&t.aiReason&&typeof t.aiCorrect==='boolean'));assert.equal(sets['task-images'].filter(t=>t.aiCorrect).length,25)
 const summaries = []
 for (const group of config.groups.map(g=>g.id)) {
   const errors = [], console = new VirtualConsole()
@@ -46,9 +46,9 @@ for (const group of config.groups.map(g=>g.id)) {
   await click('btn-group-'+group); await click('btn-next')
   assert.equal(read().screen,'learning-intro'); await click('btn-next')
   await click('btn-next') // Wait for the first learning round's break screen.
-  for(let i=0;i<3000 && read().screen!=='jol-initial-exam';i++) await tick()
-  assert.equal(read().learning.length,60)
-  for(const round of [1,2]) assert.equal(read().learning.filter(t=>t.round===round).length,30)
+  for(let i=0;i<3600 && read().screen!=='jol-initial-exam';i++) await tick()
+  assert.equal(read().learning.length,72)
+  for(const round of [1,2]) assert.equal(read().learning.filter(t=>t.round===round).length,36)
   fill('jol-input','101'); await click('btn-jol-next'); assert.equal(read().screen,'jol-initial-exam')
   await jol('jol-initial-exam',100); await click('btn-next')
   assert.equal(read().screen,'initial-exam')
@@ -65,7 +65,7 @@ for (const group of config.groups.map(g=>g.id)) {
     fill('written-answer',i<12 ? ' '+trial.correctCategory.replace(' ','  ')+' ' : '모르겠다')
     await click('btn-initial-exam-next')
   }
-  assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/12\s*\/ 15점/)
+  assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/12\s*\/ 18점/)
   await click('btn-next'); await jol('jol-ai-prediction',70); await click('btn-next')
   assert.equal(read().screen,'task-notice')
   const groupConfig=config.groups.find(g=>g.id===group)
@@ -102,12 +102,12 @@ for (const group of config.groups.map(g=>g.id)) {
     assert(element('#instruction-check-answer').disabled)
     await click('btn-checked-task-start')
   }
-  for(let i=0;i<30;i++){
+  for(let i=0;i<36;i++){
     assert.equal(read().screen,'task'); assert.equal(read().phase,'initial')
-    assert.equal(d.querySelectorAll('input[name="initial"]').length,5)
+    assert.equal(d.querySelectorAll('input[name="initial"]').length,6)
     assert(!d.getElementById('confidence-input')); assert(!d.querySelector('.task-choice-alpha'))
     check('input[name="initial"]'); await click('btn-initial-next')
-    assert.equal(read().phase,'ai'); assert.equal(element('.ai-result-empty').textContent,'')
+    assert.equal(read().phase,'ai'); assert(element('.ai-result-empty').textContent.includes(sets['task-images'][i].aiCategory));assert(element('.ai-result-empty').textContent.includes(sets['task-images'][i].aiReason))
     assert([...d.querySelectorAll('input[name="initial"]')].every(e=>e.disabled))
     await click('btn-ai-next'); assert.equal(read().phase,'final'); assert(element('#box-final').textContent.includes('자신의 판단과 AI의 의견을 종합하여 최종 답안을 선택하세요.')); assert(!element('#box-final').textContent.includes('최종 진단'))
     check('input[name="final"]'); await click('btn-final-next')
@@ -128,8 +128,8 @@ for (const group of config.groups.map(g=>g.id)) {
     w.Date.now=now
   }
   assert.equal(read().screen,'final-exam-intro'); await click('btn-next')
-  for(let i=0;i<30;i++){
-    assert.equal(read().screen,'final-exam'); assert.equal(d.querySelectorAll('input[name="exam"]').length,5)
+  for(let i=0;i<36;i++){
+    assert.equal(read().screen,'final-exam'); assert.equal(d.querySelectorAll('input[name="exam"]').length,6)
     assert(!d.querySelector('.ai-result-empty'))
     check('input[name="exam"]'); await click('btn-exam-next')
   }
@@ -174,7 +174,7 @@ for (const group of config.groups.map(g=>g.id)) {
   if(group==='intervention')assert.deepEqual(responses._instruction_check.attempts.map(a=>[a.answer,a.correct]),[[70,false],[67.8,true]])
   assert(!('_input_events' in responses));assert(responses._submitted_responses.length>0);assert(responses._submitted_responses.every(e=>Number.isFinite(e.rt_ms)&&e.rt_ms>=0));assert(responses._submitted_responses.some(e=>e.field==='ai_t1'));assert.equal(Object.keys(responses._jol_rt_ms).length,4)
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,12)
-  assert.equal(responses._learning_presentations.length,60);assert.equal(responses._task_answers.length,30);assert.equal(responses._exam_answers.length,30)
+  assert.equal(responses._learning_presentations.length,72);assert.equal(responses._task_answers.length,36);assert.equal(responses._exam_answers.length,36)
   assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])
   assert.deepEqual(responses._jol.after_ai_task,{jol1:80,jol2:60})
   assert(responses._task_answers.every(t=>Object.keys(t.phase_durations_ms).join(',')==='initial_ms,ai_ms,final_ms'))
@@ -185,7 +185,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(Object.keys(responses.ai_t).every(key=>key.startsWith('ai_t')))
   assert.deepEqual(errors,[])
   summaries.push(read().pages.map(p=>[p.screen,p.index,p.phase,p.round]))
-  process.stdout.write(group+': 60 learning presentations, 4 JOLs, 15 written trials, score, 30 T-format tasks, math, 30 final trials and unchanged surveys PASS\n')
+  process.stdout.write(group+': 72 learning presentations, 4 JOLs, 18 written trials, score, 36 T-format tasks, math, 36 final trials and unchanged surveys PASS\n')
   dom.window.close()
 }
 // Exclude the different number of math practice responses used by the two tests.

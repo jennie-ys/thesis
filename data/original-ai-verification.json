@@ -1,0 +1,17 @@
+{
+  "source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+  "canonicalFields": [
+    "filename",
+    "correctCategory",
+    "aiCategory",
+    "aiCorrect",
+    "aiReason"
+  ],
+  "sort": "filename ascending",
+  "serialization": "JSON.stringify UTF-8",
+  "sha256": "411868b435283f95798afd0ea5181fd1eca2177076f2b1b98223633c178c1c5e",
+  "total": 36,
+  "correct": 25,
+  "incorrect": 11,
+  "exactMatch": true
+}

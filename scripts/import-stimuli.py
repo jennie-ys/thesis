@@ -1,85 +1,91 @@
-"""Import supplied archives and generate a reviewed, fixed stimulus order (never run at runtime)."""
+"""Offline six-category stimulus selection and fixed constrained randomization."""
 from pathlib import Path
-import zipfile,re,json,random,hashlib,csv,shutil
+import zipfile,re,json,random,hashlib,csv,shutil,unicodedata
 from PIL import Image
-ROOT=Path(__file__).resolve().parents[1]
-UPLOAD=ROOT.parent/'upload'
-CATS=dict(AK='광선각화증',BCC='기저세포암',NV='멜라닌세포성 모반',DF='피부섬유종',VASC='혈관 병변')
-rng=random.Random(20261117)
-sets={}
-order_path=ROOT/'data/stimulus-order.json'
-previous=json.loads(order_path.read_text()) if order_path.exists() else None
-# Only regenerate the asset directory owned by this importer.
-for folder in [ROOT/'public/static/stimuli',ROOT/'docs/static/stimuli']:
+ROOT=Path(__file__).resolve().parents[1];UPLOAD=ROOT.parent/'upload'
+CATS=dict(AK='광선각화증',BCC='기저세포암',NV='멜라닌세포성 모반',DF='피부섬유종',VASC='혈관 병변',MEL='흑색종')
+SEED=20261117
+previous=json.loads((ROOT/'data/stimulus-order.json').read_text())
+sets={stage:[{k:v for k,v in r.items() if k not in ['position','block']} for r in rows if r['categoryCode']!='MEL'] for stage,rows in previous['stages'].items()}
+for stage in sets:
+ folder=ROOT/'public/static/stimuli'/stage/'MEL'
  if folder.exists():shutil.rmtree(folder)
-for archive,stage in [('1 study.zip','learning'),('2 baseline test.zip','initial-exam'),('3 AI task.zip','ai-task'),('4 final test.zip','final-exam')]:
- rows=[]
- with zipfile.ZipFile(UPLOAD/archive) as z:
-  for n in sorted(z.namelist()):
-   if n.startswith('__MACOSX') or not n.lower().endswith('.jpg'):continue
-   code=re.search(r'\((AK|BCC|NV|DF|VASC)\)',n).group(1)
-   name=Path(n).name; raw=z.read(n)
-   folder=Path(n).parent.name
-   novelty='new' if folder=='new' or stage=='ai-task' else 'old' if folder.startswith('old_study') else None
-   rel=Path('static/stimuli')/stage/code/(novelty or 'cases')/name
-   dest=ROOT/'public'/rel;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
-   with Image.open(dest) as im:im.verify()
-   with Image.open(dest) as im:width,height=im.size
-   rows.append(dict(id=f'{stage}-{code}-{Path(name).stem}',imageId=Path(name).stem,filename=name,categoryCode=code,correctCategory=CATS[code],novelty=novelty,sourceSubset=folder if novelty else None,url='/'+rel.as_posix(),sha256=hashlib.sha256(raw).hexdigest(),width=width,height=height))
- # Final old must be exactly study minus baseline, independently for every category.
- if stage=='final-exam':
-  old=[r for r in rows if r['novelty']=='old']
-  for r in old:(ROOT/'public'/r['url'].lstrip('/')).unlink()
-  rows=[r for r in rows if r['novelty']!='old']
-  baseline={r['sha256'] for r in sets['initial-exam']}
-  for code in CATS:
-   replacements=[r for r in sets['learning'] if r['categoryCode']==code and r['sha256'] not in baseline]
-   assert len(replacements)==3
-   for original in replacements:
-    r={k:v for k,v in original.items() if k not in ['position','block','category']}
-    rel=Path('static/stimuli/final-exam')/code/'old'/r['filename']
-    dest=ROOT/'public'/rel;dest.parent.mkdir(parents=True,exist_ok=True)
-    shutil.copyfile(ROOT/'public'/original['url'].lstrip('/'),dest)
-    r.update(id=f"final-exam-{code}-{r['imageId']}",url='/'+rel.as_posix(),novelty='old',sourceSubset='study-minus-baseline',sourceCorrection='Final old equals study minus baseline, by category and image bytes')
-    rows.append(r)
+def archive(name):return next(p for p in UPLOAD.glob('*.zip') if unicodedata.normalize('NFC',p.name)==name)
+def mel_files(name):
+ with zipfile.ZipFile(archive(name)) as z:
+  return sorted([(Path(n).name,z.read(n)) for n in z.namelist() if not n.startswith('__MACOSX') and '(MEL)' in n and n.lower().endswith('.jpg')])
+def add(stage,filename,raw,novelty,source):
+ rel=Path('static/stimuli')/stage/'MEL'/(novelty or 'cases')/filename;dest=ROOT/'public'/rel
+ dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
+ with Image.open(dest) as im:im.verify()
+ with Image.open(dest) as im:w,h=im.size
+ row=dict(id=f'{stage}-MEL-{Path(filename).stem}',imageId=Path(filename).stem,filename=filename,categoryCode='MEL',correctCategory=CATS['MEL'],novelty=novelty,sourceSubset=source,url='/'+rel.as_posix(),sha256=hashlib.sha256(raw).hexdigest(),width=w,height=h)
+ sets[stage].append(row)
+study=mel_files('1학습단계(1).zip');ai=mel_files('2개입단계(2).zip');fresh=mel_files('3시험단계(1).zip')
+assert len(study)==6 and len(ai)==6 and len(fresh)==4
+for filename,raw in study:add('learning',filename,raw,None,'1학습단계(1).zip')
+for filename,raw in study[:3]:add('initial-exam',filename,raw,'old','study-selected-123')
+for filename,raw in study[3:]:add('final-exam',filename,raw,'old','study-minus-baseline')
+for filename,raw in ai:add('ai-task',filename,raw,'new','2개입단계(2).zip')
+selected_new=sorted(random.Random(SEED).sample(fresh,3))
+for filename,raw in selected_new:add('final-exam',filename,raw,'new','3시험단계(1).zip')
+mapping=json.loads((ROOT/'data/ai-mapping.json').read_text());lookup={t['filename']:t for t in mapping['trials']}
+for row in sets['ai-task']:
+ m=lookup[row['filename']];assert m['correctCategory']==row['correctCategory']
+ row.update(aiCategory=m['aiCategory'],aiReason=m['aiReason'],aiCorrect=m['aiCorrect'],aiMappingSource=mapping['source'])
+ assert row['aiCorrect']==(row['correctCategory']==row['aiCategory'])
+rng=random.Random(SEED)
+for stage,rows in list(sets.items()):
+ rows.sort(key=lambda r:(list(CATS).index(r['categoryCode']),r['filename']))
  if stage in ['learning','ai-task']:
-  pools={c:[r for r in rows if r['categoryCode']==c] for c in CATS}
+  pools={code:[r for r in rows if r['categoryCode']==code] for code in CATS}
+  assert all(len(p)==6 for p in pools.values())
   for p in pools.values():rng.shuffle(p)
-  order=[]
-  for b in range(6):
-   while True:
-    codes=list(CATS);rng.shuffle(codes)
-    if not order or order[-1]['categoryCode']!=codes[0]:break
-   for c in codes:order.append(dict(pools[c][b],block=b+1))
+  while True:
+   order=[]
+   for block in range(6):
+    while True:
+     codes=list(CATS);rng.shuffle(codes)
+     if not order or order[-1]['categoryCode']!=codes[0]:break
+    for code in codes:order.append(dict(pools[code][block],block=block+1))
+   if stage!='learning' or order[-1]['categoryCode']!=order[0]['categoryCode']:break
  else:
   while True:
    rng.shuffle(rows)
    if all(a['categoryCode']!=b['categoryCode'] for a,b in zip(rows,rows[1:])):break
   order=rows
- if stage=='final-exam' and previous:
-  # Preserve the published category/old-new sequence and all still-valid image positions.
-  slots=previous['stages'][stage]
-  available={r['id']:r for r in rows}
-  retained={slot['id'] for slot in slots if slot['id'] in available}
-  pool=[r for r in rows if r['id'] not in retained]
-  order=[]
-  for slot in slots:
-   if slot['id'] in retained:r=available[slot['id']]
-   else:
-    r=next(r for r in sorted(pool,key=lambda t:t['filename']) if r['categoryCode']==slot['categoryCode'] and r['novelty']==slot['novelty'])
-    pool.remove(r)
-   order.append(r)
-  assert not pool
  for i,r in enumerate(order):r['position']=i+1
- if stage=='learning':
-  # Repeated rounds use this same fixed sequence; its boundary also avoids repeats.
-  assert order[0]['categoryCode']!=order[-1]['categoryCode']
- if stage=='ai-task':
-  for r in order:r.update(aiCategory=None,aiReason=None,aiCorrect=None)
  sets[stage]=order
-(ROOT/'data/stimulus-order.json').write_text(json.dumps({'orderVersion':'stimuli-20261117-v2','seed':20261117,'stages':sets},ensure_ascii=False,indent=2)+'\n')
+learned={t['sha256'] for t in sets['learning']};baseline={t['sha256'] for t in sets['initial-exam']};ai_hashes={t['sha256'] for t in sets['ai-task']}
+checks=[]
+for code in CATS:
+ get=lambda stage:[r for r in sets[stage] if r['categoryCode']==code]
+ s=get('learning');b=get('initial-exam');a=get('ai-task');f=get('final-exam');old=[t for t in f if t['novelty']=='old'];new=[t for t in f if t['novelty']=='new']
+ assert [len(s),len(b),len(a),len(old),len(new)]==[6,3,6,3,3]
+ assert all(r['sha256'] in learned for r in b)
+ assert all(r['sha256'] not in learned for r in a)
+ assert {r['sha256'] for r in old}=={r['sha256'] for r in s if r['sha256'] not in baseline}
+ assert all(r['sha256'] not in learned|ai_hashes for r in new)
+ checks.append(dict(categoryCode=code,category=CATS[code],study=6,baseline=3,aiTask=6,finalOld=3,finalNew=3,overlapViolations=0,aiCorrect=sum(r['aiCorrect'] for r in a),aiIncorrect=sum(not r['aiCorrect'] for r in a)))
+for stage,rows in sets.items():
+ assert len({r['sha256'] for r in rows})==len(rows)
+ assert all(a['categoryCode']!=b['categoryCode'] for a,b in zip(rows,rows[1:]))
+ if stage in ['learning','ai-task']:
+  for i in range(0,len(rows),6):assert len({r['categoryCode'] for r in rows[i:i+6]})==6
+manifest=dict(orderVersion='stimuli-six-20261117-v1',seed=SEED,stages=sets)
+(ROOT/'data/stimulus-order.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 with (ROOT/'data/stimulus-order.csv').open('w') as f:
- writer=csv.DictWriter(f,fieldnames=['stage','position','block','imageId','categoryCode','correctCategory','novelty','sourceSubset','url']);writer.writeheader()
+ fields=['stage','position','block','imageId','categoryCode','correctCategory','novelty','sourceSubset','url','aiCategory','aiCorrect','aiReason'];w=csv.DictWriter(f,fieldnames=fields);w.writeheader()
  for stage,rows in sets.items():
-  for r in rows:writer.writerow({'stage':stage,**{k:r.get(k) for k in writer.fieldnames if k!='stage'}})
-print({k:len(v) for k,v in sets.items()})
+  for r in rows:w.writerow({'stage':stage,**{k:r.get(k) for k in fields if k!='stage'}})
+with (ROOT/'data/ai-mapping.csv').open('w') as f:
+ fields=['filename','correctCategory','aiCategory','aiCorrect','aiReason'];w=csv.DictWriter(f,fieldnames=fields);w.writeheader()
+ for r in mapping['trials']:w.writerow({k:r[k] for k in fields})
+with (ROOT/'data/final-old-images.csv').open('w') as f:
+ w=csv.writer(f);w.writerow(['categoryCode','category','filename','finalPosition','studyPosition','baselineUsed'])
+ for code in CATS:
+  for r in sorted([r for r in sets['final-exam'] if r['categoryCode']==code and r['novelty']=='old'],key=lambda t:t['filename']):
+   w.writerow([code,r['correctCategory'],r['filename'],r['position'],next(s['position'] for s in sets['learning'] if s['sha256']==r['sha256']),0])
+validation=dict(orderVersion=manifest['orderVersion'],counts={k:len(v) for k,v in sets.items()},categories=checks,melanomaSelection={stage:[r['filename'] for r in rows if r['categoryCode']=='MEL'] for stage,rows in sets.items()},melanomaNewUnused=[name for name,_ in fresh if name not in {name for name,_ in selected_new}],aiMappingSource=mapping['source'],aiAccuracy={'correct':25,'total':36,'rate':25/36})
+(ROOT/'data/six-category-validation.json').write_text(json.dumps(validation,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps(validation,ensure_ascii=False))

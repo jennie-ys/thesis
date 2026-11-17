@@ -1,0 +1,226 @@
+{
+  "sources": [
+    "responses/2026-10-13/929ec312_1791890497953.json",
+    "responses/2026-10-13/2d9cab64_1791875909382.json",
+    "responses/2026-10-12/ab6b7bcf_1791783846802.json"
+  ],
+  "trials": [
+    {
+      "filename": "ISIC_1076265.jpg",
+      "correctCategory": "광선각화증",
+      "aiCategory": "기저세포암",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_5844410.jpg",
+      "correctCategory": "피부섬유종",
+      "aiCategory": "피부섬유종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_1019384.jpg",
+      "correctCategory": "흑색종",
+      "aiCategory": "기저세포암",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_1099402.jpg",
+      "correctCategory": "광선각화증",
+      "aiCategory": "광선각화증",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_1230479.jpg",
+      "correctCategory": "기저세포암",
+      "aiCategory": "광선각화증",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_6558326.jpg",
+      "correctCategory": "피부섬유종",
+      "aiCategory": "기저세포암",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_1186941.jpg",
+      "correctCategory": "기저세포암",
+      "aiCategory": "기저세포암",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_1074795.jpg",
+      "correctCategory": "흑색종",
+      "aiCategory": "흑색종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_6943256.jpg",
+      "correctCategory": "피부섬유종",
+      "aiCategory": "피부섬유종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0125513.jpg",
+      "correctCategory": "멜라닌세포성 모반",
+      "aiCategory": "흑색종",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_0970615.jpg",
+      "correctCategory": "광선각화증",
+      "aiCategory": "광선각화증",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0179367.jpg",
+      "correctCategory": "멜라닌세포성 모반",
+      "aiCategory": "흑색종",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_0529633.jpg",
+      "correctCategory": "흑색종",
+      "aiCategory": "흑색종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0962183.jpg",
+      "correctCategory": "기저세포암",
+      "aiCategory": "기저세포암",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0356038.jpg",
+      "correctCategory": "멜라닌세포성 모반",
+      "aiCategory": "광선각화증",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_6192197.jpg",
+      "correctCategory": "혈관 병변",
+      "aiCategory": "혈관 병변",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0410802.jpg",
+      "correctCategory": "흑색종",
+      "aiCategory": "흑색종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_1115156.jpg",
+      "correctCategory": "광선각화증",
+      "aiCategory": "광선각화증",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_6043617.jpg",
+      "correctCategory": "피부섬유종",
+      "aiCategory": "기저세포암",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_0174869.jpg",
+      "correctCategory": "멜라닌세포성 모반",
+      "aiCategory": "멜라닌세포성 모반",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_1119486.jpg",
+      "correctCategory": "광선각화증",
+      "aiCategory": "광선각화증",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_8020470.jpg",
+      "correctCategory": "혈관 병변",
+      "aiCategory": "혈관 병변",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_6312345.jpg",
+      "correctCategory": "피부섬유종",
+      "aiCategory": "기저세포암",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_0382621.jpg",
+      "correctCategory": "기저세포암",
+      "aiCategory": "기저세포암",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_8190843.jpg",
+      "correctCategory": "혈관 병변",
+      "aiCategory": "혈관 병변",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0216815.jpg",
+      "correctCategory": "멜라닌세포성 모반",
+      "aiCategory": "피부섬유종",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_6141128.jpg",
+      "correctCategory": "혈관 병변",
+      "aiCategory": "혈관 병변",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_1217127.jpg",
+      "correctCategory": "기저세포암",
+      "aiCategory": "기저세포암",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0167803.jpg",
+      "correctCategory": "멜라닌세포성 모반",
+      "aiCategory": "흑색종",
+      "aiCorrect": false
+    },
+    {
+      "filename": "ISIC_0723926.jpg",
+      "correctCategory": "광선각화증",
+      "aiCategory": "광선각화증",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_7134919.jpg",
+      "correctCategory": "혈관 병변",
+      "aiCategory": "혈관 병변",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0406149.jpg",
+      "correctCategory": "흑색종",
+      "aiCategory": "흑색종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0913648.jpg",
+      "correctCategory": "기저세포암",
+      "aiCategory": "기저세포암",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_8462138.jpg",
+      "correctCategory": "혈관 병변",
+      "aiCategory": "혈관 병변",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_0414164.jpg",
+      "correctCategory": "흑색종",
+      "aiCategory": "흑색종",
+      "aiCorrect": true
+    },
+    {
+      "filename": "ISIC_5813817.jpg",
+      "correctCategory": "피부섬유종",
+      "aiCategory": "피부섬유종",
+      "aiCorrect": true
+    }
+  ],
+  "reasonRecorded": false
+}

@@ -15,4 +15,4 @@ for(const path of ['images','initial-exam-images','task-images','exam-images']){
  const d=await(await get('/api/'+path)).json()
  for(const t of d.slides||d.exams||d.tasks){const r=await get(t.url);assert.equal(r.status,200);assert.equal(new Uint8Array(await r.arrayBuffer())[0],255)}
 }
-console.log('Default Workers config, independent Pages config, experiment root and 105 static image paths PASS')
+console.log('Default Workers config, independent Pages config, experiment root and 126 static image paths PASS')

@@ -166,7 +166,7 @@
         break
       }
       case 'learning-intro':
-        info('', "<p class=\"instruct-lead\">지금부터 5종의 피부 병변을 진단하기 위한 학습을 시작합니다.</p><p>한 장씩 제시되는 피부 병변의 사진과 이름을 보며 시각적 특징을 학습하면 됩니다.<br>\n        화면은 5초마다 자동으로 넘어가며, 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n        <p>학습할 피부 병변 5종의 이름은 다음과 같습니다.</p>\n\n        <p class=\"lesion-names\">\n          <strong>광선각화증, 기저세포암, 멜라닌세포성 모반, 피부섬유종, 혈관 병변</strong>\n        </p>\n\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:1}), "학습 시작하기")
+        info('', "<p class=\"instruct-lead\">지금부터 6종의 피부 병변을 진단하기 위한 학습을 시작합니다.</p><p>한 장씩 제시되는 피부 병변의 사진과 이름을 보며 시각적 특징을 학습하면 됩니다.<br>\n        화면은 5초마다 자동으로 넘어가며, 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n        <p>학습할 피부 병변 6종의 이름은 다음과 같습니다.</p>\n\n        <p class=\"lesion-names\">\n          <strong>광선각화증, 기저세포암, 멜라닌세포성 모반, 피부섬유종, 혈관 병변, 흑색종</strong>\n        </p>\n\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:1}), "학습 시작하기")
         break
       case 'learning': renderLearning(); break
       case 'learning-break':
@@ -176,7 +176,7 @@
         jolScreen('시험 수행 예측', '만약 지금부터 피부 병변 분류 시험을 보게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'initialExamPrediction', 'initial-exam-intro')
         break
       case 'initial-exam-intro':
-        info('', "<p class=\"instruct-lead\">지금부터 피부 병변의 범주를 분류하는 시험을 시작합니다.</p>\n<p>피부 병변 이미지가 한 장씩 제시되면, 앞서 학습한 내용을 바탕으로 해당하는 병변의 범주를 판단하세요.</p>\n<p>화면에 제시되는 5개의 범주명을 참고하여, 해당한다고 생각하는 범주명을 답 입력란에 직접 작성해주세요.</p>\n<p>답을 작성한 후 아래 버튼을 누르면 다음 이미지로 넘어갑니다. 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n<p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 시험이 시작됩니다.</p>", () => go('initial-exam', {index:state.initialExam.length}), "시험 시작하기")
+        info('', "<p class=\"instruct-lead\">지금부터 피부 병변의 범주를 분류하는 시험을 시작합니다.</p>\n<p>피부 병변 이미지가 한 장씩 제시되면, 앞서 학습한 내용을 바탕으로 해당하는 병변의 범주를 판단하세요.</p>\n<p>화면에 제시되는 6개의 범주명을 참고하여, 해당한다고 생각하는 범주명을 답 입력란에 직접 작성해주세요.</p>\n<p>답을 작성한 후 아래 버튼을 누르면 다음 이미지로 넘어갑니다. 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n<p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 시험이 시작됩니다.</p>", () => go('initial-exam', {index:state.initialExam.length}), "시험 시작하기")
         break
       case 'initial-exam': renderInitialExam(); break
       case 'initial-feedback': {
@@ -593,6 +593,7 @@
       _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
       _stimulus_order_version:config.stimulusOrderVersion,
       _ai_mapping_pending:config.aiMappingPending,
+      _ai_mapping_source:config.aiMappingSource,
       _stimulus_manifest:[...slides,...initialExams,...tasks,...finalExams].map(({id,imageId,categoryCode,novelty,position,block})=>({id,imageId,categoryCode,novelty,position,block})),
       _rt_schema_version:2,
       _submitted_responses:Object.values(state.submittedResponses),

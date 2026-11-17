@@ -1,6 +1,6 @@
 // Fixed image order is generated offline; participant sessions never reshuffle it.
 import stimulusOrder from '../data/stimulus-order.json'
-export const CATEGORIES = ['광선각화증', '기저세포암', '멜라닌세포성 모반', '피부섬유종', '혈관 병변']
+export const CATEGORIES = ['광선각화증', '기저세포암', '멜라닌세포성 모반', '피부섬유종', '혈관 병변', '흑색종']
 export const GROUPS = [
   {
     id: 'intervention', label: 'intervention',
@@ -21,7 +21,7 @@ const finalExam = stimulusOrder.stages['final-exam']
 
 export function getExperimentConfig() {
   return {
-    version: 'two-group-v4-final-old',
+    version: 'two-group-six-v1',
     categories: CATEGORIES,
     groups: GROUPS,
     learningRounds: 2,
@@ -32,7 +32,9 @@ export function getExperimentConfig() {
     mathDurationMs: 180000,
     previewControls: true,
     stimuliPending: false,
-    aiMappingPending: true,
+    aiMappingPending: false,
+    aiMappingSource: tasks[0].aiMappingSource,
+    aiMappingAccuracy: { correct: 25, total: 36 },
     stimulusOrderVersion: stimulusOrder.orderVersion,
     trialCounts: { learning: learning.length, initialExam: initialExam.length, tasks: tasks.length, finalExam: finalExam.length },
   }

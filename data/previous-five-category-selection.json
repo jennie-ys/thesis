@@ -1,0 +1,643 @@
+{
+  "sourceCommit": "dd1ec875bf12223c94c069b7cb03ec59b5a3572f",
+  "stages": {
+    "learning": [
+      {
+        "filename": "ISIC_1176432.jpg",
+        "categoryCode": "DF",
+        "sha256": "81d4073e20438818f5165ca48b46ef2dec2ebcb61537f537dd66d91f9179fe0a",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0496864.jpg",
+        "categoryCode": "AK",
+        "sha256": "1ea80590e6b5d47609d7302a8516b166e23d8ee50854949df12706ef2661f58a",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0106322.jpg",
+        "categoryCode": "NV",
+        "sha256": "dda6998883aad8c7bf9beb4b58f75548592cdf001a3bf52a246d63a69ea260c8",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0195347.jpg",
+        "categoryCode": "BCC",
+        "sha256": "aff1a327bf738f103082ab3cc9d9ae0203ba9979373e94d18b1138b8cf216b16",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_3849096.jpg",
+        "categoryCode": "VASC",
+        "sha256": "d94285c237963d873c83da08938d692a191e150bf8d71b9d5497b2cd73cb5134",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0377749.jpg",
+        "categoryCode": "BCC",
+        "sha256": "d32d0f7b718a31ba045bf7e86b147686caf4bc942cb053ab7c8595942ad6c402",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0101767.jpg",
+        "categoryCode": "NV",
+        "sha256": "61e2345cadbae8f67a17b14c54e18b71478594b221470e03d4b47cdbe4e2f055",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_4324758.jpg",
+        "categoryCode": "DF",
+        "sha256": "ead14278d1dca3ab2727f62a1ed384d03f12a7d31b84c1efa5887a4e1f8c5d80",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0478016.jpg",
+        "categoryCode": "AK",
+        "sha256": "4059cd3ddcc9cbbf61d6a152def854103f03393282353da4cda3759e86083468",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0552734.jpg",
+        "categoryCode": "VASC",
+        "sha256": "19e886cbfdbd99d10daafcf3dc09df9883f388bd98dc1bcacf7002cfa3f4cd55",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0369681.jpg",
+        "categoryCode": "BCC",
+        "sha256": "d73c6ddd67f626971e20121fa01063db06d5a8fa58938f3a2caa2e9aa175e523",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0080219.jpg",
+        "categoryCode": "NV",
+        "sha256": "4fa06967f5cde6ac50f75dcc087272e94eec9bf6359c921c806a0a22de226175",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0919412.jpg",
+        "categoryCode": "DF",
+        "sha256": "97a22713d6c6070ed2a1419d014a2ca1bd67161a393b00b4cfcc29f4d4e64a7e",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0605910.jpg",
+        "categoryCode": "AK",
+        "sha256": "bcbc32775f9a794e09ec51b428537d787dbc2a10c078eb9619d698933e1b2f6e",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_5409072.jpg",
+        "categoryCode": "VASC",
+        "sha256": "ce5c3bceaec5ce38cd17498180640fe6001daace8d69c77fb47b2269e476314d",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0097262.jpg",
+        "categoryCode": "NV",
+        "sha256": "de65881c07a541a153fce5d2fec12c9b5986ee18ea3507316200501536b6f157",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_4959784.jpg",
+        "categoryCode": "DF",
+        "sha256": "62f29777e6e4f5dab120eacd8357d992c27db487fb40f9e3bc95618a77da4d23",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0707479.jpg",
+        "categoryCode": "AK",
+        "sha256": "7a0c0c5e9a773bea56055288d1d31bc4048c3e34f052a6b56b7ff4c59cca06f2",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_5866736.jpg",
+        "categoryCode": "VASC",
+        "sha256": "182e1a52adaf524a556b66e3ec1445bcdab980c42740c9dddc8c87abe0c4a0d7",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0365517.jpg",
+        "categoryCode": "BCC",
+        "sha256": "7a7b6404d5f307afb0e93c334cc3dcd8b5efb776933fb7c838125a014e9df1a1",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0146067.jpg",
+        "categoryCode": "AK",
+        "sha256": "32597566546b15b8dde669cd50453e9ca0319f8098b820f009ed798c6deeda3a",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0115114.jpg",
+        "categoryCode": "NV",
+        "sha256": "d22a4d7ca824618815fb462ba5d57fbf0e2de8fd8378a221dce81f428ed49648",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0811703.jpg",
+        "categoryCode": "DF",
+        "sha256": "53d291baa8699f51777990359df7efa8179017d33296b3e9e98f5e4a436733d1",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0381913.jpg",
+        "categoryCode": "BCC",
+        "sha256": "4593e749c82266614bbdb1baaa9d965965dfbcad62632d72d6ccf89ccdad720d",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_1996485.jpg",
+        "categoryCode": "VASC",
+        "sha256": "a974f2d96796ffcd5b1def9a97bc99eb13009eb5f5f6772b189ceeda5b1b3445",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0368554.jpg",
+        "categoryCode": "BCC",
+        "sha256": "d75b12810b4964efe83c5902acdb2a1d79c5a053ebcdf9232aa3c19da10b806b",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_1342857.jpg",
+        "categoryCode": "DF",
+        "sha256": "c691b8c49df909cdca257076f7c38ff25a3ead9e5cadf13c9ceb331a1932771c",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0073863.jpg",
+        "categoryCode": "NV",
+        "sha256": "f358365eacac849e56404d42197ca4817449f87c4aa248c7016d501bbdc7e40e",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0686612.jpg",
+        "categoryCode": "VASC",
+        "sha256": "400dda76ae51bea74d84847635578a9198f886d9cd4fa4175a0fa8046f665b75",
+        "novelty": null
+      },
+      {
+        "filename": "ISIC_0260732.jpg",
+        "categoryCode": "AK",
+        "sha256": "fda1cbf852b87c9f17cb7f8690f22e9c2e6af5a5747be5cade317d45726d61d4",
+        "novelty": null
+      }
+    ],
+    "initial-exam": [
+      {
+        "filename": "ISIC_0073863.jpg",
+        "categoryCode": "NV",
+        "sha256": "f358365eacac849e56404d42197ca4817449f87c4aa248c7016d501bbdc7e40e",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_1996485.jpg",
+        "categoryCode": "VASC",
+        "sha256": "a974f2d96796ffcd5b1def9a97bc99eb13009eb5f5f6772b189ceeda5b1b3445",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_1176432.jpg",
+        "categoryCode": "DF",
+        "sha256": "81d4073e20438818f5165ca48b46ef2dec2ebcb61537f537dd66d91f9179fe0a",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0260732.jpg",
+        "categoryCode": "AK",
+        "sha256": "fda1cbf852b87c9f17cb7f8690f22e9c2e6af5a5747be5cade317d45726d61d4",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0552734.jpg",
+        "categoryCode": "VASC",
+        "sha256": "19e886cbfdbd99d10daafcf3dc09df9883f388bd98dc1bcacf7002cfa3f4cd55",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0919412.jpg",
+        "categoryCode": "DF",
+        "sha256": "97a22713d6c6070ed2a1419d014a2ca1bd67161a393b00b4cfcc29f4d4e64a7e",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0368554.jpg",
+        "categoryCode": "BCC",
+        "sha256": "d75b12810b4964efe83c5902acdb2a1d79c5a053ebcdf9232aa3c19da10b806b",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0811703.jpg",
+        "categoryCode": "DF",
+        "sha256": "53d291baa8699f51777990359df7efa8179017d33296b3e9e98f5e4a436733d1",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0097262.jpg",
+        "categoryCode": "NV",
+        "sha256": "de65881c07a541a153fce5d2fec12c9b5986ee18ea3507316200501536b6f157",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0478016.jpg",
+        "categoryCode": "AK",
+        "sha256": "4059cd3ddcc9cbbf61d6a152def854103f03393282353da4cda3759e86083468",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0686612.jpg",
+        "categoryCode": "VASC",
+        "sha256": "400dda76ae51bea74d84847635578a9198f886d9cd4fa4175a0fa8046f665b75",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0365517.jpg",
+        "categoryCode": "BCC",
+        "sha256": "7a7b6404d5f307afb0e93c334cc3dcd8b5efb776933fb7c838125a014e9df1a1",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0080219.jpg",
+        "categoryCode": "NV",
+        "sha256": "4fa06967f5cde6ac50f75dcc087272e94eec9bf6359c921c806a0a22de226175",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0195347.jpg",
+        "categoryCode": "BCC",
+        "sha256": "aff1a327bf738f103082ab3cc9d9ae0203ba9979373e94d18b1138b8cf216b16",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0146067.jpg",
+        "categoryCode": "AK",
+        "sha256": "32597566546b15b8dde669cd50453e9ca0319f8098b820f009ed798c6deeda3a",
+        "novelty": "old"
+      }
+    ],
+    "ai-task": [
+      {
+        "filename": "ISIC_1115156.jpg",
+        "categoryCode": "AK",
+        "sha256": "36f80b5193069664f0aebbc52d550e3229a46963697805b2cd2a0fe6eb94fc14",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_8020470.jpg",
+        "categoryCode": "VASC",
+        "sha256": "2ca41c68ea9b7f6c57ffdc687fe497e296b92fdf4cd7cf0fecf486495452c9e3",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0913648.jpg",
+        "categoryCode": "BCC",
+        "sha256": "775230cccc477a01c192150c467185eb909aea71153212b33ed89e56fa87fac4",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0356038.jpg",
+        "categoryCode": "NV",
+        "sha256": "ee5d3230901a4fd81ca5012d7e853e5f2ededa67fc8bf864737382ed56950436",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_6043617.jpg",
+        "categoryCode": "DF",
+        "sha256": "25e30bc02129db4e14366f2faa86e3e1c2f0e029268d63ebd881fea9feeda3cb",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0382621.jpg",
+        "categoryCode": "BCC",
+        "sha256": "205af68af6c0bc3169b0b3c423d58d407411cfadc5b42e0dbbe903a8a9fff6f2",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0970615.jpg",
+        "categoryCode": "AK",
+        "sha256": "8e23965d3e405a61be9b97969d92105c26bee0ffc3a7b678d6190df04036c583",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_7134919.jpg",
+        "categoryCode": "VASC",
+        "sha256": "9b4fb552264d02e4275b5ce5c7ecde48761b8f79f3a064a7f2b9c565b74706ea",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0125513.jpg",
+        "categoryCode": "NV",
+        "sha256": "a7f5bb8e8e092c6346e45b251ccf7d2b10735280a6eb8b9bf74e4441e08a8753",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_5844410.jpg",
+        "categoryCode": "DF",
+        "sha256": "f7dbf93073e162aa24b3037aa757723026157fe86f7d6e1c9f99856493f3622c",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1099402.jpg",
+        "categoryCode": "AK",
+        "sha256": "b460cd8d3ff1b630bfebb2b40079130892c6a7c98f98ad79f4b3c685ebbd5f02",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_5813817.jpg",
+        "categoryCode": "DF",
+        "sha256": "82ba110602a8b195f15c851740e9720ab43ea88b5284d0fb0a1a22880f668fe5",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_6141128.jpg",
+        "categoryCode": "VASC",
+        "sha256": "706be004325e49fd478cc2924f4e4ea7865ea9b6bc2be16b8dc5fdb475573f3c",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0216815.jpg",
+        "categoryCode": "NV",
+        "sha256": "350da9cd66115eb6f28de9cd78756ebcc7d848780bc8f6cb6bb6318e6b371855",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1230479.jpg",
+        "categoryCode": "BCC",
+        "sha256": "f8d0eacad62a5b248bb0a2ee0991084980607fc0eadf50db689cd033d0c71e4d",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0167803.jpg",
+        "categoryCode": "NV",
+        "sha256": "3809aeeab705fb45d828d706fb673bac35f6bd2b47e8e8b2969214af1799f912",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_8462138.jpg",
+        "categoryCode": "VASC",
+        "sha256": "43f109e2ae0100b1ee2b8c237334f157b1e37f597e0fa68f0c72f3b527c66737",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1217127.jpg",
+        "categoryCode": "BCC",
+        "sha256": "0b93ead7ac636d7ac7dfc0420f0c9d8d6731d8c57d8316efff9167541a7730e5",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_6943256.jpg",
+        "categoryCode": "DF",
+        "sha256": "231d3166d536252a3f0eda80c955dfc37816bd10ef4e135e4faf161d42cc146e",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1119486.jpg",
+        "categoryCode": "AK",
+        "sha256": "821327a195fb2899b8803e5c9051c5cca1706e97d684d53f5499d62c8fe5d763",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0174869.jpg",
+        "categoryCode": "NV",
+        "sha256": "58d715e7bcc5413bf88497f1b33db5d31220f059a253a2cd3647c450f434f8d7",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1076265.jpg",
+        "categoryCode": "AK",
+        "sha256": "8059f9721dc46b3ccd0bc42ee5322068009805e21d0763ea177fa87bf5f989cc",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0962183.jpg",
+        "categoryCode": "BCC",
+        "sha256": "0019973bd6d622c841a1b40494b0434c80b3ab71ba68bc57af4fffd716278314",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_6192197.jpg",
+        "categoryCode": "VASC",
+        "sha256": "4b1bad843079777aede7e484e71af81ccdc5f239a30a8a6d92cc78f95ae8585d",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_6558326.jpg",
+        "categoryCode": "DF",
+        "sha256": "9cc6ea9c967f657f4ea54672986ff3e52f021fbe9626f02b9c38a3db40f87295",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_8190843.jpg",
+        "categoryCode": "VASC",
+        "sha256": "530078821c6db2c55a864d085882bc73370217b7937d296a30b35ad33c211c56",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0179367.jpg",
+        "categoryCode": "NV",
+        "sha256": "85f7f972ee472de725b72df1deed81602e6e9db69ac4b3cb8e36fbb300aca836",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_6312345.jpg",
+        "categoryCode": "DF",
+        "sha256": "4b8edf8042a2f654fcc854908918f63b30cb15db444ae32656ebe0e6423e2221",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0723926.jpg",
+        "categoryCode": "AK",
+        "sha256": "c27fd2872fd018e9ce94242711c18e19e3516c7185d6641c95a4b4d856d2323b",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1186941.jpg",
+        "categoryCode": "BCC",
+        "sha256": "8b0b935f614df8f9fd61607cfe4d39f677001948ec1815d13331404d390d5dc5",
+        "novelty": "new"
+      }
+    ],
+    "final-exam": [
+      {
+        "filename": "ISIC_0106322.jpg",
+        "categoryCode": "NV",
+        "sha256": "dda6998883aad8c7bf9beb4b58f75548592cdf001a3bf52a246d63a69ea260c8",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_2983004.jpg",
+        "categoryCode": "AK",
+        "sha256": "a27e55e90cdcf9a8afa165570283e35f2c35150bc55617266dc96591b8f047b0",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_5866736.jpg",
+        "categoryCode": "VASC",
+        "sha256": "182e1a52adaf524a556b66e3ec1445bcdab980c42740c9dddc8c87abe0c4a0d7",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_1025100.jpg",
+        "categoryCode": "NV",
+        "sha256": "39e1f8f4d80771480f7aeeda1b2bbe368b86c9325b83b07476087b64aae1dc39",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0369681.jpg",
+        "categoryCode": "BCC",
+        "sha256": "d73c6ddd67f626971e20121fa01063db06d5a8fa58938f3a2caa2e9aa175e523",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_3849096.jpg",
+        "categoryCode": "VASC",
+        "sha256": "d94285c237963d873c83da08938d692a191e150bf8d71b9d5497b2cd73cb5134",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0496864.jpg",
+        "categoryCode": "AK",
+        "sha256": "1ea80590e6b5d47609d7302a8516b166e23d8ee50854949df12706ef2661f58a",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_8614567.jpg",
+        "categoryCode": "VASC",
+        "sha256": "c0520922645302a696b2fcc72840b3cbdd6d2e5fe7b36efcb2b25d739bfa9b00",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1342857.jpg",
+        "categoryCode": "DF",
+        "sha256": "c691b8c49df909cdca257076f7c38ff25a3ead9e5cadf13c9ceb331a1932771c",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_2232926.jpg",
+        "categoryCode": "BCC",
+        "sha256": "2820baab3ca764b29b3cb209b80bb3bf643dd5f6d35199f601a70f851f877e16",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0115114.jpg",
+        "categoryCode": "NV",
+        "sha256": "d22a4d7ca824618815fb462ba5d57fbf0e2de8fd8378a221dce81f428ed49648",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_7009788.jpg",
+        "categoryCode": "DF",
+        "sha256": "52200a2bb7e28fa35209028c6e283c374a980c9b0a417e287163a839023af5fb",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_2231864.jpg",
+        "categoryCode": "BCC",
+        "sha256": "2318a7d317c723bcf5f29191d2f7f3c4a665b8d8716d6a6d6a6e0e389afb48a8",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_7454975.jpg",
+        "categoryCode": "DF",
+        "sha256": "37cee3400b4389ac16c35ed51a4d65b3383c45a084efb26c7a0f8dbc1315c078",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_8791057.jpg",
+        "categoryCode": "VASC",
+        "sha256": "f7111fba9eec92a85704d234229f45c127d28c2dc75d4a926510224dbb4fd308",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0381913.jpg",
+        "categoryCode": "BCC",
+        "sha256": "4593e749c82266614bbdb1baaa9d965965dfbcad62632d72d6ccf89ccdad720d",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_3004699.jpg",
+        "categoryCode": "AK",
+        "sha256": "8c4bbf26abd8ac8979b84dee8f238200b33c0e89b7f69c6200520009ece30e8f",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_8705648.jpg",
+        "categoryCode": "DF",
+        "sha256": "547b3f0ad586c9c81d68bf57ffce32be8a38b60d2e2a30997f2e22ce8830c68b",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0101767.jpg",
+        "categoryCode": "NV",
+        "sha256": "61e2345cadbae8f67a17b14c54e18b71478594b221470e03d4b47cdbe4e2f055",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_2122841.jpg",
+        "categoryCode": "BCC",
+        "sha256": "c912eed961685ec5ec8127cb4ee9368d45a2c25be1e7e2f6e12de4d6d8215c71",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0707479.jpg",
+        "categoryCode": "AK",
+        "sha256": "7a0c0c5e9a773bea56055288d1d31bc4048c3e34f052a6b56b7ff4c59cca06f2",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_4324758.jpg",
+        "categoryCode": "DF",
+        "sha256": "ead14278d1dca3ab2727f62a1ed384d03f12a7d31b84c1efa5887a4e1f8c5d80",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_2977779.jpg",
+        "categoryCode": "AK",
+        "sha256": "03f6c8fa63d54078f9383b03b870299ea80eabf483ce6426fc7cf244d064e975",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_1029957.jpg",
+        "categoryCode": "NV",
+        "sha256": "418e89d8d20dd0a97f6690c78d78c6c237dabcd605d52deadb517bf9b9284423",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_5409072.jpg",
+        "categoryCode": "VASC",
+        "sha256": "ce5c3bceaec5ce38cd17498180640fe6001daace8d69c77fb47b2269e476314d",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0605910.jpg",
+        "categoryCode": "AK",
+        "sha256": "bcbc32775f9a794e09ec51b428537d787dbc2a10c078eb9619d698933e1b2f6e",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_0377749.jpg",
+        "categoryCode": "BCC",
+        "sha256": "d32d0f7b718a31ba045bf7e86b147686caf4bc942cb053ab7c8595942ad6c402",
+        "novelty": "old"
+      },
+      {
+        "filename": "ISIC_8600102.jpg",
+        "categoryCode": "VASC",
+        "sha256": "18adb405e6ed217cb33a43a710dfbe46aa1802cbcac3741b43ea47c86d1b559e",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_0769255.jpg",
+        "categoryCode": "NV",
+        "sha256": "a6bc35e9e4bc323d75d92d03299a3e5a0581cb089030965edfd939fa7cca6f0f",
+        "novelty": "new"
+      },
+      {
+        "filename": "ISIC_4959784.jpg",
+        "categoryCode": "DF",
+        "sha256": "62f29777e6e4f5dab120eacd8357d992c27db487fb40f9e3bc95618a77da4d23",
+        "novelty": "old"
+      }
+    ]
+  }
+}

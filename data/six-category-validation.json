@@ -1,0 +1,123 @@
+{
+  "orderVersion": "stimuli-six-20261117-v1",
+  "counts": {
+    "learning": 36,
+    "initial-exam": 18,
+    "ai-task": 36,
+    "final-exam": 36
+  },
+  "categories": [
+    {
+      "categoryCode": "AK",
+      "category": "광선각화증",
+      "study": 6,
+      "baseline": 3,
+      "aiTask": 6,
+      "finalOld": 3,
+      "finalNew": 3,
+      "overlapViolations": 0,
+      "aiCorrect": 5,
+      "aiIncorrect": 1
+    },
+    {
+      "categoryCode": "BCC",
+      "category": "기저세포암",
+      "study": 6,
+      "baseline": 3,
+      "aiTask": 6,
+      "finalOld": 3,
+      "finalNew": 3,
+      "overlapViolations": 0,
+      "aiCorrect": 5,
+      "aiIncorrect": 1
+    },
+    {
+      "categoryCode": "NV",
+      "category": "멜라닌세포성 모반",
+      "study": 6,
+      "baseline": 3,
+      "aiTask": 6,
+      "finalOld": 3,
+      "finalNew": 3,
+      "overlapViolations": 0,
+      "aiCorrect": 1,
+      "aiIncorrect": 5
+    },
+    {
+      "categoryCode": "DF",
+      "category": "피부섬유종",
+      "study": 6,
+      "baseline": 3,
+      "aiTask": 6,
+      "finalOld": 3,
+      "finalNew": 3,
+      "overlapViolations": 0,
+      "aiCorrect": 3,
+      "aiIncorrect": 3
+    },
+    {
+      "categoryCode": "VASC",
+      "category": "혈관 병변",
+      "study": 6,
+      "baseline": 3,
+      "aiTask": 6,
+      "finalOld": 3,
+      "finalNew": 3,
+      "overlapViolations": 0,
+      "aiCorrect": 6,
+      "aiIncorrect": 0
+    },
+    {
+      "categoryCode": "MEL",
+      "category": "흑색종",
+      "study": 6,
+      "baseline": 3,
+      "aiTask": 6,
+      "finalOld": 3,
+      "finalNew": 3,
+      "overlapViolations": 0,
+      "aiCorrect": 5,
+      "aiIncorrect": 1
+    }
+  ],
+  "melanomaSelection": {
+    "learning": [
+      "ISIC_0212251.jpg",
+      "ISIC_0156507.jpg",
+      "ISIC_0204323.jpg",
+      "ISIC_0320008.jpg",
+      "ISIC_0184224.jpg",
+      "ISIC_0305865.jpg"
+    ],
+    "initial-exam": [
+      "ISIC_0184224.jpg",
+      "ISIC_0156507.jpg",
+      "ISIC_0204323.jpg"
+    ],
+    "ai-task": [
+      "ISIC_0410802.jpg",
+      "ISIC_0414164.jpg",
+      "ISIC_0406149.jpg",
+      "ISIC_0529633.jpg",
+      "ISIC_1019384.jpg",
+      "ISIC_1074795.jpg"
+    ],
+    "final-exam": [
+      "ISIC_0212251.jpg",
+      "ISIC_0305865.jpg",
+      "ISIC_3642584.jpg",
+      "ISIC_1264034.jpg",
+      "ISIC_1285798.jpg",
+      "ISIC_0320008.jpg"
+    ]
+  },
+  "melanomaNewUnused": [
+    "ISIC_4563142.jpg"
+  ],
+  "aiMappingSource": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+  "aiAccuracy": {
+    "correct": 25,
+    "total": 36,
+    "rate": 0.6944444444444444
+  }
+}

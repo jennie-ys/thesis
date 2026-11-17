@@ -27,10 +27,16 @@ try{
  assert.equal(decoded.responses._exam_answers[0].correct,false)
  assert.equal(decoded.responses._task_answers[0].initial_correct,true)
  assert.equal(decoded.responses._task_answers[0].final_correct,false)
- assert.equal(decoded.responses._task_answers[0].ai_correct,null)
- assert.equal(decoded.responses._task_answers[0].ai_scoring_status,'mapping_missing')
+ assert.equal(decoded.responses._task_answers[0].ai_correct,task.aiCorrect)
+ assert.equal(decoded.responses._task_answers[0].ai_scoring_status,'scored')
  assert.deepEqual(decoded.responses._task_answers[0].phase_durations_ms,{initial_ms:100,ai_ms:200,final_ms:300})
  assert.equal(decoded.responses._scoring.source,'server_stimulus_manifest')
+ body.responses._task_answers=(await get('task-images')).tasks.map(t=>({trial_id:t.id,initial:t.correctCategory,final:t.correctCategory,phase_durations_ms:{initial_ms:100,ai_ms:200,final_ms:300}}))
+ assert.equal((await app.fetch(request(),env)).status,200)
+ const all=JSON.parse(Buffer.from(writes.at(-1).content,'base64').toString('utf8')).responses
+ assert.equal(all._scoring.ai_score.correct,25);assert.equal(all._scoring.ai_score.answered,36)
+ assert.equal(all._scoring.task_initial_score.correct,36);assert.equal(all._scoring.task_final_score.correct,36)
+ assert(all._task_answers.every(t=>t.ai_mapping_source&&typeof t.ai_correct==='boolean'))
  fail=true;assert.equal((await app.fetch(request(),env)).status,502)
  console.log('Participant JSON path, all response/RT fields, idempotent retry and explicit storage failures PASS')
 }finally{globalThis.fetch=original}
