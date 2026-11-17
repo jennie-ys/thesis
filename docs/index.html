@@ -1179,6 +1179,12 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   .task-screen .task-choices { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .page-wrap.task-screen { padding:1rem; }
 }
+
+/* Baseline written response: generous input and separated button on the right. */
+.initial-exam-card .baseline-answer-row { width:100%; max-width:640px; gap:1.5rem; margin:1.25rem auto 0; }
+.initial-exam-card .baseline-answer-row .written-answer { flex:1; width:0; min-width:0; height:3.4rem; margin:0; text-align:center; }
+.initial-exam-card .baseline-answer-row .btn-primary { flex:none; min-width:6rem; }
+@media(max-width:480px) { .initial-exam-card .baseline-answer-row { gap:1rem; } }
 </style>
 </head>
 <body>
@@ -1635,7 +1641,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
   }
   function renderInitialExam() {
     const item = initialExams[state.index]
-    shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><input id="written-answer" type="text" class="demog-input written-answer" autocomplete="off" spellcheck="false" />${errorArea()}${next('btn-initial-exam-next')}</form>`, 'initial-exam-card'))
+    shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><div class="math-input-row baseline-answer-row"><input id="written-answer" type="text" class="math-input written-answer" autocomplete="off" spellcheck="false" />${button('btn-initial-exam-next', '다음 →')}</div>${errorArea()}</form>`, 'initial-exam-card'))
     const submit = e => {
       e.preventDefault(); const answer = $('written-answer').value.trim()
       if (!answer) { error('범주명을 입력해 주세요.'); $('written-answer').focus(); return }
