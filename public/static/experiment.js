@@ -604,16 +604,30 @@
       _task_answers:state.task, _math:state.math ? {answers:state.math.answers, score:state.math.score, duration_ms:state.math.duration_ms, skipped:state.math.skipped} : null,
       _exam_answers:state.finalExam,
       _scoring:{initial_exam_score:score(state.initialExam), exam_score:score(state.finalExam), ai_k_correct:aiKnowledge, ai_k_score:{correct:Object.values(aiKnowledge).filter(Boolean).length,total:6},
-        task:state.task.map(t=>({trial_id:t.trial_id,skipped:!!t.skipped,changed:t.skipped ? null : t.initial!==t.final,final_correct:t.skipped ? null : t.final===t.correctCategory,final_eq_ai:t.skipped || t.aiCategory == null ? null : t.final===t.aiCategory}))},
+        task:state.task.map(t=>({trial_id:t.trial_id,skipped:!!t.skipped,changed:t.skipped ? null : t.initial!==t.final,initial_correct:t.skipped || !t.initial ? null : t.initial===t.correctCategory,final_correct:t.skipped || !t.final ? null : t.final===t.correctCategory,ai_correct:t.aiCategory == null ? null : t.aiCategory===t.correctCategory,ai_scoring_status:t.aiCategory == null ? 'mapping_missing' : 'scored',final_eq_ai:t.skipped || t.aiCategory == null ? null : t.final===t.aiCategory}))},
       _page_durations:state.pages, _task_phase_durations:state.task.map(t=>t.phase_durations_ms)
     }
     state.lastResponses = responses; persist()
+    const submission={participant_id:state.participantId,responses}
+    try { localStorage.setItem('__exp_pending_'+state.participantId,JSON.stringify(submission)) } catch (_) {}
     try { await fetch('/api/backup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,session_raw:{state}})}) } catch (_) { /* Main submission remains retryable. */ }
     try {
       const res = await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,responses})})
-      const data = await res.json(); if (!res.ok || data.error) throw new Error('응답 저장에 실패했습니다.')
-      state.submissionSaved = data.saved !== false; go('step-done')
-    } catch (err) { btn.disabled = false; _showErr('ps3-err','제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.') }
+      const data = await res.json(); if (!res.ok || data.error) throw new Error(data.message || '응답 저장에 실패했습니다. 오류 코드: '+(data.error || res.status))
+      state.submissionSaved = data.saved === 'github';
+      if (state.submissionSaved) { try {localStorage.removeItem('__exp_pending_'+state.participantId)}catch(_){} }
+      go('step-done')
+    } catch (err) {
+      btn.disabled = false; _showErr('ps3-err',err.message || '제출 중 연결 오류가 발생했습니다. 다시 제출하거나 JSON을 다운로드해 주세요.')
+      if (!$('btn-download-response')) {
+        const download=document.createElement('button'); download.id='btn-download-response'; download.type='button';download.className='btn-secondary';download.textContent='응답 JSON 다운로드'
+        download.onclick=()=>{
+          const blob=new Blob([JSON.stringify(submission,null,2)],{type:'application/json'})
+          const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='response_'+state.participantId+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
+        }
+        $('ps3-err').after(download)
+      }
+    }
   }
   function showError(message) {
     clearTimers(); $('experiment-root').hidden = true

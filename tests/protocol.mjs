@@ -151,7 +151,13 @@ for (const group of config.groups.map(g=>g.id)) {
     fill('ai-expected-accuracy','80');check('input[name="ai_t1"][value="no"]')
   }
   assert.equal(read().screen,'step-ps-3')
-  fill('q6-age','25'); check('input[name="q6_gender"]'); fill('q6-major','테스트');await click('btn-ps3-submit')
+  fill('q6-age','25'); check('input[name="q6_gender"]'); fill('q6-major','테스트')
+  const originalPreviewFetch=w.fetch;let failSubmission=true
+  w.fetch=async(path,init)=>path==='/api/submit'&&failSubmission?{ok:false,status:503,json:async()=>({error:'response_storage_not_configured',message:'저장 설정이 없습니다. 테스트 오류'})}:originalPreviewFetch(path,init)
+  await click('btn-ps3-submit')
+  assert.equal(read().screen,'step-ps-3');assert(d.getElementById('btn-download-response'));assert(d.getElementById('ps3-err').textContent.includes('테스트 오류'))
+  assert(w.localStorage.getItem('__preview_exp_pending_'+read().participantId))
+  failSubmission=false;await click('btn-ps3-submit')
   for(let i=0;i<200&&read().screen!=='step-done';i++)await tick()
   assert.equal(read().screen,'step-done');assert.match(element('#submission-result').textContent,/제출되지/)
   const responses=read().lastResponses

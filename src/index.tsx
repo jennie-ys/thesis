@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import { scoreResponses } from './scoring'
 import { getExperimentConfig, getLearningImages, getInitialExamImages, getTaskImages, getExamImages } from './image-manifest'
 
 type Bindings = { GITHUB_TOKEN: string; GITHUB_OWNER: string; GITHUB_REPO: string; ASSETS: { fetch(request: Request): Promise<Response> } }
@@ -12,12 +13,24 @@ app.get('/api/initial-exam-images', c => c.json(getInitialExamImages()))
 app.get('/api/task-images', c => c.json(getTaskImages()))
 app.get('/api/exam-images', c => c.json(getExamImages()))
 
-app.post('/api/submit', async (c) => {
+function storageFailure(status: number) {
+  if (status === 401) return {error:'github_auth_failed',message:'GitHub 토큰이 유효하지 않거나 만료되었습니다. 응답 JSON을 다운로드한 뒤 연구 담당자에게 전달해 주세요.'}
+  if (status === 403) return {error:'github_access_denied',message:'GitHub 저장 권한 또는 API 사용 제한으로 저장하지 못했습니다. 응답 JSON을 다운로드하고 담당자에게 알려주세요.'}
+  if (status === 404) return {error:'github_repository_unavailable',message:'GitHub 저장소를 찾을 수 없거나 토큰으로 접근할 수 없습니다. 저장소 이름과 토큰의 대상 저장소를 확인해야 합니다.'}
+  if (status === 409 || status === 422) return {error:'github_write_conflict',message:'GitHub 파일 저장 충돌 또는 저장소 정책으로 저장하지 못했습니다. 다시 제출하거나 JSON을 다운로드해 주세요.'}
+  return {error:'response_storage_failed',message:'저장 서버에 연결하지 못했습니다. 다시 제출하거나 응답 JSON을 다운로드해 주세요.'}
+}
+app.get('/api/storage-status', c => {
+  const missing=['GITHUB_TOKEN','GITHUB_OWNER','GITHUB_REPO'].filter(key=>!c.env?.[key as keyof Bindings])
+  return c.json({configured:missing.length===0,missing,folder:'response',write_verified:false})
+})
+
+app.post('/api/submit' , async (c) => {
   const body = await c.req.json().catch(() => null)
   if (!body) return c.json({ error: 'bad_request' }, 400)
 
   const { participant_id, responses } = body
-  if (!participant_id || !responses) return c.json({ error: 'missing_fields' }, 400)
+  if (typeof participant_id !== 'string' || !participant_id || !responses || typeof responses !== 'object' || Array.isArray(responses)) return c.json({ error: 'missing_fields' }, 400)
 
   const submittedAt = new Date().toISOString()
   const dateStr     = submittedAt.slice(0, 10)          // "YYYY-MM-DD"
@@ -35,7 +48,7 @@ app.post('/api/submit', async (c) => {
     group,
     ip_hash:      ipHash,
     submitted_at: submittedAt,
-    responses
+    responses: scoreResponses(responses)
   }
 
   const token = c.env?.GITHUB_TOKEN
@@ -65,7 +78,7 @@ app.post('/api/submit', async (c) => {
       // Retrying a participant's submission updates the same JSON file.
       const fileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`
       const existing = await fetch(fileUrl, { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'experiment-webapp' } })
-      if (!existing.ok && existing.status !== 404) return c.json({ error: 'response_storage_failed' }, 502)
+      if (!existing.ok && existing.status !== 404) return c.json(storageFailure(existing.status), 502)
       const sha = existing.ok ? ((await existing.json()) as { sha: string }).sha : undefined
       const ghRes = await fetch(
         `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
@@ -90,7 +103,7 @@ app.post('/api/submit', async (c) => {
         const detail = await ghRes.text()
         console.error('[SUBMIT] GitHub API error:', detail)
         // 저장 실패를 클라이언트에 전달하여 재시도할 수 있도록 합니다.
-        return c.json({ error: 'response_storage_failed' }, 502)
+        return c.json(storageFailure(ghRes.status), 502)
       }
 
       const result = await ghRes.json() as { content: { path: string } }
@@ -104,7 +117,7 @@ app.post('/api/submit', async (c) => {
   }
 
   // A live experiment must never silently complete without durable storage.
-  return c.json({ error: 'response_storage_not_configured' }, 503)
+  return c.json({ error:'response_storage_not_configured', message:'응답 저장 설정이 없습니다. 현재 웹페이지가 실행되는 프로젝트의 런타임에 GITHUB_TOKEN·GITHUB_OWNER·GITHUB_REPO를 설정해야 합니다.' }, 503)
 })
 
 // ─────────────────────────────────────────────────────────────
