@@ -1177,4 +1177,6 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 .initial-exam-card .baseline-answer-row { width:100%; max-width:640px; gap:1.5rem; margin:1.25rem auto 0; }
 .initial-exam-card .baseline-answer-row .written-answer { flex:1; width:0; min-width:0; height:3.4rem; margin:0; text-align:center; }
 .initial-exam-card .baseline-answer-row .btn-primary { flex:none; min-width:6rem; }
+.download-confirm { display:flex; align-items:center; gap:.6rem; margin-top:1.25rem; line-height:1.6; }
+.download-confirm input[type="checkbox"] { width:1.1rem; height:1.1rem; flex:none; }
 @media(max-width:480px) { .initial-exam-card .baseline-answer-row { gap:1rem; } }

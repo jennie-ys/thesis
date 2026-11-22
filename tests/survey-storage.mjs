@@ -2,7 +2,7 @@ import {readFile} from 'node:fs/promises'
 import assert from 'node:assert/strict'
 import {JSDOM,VirtualConsole} from 'jsdom'
 const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8')
-const key='__preview_exp_v2_state__'
+const key='__download_exp_v2_state__'
 const knowledge=Object.fromEntries(Array.from({length:6},(_,i)=>['ai_k'+(i+1),i%2?'맞다':'틀리다']))
 const attitude=Object.fromEntries(Array.from({length:8},(_,i)=>['ai_a'+(i+1),String(i%4+1)]))
 for(const example of [

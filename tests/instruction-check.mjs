@@ -1,7 +1,7 @@
 import {readFile} from 'node:fs/promises'
 import assert from 'node:assert/strict'
 import {JSDOM,VirtualConsole} from 'jsdom'
-const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8'),key='__preview_exp_v2_state__'
+const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8'),key='__download_exp_v2_state__'
 async function open(state){
   const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message))
   const dom=new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:vc}),w=dom.window

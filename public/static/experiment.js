@@ -64,6 +64,11 @@
   }
   function skipCurrentScreen() {
     if (!state || !config) { location.reload(); return }
+    if (config.storageMode === 'download' && state.screen === 'step-done' && state.downloadSubmission) {
+      if ($('download-confirm')?.checked) beginNextParticipant()
+      else error('다운로드된 파일을 확인한 후 확인란을 선택해 주세요.')
+      return
+    }
     state.skips ||= []
     state.skips.push({screen:state.screen,index:state.index,phase:state.phase,round:state.round,at:new Date().toISOString()})
     const missingTrials = (items, answers) => {
@@ -104,7 +109,10 @@
       case 'step-ai-survey': showAiSurveyB(); break
       case 'step-ai-survey-b': showAiErrorBelief(); break
       case 'step-ai-error-belief': psData.ai_t = {ai_t1:null, ai_t2:null, ai_t2_status:'skipped'}; showPS3(); break
-      case 'step-ps-3': state.submissionSaved = false; go('step-done'); break
+      case 'step-ps-3':
+        if (config.storageMode === 'download') handlePS3Submit($('btn-ps3-submit'), true)
+        else { state.submissionSaved = false; go('step-done') }
+        break
       default:
         state = freshState(); psData = normalizePostSurvey(state.survey); state.survey = psData
         document.querySelectorAll('.step input').forEach(input => { input.value = input.type === 'radio' ? input.value : ''; input.checked = false })
@@ -379,7 +387,10 @@
     if (restore[state.screen]) restore[state.screen]()
     else {
       activateSurvey(state.screen)
-      if (state.screen === 'step-done') $('submission-result').textContent = state.submissionSaved ? '응답해 주신 내용이 제출되었습니다.' : '절차 미리보기를 완료했습니다. 응답 저장소가 설정되지 않아 데이터는 제출되지 않았습니다.'
+      if (state.screen === 'step-done') {
+        if (config.storageMode === 'download') renderDownloadComplete()
+        else $('submission-result').textContent = state.submissionSaved ? '응답해 주신 내용이 제출되었습니다.' : '응답이 서버에 제출되지 않았습니다.'
+      }
       if (state.screen === 'step-error') bind('btn-retry', () => go('step-ps-3'))
     }
   }
@@ -580,13 +591,51 @@
     }
   }
 
-  async function handlePS3Submit(btn) {
+  function requestResponseDownload() {
+    if (!state.downloadSubmission) throw new Error('다운로드할 응답이 없습니다. 최종 제출 버튼을 눌러주세요.')
+    const blob = new Blob([JSON.stringify(state.downloadSubmission,null,2)],{type:'application/json;charset=utf-8'})
+    const url = URL.createObjectURL(blob), link = document.createElement('a')
+    try {
+      link.href=url; link.download=state.downloadFilename; document.body.appendChild(link); link.click()
+    } finally { link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000) }
+    state.downloadRequestedAt = new Date().toISOString(); persist()
+  }
+  function beginNextParticipant() {
+    clearTimers(); fieldShown.clear()
+    state=freshState(); psData=normalizePostSurvey(state.survey); state.survey=psData
+    document.querySelectorAll('.step input').forEach(input=>{
+      if (input.type==='radio'||input.type==='checkbox') input.checked=false
+      else input.value=''
+    })
+    document.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
+    $('submission-result').textContent=''
+    persist(); render()
+  }
+  function renderDownloadComplete() {
+    const result = $('submission-result')
+    result.innerHTML = state.downloadSubmission
+      ? `<p>응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.</p><p>파일명: <strong>${escape(state.downloadFilename)}</strong></p><div class="btn-row">${button('btn-download-again','응답 JSON 다시 다운로드')}</div><label class="download-confirm"><input id="download-confirm" type="checkbox" /> 다운로드된 파일을 확인했습니다.</label><div class="btn-row">${button('btn-next-participant','다음 참가자 시작','disabled')}</div>${errorArea()}`
+      : '<p>다운로드할 응답이 없습니다. 실험을 완료한 후 최종 제출해 주세요.</p>'
+    if (!state.downloadSubmission) return
+    bind('btn-download-again',()=>{
+      try { requestResponseDownload(); error('') } catch(err) { error('다운로드를 요청하지 못했습니다. '+err.message) }
+    })
+    $('download-confirm').onchange=()=>{ $('btn-next-participant').disabled=!$('download-confirm').checked }
+    bind('btn-next-participant',()=>{
+      if (!$('download-confirm').checked) return
+      beginNextParticipant()
+    })
+  }
+  async function handlePS3Submit(btn, skipped = false) {
     const age = $('q6-age').value.trim(), gender = document.querySelector('input[name="q6_gender"]:checked')?.value, major = $('q6-major').value.trim()
-    if (!age || !Number.isInteger(Number(age)) || Number(age)<0 || Number(age)>120) { _showErr('ps3-err','만 나이를 0~120 사이의 정수로 입력해 주세요.'); return }
-    if (!gender) { _showErr('ps3-err','성별을 선택해 주세요.'); return }
-    if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
-    commitResponse('q6_age',Number(age)); commitResponse('q6_gender',gender); commitResponse('q6_major',major)
-    Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major}); persist(); btn.disabled = true
+    if (!skipped) {
+      if (!age || !Number.isInteger(Number(age)) || Number(age)<0 || Number(age)>120) { _showErr('ps3-err','만 나이를 0~120 사이의 정수로 입력해 주세요.'); return }
+      if (!gender) { _showErr('ps3-err','성별을 선택해 주세요.'); return }
+      if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
+      commitResponse('q6_age',Number(age)); commitResponse('q6_gender',gender); commitResponse('q6_major',major)
+      Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major})
+    } else Object.assign(psData, {q6_age:null,q6_gender:null,q6_major:null})
+    persist(); if (btn) btn.disabled = true
     leavePage()
     const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
     const responses = {
@@ -609,6 +658,23 @@
       _scoring:{initial_exam_score:score(state.initialExam), exam_score:score(state.finalExam), ai_k_correct:aiKnowledge, ai_k_score:{correct:Object.values(aiKnowledge).filter(Boolean).length,total:6},
         task:state.task.map(t=>({trial_id:t.trial_id,skipped:!!t.skipped,changed:t.skipped ? null : t.initial!==t.final,initial_correct:t.skipped || !t.initial ? null : t.initial===t.correctCategory,final_correct:t.skipped || !t.final ? null : t.final===t.correctCategory,ai_correct:t.aiCategory == null ? null : t.aiCategory===t.correctCategory,ai_scoring_status:t.aiCategory == null ? 'mapping_missing' : 'scored',final_eq_ai:t.skipped || t.aiCategory == null ? null : t.final===t.aiCategory}))},
       _page_durations:state.pages, _task_phase_durations:state.task.map(t=>t.phase_durations_ms)
+    }
+    if (config.storageMode === 'download') {
+      try {
+        if (!state.downloadSubmission) {
+          state.lastResponses = window.ExperimentScoring.scoreResponses(responses)
+          const completedAt=new Date().toISOString()
+          state.downloadSubmission={schema_version:1,participant_id:state.participantId,group:state.group,started_at:state.startedAt,completed_at:completedAt,storage:'browser_download',responses:state.lastResponses}
+          state.downloadFilename='response_'+state.participantId+'_'+completedAt.replace(/[:.]/g,'-')+'.json'
+          persist()
+          try { localStorage.setItem('__exp_download_backup_'+state.participantId,JSON.stringify(state.downloadSubmission)) } catch (_) { /* The session snapshot and downloadable JSON remain available. */ }
+        }
+        requestResponseDownload(); go('step-done')
+      } catch (err) {
+        if (btn) btn.disabled=false
+        _showErr('ps3-err','JSON 다운로드를 요청하지 못했습니다. 다시 제출해 주세요. '+err.message)
+      }
+      return
     }
     state.lastResponses = responses; persist()
     const submission={participant_id:state.participantId,responses}

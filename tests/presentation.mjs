@@ -5,12 +5,13 @@ const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8')
 const errors=[], vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message))
 const dom=new JSDOM(html,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:vc})
 const w=dom.window,d=w.document
+w.structuredClone=structuredClone;w.URL.createObjectURL=()=> 'blob:test';w.URL.revokeObjectURL=()=>{};w.HTMLAnchorElement.prototype.click=()=>{}
 w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{}
 for(const script of d.querySelectorAll('script'))w.eval(script.textContent)
 d.dispatchEvent(new w.Event('DOMContentLoaded'))
 const wait=()=>new Promise(r=>setTimeout(r,2))
 await wait()
-const state=()=>JSON.parse(w.sessionStorage.getItem('__preview_exp_v2_state__'))
+const state=()=>JSON.parse(w.sessionStorage.getItem('__download_exp_v2_state__'))
 const expected=['group','instruction','learning-intro','learning','learning-break','learning','jol-initial-exam','initial-exam-intro','initial-exam','initial-feedback','jol-ai-prediction','task-intro','task-notice','task','jol-task','jol-no-ai','math-intro','math','final-exam-intro','final-exam','step-ps-0','step-ps-1','step-ps-2','step-ai-survey','step-ai-survey-b','step-ai-error-belief','step-ps-3','step-done']
 for(const screen of expected){
   assert.equal(state().screen,screen)
@@ -52,6 +53,10 @@ for(const screen of expected){
     assert.equal(active.querySelector('#btn-next').textContent,'다음→')
   }
   if(screen==='task')assert(active.textContent.includes('이 이미지의 피부 병변 범주를 선택하세요.')&&!active.textContent.includes('초기 진단'))
+  if(screen==='step-done'){
+    button.click();assert.equal(state().screen,'step-done')
+    const confirm=d.getElementById('download-confirm');confirm.checked=true;confirm.dispatchEvent(new w.Event('change'))
+  }
   button.click();await wait()
   if(screen==='step-ai-error-belief')assert.deepEqual(state().survey.ai_t,{ai_t1:null,ai_t2:null,ai_t2_status:'skipped'})
 }

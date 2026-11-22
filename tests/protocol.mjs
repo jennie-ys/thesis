@@ -27,10 +27,16 @@ for (const group of config.groups.map(g=>g.id)) {
   const w = dom.window, d = w.document
   w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo = () => {}; const scrollTargets=[]; w.HTMLElement.prototype.scrollIntoView = function(){scrollTargets.push(this.id)}
   w.fetch = () => { throw Error('Unexpected external request') }
+  w.structuredClone=structuredClone
+  const downloaded=[];let failDownload=true
+  w.URL.createObjectURL=blob=>{if(failDownload)throw Error('테스트 다운로드 오류');downloaded.push({blob});return 'blob:test'}
+  w.URL.revokeObjectURL=()=>{}
+  w.HTMLAnchorElement.prototype.click=function(){downloaded.at(-1).filename=this.download}
+
   const timeout = w.setTimeout.bind(w); w.setTimeout = (fn,delay,...args) => timeout(fn,0,...args)
   for(const script of d.querySelectorAll('script')) w.eval(script.textContent)
   d.dispatchEvent(new w.Event('DOMContentLoaded')); await tick()
-  const read = () => JSON.parse(w.sessionStorage.getItem('__preview_exp_v2_state__'))
+  const read = () => JSON.parse(w.sessionStorage.getItem('__download_exp_v2_state__'))
   const element = selector => { const el = d.querySelector(selector); assert(el,'Missing '+selector); return el }
   const click = async id => {
     for(let i=0;i<2000;i++){
@@ -161,14 +167,28 @@ for (const group of config.groups.map(g=>g.id)) {
   }
   assert.equal(read().screen,'step-ps-3')
   fill('q6-age','25'); check('input[name="q6_gender"]'); fill('q6-major','테스트')
-  const originalPreviewFetch=w.fetch;let failSubmission=true
-  w.fetch=async(path,init)=>path==='/api/submit'&&failSubmission?{ok:false,status:503,json:async()=>({error:'response_storage_not_configured',message:'저장 설정이 없습니다. 테스트 오류'})}:originalPreviewFetch(path,init)
+  const originalFetch=w.fetch;const posts=[]
+  w.fetch=async(path,init)=>{if(init?.method==='POST')posts.push(path);return originalFetch(path,init)}
   await click('btn-ps3-submit')
-  assert.equal(read().screen,'step-ps-3');assert(d.getElementById('btn-download-response'));assert(d.getElementById('ps3-err').textContent.includes('테스트 오류'))
-  assert(w.localStorage.getItem('__preview_exp_pending_'+read().participantId))
-  failSubmission=false;await click('btn-ps3-submit')
+  assert.equal(read().screen,'step-ps-3');assert(d.getElementById('ps3-err').textContent.includes('테스트 다운로드 오류'))
+  const frozen=JSON.stringify(read().downloadSubmission),filename=read().downloadFilename
+  failDownload=false;await click('btn-ps3-submit')
   for(let i=0;i<200&&read().screen!=='step-done';i++)await tick()
-  assert.equal(read().screen,'step-done');assert.match(element('#submission-result').textContent,/제출되지/)
+  assert.equal(read().screen,'step-done');assert.match(element('#submission-result').textContent,/다운로드/)
+  assert.deepEqual(posts,[]);assert.equal(downloaded.length,1)
+  assert.equal(downloaded[0].filename,filename);assert.equal(JSON.stringify(read().downloadSubmission),frozen)
+  const readBlob=blob=>new Promise(resolve=>{const reader=new w.FileReader();reader.onload=()=>resolve(reader.result);reader.readAsText(blob)})
+  const saved=JSON.parse(await readBlob(downloaded[0].blob))
+  assert.equal(saved.participant_id,read().participantId);assert.equal(saved.group,group)
+  assert.equal(saved.responses._scoring.source,'browser_stimulus_manifest')
+  assert.equal(saved.responses._scoring.ai_score.correct,25);assert.equal(saved.responses._scoring.ai_score.answered,36)
+  assert(saved.responses._task_answers.every(t=>typeof t.ai_correct==='boolean'&&typeof t.initial_correct==='boolean'&&typeof t.final_correct==='boolean'))
+  assert.deepEqual(saved.responses,read().lastResponses)
+  await click('btn-download-again');assert.equal(downloaded.length,2)
+  assert.equal(await readBlob(downloaded[1].blob),await readBlob(downloaded[0].blob))
+  assert.equal(downloaded[1].filename,filename)
+  assert(element('#btn-next-participant').disabled)
+  check('#download-confirm');assert(!element('#btn-next-participant').disabled)
   const responses=read().lastResponses
   assert.equal(responses.ai_t.ai_t1,group==='intervention'?'yes':'no')
   assert.equal(responses.ai_t.ai_t2,group==='intervention'?0:null)
@@ -192,6 +212,15 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(Object.keys(responses.ai_t).every(key=>key.startsWith('ai_t')))
   assert.deepEqual(errors,[])
   summaries.push(read().pages.map(p=>[p.screen,p.index,p.phase,p.round]))
+  const previousId=read().participantId
+  await click('btn-next-participant')
+  assert.equal(read().screen,'group');assert.notEqual(read().participantId,previousId)
+  assert.equal(read().initialExam.length,0);assert.equal(read().task.length,0);assert.equal(read().finalExam.length,0)
+  assert.deepEqual(read().submittedResponses,{});assert(!read().downloadSubmission)
+  assert.equal(element('#q6-age').value,'');assert.equal(element('#q6-major').value,'')
+  assert.equal(d.querySelectorAll('.step input:checked').length,0)
+  assert(w.localStorage.getItem('__download_exp_download_backup_'+previousId))
+
   process.stdout.write(group+': 72 learning presentations, 4 JOLs, 18 written trials, score, 36 T-format tasks, math, 36 final trials and unchanged surveys PASS\n')
   dom.window.close()
 }
