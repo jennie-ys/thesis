@@ -600,6 +600,15 @@
     } finally { link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000) }
     state.downloadRequestedAt = new Date().toISOString(); persist()
   }
+  function prepareDownloadSubmission(responses, completedAt = new Date().toISOString()) {
+    if (state.downloadSubmission) return
+    state.lastResponses = window.ExperimentScoring.scoreResponses(responses)
+    state.downloadSubmission={schema_version:1,participant_id:state.participantId,group:state.group,started_at:state.startedAt,completed_at:completedAt,storage:'browser_download',responses:state.lastResponses}
+    if (state.recoveredFrom) state.downloadSubmission.recovered_from='legacy_preview_session'
+    state.downloadFilename='response_'+state.participantId+'_'+completedAt.replace(/[:.]/g,'-')+'.json'
+    persist()
+    try { localStorage.setItem('__exp_download_backup_'+state.participantId,JSON.stringify(state.downloadSubmission)) } catch (_) { /* The session snapshot and downloadable JSON remain available. */ }
+  }
   function beginNextParticipant() {
     clearTimers(); fieldShown.clear()
     state=freshState(); psData=normalizePostSurvey(state.survey); state.survey=psData
@@ -613,12 +622,20 @@
   }
   function renderDownloadComplete() {
     const result = $('submission-result')
+    if (!state.downloadSubmission && (state.lastResponses || state.recoveredFrom)) {
+      try { prepareDownloadSubmission(state.lastResponses || collectResponses(),new Date(state.pageEntered).toISOString()) }
+      catch (err) { result.textContent='이전 응답을 복구하지 못했습니다. 이 탭을 닫지 말고 연구자에게 알려주세요. '+err.message; return }
+    }
     result.innerHTML = state.downloadSubmission
-      ? `<p>응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.</p><p>파일명: <strong>${escape(state.downloadFilename)}</strong></p><div class="btn-row">${button('btn-download-again','응답 JSON 다시 다운로드')}</div><label class="download-confirm"><input id="download-confirm" type="checkbox" /> 다운로드된 파일을 확인했습니다.</label><div class="btn-row">${button('btn-next-participant','다음 참가자 시작','disabled')}</div>${errorArea()}`
+      ? `<p id="download-status">${state.downloadRequestedAt ? '응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.' : '완료된 응답을 복구했습니다. 아래 버튼을 눌러 JSON 파일을 다운로드해 주세요.'}</p><p>파일명: <strong>${escape(state.downloadFilename)}</strong></p><div class="btn-row">${button('btn-download-again',state.downloadRequestedAt ? '응답 JSON 다시 다운로드' : '응답 JSON 다운로드')}</div><label class="download-confirm"><input id="download-confirm" type="checkbox" /> 다운로드된 파일을 확인했습니다.</label><div class="btn-row">${button('btn-next-participant','다음 참가자 시작','disabled')}</div>${errorArea()}`
       : '<p>다운로드할 응답이 없습니다. 실험을 완료한 후 최종 제출해 주세요.</p>'
     if (!state.downloadSubmission) return
     bind('btn-download-again',()=>{
-      try { requestResponseDownload(); error('') } catch(err) { error('다운로드를 요청하지 못했습니다. '+err.message) }
+      try {
+        requestResponseDownload(); error('')
+        $('download-status').textContent='응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.'
+        $('btn-download-again').textContent='응답 JSON 다시 다운로드'
+      } catch(err) { error('다운로드를 요청하지 못했습니다. '+err.message) }
     })
     $('download-confirm').onchange=()=>{ $('btn-next-participant').disabled=!$('download-confirm').checked }
     bind('btn-next-participant',()=>{
@@ -626,19 +643,9 @@
       beginNextParticipant()
     })
   }
-  async function handlePS3Submit(btn, skipped = false) {
-    const age = $('q6-age').value.trim(), gender = document.querySelector('input[name="q6_gender"]:checked')?.value, major = $('q6-major').value.trim()
-    if (!skipped) {
-      if (!age || !Number.isInteger(Number(age)) || Number(age)<0 || Number(age)>120) { _showErr('ps3-err','만 나이를 0~120 사이의 정수로 입력해 주세요.'); return }
-      if (!gender) { _showErr('ps3-err','성별을 선택해 주세요.'); return }
-      if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
-      commitResponse('q6_age',Number(age)); commitResponse('q6_gender',gender); commitResponse('q6_major',major)
-      Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major})
-    } else Object.assign(psData, {q6_age:null,q6_gender:null,q6_major:null})
-    persist(); if (btn) btn.disabled = true
-    leavePage()
+  function collectResponses() {
     const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
-    const responses = {
+    return {
       _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
       _stimulus_order_version:config.stimulusOrderVersion,
       _ai_mapping_pending:config.aiMappingPending,
@@ -659,16 +666,22 @@
         task:state.task.map(t=>({trial_id:t.trial_id,skipped:!!t.skipped,changed:t.skipped ? null : t.initial!==t.final,initial_correct:t.skipped || !t.initial ? null : t.initial===t.correctCategory,final_correct:t.skipped || !t.final ? null : t.final===t.correctCategory,ai_correct:t.aiCategory == null ? null : t.aiCategory===t.correctCategory,ai_scoring_status:t.aiCategory == null ? 'mapping_missing' : 'scored',final_eq_ai:t.skipped || t.aiCategory == null ? null : t.final===t.aiCategory}))},
       _page_durations:state.pages, _task_phase_durations:state.task.map(t=>t.phase_durations_ms)
     }
+  }
+  async function handlePS3Submit(btn, skipped = false) {
+    const age = $('q6-age').value.trim(), gender = document.querySelector('input[name="q6_gender"]:checked')?.value, major = $('q6-major').value.trim()
+    if (!skipped) {
+      if (!age || !Number.isInteger(Number(age)) || Number(age)<0 || Number(age)>120) { _showErr('ps3-err','만 나이를 0~120 사이의 정수로 입력해 주세요.'); return }
+      if (!gender) { _showErr('ps3-err','성별을 선택해 주세요.'); return }
+      if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
+      commitResponse('q6_age',Number(age)); commitResponse('q6_gender',gender); commitResponse('q6_major',major)
+      Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major})
+    } else Object.assign(psData, {q6_age:null,q6_gender:null,q6_major:null})
+    persist(); if (btn) btn.disabled = true
+    leavePage()
+    const responses = collectResponses()
     if (config.storageMode === 'download') {
       try {
-        if (!state.downloadSubmission) {
-          state.lastResponses = window.ExperimentScoring.scoreResponses(responses)
-          const completedAt=new Date().toISOString()
-          state.downloadSubmission={schema_version:1,participant_id:state.participantId,group:state.group,started_at:state.startedAt,completed_at:completedAt,storage:'browser_download',responses:state.lastResponses}
-          state.downloadFilename='response_'+state.participantId+'_'+completedAt.replace(/[:.]/g,'-')+'.json'
-          persist()
-          try { localStorage.setItem('__exp_download_backup_'+state.participantId,JSON.stringify(state.downloadSubmission)) } catch (_) { /* The session snapshot and downloadable JSON remain available. */ }
-        }
+        prepareDownloadSubmission(responses)
         requestResponseDownload(); go('step-done')
       } catch (err) {
         if (btn) btn.disabled=false

@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thesis · 실험</title>
+  <style>/* ═══════════════════════════════════════════════════════════════
+   style.css  –  실험 연구 웹페이지  (PC 가로 최적화)
+   ═══════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── 디자인 토큰 ─────────────────────────────────────────────── */
+:root {
+  --primary:       #5d5d5d;
+  --primary-d:     #4d4d4d;
+  --primary-lite:  #f2f2f2;
+  --ctrl-color:    #575757;
+  --ctrl-lite:     #efefef;
+  --exp-color:     #747474;
+  --exp-lite:      #f0f0f0;
+  --success:       #7f7f7f;
+  --danger:        #b91c1c;
+  --bg:            #f4f4f4;
+  --card-bg:       #ffffff;
+  --border:        #e7e7e7;
+  --text:          #282828;
+  --muted:         #727272;
+  --radius:        10px;
+  --shadow:        0 2px 16px rgba(0,0,0,.08);
+  --shadow-sm:     0 1px 6px  rgba(0,0,0,.05);
+  --content-max:   900px;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+  background: var(--bg);
+  color: #111111;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── 단계 전환 ───────────────────────────────────────────────── */
+.step        { display: none; }
+.step.active { display: block; animation: fadeUp .28s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAGE WRAP
+══════════════════════════════════════════════════════════════ */
+.page-wrap {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 3rem 2.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.page-wrap--center {
+  text-align: center;
+  align-items: center;
+}
+
+/* ── 페이지 헤더 ─────────────────────────────────────────────── */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.page-header h1 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.25;
+}
+
+.page-sub {
+  font-size: .9rem;
+  color: #111111;
+  line-height: 1.6;
+}
+
+/* ── 카드 ────────────────────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.6rem 2rem;
+}
+
+/* ── 안내 박스 ───────────────────────────────────────────────── */
+.notice-box {
+  background: var(--primary-lite);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.notice-lead {
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: .5rem;
+  color: #111111;
+}
+
+.notice-list {
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .32rem;
+  font-size: .88rem;
+  color: #111111;
+}
+
+/* ── 구분선 ──────────────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: .6rem 0; }
+
+/* ── 동의 체크박스 ───────────────────────────────────────────── */
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  cursor: pointer;
+  font-size: .93rem;
+  line-height: 1.6;
+  padding: .9rem 1.1rem;
+  background: #fafafa;
+  border: 1.5px solid #d3d3d3;
+  border-radius: var(--radius);
+  transition: background .14s;
+}
+.check-row:hover { background: var(--primary-lite); }
+.check-row input[type="checkbox"] {
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+  margin-top: .2rem;
+}
+
+/* ── 공통 버튼 ───────────────────────────────────────────────── */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .7rem 2rem;
+  border-radius: var(--radius);
+  border: none;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .14s, transform .1s, opacity .14s;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #111111;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-d);
+  transform: translateY(-1px);
+}
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+.btn-secondary {
+  background: var(--border);
+  color: #111111;
+}
+.btn-secondary:hover { background: #d4d4d4; }
+
+.btn-full { width: 100%; }
+.btn-row { display: flex; justify-content: flex-end; margin-top: .4rem; }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 1 : 조건 선택 버튼
+══════════════════════════════════════════════════════════════ */
+.branch-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.8rem;
+}
+
+.branch-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* PC 가로: 높이 충분히 확보 */
+  padding: 3rem 2rem;
+  background: var(--card-bg);
+  border: 2.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -.01em;
+  transition: border-color .18s, box-shadow .18s, transform .15s, background .15s;
+}
+
+.branch-btn:hover {
+  border-color: var(--ctrl-color);
+  background: var(--ctrl-lite);
+  box-shadow: 0 6px 24px rgba(0,0,0,.15);
+  transform: translateY(-3px);
+}
+
+.branch-btn--exp:hover {
+  border-color: var(--exp-color);
+  background: var(--exp-lite);
+  box-shadow: 0 6px 24px rgba(0,0,0,.15);
+}
+
+.branch-btn:active { transform: translateY(0); }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 2 / 3 : 지시문
+══════════════════════════════════════════════════════════════ */
+.instruct-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem 2.8rem;
+}
+
+/* 강조 첫 문장 */
+.instruct-lead {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.5;
+}
+
+/* 본문 단락 묶음 */
+.instruct-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: .96rem;
+  color: #111111;
+  line-height: 1.85;
+}
+
+/* 병변 번호 목록 */
+.lesion-list {
+  padding-left: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  font-size: .93rem;
+  line-height: 1.7;
+  color: #111111;
+}
+.lesion-list strong { font-weight: 700; }
+
+/* 병변 이름 나열 단락 */
+.lesion-names {
+  margin: 1rem 0;
+  font-size: 1.08rem;
+  line-height: 2;
+  text-align: center;
+}
+.lesion-names strong {
+  font-weight: 700;
+  font-size: 1.12rem;
+}
+
+/* "준비되었으면" 강조 단락 */
+.instruct-ready {
+  font-weight: 600;
+  color: #111111;
+}
+
+/* 화살표 버튼 (→) */
+.btn-arrow {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 2.5px solid var(--primary);
+  background: #ffffff;
+  color: #111111;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .14s, color .14s, transform .1s;
+  flex-shrink: 0;
+}
+.btn-arrow:hover {
+  background: var(--primary);
+  color: #111111;
+  transform: translateX(4px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 4 : 설문 폼
+══════════════════════════════════════════════════════════════ */
+.survey-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+
+legend {
+  font-weight: 700;
+  font-size: .96rem;
+  color: #111111;
+  margin-bottom: .25rem;
+  line-height: 1.5;
+}
+
+/* 라디오 그리드 (Q1 연령대) – PC에서 4칸 가로 */
+.radio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .65rem;
+}
+
+.radio-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .75rem .4rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 500;
+  transition: border-color .14s, background .14s;
+  text-align: center;
+  background: #ffffff;
+  white-space: nowrap;
+}
+.radio-card input[type="radio"] { accent-color: var(--primary); }
+.radio-card:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+  color: #111111;
+  font-weight: 700;
+}
+.radio-card:hover { border-color: var(--primary); background: #f7f7f7; }
+
+/* 리커트 척도 행 (Q2, Q3) */
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.scale-label-end {
+  font-size: .75rem;
+  color: #111111;
+  line-height: 1.3;
+  text-align: center;
+  min-width: 50px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.scale-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 600;
+  color: #111111;
+  padding: .55rem .1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  transition: all .14s;
+  background: #ffffff;
+}
+.scale-item input[type="radio"] {
+  accent-color: var(--primary);
+  width: 1rem;
+  height: 1rem;
+}
+.scale-item:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+  color: #111111;
+}
+.scale-item:hover { border-color: var(--primary); background: #f7f7f7; }
+
+/* 자극물 박스 */
+.stimulus-box {
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+.stimulus-text {
+  font-size: .9rem;
+  color: #111111;
+  line-height: 1.75;
+}
+
+/* textarea */
+textarea {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: .75rem .9rem;
+  font-size: .9rem;
+  font-family: inherit;
+  resize: vertical;
+  color: #111111;
+  transition: border-color .14s;
+  background: #ffffff;
+}
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.1);
+}
+
+/* 폼 하단 */
+.form-footer-card { padding: 1.2rem 2rem; }
+
+/* ── 공통 텍스트 ─────────────────────────────────────────────── */
+.muted { font-size: .88rem; color: #111111; }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP 5 / E : 완료·오류
+══════════════════════════════════════════════════════════════ */
+.result-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 3rem 3.5rem;
+  text-align: center;
+  max-width: 460px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.result-card h2 { font-size: 1.35rem; font-weight: 800; }
+
+.result-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+.result-icon--ok  { background: #f4f4f4; color: #111111; }
+.result-icon--err { background: #e8e8e8; color: #111111; }
+
+/* ══════════════════════════════════════════════════════════════
+   STEP-LEARNING : 자동 이미지 슬라이드
+══════════════════════════════════════════════════════════════ */
+#step-learning {
+  background: var(--bg);   /* 다른 페이지와 동일한 옅은 회색 */
+}
+
+.learning-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  gap: 1.4rem;
+  /* 클릭·드래그·선택 모두 차단 */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#learn-img {
+  max-width: min(48vh, 54vw);   /* 80 * 0.6 = 48, 90 * 0.6 = 54 */
+  max-height: 43.2vh;           /* 72 * 0.6 = 43.2 */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+  /* 이미지 자체에도 pointer-events 차단 */
+  pointer-events: none;
+}
+
+#learn-label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: .02em;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* 임시 skip 버튼 */
+.btn-skip {
+  margin-top: .6rem;
+  padding: .4rem 1.1rem;
+  border: 1.5px dashed var(--muted);
+  border-radius: 6px;
+  background: transparent;
+  color: #111111;
+  font-size: .8rem;
+  cursor: pointer;
+  /* skip 버튼만 pointer-events 허용 (나머지는 none) */
+  pointer-events: auto;
+  transition: border-color .14s, color .14s;
+}
+.btn-skip:hover {
+  border-color: var(--primary);
+  color: #111111;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STEP-TASK : 과제 페이지 — 2열 한 화면 레이아웃
+══════════════════════════════════════════════════════════════ */
+
+/* 과제 화면 전체: 뷰포트 꽉 채우기 */
+.task-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  padding: .5rem 1rem .3rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* skip 버튼 행 */
+.task-skip-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: .2rem;
+}
+
+/* 진행바 — 인라인 가로형 */
+.task-prog-inline {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: .4rem;
+}
+.task-prog-inline .task-progress-text {
+  font-size: .8rem;
+  color: #111111;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.task-prog-inline .task-progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+/* 기존 진행바 (다른 곳 호환) */
+.task-progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+.task-progress-text {
+  font-size: .85rem;
+  color: #111111;
+  font-weight: 600;
+  text-align: right;
+}
+.task-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.task-progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width .4s ease;
+  width: 0%;
+}
+
+/* 2열 컨테이너 */
+.task-cols {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+/* 왼쪽: 이미지 열 */
+.task-col-img {
+  flex: 0 0 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* 과제/시험 이미지 — 왼쪽 열 채우기 */
+.task-img-main {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 오른쪽: 박스 스택 열 */
+.task-col-boxes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  overflow-y: auto;
+}
+
+/* 개별 박스 */
+.task-box {
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: .7rem .9rem;
+  transition: border-color .2s;
+}
+.task-box--active {
+  border-color: var(--primary);
+}
+/* 잠긴 박스(응답 완료): 배경 연하게, 입력 불가 */
+.task-box--locked {
+  background: #f8f8f8;
+  border-color: var(--border);
+  opacity: .85;
+  pointer-events: none;
+}
+.task-box-label {
+  font-size: .78rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 .25rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.task-box-desc {
+  font-size: .82rem;
+  color: #111111;
+  margin: 0 0 .4rem;
+  line-height: 1.5;
+}
+
+/* 작은 버튼 */
+.btn-sm {
+  padding: .38rem .9rem;
+  font-size: .88rem;
+}
+
+/* task-img-card (구 코드 호환) */
+.task-img-card {
+  display: flex;
+  justify-content: center;
+  padding: 1.2rem;
+}
+.task-img {
+  max-width: 100%;
+  max-height: 264px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+.task-phase { display: flex; flex-direction: column; gap: 1.2rem; }
+
+/* 객관식 선택지 */
+.task-choices {
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  margin-top: .6rem;
+}
+/* compact 모드 (박스 내부) */
+.task-choices--compact {
+  gap: .22rem;
+  margin-top: .3rem;
+}
+
+.task-choice {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: .95rem;
+  background: #ffffff;
+  transition: border-color .14s, background .14s;
+  user-select: none;
+}
+/* compact 박스 안 선택지 */
+.task-choices--compact .task-choice {
+  padding: .32rem .7rem;
+  font-size: .85rem;
+  gap: .5rem;
+}
+.task-choice:hover { border-color: var(--primary); background: var(--primary-lite); }
+.task-choice input[type="radio"] {
+  accent-color: var(--primary);
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+.task-choice:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+  font-weight: 700;
+  color: #111111;
+}
+
+/* 선택지 알파벳 (A. B. C. ...) */
+.task-choice-alpha {
+  font-weight: 700;
+  color: #111111;
+  min-width: 1.4rem;
+  flex-shrink: 0;
+}
+.task-choice:has(input:checked) .task-choice-alpha {
+  color: #111111;
+}
+
+/* 신뢰도 슬라이더 (실험조건 전용 중간 페이지) */
+.confidence-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  margin-top: .9rem;
+}
+
+.confidence-slider {
+  width: 100%;
+  accent-color: var(--primary);
+  height: 6px;
+  cursor: pointer;
+}
+
+.confidence-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+
+.confidence-label-end {
+  font-size: .82rem;
+  color: #111111;
+  min-width: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.confidence-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111111;
+  min-width: 3rem;
+  text-align: center;
+}
+
+/* AI 피드백 */
+.ai-label-row {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: .8rem;
+  font-size: 1rem;
+}
+.ai-badge {
+  display: inline-block;
+  background: #efefef;
+  color: #111111;
+  border-radius: 5px;
+  padding: .2rem .6rem;
+  font-size: .82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ai-reason {
+  font-size: .93rem;
+  color: #111111;
+  line-height: 1.8;
+  padding: .9rem 1rem;
+  background: #fafafa;
+  border-left: 3px solid #575757;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   수학 문제 페이지
+══════════════════════════════════════════════════════════════ */
+.math-timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .6rem;
+  margin-bottom: .8rem;
+}
+.math-timer-label {
+  font-size: .88rem;
+  color: #111111;
+  font-weight: 500;
+}
+.math-timer {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111111;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .04em;
+  background: var(--primary-lite);
+  padding: .25rem .8rem;
+  border-radius: 8px;
+}
+.math-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2.5rem;
+}
+.math-question {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: .02em;
+  text-align: center;
+  line-height: 1.2;
+}
+.math-input-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+}
+#math-form {
+  margin-inline: auto;
+  justify-content: center;
+}
+#math-form .math-input { min-width: 0; }
+.math-input {
+  flex: 1;
+  height: 3.4rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 0 1rem;
+  background: #fafafa;
+  color: #111111;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  -moz-appearance: textfield;
+}
+.math-input::-webkit-inner-spin-button,
+.math-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.math-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.15);
+  background: #ffffff;
+}
+.math-input-row .btn-primary {
+  height: 3.4rem;
+  min-width: 5rem;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+/* ── 사후 설문 인구통계 ────────────────────────────────────────── */
+.demog-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+.demog-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.demog-label {
+  min-width: 5rem;
+  font-weight: 600;
+  font-size: .95rem;
+  color: #111111;
+  flex-shrink: 0;
+}
+.demog-input {
+  flex: 1;
+  max-width: 280px;
+  height: 2.8rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #fafafa;
+  color: #111111;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.demog-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.13);
+  background: #ffffff;
+}
+.demog-radio-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.demog-radio {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  cursor: pointer;
+  padding: .5rem .9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: .93rem;
+  transition: border-color .15s, background .15s;
+}
+.demog-radio:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+  color: #111111;
+  font-weight: 600;
+}
+.demog-radio input { display: none; }
+
+/* ══════════════════════════════════════════════════════════════
+   AI 지식·태도 설문 (step-ai-survey)
+══════════════════════════════════════════════════════════════ */
+
+/* 섹션 안내문 */
+.ai-survey-section {
+  font-size: .93rem;
+  color: #111111;
+  line-height: 1.8;
+  background: var(--primary-lite);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: .85rem 1.1rem;
+  margin: 1.2rem 0 .6rem;
+}
+
+/* 문항 래퍼 – 등장 시 fade-in */
+.ai-survey-item {
+  padding: .9rem 0;
+  border-bottom: 1px solid var(--border);
+  animation: fadeUp .22s ease;
+}
+.ai-survey-item:last-child { border-bottom: none; }
+
+/* 문항 텍스트 */
+.ai-survey-q {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.6;
+  margin-bottom: .7rem;
+}
+
+/* 맞다/틀리다 선택지 행 */
+.ai-choice-yn {
+  display: flex;
+  gap: .8rem;
+  flex-wrap: wrap;
+}
+
+/* 4점 리커트 선택지 행 */
+.ai-choice-likert4 {
+  display: flex;
+  gap: .55rem;
+  flex-wrap: wrap;
+}
+
+/* 공통 라디오 라벨 */
+.ai-radio-label {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .93rem;
+  background: #ffffff;
+  transition: border-color .14s, background .14s;
+  user-select: none;
+}
+.ai-radio-label:hover {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+}
+.ai-radio-label input[type="radio"] {
+  accent-color: var(--primary);
+  width: .95rem;
+  height: .95rem;
+  flex-shrink: 0;
+}
+.ai-radio-label:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+  font-weight: 700;
+  color: #111111;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   반응형
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .page-wrap { padding: 2rem 1rem 3rem; gap: 1.2rem; }
+  .page-header h1 { font-size: 1.3rem; }
+  .card { padding: 1.2rem 1rem; }
+  .instruct-card { padding: 1.6rem 1.2rem; }
+  .branch-wrap { gap: 1rem; }
+  .branch-btn { padding: 1.6rem 1rem; font-size: 1.1rem; }
+  .radio-grid { grid-template-columns: repeat(2, 1fr); }
+  .scale-row { gap: .3rem; }
+  .scale-label-end { min-width: 36px; font-size: .7rem; }
+  .result-card { padding: 2rem 1.2rem; }
+}
+
+/* ── 인라인 에러 메시지 ─────────────────────────────── */
+.inline-err {
+  color: #111111;
+  font-size: .9rem;
+  font-weight: 600;
+  margin: .6rem 0 0;
+  padding: .4rem .8rem;
+  background: #f7f7f7;
+  border-left: 3px solid #b91c1c;
+  border-radius: 4px;
+}
+
+
+/* Thesis: minimal monochrome interface */
+:root {
+  --primary:#111111; --primary-d:#111111; --primary-lite:#f3f3f3;
+  --ctrl-color:#111111; --ctrl-lite:#f3f3f3;
+  --exp-color:#111111; --exp-lite:#f3f3f3;
+  --success:#111111; --danger:#b91c1c;
+  --bg:#ffffff; --card-bg:#ffffff; --border:#d4d4d4;
+  --text:#111111; --muted:#111111;
+  --radius:4px; --shadow:none; --shadow-sm:none;
+}
+body { background:#ffffff; }
+.card, .result-card, .branch-btn { box-shadow:none; }
+.btn-primary, .btn-arrow { background:#ededed; border:1px solid #111111; color:#111111; box-shadow:none; }
+.btn-primary:hover:not(:disabled), .btn-arrow:hover:not(:disabled) { background:#d8d8d8; color:#111111; box-shadow:none; }
+.branch-btn:hover, .branch-btn--exp:hover { background:#f3f3f3; box-shadow:none; transform:none; }
+.inline-err, .result-icon--err, .error-msg { color:#b91c1c; }
+.result-icon--err { background:#f3f3f3; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline:2px solid #111111; outline-offset:3px; }
+::placeholder { color:#111111; opacity:1; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none!important; transition:none!important; } }
+
+.btn-primary:disabled { opacity:1; background:#f3f3f3; border-color:#d4d4d4; }
+.task-box--locked { opacity:1; }
+
+/* Common two-group protocol */
+[hidden] { display:none!important; }
+.branch-wrap { flex-wrap:wrap; }
+.branch-btn { min-width:230px; font-size:1.1rem; }
+.stimulus-empty { width:100%; min-height:280px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; border:1px solid #d4d4d4; background:#f3f3f3; color:#111111; }
+.trial-progress { font-size:.9rem; margin-bottom:1rem; color:#111111; }
+.learn-name { text-align:center; margin-top:1rem; font-size:1.4rem; font-weight:700; }
+.jol-question { display:block; line-height:1.8; font-size:1.05rem; margin-bottom:1.5rem; }
+.jol-question span { font-size:.93rem; }
+.written-answer { display:block; width:100%; margin-top:1rem; }
+#category-reference { border-bottom:1px solid #d4d4d4; padding-bottom:1rem; margin-bottom:1rem; line-height:2; }
+.score-display { margin:2rem 0; font-size:1.3rem; }
+.score-display strong { font-size:3rem; }
+.preview-score-note { font-size:.88rem; margin-top:1rem; }
+.review-task-layout { display:grid; grid-template-columns:minmax(240px, 1fr) minmax(320px, 1.25fr); gap:1rem; align-items:start; }
+.task-boxes { display:flex; flex-direction:column; gap:1rem; }
+.task-box h2 { font-size:1rem; margin-bottom:.7rem; }
+.ai-result-empty { min-height:100px; border:1px solid #d4d4d4; padding:1rem; background:#f3f3f3; }
+.ai-result-empty p + p { margin-top:.7rem; }
+.initial-instruction { border-top:1px solid #d4d4d4; margin-top:1.5rem; padding-top:1.5rem; white-space:normal; }
+@media(max-width:760px) { .review-task-layout { grid-template-columns:1fr; } .branch-btn { min-width:180px; } }
+
+/* Input hints are gray; participant-entered values remain black. */
+input, textarea, select { color:#111111; -webkit-text-fill-color:#111111; }
+input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-color:#808080; opacity:1; }
+.temporary-controls { max-width:900px; margin:0 auto; padding:0 2.5rem 2rem; display:flex; justify-content:flex-end; }
+.preview-footer { max-width:900px; margin:0 auto; padding:1rem 2.5rem; font-size:.85rem; color:#111111; display:flex; flex-wrap:wrap; align-items:center; gap:1rem; }
+.preview-footer button { border:1px solid #111111; background:#ffffff; color:#111111; padding:6px 12px; border-radius:4px; cursor:pointer; font:inherit; }
+
+/* Increase only the intervention instruction text (from .96rem to 1.1rem). */
+.instruct-body .intervention-instruction { display:flex; flex-direction:column; gap:1.85em; font-size:1.1rem; line-height:1.85; font-weight:400; }
+.intervention-instruction p { font-weight:400; }
+.intervention-instruction strong { font-weight:700; }
+
+.intervention-instruction .intervention-evidence { font-size:1.2rem; }
+
+/* Hide empty validation boxes; center learning images with their category text. */
+.inline-err:empty { display: none !important; }
+.learning-card .task-img { margin-inline: auto; }
+
+/* Center the baseline exam and final-exam stimulus. */
+.exam-image-card .task-img { margin-inline:auto; }
+.initial-exam-card { text-align:center; }
+.initial-exam-card #initial-exam-form { display:flex; flex-direction:column; align-items:center; }
+.initial-exam-card .written-answer { width:min(100%, 420px); margin:1rem auto 0; text-align:center; }
+.initial-exam-card .btn-row { justify-content:center; width:100%; }
+.initial-exam-card .inline-err { align-self:center; }
+.ai-survey-item { scroll-margin-block:2rem; }
+.ai-survey-item:focus { outline:none; }
+
+/* AI collaboration: centered image above the response panels. */
+.page-wrap.task-screen { max-width:1000px; padding:1.25rem 1.5rem 1rem; gap:.6rem; }
+.task-screen .review-task-layout { grid-template-columns:1fr; gap:.6rem; }
+.task-screen .review-task-layout > .card { padding:1rem; min-width:0; }
+.task-screen .task-img { margin-inline:auto; }
+.task-screen .task-boxes { min-width:0; gap:.5rem; }
+.task-screen .task-box { padding:.65rem .8rem; }
+.task-screen .task-box-desc { font-size:.95rem; line-height:1.4; margin-bottom:.4rem; }
+.task-screen .task-choices, .final-exam-screen .task-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.4rem; margin-top:.35rem; }
+.task-screen .task-choice { min-width:0; padding:.45rem .5rem; gap:.35rem; font-size:.9rem; line-height:1.35; }
+.task-screen .task-choice span { overflow-wrap:anywhere; }
+.task-screen .btn-row { margin-top:.5rem; }
+.task-screen .btn-primary { padding:.45rem 1rem; min-height:36px; font-size:.95rem; }
+.task-screen .ai-label-row { margin-bottom:.35rem; }
+.task-screen .ai-result-empty { min-height:36px; padding:.55rem .7rem; font-size:.95rem; line-height:1.45; }
+.task-screen .ai-result-empty p + p { margin-top:.35rem; }
+@media(max-width:959px) {
+  .task-screen .review-task-layout { grid-template-columns:1fr; }
+  .page-wrap.task-screen { padding:1rem; }
+}
+
+/* Baseline written response: generous input and separated button on the right. */
+.initial-exam-card .baseline-answer-row { width:100%; max-width:640px; gap:1.5rem; margin:1.25rem auto 0; }
+.initial-exam-card .baseline-answer-row .written-answer { flex:1; width:0; min-width:0; height:3.4rem; margin:0; text-align:center; }
+.initial-exam-card .baseline-answer-row .btn-primary { flex:none; min-width:6rem; }
+.download-confirm { display:flex; align-items:center; gap:.6rem; margin-top:1.25rem; line-height:1.6; }
+.download-confirm input[type="checkbox"] { width:1.1rem; height:1.1rem; flex:none; }
+@media(max-width:480px) { .initial-exam-card .baseline-answer-row { gap:1rem; } }
+</style>
+</head>
+<body>
+<div id="experiment-root" class="page-wrap"><p role="status">실험을 준비하고 있습니다.</p></div>
+<div id="step-ps-0" class="step">
+  <div class="page-wrap">
+    <div class="card instruct-card">
+      <div class="instruct-body">
+        <p class="instruct-lead">모든 시험이 끝났습니다.</p>
+        <p>지금부터는 다음 질문을 읽고, 해당하는 정도에 체크해주세요.</p>
+        <p style="margin-top:.8rem;font-size:.9rem"><strong style="color:#e53e3e">(답변에 관계없이 실험이 완료되면 보상이 지급되니, 솔직하게 응답해주세요.)</strong></p>
+        <p class="instruct-ready">준비되었으면 아래 버튼을 눌러주세요.</p>
+      </div>
+      <div class="btn-row">
+        <button id="btn-ps0-next" class="btn-primary">다음 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 13-1 : Q4 사전지식
+══════════════════════════════════════════════════════════ -->
+<div id="step-ps-1" class="step">
+  <div class="page-wrap">
+    <div class="card">
+      <fieldset>
+        <legend style="font-size:1.05rem;font-weight:600;line-height:1.6"><strong style="color:#e53e3e">본 실험에 참가하기 전</strong>, 피부 병변에 대해 얼마나 알고 있었나요?<br>
+          <span style="font-size:.93rem;font-weight:400;color:var(--muted)">피부 병변에 대한 사전지식이 얼마나 있었는지 7점 척도로 응답해주세요.</span>
+        </legend>
+        <div class="scale-row" style="margin-top:1.4rem">
+          <span class="scale-label-end" style="font-size:.75rem">피부 병변에 대한<br>사전지식이<br>전혀 없었음</span>
+          <label class="scale-item"><input type="radio" name="q4" value="1" /><span>1</span></label>
+          <label class="scale-item"><input type="radio" name="q4" value="2" /><span>2</span></label>
+          <label class="scale-item"><input type="radio" name="q4" value="3" /><span>3</span></label>
+          <label class="scale-item"><input type="radio" name="q4" value="4" /><span>4</span></label>
+          <label class="scale-item"><input type="radio" name="q4" value="5" /><span>5</span></label>
+          <label class="scale-item"><input type="radio" name="q4" value="6" /><span>6</span></label>
+          <label class="scale-item"><input type="radio" name="q4" value="7" /><span>7</span></label>
+          <span class="scale-label-end" style="font-size:.75rem">피부 병변에 대해<br>많이 알고<br>있었음</span>
+        </div>
+      </fieldset>
+      <p id="ps1-err" class="inline-err" style="display:none"></p>
+      <div class="btn-row" style="margin-top:1.4rem">
+        <button id="btn-ps1-next" class="btn-primary" disabled>다음 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 13-2 : Q5 초기 정확도 예측
+══════════════════════════════════════════════════════════ -->
+<div id="step-ps-2" class="step">
+  <div class="page-wrap">
+    <div class="card">
+      <fieldset>
+        <legend style="font-size:1.05rem;font-weight:600;line-height:1.7">만약 <strong style="color:#e53e3e">학습단계 없이</strong> 실험을 시작하자마자 바로 사진을 보고<br>피부 병변의 종류를 맞히는 시험을 봤다면, 몇 %의 문제를 맞혔을 거라고 생각하나요?<br>
+          <span style="font-size:.93rem;font-weight:400;color:var(--muted)">0~100 사이의 숫자를 입력해주세요.</span>
+        </legend>
+        <div class="math-input-row" style="max-width:300px;margin-top:1.4rem">
+          <input type="number" id="q5-input" name="q5" min="0" max="100" class="math-input" placeholder="0 – 100" />
+          <span style="font-size:1.1rem;font-weight:600;color:var(--muted)">%</span>
+        </div>
+      </fieldset>
+      <p id="ps2-err" class="inline-err" style="display:none"></p>
+      <div class="btn-row" style="margin-top:1.4rem">
+        <button id="btn-ps2-next" class="btn-primary">다음 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 13-2b : AI 지식 설문 (맞다/틀리다)
+══════════════════════════════════════════════════════════ -->
+<div id="step-ai-survey" class="step" data-survey-scale="ai_k">
+  <div class="page-wrap">
+    <div class="card" id="ai-survey-card">
+      <!-- JS가 문항을 순차적으로 주입 -->
+    </div>
+    <p id="ai-survey-err" class="inline-err" style="display:none"></p>
+    <div class="btn-row" style="margin-top:1.2rem;display:none" id="ai-survey-next-row">
+      <button id="btn-ai-survey-next" class="btn-primary">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 13-2c : AI 태도 설문 (동의 정도)
+══════════════════════════════════════════════════════════ -->
+<div id="step-ai-survey-b" class="step" data-survey-scale="ai_a">
+  <div class="page-wrap">
+    <div class="card" id="ai-survey-b-card">
+      <!-- JS가 문항을 순차적으로 주입 -->
+    </div>
+    <p id="ai-survey-b-err" class="inline-err" style="display:none"></p>
+    <div class="btn-row" style="margin-top:1.2rem;display:none" id="ai-survey-b-next-row">
+      <button id="btn-ai-survey-b-next" class="btn-primary">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 13-3 : Q6 인구통계
+══════════════════════════════════════════════════════════ -->
+<div id="step-ai-error-belief" class="step" data-survey-scale="ai_t">
+  <div class="page-wrap"><div class="card">
+    <fieldset><legend>AI가 오답을 낼 수 있다고 생각하나요?</legend>
+      <div class="ai-choice-yn">
+        <label class="ai-radio-label"><input type="radio" name="ai_t1" value="yes" /><span>예</span></label>
+        <label class="ai-radio-label"><input type="radio" name="ai_t1" value="no" /><span>아니오</span></label>
+      </div>
+    </fieldset>
+    <div id="ai-belief-followup" hidden>
+      <label for="ai-expected-accuracy">평소에 생각했던 AI의 정답률은 얼마인가요? 0에서 100까지의 숫자로 답변해주세요.</label>
+      <div class="math-input-row"><input id="ai-expected-accuracy" class="math-input" type="number" min="0" max="100" step="1" placeholder="0 – 100" /><span>%</span></div>
+      <p id="ai-belief-err" class="inline-err" role="alert"></p>
+      <div class="btn-row"><button id="btn-ai-belief-next" type="button" class="btn-primary">다음 →</button></div>
+    </div>
+  </div></div>
+</div>
+
+<div id="step-ps-3" class="step">
+  <div class="page-wrap">
+    <div class="card">
+      <fieldset>
+        <legend style="font-size:1.05rem;font-weight:600;line-height:1.6">지금부터는 아래의 질문에 답해주세요.</legend>
+        <div class="demog-wrap" style="margin-top:1.2rem">
+          <div class="demog-row">
+            <label class="demog-label" for="q6-age">만 나이</label>
+            <input type="number" id="q6-age" name="q6_age" min="0" max="120" class="demog-input" placeholder="숫자 입력" />
+          </div>
+          <div class="demog-row">
+            <label class="demog-label">성별</label>
+            <div class="demog-radio-group">
+              <label class="demog-radio"><input type="radio" name="q6_gender" value="male" /><span>남자</span></label>
+              <label class="demog-radio"><input type="radio" name="q6_gender" value="female" /><span>여자</span></label>
+              <label class="demog-radio"><input type="radio" name="q6_gender" value="no_answer" /><span>응답을 원치 않음</span></label>
+            </div>
+          </div>
+          <div class="demog-row">
+            <label class="demog-label" for="q6-major">전공</label>
+            <input type="text" id="q6-major" name="q6_major" class="demog-input" placeholder="전공을 입력해주세요" />
+          </div>
+        </div>
+      </fieldset>
+      <div class="btn-row" style="margin-top:1.4rem">
+        <button id="btn-ps3-submit" class="btn-primary btn-full">제출하기</button>
+      </div>
+      <p id="ps3-err" class="inline-err" style="display:none"></p>
+    </div>
+  </div>
+</div>
+
+
+<div id="step-done" class="step"><div class="page-wrap"><div class="card"><p>실험에 참여해 주셔서 감사합니다.</p><div id="submission-result"></div></div></div></div>
+<div id="step-error" class="step"><div class="page-wrap"><div class="card"><p id="error-msg" class="inline-err"></p><button id="btn-retry" class="btn-secondary">다시 시도</button></div></div></div>
+<footer class="preview-footer"><span>실험 완료 후 응답 JSON이 이 컴퓨터에 다운로드됩니다.</span></footer><script>
+;(() => {
+  const routes = {"/api/experiment-config":{"version":"two-group-six-v1","categories":["광선각화증","기저세포암","멜라닌세포성 모반","피부섬유종","혈관 병변","흑색종"],"groups":[{"id":"intervention","label":"intervention","taskInstruction":"이제부터 피부 병변 이미지를 분류하는 과제에서 AI의 답변을 참고할 수 있습니다.\n\nAI는 피부 병변의 시각적 특징을 분석하여 답변을 제시하지만,\n모든 이미지를 정확하게 분류하는 것은 아닙니다.\n\n예를 들어, 선행 연구에서 네 종류의 피부질환 사진 500장을 평가한 GPT-4o 모델의 진단 정확도는 67.8%로 보고되었습니다(Cirkel et al., 2026). 즉, 약 3문항 중 1문항의 비율로 잘못된 답변이 제시될 수 있습니다. 다만 어떤 문항에서 AI가 정답 또는 오답을 제시하는지는 알 수 없습니다.\n\n따라서, AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택하십시오.\n\n준비되었으면 다음 버튼을 눌러주세요.","boldPhrases":["AI의 답변을 참고","진단 정확도는 67.8%","약 3문항 중 1문항의 비율로 잘못된 답변","AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택하십시오.","준비되었으면 다음 버튼을 눌러주세요."]},{"id":"no-intervention","label":"no-intervention","taskInstruction":"이제부터 피부 병변 이미지를 분류하는 과제에서 AI의 답변을 참고할 수 있습니다.\n\n각 문항에서는 AI가 해당 이미지를 어떤 범주로 분류했는지 확인할 수 있습니다.\n\nAI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택해 주십시오.","boldPhrases":["AI의 답변과 자신의 판단을 함께 고려하여 최종 답변을 선택해 주십시오."]}],"learningRounds":2,"learningMs":5000,"blankMs":100,"phaseDelayMs":3000,"instructionCheckAccuracy":67.8,"mathDurationMs":180000,"previewControls":true,"stimuliPending":false,"aiMappingPending":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","aiMappingAccuracy":{"correct":25,"total":36},"stimulusOrderVersion":"stimuli-six-20261117-v1","trialCounts":{"learning":36,"initialExam":18,"tasks":36,"finalExam":36},"storageMode":"download"},"/api/images":{"slides":[{"id":"learning-VASC-ISIC_3849096","imageId":"ISIC_3849096","filename":"ISIC_3849096.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/VASC/cases/ISIC_3849096.jpg","sha256":"d94285c237963d873c83da08938d692a191e150bf8d71b9d5497b2cd73cb5134","width":600,"height":450,"block":1,"position":1,"category":"혈관 병변"},{"id":"learning-AK-ISIC_0496864","imageId":"ISIC_0496864","filename":"ISIC_0496864.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/AK/cases/ISIC_0496864.jpg","sha256":"1ea80590e6b5d47609d7302a8516b166e23d8ee50854949df12706ef2661f58a","width":600,"height":450,"block":1,"position":2,"category":"광선각화증"},{"id":"learning-MEL-ISIC_0212251","imageId":"ISIC_0212251","filename":"ISIC_0212251.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":null,"sourceSubset":"1학습단계(1).zip","url":"./static/stimuli/learning/MEL/cases/ISIC_0212251.jpg","sha256":"3f8b621bdfebfb92c6fda2eee4e90977f5af2f305a7c20d3ecdd177a4a1559fa","width":600,"height":450,"block":1,"position":3,"category":"흑색종"},{"id":"learning-NV-ISIC_0106322","imageId":"ISIC_0106322","filename":"ISIC_0106322.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/NV/cases/ISIC_0106322.jpg","sha256":"dda6998883aad8c7bf9beb4b58f75548592cdf001a3bf52a246d63a69ea260c8","width":600,"height":450,"block":1,"position":4,"category":"멜라닌세포성 모반"},{"id":"learning-BCC-ISIC_0195347","imageId":"ISIC_0195347","filename":"ISIC_0195347.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/BCC/cases/ISIC_0195347.jpg","sha256":"aff1a327bf738f103082ab3cc9d9ae0203ba9979373e94d18b1138b8cf216b16","width":600,"height":450,"block":1,"position":5,"category":"기저세포암"},{"id":"learning-DF-ISIC_1176432","imageId":"ISIC_1176432","filename":"ISIC_1176432.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/DF/cases/ISIC_1176432.jpg","sha256":"81d4073e20438818f5165ca48b46ef2dec2ebcb61537f537dd66d91f9179fe0a","width":600,"height":450,"block":1,"position":6,"category":"피부섬유종"},{"id":"learning-AK-ISIC_0478016","imageId":"ISIC_0478016","filename":"ISIC_0478016.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/AK/cases/ISIC_0478016.jpg","sha256":"4059cd3ddcc9cbbf61d6a152def854103f03393282353da4cda3759e86083468","width":600,"height":450,"block":2,"position":7,"category":"광선각화증"},{"id":"learning-VASC-ISIC_0552734","imageId":"ISIC_0552734","filename":"ISIC_0552734.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/VASC/cases/ISIC_0552734.jpg","sha256":"19e886cbfdbd99d10daafcf3dc09df9883f388bd98dc1bcacf7002cfa3f4cd55","width":600,"height":450,"block":2,"position":8,"category":"혈관 병변"},{"id":"learning-MEL-ISIC_0156507","imageId":"ISIC_0156507","filename":"ISIC_0156507.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":null,"sourceSubset":"1학습단계(1).zip","url":"./static/stimuli/learning/MEL/cases/ISIC_0156507.jpg","sha256":"df0d0eaca0b73c057d7c7b091cf7c541474b6c453e2e4530333a26d864b04d3c","width":600,"height":450,"block":2,"position":9,"category":"흑색종"},{"id":"learning-BCC-ISIC_0377749","imageId":"ISIC_0377749","filename":"ISIC_0377749.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/BCC/cases/ISIC_0377749.jpg","sha256":"d32d0f7b718a31ba045bf7e86b147686caf4bc942cb053ab7c8595942ad6c402","width":600,"height":450,"block":2,"position":10,"category":"기저세포암"},{"id":"learning-NV-ISIC_0101767","imageId":"ISIC_0101767","filename":"ISIC_0101767.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/NV/cases/ISIC_0101767.jpg","sha256":"61e2345cadbae8f67a17b14c54e18b71478594b221470e03d4b47cdbe4e2f055","width":600,"height":450,"block":2,"position":11,"category":"멜라닌세포성 모반"},{"id":"learning-DF-ISIC_4324758","imageId":"ISIC_4324758","filename":"ISIC_4324758.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/DF/cases/ISIC_4324758.jpg","sha256":"ead14278d1dca3ab2727f62a1ed384d03f12a7d31b84c1efa5887a4e1f8c5d80","width":600,"height":450,"block":2,"position":12,"category":"피부섬유종"},{"id":"learning-BCC-ISIC_0369681","imageId":"ISIC_0369681","filename":"ISIC_0369681.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/BCC/cases/ISIC_0369681.jpg","sha256":"d73c6ddd67f626971e20121fa01063db06d5a8fa58938f3a2caa2e9aa175e523","width":600,"height":450,"block":3,"position":13,"category":"기저세포암"},{"id":"learning-AK-ISIC_0605910","imageId":"ISIC_0605910","filename":"ISIC_0605910.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/AK/cases/ISIC_0605910.jpg","sha256":"bcbc32775f9a794e09ec51b428537d787dbc2a10c078eb9619d698933e1b2f6e","width":600,"height":450,"block":3,"position":14,"category":"광선각화증"},{"id":"learning-NV-ISIC_0080219","imageId":"ISIC_0080219","filename":"ISIC_0080219.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/NV/cases/ISIC_0080219.jpg","sha256":"4fa06967f5cde6ac50f75dcc087272e94eec9bf6359c921c806a0a22de226175","width":600,"height":450,"block":3,"position":15,"category":"멜라닌세포성 모반"},{"id":"learning-VASC-ISIC_5409072","imageId":"ISIC_5409072","filename":"ISIC_5409072.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/VASC/cases/ISIC_5409072.jpg","sha256":"ce5c3bceaec5ce38cd17498180640fe6001daace8d69c77fb47b2269e476314d","width":600,"height":450,"block":3,"position":16,"category":"혈관 병변"},{"id":"learning-DF-ISIC_0919412","imageId":"ISIC_0919412","filename":"ISIC_0919412.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/DF/cases/ISIC_0919412.jpg","sha256":"97a22713d6c6070ed2a1419d014a2ca1bd67161a393b00b4cfcc29f4d4e64a7e","width":600,"height":450,"block":3,"position":17,"category":"피부섬유종"},{"id":"learning-MEL-ISIC_0204323","imageId":"ISIC_0204323","filename":"ISIC_0204323.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":null,"sourceSubset":"1학습단계(1).zip","url":"./static/stimuli/learning/MEL/cases/ISIC_0204323.jpg","sha256":"514d4eb9eac8b3d00618800fa5bdd773f4cfa30d4d2ccf3c760cea777eaf0a3f","width":600,"height":450,"block":3,"position":18,"category":"흑색종"},{"id":"learning-DF-ISIC_4959784","imageId":"ISIC_4959784","filename":"ISIC_4959784.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/DF/cases/ISIC_4959784.jpg","sha256":"62f29777e6e4f5dab120eacd8357d992c27db487fb40f9e3bc95618a77da4d23","width":600,"height":450,"block":4,"position":19,"category":"피부섬유종"},{"id":"learning-AK-ISIC_0707479","imageId":"ISIC_0707479","filename":"ISIC_0707479.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/AK/cases/ISIC_0707479.jpg","sha256":"7a0c0c5e9a773bea56055288d1d31bc4048c3e34f052a6b56b7ff4c59cca06f2","width":600,"height":450,"block":4,"position":20,"category":"광선각화증"},{"id":"learning-NV-ISIC_0097262","imageId":"ISIC_0097262","filename":"ISIC_0097262.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/NV/cases/ISIC_0097262.jpg","sha256":"de65881c07a541a153fce5d2fec12c9b5986ee18ea3507316200501536b6f157","width":600,"height":450,"block":4,"position":21,"category":"멜라닌세포성 모반"},{"id":"learning-BCC-ISIC_0365517","imageId":"ISIC_0365517","filename":"ISIC_0365517.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/BCC/cases/ISIC_0365517.jpg","sha256":"7a7b6404d5f307afb0e93c334cc3dcd8b5efb776933fb7c838125a014e9df1a1","width":600,"height":450,"block":4,"position":22,"category":"기저세포암"},{"id":"learning-MEL-ISIC_0320008","imageId":"ISIC_0320008","filename":"ISIC_0320008.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":null,"sourceSubset":"1학습단계(1).zip","url":"./static/stimuli/learning/MEL/cases/ISIC_0320008.jpg","sha256":"ce5a809f7e5510730d8e66e43664650419b3932f3aa0f32488b02011e2365dfe","width":600,"height":450,"block":4,"position":23,"category":"흑색종"},{"id":"learning-VASC-ISIC_5866736","imageId":"ISIC_5866736","filename":"ISIC_5866736.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/VASC/cases/ISIC_5866736.jpg","sha256":"182e1a52adaf524a556b66e3ec1445bcdab980c42740c9dddc8c87abe0c4a0d7","width":600,"height":450,"block":4,"position":24,"category":"혈관 병변"},{"id":"learning-MEL-ISIC_0184224","imageId":"ISIC_0184224","filename":"ISIC_0184224.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":null,"sourceSubset":"1학습단계(1).zip","url":"./static/stimuli/learning/MEL/cases/ISIC_0184224.jpg","sha256":"03828f460fe8afe227dba7e493c96e43304f4394f692501312e450b3e7dea2ea","width":600,"height":450,"block":5,"position":25,"category":"흑색종"},{"id":"learning-AK-ISIC_0146067","imageId":"ISIC_0146067","filename":"ISIC_0146067.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/AK/cases/ISIC_0146067.jpg","sha256":"32597566546b15b8dde669cd50453e9ca0319f8098b820f009ed798c6deeda3a","width":600,"height":450,"block":5,"position":26,"category":"광선각화증"},{"id":"learning-DF-ISIC_0811703","imageId":"ISIC_0811703","filename":"ISIC_0811703.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/DF/cases/ISIC_0811703.jpg","sha256":"53d291baa8699f51777990359df7efa8179017d33296b3e9e98f5e4a436733d1","width":600,"height":450,"block":5,"position":27,"category":"피부섬유종"},{"id":"learning-BCC-ISIC_0381913","imageId":"ISIC_0381913","filename":"ISIC_0381913.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/BCC/cases/ISIC_0381913.jpg","sha256":"4593e749c82266614bbdb1baaa9d965965dfbcad62632d72d6ccf89ccdad720d","width":600,"height":450,"block":5,"position":28,"category":"기저세포암"},{"id":"learning-NV-ISIC_0115114","imageId":"ISIC_0115114","filename":"ISIC_0115114.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/NV/cases/ISIC_0115114.jpg","sha256":"d22a4d7ca824618815fb462ba5d57fbf0e2de8fd8378a221dce81f428ed49648","width":600,"height":450,"block":5,"position":29,"category":"멜라닌세포성 모반"},{"id":"learning-VASC-ISIC_1996485","imageId":"ISIC_1996485","filename":"ISIC_1996485.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/VASC/cases/ISIC_1996485.jpg","sha256":"a974f2d96796ffcd5b1def9a97bc99eb13009eb5f5f6772b189ceeda5b1b3445","width":600,"height":450,"block":5,"position":30,"category":"혈관 병변"},{"id":"learning-DF-ISIC_1342857","imageId":"ISIC_1342857","filename":"ISIC_1342857.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/DF/cases/ISIC_1342857.jpg","sha256":"c691b8c49df909cdca257076f7c38ff25a3ead9e5cadf13c9ceb331a1932771c","width":600,"height":450,"block":6,"position":31,"category":"피부섬유종"},{"id":"learning-VASC-ISIC_0686612","imageId":"ISIC_0686612","filename":"ISIC_0686612.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/VASC/cases/ISIC_0686612.jpg","sha256":"400dda76ae51bea74d84847635578a9198f886d9cd4fa4175a0fa8046f665b75","width":600,"height":450,"block":6,"position":32,"category":"혈관 병변"},{"id":"learning-BCC-ISIC_0368554","imageId":"ISIC_0368554","filename":"ISIC_0368554.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/BCC/cases/ISIC_0368554.jpg","sha256":"d75b12810b4964efe83c5902acdb2a1d79c5a053ebcdf9232aa3c19da10b806b","width":600,"height":450,"block":6,"position":33,"category":"기저세포암"},{"id":"learning-AK-ISIC_0260732","imageId":"ISIC_0260732","filename":"ISIC_0260732.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/AK/cases/ISIC_0260732.jpg","sha256":"fda1cbf852b87c9f17cb7f8690f22e9c2e6af5a5747be5cade317d45726d61d4","width":600,"height":450,"block":6,"position":34,"category":"광선각화증"},{"id":"learning-MEL-ISIC_0305865","imageId":"ISIC_0305865","filename":"ISIC_0305865.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":null,"sourceSubset":"1학습단계(1).zip","url":"./static/stimuli/learning/MEL/cases/ISIC_0305865.jpg","sha256":"52d1e991e129f28d0078782bc3d91920524c49d5b47526d4742075f5126ffa93","width":600,"height":450,"block":6,"position":35,"category":"흑색종"},{"id":"learning-NV-ISIC_0073863","imageId":"ISIC_0073863","filename":"ISIC_0073863.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":null,"sourceSubset":null,"url":"./static/stimuli/learning/NV/cases/ISIC_0073863.jpg","sha256":"f358365eacac849e56404d42197ca4817449f87c4aa248c7016d501bbdc7e40e","width":600,"height":450,"block":6,"position":36,"category":"멜라닌세포성 모반"}]},"/api/initial-exam-images":{"exams":[{"id":"initial-exam-DF-ISIC_1176432","imageId":"ISIC_1176432","filename":"ISIC_1176432.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/DF/old/ISIC_1176432.jpg","sha256":"81d4073e20438818f5165ca48b46ef2dec2ebcb61537f537dd66d91f9179fe0a","width":600,"height":450,"position":1},{"id":"initial-exam-AK-ISIC_0146067","imageId":"ISIC_0146067","filename":"ISIC_0146067.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/AK/old/ISIC_0146067.jpg","sha256":"32597566546b15b8dde669cd50453e9ca0319f8098b820f009ed798c6deeda3a","width":600,"height":450,"position":2},{"id":"initial-exam-BCC-ISIC_0368554","imageId":"ISIC_0368554","filename":"ISIC_0368554.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/BCC/old/ISIC_0368554.jpg","sha256":"d75b12810b4964efe83c5902acdb2a1d79c5a053ebcdf9232aa3c19da10b806b","width":600,"height":450,"position":3},{"id":"initial-exam-DF-ISIC_0919412","imageId":"ISIC_0919412","filename":"ISIC_0919412.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/DF/old/ISIC_0919412.jpg","sha256":"97a22713d6c6070ed2a1419d014a2ca1bd67161a393b00b4cfcc29f4d4e64a7e","width":600,"height":450,"position":4},{"id":"initial-exam-MEL-ISIC_0184224","imageId":"ISIC_0184224","filename":"ISIC_0184224.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"old","sourceSubset":"study-selected-123","url":"./static/stimuli/initial-exam/MEL/old/ISIC_0184224.jpg","sha256":"03828f460fe8afe227dba7e493c96e43304f4394f692501312e450b3e7dea2ea","width":600,"height":450,"position":5},{"id":"initial-exam-DF-ISIC_0811703","imageId":"ISIC_0811703","filename":"ISIC_0811703.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/DF/old/ISIC_0811703.jpg","sha256":"53d291baa8699f51777990359df7efa8179017d33296b3e9e98f5e4a436733d1","width":600,"height":450,"position":6},{"id":"initial-exam-VASC-ISIC_1996485","imageId":"ISIC_1996485","filename":"ISIC_1996485.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/VASC/old/ISIC_1996485.jpg","sha256":"a974f2d96796ffcd5b1def9a97bc99eb13009eb5f5f6772b189ceeda5b1b3445","width":600,"height":450,"position":7},{"id":"initial-exam-NV-ISIC_0080219","imageId":"ISIC_0080219","filename":"ISIC_0080219.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/NV/old/ISIC_0080219.jpg","sha256":"4fa06967f5cde6ac50f75dcc087272e94eec9bf6359c921c806a0a22de226175","width":600,"height":450,"position":8},{"id":"initial-exam-BCC-ISIC_0195347","imageId":"ISIC_0195347","filename":"ISIC_0195347.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/BCC/old/ISIC_0195347.jpg","sha256":"aff1a327bf738f103082ab3cc9d9ae0203ba9979373e94d18b1138b8cf216b16","width":600,"height":450,"position":9},{"id":"initial-exam-MEL-ISIC_0156507","imageId":"ISIC_0156507","filename":"ISIC_0156507.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"old","sourceSubset":"study-selected-123","url":"./static/stimuli/initial-exam/MEL/old/ISIC_0156507.jpg","sha256":"df0d0eaca0b73c057d7c7b091cf7c541474b6c453e2e4530333a26d864b04d3c","width":600,"height":450,"position":10},{"id":"initial-exam-NV-ISIC_0097262","imageId":"ISIC_0097262","filename":"ISIC_0097262.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/NV/old/ISIC_0097262.jpg","sha256":"de65881c07a541a153fce5d2fec12c9b5986ee18ea3507316200501536b6f157","width":600,"height":450,"position":11},{"id":"initial-exam-MEL-ISIC_0204323","imageId":"ISIC_0204323","filename":"ISIC_0204323.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"old","sourceSubset":"study-selected-123","url":"./static/stimuli/initial-exam/MEL/old/ISIC_0204323.jpg","sha256":"514d4eb9eac8b3d00618800fa5bdd773f4cfa30d4d2ccf3c760cea777eaf0a3f","width":600,"height":450,"position":12},{"id":"initial-exam-AK-ISIC_0260732","imageId":"ISIC_0260732","filename":"ISIC_0260732.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/AK/old/ISIC_0260732.jpg","sha256":"fda1cbf852b87c9f17cb7f8690f22e9c2e6af5a5747be5cade317d45726d61d4","width":600,"height":450,"position":13},{"id":"initial-exam-BCC-ISIC_0365517","imageId":"ISIC_0365517","filename":"ISIC_0365517.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/BCC/old/ISIC_0365517.jpg","sha256":"7a7b6404d5f307afb0e93c334cc3dcd8b5efb776933fb7c838125a014e9df1a1","width":600,"height":450,"position":14},{"id":"initial-exam-NV-ISIC_0073863","imageId":"ISIC_0073863","filename":"ISIC_0073863.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/NV/old/ISIC_0073863.jpg","sha256":"f358365eacac849e56404d42197ca4817449f87c4aa248c7016d501bbdc7e40e","width":600,"height":450,"position":15},{"id":"initial-exam-VASC-ISIC_0552734","imageId":"ISIC_0552734","filename":"ISIC_0552734.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/VASC/old/ISIC_0552734.jpg","sha256":"19e886cbfdbd99d10daafcf3dc09df9883f388bd98dc1bcacf7002cfa3f4cd55","width":600,"height":450,"position":16},{"id":"initial-exam-AK-ISIC_0478016","imageId":"ISIC_0478016","filename":"ISIC_0478016.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/AK/old/ISIC_0478016.jpg","sha256":"4059cd3ddcc9cbbf61d6a152def854103f03393282353da4cda3759e86083468","width":600,"height":450,"position":17},{"id":"initial-exam-VASC-ISIC_0686612","imageId":"ISIC_0686612","filename":"ISIC_0686612.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"old","sourceSubset":"old_study_123","url":"./static/stimuli/initial-exam/VASC/old/ISIC_0686612.jpg","sha256":"400dda76ae51bea74d84847635578a9198f886d9cd4fa4175a0fa8046f665b75","width":600,"height":450,"position":18}]},"/api/task-images":{"tasks":[{"id":"ai-task-AK-ISIC_0723926","imageId":"ISIC_0723926","filename":"ISIC_0723926.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK)","url":"./static/stimuli/ai-task/AK/new/ISIC_0723926.jpg","sha256":"c27fd2872fd018e9ce94242711c18e19e3516c7185d6641c95a4b4d856d2323b","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"붉은 바탕 위에 흰 각질이 넓게 붙어 있습니다. 색소성 종양보다는 햇빛 손상 피부에서 보이는 각화성 병변 양상입니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":1,"position":1},{"id":"ai-task-MEL-ISIC_0410802","imageId":"ISIC_0410802","filename":"ISIC_0410802.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"2개입단계(2).zip","url":"./static/stimuli/ai-task/MEL/new/ISIC_0410802.jpg","sha256":"0525e058f43adcc27cd7988d5d6584e2636a70c0b69b4b44cf9a6ad48485deef","width":600,"height":450,"aiCategory":"흑색종","aiReason":"병변의 좌우 색조와 구조가 뚜렷하게 다르고, 갈색과 붉은색이 불규칙하게 섞여 있습니다. 가장자리도 고르지 않아 흑색종을 의심했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":1,"position":2},{"id":"ai-task-VASC-ISIC_7134919","imageId":"ISIC_7134919","filename":"ISIC_7134919.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC)","url":"./static/stimuli/ai-task/VASC/new/ISIC_7134919.jpg","sha256":"9b4fb552264d02e4275b5ce5c7ecde48761b8f79f3a064a7f2b9c565b74706ea","width":600,"height":450,"aiCategory":"혈관 병변","aiReason":"병변 전체가 진한 보라색이며, 내부에 혈관성 덩어리들이 모여 있는 형태입니다. 색소 병변보다 혈관성 병변의 색과 구조가 우세합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":1,"position":3},{"id":"ai-task-DF-ISIC_6558326","imageId":"ISIC_6558326","filename":"ISIC_6558326.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF)","url":"./static/stimuli/ai-task/DF/new/ISIC_6558326.jpg","sha256":"9cc6ea9c967f657f4ea54672986ff3e52f021fbe9626f02b9c38a3db40f87295","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"한쪽에 진한 갈색 색소가 뭉쳐 있고 주변은 옅은 분홍색 반흔성 바탕입니다. 색소성 기저세포암에서 보이는 비대칭적 색소 덩어리와 반투명 구조로 판단했습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":1,"position":4},{"id":"ai-task-NV-ISIC_0356038","imageId":"ISIC_0356038","filename":"ISIC_0356038.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV)","url":"./static/stimuli/ai-task/NV/new/ISIC_0356038.jpg","sha256":"ee5d3230901a4fd81ca5012d7e853e5f2ededa67fc8bf864737382ed56950436","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"연갈색과 분홍색이 넓게 섞여 있고, 표면에 미세한 각질성 변화가 보입니다. 색소성 종양보다는 햇빛 손상에 따른 표재성 각화 병변으로 보았습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":1,"position":5},{"id":"ai-task-BCC-ISIC_1217127","imageId":"ISIC_1217127","filename":"ISIC_1217127.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC)","url":"./static/stimuli/ai-task/BCC/new/ISIC_1217127.jpg","sha256":"0b93ead7ac636d7ac7dfc0420f0c9d8d6731d8c57d8316efff9167541a7730e5","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"작고 붉은 중심부와 주변의 반투명한 분홍색 영역이 보입니다. 중심 미란과 주변 진주빛 구조가 기저세포암을 시사합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":1,"position":6},{"id":"ai-task-AK-ISIC_1099402","imageId":"ISIC_1099402","filename":"ISIC_1099402.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK)","url":"./static/stimuli/ai-task/AK/new/ISIC_1099402.jpg","sha256":"b460cd8d3ff1b630bfebb2b40079130892c6a7c98f98ad79f4b3c685ebbd5f02","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"붉은색과 주황색 바탕 위에 작은 출혈점과 각질이 보입니다. 햇빛 손상 피부의 염증성 각화 병변으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":2,"position":7},{"id":"ai-task-BCC-ISIC_0913648","imageId":"ISIC_0913648","filename":"ISIC_0913648.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC)","url":"./static/stimuli/ai-task/BCC/new/ISIC_0913648.jpg","sha256":"775230cccc477a01c192150c467185eb909aea71153212b33ed89e56fa87fac4","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"넓은 흰색 구조와 분홍색 바탕, 가는 혈관이 함께 보입니다. 색소 병변보다는 얕게 퍼지는 기저세포암의 양상으로 보았습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":2,"position":8},{"id":"ai-task-NV-ISIC_0179367","imageId":"ISIC_0179367","filename":"ISIC_0179367.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV)","url":"./static/stimuli/ai-task/NV/new/ISIC_0179367.jpg","sha256":"85f7f972ee472de725b72df1deed81602e6e9db69ac4b3cb8e36fbb300aca836","width":600,"height":450,"aiCategory":"흑색종","aiReason":"매우 진한 검은색 중심부와 불규칙한 가장자리 색소 돌기가 있습니다. 색조가 짙고 구조가 비대칭적이어서 흑색종 가능성이 높습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":2,"position":9},{"id":"ai-task-MEL-ISIC_0414164","imageId":"ISIC_0414164","filename":"ISIC_0414164.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"2개입단계(2).zip","url":"./static/stimuli/ai-task/MEL/new/ISIC_0414164.jpg","sha256":"a1534de88b8c7e287b3c99253017abae5f51a3afc0a440f4f881fac6c9f48865","width":600,"height":450,"aiCategory":"흑색종","aiReason":"갈색 색소 병변 내부에 분홍색, 회청색, 진갈색이 함께 보입니다. 다색성과 비대칭성이 강해 흑색종으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":2,"position":10},{"id":"ai-task-VASC-ISIC_8190843","imageId":"ISIC_8190843","filename":"ISIC_8190843.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC)","url":"./static/stimuli/ai-task/VASC/new/ISIC_8190843.jpg","sha256":"530078821c6db2c55a864d085882bc73370217b7937d296a30b35ad33c211c56","width":600,"height":450,"aiCategory":"혈관 병변","aiReason":"둥근 결절 내부에 붉은색과 보라색의 혈관성 공간들이 여러 개 보입니다. 색소성 병변이 아니라 혈관이 증식하거나 확장된 병변으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":2,"position":11},{"id":"ai-task-DF-ISIC_5844410","imageId":"ISIC_5844410","filename":"ISIC_5844410.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF)","url":"./static/stimuli/ai-task/DF/new/ISIC_5844410.jpg","sha256":"f7dbf93073e162aa24b3037aa757723026157fe86f7d6e1c9f99856493f3622c","width":600,"height":450,"aiCategory":"피부섬유종","aiReason":"중심부가 흰색 반흔처럼 보이고, 주변에 갈색 색소가 비교적 둥글게 둘러져 있습니다. 피부섬유종의 전형적인 중심 섬유화와 주변 색소 침착 양상입니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":2,"position":12},{"id":"ai-task-AK-ISIC_1115156","imageId":"ISIC_1115156","filename":"ISIC_1115156.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK)","url":"./static/stimuli/ai-task/AK/new/ISIC_1115156.jpg","sha256":"36f80b5193069664f0aebbc52d550e3229a46963697805b2cd2a0fe6eb94fc14","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"중심부에 두꺼운 흰 각질이 있고 주변 피부가 옅은 분홍색입니다. 거친 각질과 홍반성 배경이 광선각화증에 부합합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":3,"position":13},{"id":"ai-task-DF-ISIC_5813817","imageId":"ISIC_5813817","filename":"ISIC_5813817.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF)","url":"./static/stimuli/ai-task/DF/new/ISIC_5813817.jpg","sha256":"82ba110602a8b195f15c851740e9720ab43ea88b5284d0fb0a1a22880f668fe5","width":600,"height":450,"aiCategory":"피부섬유종","aiReason":"중심부에 흰색 반흔 모양 부위가 있고, 주변부에 옅은 갈색 색소가 둘러져 있습니다. 중심 흰색 섬유화와 주변 색소 침착의 조합이 피부섬유종에 잘 맞습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":3,"position":14},{"id":"ai-task-BCC-ISIC_1230479","imageId":"ISIC_1230479","filename":"ISIC_1230479.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC)","url":"./static/stimuli/ai-task/BCC/new/ISIC_1230479.jpg","sha256":"f8d0eacad62a5b248bb0a2ee0991084980607fc0eadf50db689cd033d0c71e4d","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"넓은 햇빛 손상 배경 위에 옅은 분홍색과 갈색이 섞인 얕은 병변입니다. 뚜렷한 종괴 없이 표면 변화가 중심이라 광선각화증으로 판단했습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":3,"position":15},{"id":"ai-task-NV-ISIC_0167803","imageId":"ISIC_0167803","filename":"ISIC_0167803.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV)","url":"./static/stimuli/ai-task/NV/new/ISIC_0167803.jpg","sha256":"3809aeeab705fb45d828d706fb673bac35f6bd2b47e8e8b2969214af1799f912","width":600,"height":450,"aiCategory":"흑색종","aiReason":"검은색이 넓게 차지하고 가장자리에 방사상으로 불규칙한 색소 돌기가 있습니다. 짙은 색조와 경계 불규칙성이 흑색종을 시사합니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":3,"position":16},{"id":"ai-task-VASC-ISIC_8462138","imageId":"ISIC_8462138","filename":"ISIC_8462138.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC)","url":"./static/stimuli/ai-task/VASC/new/ISIC_8462138.jpg","sha256":"43f109e2ae0100b1ee2b8c237334f157b1e37f597e0fa68f0c72f3b527c66737","width":600,"height":450,"aiCategory":"혈관 병변","aiReason":"작고 둥근 검붉은 결절이며 주변 색소 구조가 거의 없습니다. 혈액이 차 있는 병변의 색과 형태에 가깝습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":3,"position":17},{"id":"ai-task-MEL-ISIC_0406149","imageId":"ISIC_0406149","filename":"ISIC_0406149.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"2개입단계(2).zip","url":"./static/stimuli/ai-task/MEL/new/ISIC_0406149.jpg","sha256":"13eb0a48d1695581f0e6b2a63372fc3081351db1b5c8afd109b432ed60b8c25b","width":600,"height":450,"aiCategory":"흑색종","aiReason":"갈색 병변 안에 더 짙은 중심부와 불규칙한 색소 분포가 있습니다. 전체 윤곽과 내부 구조가 균일하지 않아 흑색종으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":3,"position":18},{"id":"ai-task-AK-ISIC_1119486","imageId":"ISIC_1119486","filename":"ISIC_1119486.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK)","url":"./static/stimuli/ai-task/AK/new/ISIC_1119486.jpg","sha256":"821327a195fb2899b8803e5c9051c5cca1706e97d684d53f5499d62c8fe5d763","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"햇빛 손상으로 보이는 피부 위에 붉은 반점과 얕은 각질이 있습니다. 뚜렷한 종괴보다는 표재성 각화 병변으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":4,"position":19},{"id":"ai-task-BCC-ISIC_0382621","imageId":"ISIC_0382621","filename":"ISIC_0382621.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC)","url":"./static/stimuli/ai-task/BCC/new/ISIC_0382621.jpg","sha256":"205af68af6c0bc3169b0b3c423d58d407411cfadc5b42e0dbbe903a8a9fff6f2","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"중심부에 얕은 궤양과 출혈이 있고, 주변이 진주빛으로 살짝 융기되어 보입니다. 얼굴 피부의 작은 궤양성 병변이라는 점도 기저세포암에 부합합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":4,"position":20},{"id":"ai-task-DF-ISIC_6312345","imageId":"ISIC_6312345","filename":"ISIC_6312345.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF)","url":"./static/stimuli/ai-task/DF/new/ISIC_6312345.jpg","sha256":"4b8edf8042a2f654fcc854908918f63b30cb15db444ae32656ebe0e6423e2221","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"중심부에 흰색 반흔성 구조와 주변의 붉은 혈관 확장이 있습니다. 색소성 병변보다 기저세포암의 반흔성·혈관성 양상이 두드러집니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":4,"position":21},{"id":"ai-task-MEL-ISIC_0529633","imageId":"ISIC_0529633","filename":"ISIC_0529633.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"2개입단계(2).zip","url":"./static/stimuli/ai-task/MEL/new/ISIC_0529633.jpg","sha256":"6b2d22cdf81ccdb38da0b40554eb39198b1ad5051ba91c15c93539108a8b0fd4","width":600,"height":450,"aiCategory":"흑색종","aiReason":"넓은 갈색 바탕에 검은색 점상 색소가 불규칙하게 흩어져 있습니다. 색소 분포가 균일하지 않고 경계도 흐려 흑색종으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":4,"position":22},{"id":"ai-task-VASC-ISIC_6192197","imageId":"ISIC_6192197","filename":"ISIC_6192197.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC)","url":"./static/stimuli/ai-task/VASC/new/ISIC_6192197.jpg","sha256":"4b1bad843079777aede7e484e71af81ccdc5f239a30a8a6d92cc78f95ae8585d","width":600,"height":450,"aiCategory":"혈관 병변","aiReason":"보라색과 자주색이 중심 색조이고, 내부가 혈액으로 채워진 듯한 덩어리 형태입니다. 색소망보다는 혈관성 공간이 우세합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":4,"position":23},{"id":"ai-task-NV-ISIC_0216815","imageId":"ISIC_0216815","filename":"ISIC_0216815.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV)","url":"./static/stimuli/ai-task/NV/new/ISIC_0216815.jpg","sha256":"350da9cd66115eb6f28de9cd78756ebcc7d848780bc8f6cb6bb6318e6b371855","width":600,"height":450,"aiCategory":"피부섬유종","aiReason":"중심부가 옅은 분홍색 또는 흰색으로 보이고, 주변에 갈색 고리 모양 색소가 있습니다. 중심부 섬유화와 주변부 색소 침착이 피부섬유종에 맞습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":4,"position":24},{"id":"ai-task-MEL-ISIC_1019384","imageId":"ISIC_1019384","filename":"ISIC_1019384.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"2개입단계(2).zip","url":"./static/stimuli/ai-task/MEL/new/ISIC_1019384.jpg","sha256":"5571140a2a875aa48cd581974cde4e8f32346b223f179399d3b3873c2fcaf514","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"갈색 색소가 불규칙하게 있으나 전체적으로 반투명한 바탕과 기저세포암에서 보이는 색소성 구조가 보입니다. 흑색종보다 색소성 기저세포암 양상으로 보았습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":5,"position":25},{"id":"ai-task-NV-ISIC_0125513","imageId":"ISIC_0125513","filename":"ISIC_0125513.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV)","url":"./static/stimuli/ai-task/NV/new/ISIC_0125513.jpg","sha256":"a7f5bb8e8e092c6346e45b251ccf7d2b10735280a6eb8b9bf74e4441e08a8753","width":600,"height":450,"aiCategory":"흑색종","aiReason":"병변 내부에 매우 진한 갈색에서 검은색까지의 색조 차이가 있고, 모양과 색 분포가 비대칭적입니다. 경계도 고르지 않아 단순 모반보다는 흑색종을 우선 의심했습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":5,"position":26},{"id":"ai-task-VASC-ISIC_6141128","imageId":"ISIC_6141128","filename":"ISIC_6141128.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC)","url":"./static/stimuli/ai-task/VASC/new/ISIC_6141128.jpg","sha256":"706be004325e49fd478cc2924f4e4ea7865ea9b6bc2be16b8dc5fdb475573f3c","width":600,"height":450,"aiCategory":"혈관 병변","aiReason":"보라색과 검붉은색이 주된 색조이고, 융기된 결절 형태를 보입니다. 색소성 병변보다는 혈액이 고인 혈관성 구조에 가깝습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":5,"position":27},{"id":"ai-task-BCC-ISIC_0962183","imageId":"ISIC_0962183","filename":"ISIC_0962183.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC)","url":"./static/stimuli/ai-task/BCC/new/ISIC_0962183.jpg","sha256":"0019973bd6d622c841a1b40494b0434c80b3ab71ba68bc57af4fffd716278314","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"분홍색 바탕에 굵고 구불구불한 혈관이 뚜렷합니다. 이러한 혈관 양상은 기저세포암에서 자주 관찰됩니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":5,"position":28},{"id":"ai-task-DF-ISIC_6043617","imageId":"ISIC_6043617","filename":"ISIC_6043617.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF)","url":"./static/stimuli/ai-task/DF/new/ISIC_6043617.jpg","sha256":"25e30bc02129db4e14366f2faa86e3e1c2f0e029268d63ebd881fea9feeda3cb","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"중심부가 흰색과 분홍색으로 반흔처럼 보이고, 주변에 붉은색과 갈색이 섞여 있습니다. 반투명하고 반흔성인 구조가 기저세포암 가능성을 높입니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":5,"position":29},{"id":"ai-task-AK-ISIC_1076265","imageId":"ISIC_1076265","filename":"ISIC_1076265.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK)","url":"./static/stimuli/ai-task/AK/new/ISIC_1076265.jpg","sha256":"8059f9721dc46b3ccd0bc42ee5322068009805e21d0763ea177fa87bf5f989cc","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"분홍색 바탕에 작은 붉은 점상 구조와 옅은 반흔성 부위가 넓게 퍼져 있습니다. 비색소성 기저세포암에서 보일 수 있는 얕고 불규칙한 표재성 병변으로 보았습니다.","aiCorrect":false,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":5,"position":30},{"id":"ai-task-BCC-ISIC_1186941","imageId":"ISIC_1186941","filename":"ISIC_1186941.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"ßäÇßà╡ßäîßàÑßäëßàªßäæßà⌐ßäïßàíßå╖(BCC)","url":"./static/stimuli/ai-task/BCC/new/ISIC_1186941.jpg","sha256":"8b0b935f614df8f9fd61607cfe4d39f677001948ec1815d13331404d390d5dc5","width":600,"height":450,"aiCategory":"기저세포암","aiReason":"붉고 융기된 결절성 병변이며 중심부에 미란 또는 출혈이 보입니다. 주변 피부의 햇빛 손상과 결절성 형태가 기저세포암을 시사합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":6,"position":31},{"id":"ai-task-NV-ISIC_0174869","imageId":"ISIC_0174869","filename":"ISIC_0174869.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"ßäåßàªßå»ßäàßàíßäéßà╡ßå½ßäëßàªßäæßà⌐ßäëßàÑßå╝ ßäåßà⌐ßäçßàíßå½(NV)","url":"./static/stimuli/ai-task/NV/new/ISIC_0174869.jpg","sha256":"58d715e7bcc5413bf88497f1b33db5d31220f059a253a2cd3647c450f434f8d7","width":600,"height":450,"aiCategory":"멜라닌세포성 모반","aiReason":"두 개의 갈색 색소성 부위가 있으나 전체적으로 비교적 균일한 갈색 구조를 보입니다. 뚜렷한 궤양, 혈관성 결절, 심한 색조 다양성이 부족해 모반으로 판단했습니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":6,"position":32},{"id":"ai-task-AK-ISIC_0970615","imageId":"ISIC_0970615","filename":"ISIC_0970615.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"ßäÇßà¬ßå╝ßäëßàÑßå½ßäÇßàíßå¿ßäÆßà¬ßäîßà│ßå╝(AK)","url":"./static/stimuli/ai-task/AK/new/ISIC_0970615.jpg","sha256":"8e23965d3e405a61be9b97969d92105c26bee0ffc3a7b678d6190df04036c583","width":600,"height":450,"aiCategory":"광선각화증","aiReason":"붉은 바탕 위에 흰 각질이 뭉쳐 있고 표면이 거칠어 보입니다. 색소성 종양보다 각질 형성이 두드러지는 전암성 병변 양상입니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":6,"position":33},{"id":"ai-task-MEL-ISIC_1074795","imageId":"ISIC_1074795","filename":"ISIC_1074795.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"2개입단계(2).zip","url":"./static/stimuli/ai-task/MEL/new/ISIC_1074795.jpg","sha256":"d98f67092091170a822e1b0208d67a0b4739faa9ce9839c5d15b7dbf8a1bb711","width":600,"height":450,"aiCategory":"흑색종","aiReason":"회청색, 갈색, 붉은색이 한 병변 안에 혼재하고 결절성 융기가 있습니다. 다색성, 비대칭성, 두꺼운 종괴 양상이 흑색종을 강하게 시사합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":6,"position":34},{"id":"ai-task-VASC-ISIC_8020470","imageId":"ISIC_8020470","filename":"ISIC_8020470.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"ßäÆßàºßå»ßäÇßà¬ßå½ ßäçßàºßå╝ßäçßàºßå½(VASC)","url":"./static/stimuli/ai-task/VASC/new/ISIC_8020470.jpg","sha256":"2ca41c68ea9b7f6c57ffdc687fe497e296b92fdf4cd7cf0fecf486495452c9e3","width":600,"height":450,"aiCategory":"혈관 병변","aiReason":"병변이 보라색과 자주색으로 구성되어 있고, 내부가 혈액성 공간처럼 보입니다. 갈색 색소망보다 혈관성 색조가 우세합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":6,"position":35},{"id":"ai-task-DF-ISIC_6943256","imageId":"ISIC_6943256","filename":"ISIC_6943256.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"ßäæßà╡ßäçßà«ßäëßàÑßå╖ßäïßà▓ßäîßà⌐ßå╝(DF)","url":"./static/stimuli/ai-task/DF/new/ISIC_6943256.jpg","sha256":"231d3166d536252a3f0eda80c955dfc37816bd10ef4e135e4faf161d42cc146e","width":600,"height":450,"aiCategory":"피부섬유종","aiReason":"둥근 갈색 병변의 중심부가 옅고 반흔처럼 보입니다. 주변부 갈색 침착과 중심부 흰색 섬유화가 피부섬유종에 부합합니다.","aiCorrect":true,"aiMappingSource":"https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images","block":6,"position":36}],"categories":["광선각화증","기저세포암","멜라닌세포성 모반","피부섬유종","혈관 병변","흑색종"]},"/api/exam-images":{"exams":[{"id":"final-exam-MEL-ISIC_0212251","imageId":"ISIC_0212251","filename":"ISIC_0212251.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/MEL/old/ISIC_0212251.jpg","sha256":"3f8b621bdfebfb92c6fda2eee4e90977f5af2f305a7c20d3ecdd177a4a1559fa","width":600,"height":450,"position":1},{"id":"final-exam-AK-ISIC_0707479","imageId":"ISIC_0707479","filename":"ISIC_0707479.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/AK/old/ISIC_0707479.jpg","sha256":"7a0c0c5e9a773bea56055288d1d31bc4048c3e34f052a6b56b7ff4c59cca06f2","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":2},{"id":"final-exam-MEL-ISIC_0305865","imageId":"ISIC_0305865","filename":"ISIC_0305865.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/MEL/old/ISIC_0305865.jpg","sha256":"52d1e991e129f28d0078782bc3d91920524c49d5b47526d4742075f5126ffa93","width":600,"height":450,"position":3},{"id":"final-exam-VASC-ISIC_3849096","imageId":"ISIC_3849096","filename":"ISIC_3849096.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/VASC/old/ISIC_3849096.jpg","sha256":"d94285c237963d873c83da08938d692a191e150bf8d71b9d5497b2cd73cb5134","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":4},{"id":"final-exam-DF-ISIC_8705648","imageId":"ISIC_8705648","filename":"ISIC_8705648.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/DF/new/ISIC_8705648.jpg","sha256":"547b3f0ad586c9c81d68bf57ffce32be8a38b60d2e2a30997f2e22ce8830c68b","width":600,"height":450,"position":5},{"id":"final-exam-VASC-ISIC_5409072","imageId":"ISIC_5409072","filename":"ISIC_5409072.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/VASC/old/ISIC_5409072.jpg","sha256":"ce5c3bceaec5ce38cd17498180640fe6001daace8d69c77fb47b2269e476314d","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":6},{"id":"final-exam-AK-ISIC_0496864","imageId":"ISIC_0496864","filename":"ISIC_0496864.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/AK/old/ISIC_0496864.jpg","sha256":"1ea80590e6b5d47609d7302a8516b166e23d8ee50854949df12706ef2661f58a","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":7},{"id":"final-exam-DF-ISIC_4959784","imageId":"ISIC_4959784","filename":"ISIC_4959784.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/DF/old/ISIC_4959784.jpg","sha256":"62f29777e6e4f5dab120eacd8357d992c27db487fb40f9e3bc95618a77da4d23","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":8},{"id":"final-exam-NV-ISIC_0115114","imageId":"ISIC_0115114","filename":"ISIC_0115114.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/NV/old/ISIC_0115114.jpg","sha256":"d22a4d7ca824618815fb462ba5d57fbf0e2de8fd8378a221dce81f428ed49648","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":9},{"id":"final-exam-AK-ISIC_2983004","imageId":"ISIC_2983004","filename":"ISIC_2983004.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/AK/new/ISIC_2983004.jpg","sha256":"a27e55e90cdcf9a8afa165570283e35f2c35150bc55617266dc96591b8f047b0","width":600,"height":450,"position":10},{"id":"final-exam-NV-ISIC_0106322","imageId":"ISIC_0106322","filename":"ISIC_0106322.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/NV/old/ISIC_0106322.jpg","sha256":"dda6998883aad8c7bf9beb4b58f75548592cdf001a3bf52a246d63a69ea260c8","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":11},{"id":"final-exam-DF-ISIC_1342857","imageId":"ISIC_1342857","filename":"ISIC_1342857.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/DF/old/ISIC_1342857.jpg","sha256":"c691b8c49df909cdca257076f7c38ff25a3ead9e5cadf13c9ceb331a1932771c","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":12},{"id":"final-exam-VASC-ISIC_8600102","imageId":"ISIC_8600102","filename":"ISIC_8600102.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/VASC/new/ISIC_8600102.jpg","sha256":"18adb405e6ed217cb33a43a710dfbe46aa1802cbcac3741b43ea47c86d1b559e","width":600,"height":450,"position":13},{"id":"final-exam-NV-ISIC_0769255","imageId":"ISIC_0769255","filename":"ISIC_0769255.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/NV/new/ISIC_0769255.jpg","sha256":"a6bc35e9e4bc323d75d92d03299a3e5a0581cb089030965edfd939fa7cca6f0f","width":600,"height":450,"position":14},{"id":"final-exam-AK-ISIC_3004699","imageId":"ISIC_3004699","filename":"ISIC_3004699.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/AK/new/ISIC_3004699.jpg","sha256":"8c4bbf26abd8ac8979b84dee8f238200b33c0e89b7f69c6200520009ece30e8f","width":600,"height":450,"position":15},{"id":"final-exam-BCC-ISIC_2122841","imageId":"ISIC_2122841","filename":"ISIC_2122841.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/BCC/new/ISIC_2122841.jpg","sha256":"c912eed961685ec5ec8127cb4ee9368d45a2c25be1e7e2f6e12de4d6d8215c71","width":600,"height":450,"position":16},{"id":"final-exam-AK-ISIC_2977779","imageId":"ISIC_2977779","filename":"ISIC_2977779.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/AK/new/ISIC_2977779.jpg","sha256":"03f6c8fa63d54078f9383b03b870299ea80eabf483ce6426fc7cf244d064e975","width":600,"height":450,"position":17},{"id":"final-exam-MEL-ISIC_3642584","imageId":"ISIC_3642584","filename":"ISIC_3642584.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"3시험단계(1).zip","url":"./static/stimuli/final-exam/MEL/new/ISIC_3642584.jpg","sha256":"64bc1a0887d89b90c25b8b5fc462be66757c1f3f3e650b1e341772608a482523","width":600,"height":450,"position":18},{"id":"final-exam-NV-ISIC_1025100","imageId":"ISIC_1025100","filename":"ISIC_1025100.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/NV/new/ISIC_1025100.jpg","sha256":"39e1f8f4d80771480f7aeeda1b2bbe368b86c9325b83b07476087b64aae1dc39","width":600,"height":450,"position":19},{"id":"final-exam-BCC-ISIC_0369681","imageId":"ISIC_0369681","filename":"ISIC_0369681.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/BCC/old/ISIC_0369681.jpg","sha256":"d73c6ddd67f626971e20121fa01063db06d5a8fa58938f3a2caa2e9aa175e523","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":20},{"id":"final-exam-DF-ISIC_4324758","imageId":"ISIC_4324758","filename":"ISIC_4324758.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/DF/old/ISIC_4324758.jpg","sha256":"ead14278d1dca3ab2727f62a1ed384d03f12a7d31b84c1efa5887a4e1f8c5d80","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":21},{"id":"final-exam-MEL-ISIC_1264034","imageId":"ISIC_1264034","filename":"ISIC_1264034.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"3시험단계(1).zip","url":"./static/stimuli/final-exam/MEL/new/ISIC_1264034.jpg","sha256":"1993770befdec67ae06e12be0ec4257337619ed3eb93a93302185ba0fdc7e69d","width":600,"height":450,"position":22},{"id":"final-exam-VASC-ISIC_5866736","imageId":"ISIC_5866736","filename":"ISIC_5866736.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/VASC/old/ISIC_5866736.jpg","sha256":"182e1a52adaf524a556b66e3ec1445bcdab980c42740c9dddc8c87abe0c4a0d7","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":23},{"id":"final-exam-NV-ISIC_0101767","imageId":"ISIC_0101767","filename":"ISIC_0101767.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/NV/old/ISIC_0101767.jpg","sha256":"61e2345cadbae8f67a17b14c54e18b71478594b221470e03d4b47cdbe4e2f055","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":24},{"id":"final-exam-MEL-ISIC_1285798","imageId":"ISIC_1285798","filename":"ISIC_1285798.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"new","sourceSubset":"3시험단계(1).zip","url":"./static/stimuli/final-exam/MEL/new/ISIC_1285798.jpg","sha256":"b8ea99e8dfc9c08d5bca7bdad2c2f043c91b274e77ca3f63d7e7c4f9acb94bd1","width":600,"height":450,"position":25},{"id":"final-exam-BCC-ISIC_0381913","imageId":"ISIC_0381913","filename":"ISIC_0381913.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/BCC/old/ISIC_0381913.jpg","sha256":"4593e749c82266614bbdb1baaa9d965965dfbcad62632d72d6ccf89ccdad720d","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":26},{"id":"final-exam-DF-ISIC_7009788","imageId":"ISIC_7009788","filename":"ISIC_7009788.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/DF/new/ISIC_7009788.jpg","sha256":"52200a2bb7e28fa35209028c6e283c374a980c9b0a417e287163a839023af5fb","width":600,"height":450,"position":27},{"id":"final-exam-BCC-ISIC_0377749","imageId":"ISIC_0377749","filename":"ISIC_0377749.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/BCC/old/ISIC_0377749.jpg","sha256":"d32d0f7b718a31ba045bf7e86b147686caf4bc942cb053ab7c8595942ad6c402","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":28},{"id":"final-exam-AK-ISIC_0605910","imageId":"ISIC_0605910","filename":"ISIC_0605910.jpg","categoryCode":"AK","correctCategory":"광선각화증","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/AK/old/ISIC_0605910.jpg","sha256":"bcbc32775f9a794e09ec51b428537d787dbc2a10c078eb9619d698933e1b2f6e","width":600,"height":450,"sourceCorrection":"Final old equals study minus baseline, by category and image bytes","position":29},{"id":"final-exam-VASC-ISIC_8614567","imageId":"ISIC_8614567","filename":"ISIC_8614567.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/VASC/new/ISIC_8614567.jpg","sha256":"c0520922645302a696b2fcc72840b3cbdd6d2e5fe7b36efcb2b25d739bfa9b00","width":600,"height":450,"position":30},{"id":"final-exam-BCC-ISIC_2231864","imageId":"ISIC_2231864","filename":"ISIC_2231864.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/BCC/new/ISIC_2231864.jpg","sha256":"2318a7d317c723bcf5f29191d2f7f3c4a665b8d8716d6a6d6a6e0e389afb48a8","width":600,"height":450,"position":31},{"id":"final-exam-DF-ISIC_7454975","imageId":"ISIC_7454975","filename":"ISIC_7454975.jpg","categoryCode":"DF","correctCategory":"피부섬유종","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/DF/new/ISIC_7454975.jpg","sha256":"37cee3400b4389ac16c35ed51a4d65b3383c45a084efb26c7a0f8dbc1315c078","width":600,"height":450,"position":32},{"id":"final-exam-BCC-ISIC_2232926","imageId":"ISIC_2232926","filename":"ISIC_2232926.jpg","categoryCode":"BCC","correctCategory":"기저세포암","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/BCC/new/ISIC_2232926.jpg","sha256":"2820baab3ca764b29b3cb209b80bb3bf643dd5f6d35199f601a70f851f877e16","width":600,"height":450,"position":33},{"id":"final-exam-MEL-ISIC_0320008","imageId":"ISIC_0320008","filename":"ISIC_0320008.jpg","categoryCode":"MEL","correctCategory":"흑색종","novelty":"old","sourceSubset":"study-minus-baseline","url":"./static/stimuli/final-exam/MEL/old/ISIC_0320008.jpg","sha256":"ce5a809f7e5510730d8e66e43664650419b3932f3aa0f32488b02011e2365dfe","width":600,"height":450,"position":34},{"id":"final-exam-VASC-ISIC_8791057","imageId":"ISIC_8791057","filename":"ISIC_8791057.jpg","categoryCode":"VASC","correctCategory":"혈관 병변","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/VASC/new/ISIC_8791057.jpg","sha256":"f7111fba9eec92a85704d234229f45c127d28c2dc75d4a926510224dbb4fd308","width":600,"height":450,"position":35},{"id":"final-exam-NV-ISIC_1029957","imageId":"ISIC_1029957","filename":"ISIC_1029957.jpg","categoryCode":"NV","correctCategory":"멜라닌세포성 모반","novelty":"new","sourceSubset":"new","url":"./static/stimuli/final-exam/NV/new/ISIC_1029957.jpg","sha256":"418e89d8d20dd0a97f6690c78d78c6c237dabcd605d52deadb517bf9b9284423","width":600,"height":450,"position":36}]}};
+  // Preserve responses completed in the previous preview build on this same origin/tab.
+  if (!sessionStorage.getItem('__download_exp_v2_state__')) {
+    for (const legacyKey of ['__preview_exp_v2_state__','__exp_v2_state__']) {
+      try {
+        const legacy=JSON.parse(sessionStorage.getItem(legacyKey));
+        if (legacy && legacy.version===routes['/api/experiment-config'].version) {
+          legacy.recoveredFrom=legacyKey;
+          sessionStorage.setItem('__download_exp_v2_state__',JSON.stringify(legacy));
+          break;
+        }
+      } catch (_) { /* Never replace a current session with unreadable legacy data. */ }
+    }
+  }
+  const normalize = (value) => typeof value === 'string' ? value.normalize('NFC').replace(/\s+/g, '').trim() : ''
+const answered = (value) => typeof value === 'string' && value.trim().length > 0
+function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource = 'server_stimulus_manifest') {
+  const responses = structuredClone(source)
+  delete responses._input_events
+  const grade = (rows, trials, task = false) => {
+    const byId = new Map(trials.map(t => [t.id,t]))
+    return (rows || []).map(row => {
+      const trial = byId.get(row.trial_id)
+      if (!trial) return {...row, scoring_status:'unknown_trial', correct:null, initial_correct:null, final_correct:null, ai_correct:null}
+      const result = {...row, image_id:trial.imageId, category_code:trial.categoryCode, novelty:trial.novelty, correctCategory:trial.correctCategory, scoring_status:'scored'}
+      if (!task) return {...result,correct:!row.skipped && answered(row.chosen) ? normalize(row.chosen)===normalize(trial.correctCategory) : null}
+      const hasAI=answered(trial.aiCategory)
+      return {...result,ai_mapping_source:trial.aiMappingSource,aiCategory:trial.aiCategory,aiReason:trial.aiReason,initial_correct:!row.skipped&&answered(row.initial)?normalize(row.initial)===normalize(trial.correctCategory):null,final_correct:!row.skipped&&answered(row.final)?normalize(row.final)===normalize(trial.correctCategory):null,ai_correct:hasAI?normalize(trial.aiCategory)===normalize(trial.correctCategory):null,aiCorrect:hasAI?normalize(trial.aiCategory)===normalize(trial.correctCategory):null,ai_scoring_status:hasAI?'scored':'mapping_missing',initial_eq_ai:hasAI&&answered(row.initial)?normalize(row.initial)===normalize(trial.aiCategory):null,final_eq_ai:hasAI&&answered(row.final)?normalize(row.final)===normalize(trial.aiCategory):null,changed:answered(row.initial)&&answered(row.final)?normalize(row.initial)!==normalize(row.final):null}
+    })
+  }
+  const first=initialExams,final=finalExams
+  responses._initial_exam_answers=grade(responses._initial_exam_answers,first)
+  responses._exam_answers=grade(responses._exam_answers,final)
+  responses._task_answers=grade(responses._task_answers,tasks,true)
+  const summary=(rows,planned,key='correct')=>{
+    const scored=rows.filter(t=>typeof t[key]==='boolean')
+    return {correct:scored.filter(t=>t[key]).length,answered:scored.length,total:planned,accuracy_answered:scored.length?scored.filter(t=>t[key]).length/scored.length:null}
+  }
+  responses._initial_exam_score=summary(responses._initial_exam_answers,first.length)
+  responses._scoring={...responses._scoring,source:scoringSource,version:1,initial_exam_score:responses._initial_exam_score,exam_score:summary(responses._exam_answers,final.length),task:responses._task_answers.map(t=>({trial_id:t.trial_id,initial_correct:t.initial_correct,final_correct:t.final_correct,ai_correct:t.ai_correct,ai_scoring_status:t.ai_scoring_status,changed:t.changed,initial_eq_ai:t.initial_eq_ai,final_eq_ai:t.final_eq_ai})),task_initial_score:summary(responses._task_answers,tasks.length,'initial_correct'),task_final_score:summary(responses._task_answers,tasks.length,'final_correct'),ai_score:summary(responses._task_answers,tasks.length,'ai_correct')}
+  return responses
+}
+
+  window.ExperimentScoring = {
+    scoreResponses: responses => gradeResponses(responses, {
+      initialExams:routes['/api/initial-exam-images'].exams,
+      tasks:routes['/api/task-images'].tasks,
+      finalExams:routes['/api/exam-images'].exams
+    }, 'browser_stimulus_manifest')
+  };
+  // Configuration and stimuli are embedded; participant responses never leave this computer.
+  window.fetch = async (input, init = {}) => {
+    const path = typeof input === 'string' ? input : input.url;
+    const method = (init.method || 'GET').toUpperCase();
+    if (method === 'GET' && Object.hasOwn(routes, path)) {
+      return { ok: true, status: 200, json: async () => JSON.parse(JSON.stringify(routes[path])) };
+    }
+    if (method === 'POST' && (path === '/api/submit' || path === '/api/backup')) {
+      throw new Error('이 실험은 JSON 다운로드 방식입니다. 서버로 응답을 전송하지 않습니다.');
+    }
+    throw new Error('다운로드 방식에서는 외부 API 요청을 사용하지 않습니다.');
+  };
+})();</script>
+<script>/** Two common procedures; only the pre-task AI instruction differs by group. */
+;(() => {
+  'use strict'
+  const STATE_KEY = '__download_exp_v2_state__'
+  let config, slides, initialExams, tasks, finalExams
+  let timer = null, interval = null, renderEpoch = 0, phaseStarted = performance.now(), initStarted = false
+  let state
+  const $ = id => document.getElementById(id)
+  const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]))
+  function normalizePostSurvey(source = {}) {
+    const number = (value, min, max) => {
+      if (value === null || value === undefined || value === '') return null
+      const n = Number(value)
+      return Number.isInteger(n) && n >= min && n <= max ? n : null
+    }
+    const old = source._ai_survey || {}
+    const knowledge = source.ai_k || source.ai_knowledge || old, attitude = source.ai_a || source.ai_attitude || old
+    const trust = source.ai_t || source.ai_trust || {}
+    const t1 = trust.ai_t1 ?? source.ai_can_be_wrong ?? null
+    const t2 = t1 === 'yes' ? number(trust.ai_t2 ?? source.ai_expected_accuracy, 0, 100) : null
+    return {
+      pk1: number(source.pk1, 1, 7),
+      pk2: number(source.pk2, 0, 100),
+      ai_k: Object.fromEntries(Array.from({length:6}, (_,i) => {
+        const key = 'ai_k'+(i+1), value = knowledge[key]
+        return [key, value === '맞다' || value === '틀리다' ? value : null]
+      })),
+      ai_a: Object.fromEntries(Array.from({length:8}, (_,i) => {
+        const key = 'ai_a'+(i+1); return [key, number(attitude[key], 1, 4)]
+      })),
+      ai_t: {
+        ai_t1: t1 === 'yes' || t1 === 'no' ? t1 : null,
+        ai_t2: t2,
+        ai_t2_status: t1 === 'no' ? 'not_applicable' : trust.ai_t2_status === 'skipped' ? 'skipped' : t2 !== null ? 'answered' : 'unanswered',
+      },
+      q6_age: source.q6_age ?? null,
+      q6_gender: source.q6_gender ?? null,
+      q6_major: source.q6_major ?? null,
+    }
+  }
+  function freshState() {
+    return { version:config.version, participantId:crypto.randomUUID(), group:null, screen:'group', index:0, round:1,
+      phase:'initial', learning:[], initialExam:[], task:[], finalExam:[], jol:{}, survey:{}, pages:[],
+      submittedResponses:{}, jolRT:{}, math:null, instructionCheck:{passed:false,attempts:[]}, startedAt:new Date().toISOString(), pageEntered:Date.now(), submissionSaved:null }
+  }
+  function persist() { sessionStorage.setItem(STATE_KEY, JSON.stringify(state)) }
+  function leavePage() {
+    state.pages.push({ screen:state.screen, index:state.index, phase:state.phase, round:state.round,
+      entered_at:new Date(state.pageEntered).toISOString(), duration_ms:Date.now() - state.pageEntered })
+    state.pageEntered = Date.now()
+  }
+  function go(screen, patch = {}) {
+    leavePage(); Object.assign(state, patch, { screen }); persist(); render()
+  }
+  function clearTimers() { clearTimeout(timer); clearInterval(interval); timer = interval = null; renderEpoch++ }
+  function attachSkipControl() {
+    if ((config && !config.previewControls) || $('temporary-skip')) return
+    const controls = document.createElement('nav')
+    controls.className = 'temporary-controls'; controls.setAttribute('aria-label', '임시 검토 도구')
+    const skip = document.createElement('button')
+    skip.id = 'temporary-skip'; skip.type = 'button'; skip.className = 'btn-skip'
+    skip.textContent = '(임시) skip →'; skip.onclick = skipCurrentScreen
+    controls.appendChild(skip); document.body.appendChild(controls)
+  }
+  function skipCurrentScreen() {
+    if (!state || !config) { location.reload(); return }
+    if (config.storageMode === 'download' && state.screen === 'step-done' && state.downloadSubmission) {
+      if ($('download-confirm')?.checked) beginNextParticipant()
+      else error('다운로드된 파일을 확인한 후 확인란을 선택해 주세요.')
+      return
+    }
+    state.skips ||= []
+    state.skips.push({screen:state.screen,index:state.index,phase:state.phase,round:state.round,at:new Date().toISOString()})
+    const missingTrials = (items, answers) => {
+      for (const item of items.slice(answers.length)) {
+        answers.push({trial_id:item.id,correctCategory:item.correctCategory,chosen:null,correct:null,skipped:true,duration_ms:null})
+      }
+    }
+    switch (state.screen) {
+      case 'group': go('instruction'); break
+      case 'instruction': go('learning-intro'); break
+      case 'learning-intro': go('learning',{index:0,round:1}); break
+      case 'learning': go(state.round === 1 ? 'learning-break' : 'jol-initial-exam'); break
+      case 'learning-break': go('learning',{index:0,round:2}); break
+      case 'jol-initial-exam': state.jol.initialExamPrediction = null; go('initial-exam-intro'); break
+      case 'initial-exam-intro': go('initial-exam',{index:state.initialExam.length}); break
+      case 'initial-exam': missingTrials(initialExams,state.initialExam); go('initial-feedback'); break
+      case 'initial-feedback': go('jol-ai-prediction'); break
+      case 'jol-ai-prediction': state.jol.aiPrediction = null; go('task-intro'); break
+      case 'task-intro': go('task-notice'); break
+      case 'task-notice': go(state.group === 'intervention' ? 'task-check' : 'task',{index:state.task.length,phase:'initial'}); break
+      case 'task-check': go('task-notice'); break
+      case 'task':
+        for (const item of tasks.slice(state.task.length)) {
+          const pending = state.pendingTask?.trial_id === item.id ? state.pendingTask : {}
+          state.task.push({trial_id:item.id,correctCategory:item.correctCategory,aiCategory:item.aiCategory,aiReason:item.aiReason,
+            initial:null,final:null,phase_durations_ms:{},...pending,skipped:true})
+        }
+        state.pendingTask = null; go('jol-task',{phase:'initial'}); break
+      case 'jol-task': state.jol.jol1 = null; go('jol-no-ai'); break
+      case 'jol-no-ai': state.jol.jol2 = null; go('math-intro'); break
+      case 'math-intro': startMath(); break
+      case 'math': endMath(true); break
+      case 'final-exam-intro': go('final-exam',{index:state.finalExam.length}); break
+      case 'final-exam': missingTrials(finalExams,state.finalExam); goToPostSurvey(); break
+      case 'step-ps-0': showPS1(); break
+      case 'step-ps-1': showPS2(); break
+      case 'step-ps-2': showAiSurvey(); break
+      case 'step-ai-survey': showAiSurveyB(); break
+      case 'step-ai-survey-b': showAiErrorBelief(); break
+      case 'step-ai-error-belief': psData.ai_t = {ai_t1:null, ai_t2:null, ai_t2_status:'skipped'}; showPS3(); break
+      case 'step-ps-3':
+        if (config.storageMode === 'download') handlePS3Submit($('btn-ps3-submit'), true)
+        else { state.submissionSaved = false; go('step-done') }
+        break
+      default:
+        state = freshState(); psData = normalizePostSurvey(state.survey); state.survey = psData
+        document.querySelectorAll('.step input').forEach(input => { input.value = input.type === 'radio' ? input.value : ''; input.checked = false })
+        persist(); render()
+    }
+  }
+  function button(id, text, extra = '') { return `<button id="${id}" type="button" class="btn-primary" ${extra}>${text}</button>` }
+  function bind(id, fn) { $(id).onclick = fn }
+  function shell(title, body, footer = '') {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'))
+    $('experiment-root').hidden = false
+    $('experiment-root').classList.toggle('task-screen', state.screen === 'task')
+    $('experiment-root').classList.toggle('final-exam-screen', state.screen === 'final-exam')
+    $('experiment-root').innerHTML = `${body}${footer}`
+    window.scrollTo(0, 0)
+  }
+  function card(body, className = '') { return `<div class="card ${className}">${body}</div>` }
+  function next(id = 'btn-next', label = '다음 →') { return `<div class="btn-row">${button(id, label)}</div>` }
+  function delayed(id) {
+    const b = $(id), epoch = renderEpoch; b.hidden = true
+    timer = setTimeout(() => { if (epoch === renderEpoch) b.hidden = false }, config.phaseDelayMs)
+  }
+  function stimulus(trial) {
+    if (trial.url) return `<img class="task-img" src="${escape(trial.url)}" alt="피부 병변 사례" />`
+    // Do not display the hidden category or category-coded trial ID on test/task screens.
+    return `<div class="stimulus-empty" role="img" aria-label="이미지가 없는 사례 영역"><p>이미지 영역</p></div>`
+  }
+  function choices(name, chosen = null, locked = false) {
+    return `<div class="task-choices">${config.categories.map(cat => `<label class="task-choice"><input type="radio" name="${name}" value="${escape(cat)}" ${chosen === cat ? 'checked' : ''} ${locked ? 'disabled' : ''}/><span>${escape(cat)}</span></label>`).join('')}</div>`
+  }
+  function error(message) { $('screen-error').textContent = message }
+  function errorArea() { return '<p id="screen-error" class="inline-err" role="alert"></p>' }
+  function score(answers) { return { correct:answers.filter(a => a.correct).length, total:answers.length } }
+  function jolScreen(title, text, key, destination) {
+    shell(title, card(`<form id="jol-form" novalidate><label class="jol-question" for="jol-input">${text}</label><div class="math-input-row"><input id="jol-input" class="math-input" type="number" min="0" max="100" step="1" placeholder="0 – 100" value="${state.jol[key] ?? ''}" /><span>%</span></div>${errorArea()}${next('btn-jol-next')}</form>`))
+    const submit = e => {
+      e.preventDefault(); const raw = $('jol-input').value.trim(), value = Number(raw)
+      if (!raw || !Number.isInteger(value) || value < 0 || value > 100) { error('0~100 사이의 정수를 입력해 주세요.'); $('jol-input').focus(); return }
+      commitResponse(key,value); state.jol[key] = value; state.jolRT[key] = elapsed(); go(destination)
+    }
+    $('jol-form').onsubmit = submit; bind('btn-jol-next', submit); delayed('btn-jol-next')
+  }
+  function info(title, text, fn, label = '시작하기') {
+    shell(title, card(`<div class="instruct-body">${text}</div>${next('btn-next', label)}`)); bind('btn-next', fn)
+  }
+  const fieldShown = new Map()
+  function elapsed() { return Math.max(0, performance.now()-phaseStarted) }
+  function render() {
+    clearTimers(); phaseStarted = performance.now()
+    attachSkipControl()
+    if (state.screen.startsWith('step-')) { restoreSurvey(); return }
+    switch (state.screen) {
+      case 'group':
+        shell('참가 조건을 선택해 주세요', `<div class="branch-wrap">${config.groups.map(g => `<button id="btn-group-${g.id}" class="branch-btn">${escape(g.label)}</button>`).join('')}</div>`)
+        config.groups.forEach(g => bind('btn-group-'+g.id, () => go('instruction', {group:g.id})))
+        break
+      case 'instruction': {
+        info('실험 안내', `<p class="instruct-lead">지금부터 실험을 시작합니다.</p><p>실험에 참여하는 동안, 컴퓨터를 이용한 다른 작업(예. 카카오톡, 인터넷 서핑 등)을 할 수 없습니다.</p><p>모든 실험단계에 집중하여 성심성의껏 참여해 주시길 요청드립니다.</p><p>또한, 필기구나 휴대폰 등을 활용해 학습내용을 기록할 수 없습니다.</p>`, () => go('learning-intro'), '→')
+        break
+      }
+      case 'learning-intro':
+        info('', "<p class=\"instruct-lead\">지금부터 6종의 피부 병변을 진단하기 위한 학습을 시작합니다.</p><p>한 장씩 제시되는 피부 병변의 사진과 이름을 보며 시각적 특징을 학습하면 됩니다.<br>\n        화면은 5초마다 자동으로 넘어가며, 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n        <p>학습할 피부 병변 6종의 이름은 다음과 같습니다.</p>\n\n        <p class=\"lesion-names\">\n          <strong>광선각화증, 기저세포암, 멜라닌세포성 모반, 피부섬유종, 혈관 병변, 흑색종</strong>\n        </p>\n\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:1}), "학습 시작하기")
+        break
+      case 'learning': renderLearning(); break
+      case 'learning-break':
+        info('', "<p>지금부터 같은 학습을 한 번 더 하게 됩니다.</p>\n        <p>준비되었으면 아래 버튼을 눌러주세요. 학습이 시작됩니다.</p>", () => go('learning', {index:0, round:2}), "학습 시작하기")
+        break
+      case 'jol-initial-exam':
+        jolScreen('시험 수행 예측', '만약 지금부터 피부 병변 분류 시험을 보게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'initialExamPrediction', 'initial-exam-intro')
+        break
+      case 'initial-exam-intro':
+        info('', "<p class=\"instruct-lead\">지금부터 피부 병변의 범주를 분류하는 시험을 시작합니다.</p>\n<p>피부 병변 이미지가 한 장씩 제시되면, 앞서 학습한 내용을 바탕으로 해당하는 병변의 범주를 판단하세요.</p>\n<p>화면에 제시되는 6개의 범주명을 참고하여, 해당한다고 생각하는 범주명을 답 입력란에 직접 작성해주세요.</p>\n<p>답을 작성한 후 아래 버튼을 누르면 다음 이미지로 넘어갑니다. 다음 화면으로 넘어가면 앞으로 돌아갈 수 없습니다.</p>\n<p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요. 시험이 시작됩니다.</p>", () => go('initial-exam', {index:state.initialExam.length}), "시험 시작하기")
+        break
+      case 'initial-exam': renderInitialExam(); break
+      case 'initial-feedback': {
+        const result = score(state.initialExam)
+        info('시험 총점', `<div class="score-display"><strong>${result.correct}</strong><span> / ${result.total}점</span></div><p>정답률 ${result.total ? (result.correct/result.total*100).toFixed(1) : '0.0'}%</p>${config.stimuliPending ? '<p class="preview-score-note">현재 점수는 이미지가 없는 상태에서 절차를 확인하기 위한 점수입니다.</p>' : ''}`, () => go('jol-ai-prediction'), '다음 →')
+        break
+      }
+      case 'jol-ai-prediction':
+        jolScreen('AI 협업 과제 수행 예측', '다음에는 AI 분석 결과를 참고하여 피부 병변 분류 시험을 다시 볼 수 있습니다. AI 분석 결과를 참고한다면, 몇 %의 문제를 맞힐 수 있을 것이라고 생각하나요?', 'aiPrediction', 'task-intro')
+        break
+      case 'task-intro':
+        info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변에 대한 AI 협업 분류 과제를 시작합니다</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 <strong>다음 버튼을 눌러주세요.</strong></p>", () => go('task-notice'), "다음→")
+        break
+      case 'task-notice': {
+        state.instructionCheck.pendingReview = false; persist()
+        const group = config.groups.find(g => g.id === state.group) || config.groups.find(g => g.id === 'no-intervention')
+        const paragraphs = group.taskInstruction.split('\n\n').map((paragraph, index) => {
+          let content = escape(paragraph)
+          for (const phrase of group.boldPhrases) content = content.replace(escape(phrase), `<strong>${escape(phrase)}</strong>`)
+          const className = group.id === 'intervention' && (index === 1 || index === 2) ? ' class="intervention-evidence"' : ''
+          return `<p${className}>${content.replace(/\n/g, '<br>')}</p>`
+        }).join('')
+        const content = group.id === 'intervention' ? `<div class="intervention-instruction">${paragraphs}</div>` : paragraphs
+        info('', content, () => go(state.group === 'intervention' ? 'task-check' : 'task', {index:state.task.length, phase:'initial'}), state.group === 'intervention' ? '다음→' : '과제 시작하기')
+        break
+      }
+      case 'task-check': renderInstructionCheck(); break
+      case 'task':
+        if (state.group === 'intervention' && !state.instructionCheck.passed) go('task-notice')
+        else renderTask()
+        break
+      case 'jol-task':
+        jolScreen('AI 협업 과제 정확도 추정', '앞서 진행된 AI 협업 피부 병변 분류 과제에서 얼마나 정답을 맞혔다고 생각하나요? 0에서 100 사이의 값으로 표시하십시오.<br><span>최종적으로 제출한 답변에 대한 정답률을 예측해보세요</span>', 'jol1', 'jol-no-ai')
+        break
+      case 'jol-no-ai':
+        jolScreen('AI 없이 수행할 때의 판단', '만약 지금부터 AI 없이 스스로 피부 병변 분류 과제를 하게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'jol2', 'math-intro')
+        break
+      case 'math-intro':
+        info('', "<p class=\"instruct-lead\">피부 병변 분류 과제를 마쳤습니다. 이제 간단한 수학 문제를 풉니다.</p>\n        <p>3분 동안 문제를 풀 수 있으며, 3분이 되면 자동으로 페이지가 넘어갑니다.<br>문제를 가능한 한 빠르고 정확하게 풀어주세요.</p>\n        <p class=\"instruct-ready\">준비 되었으면 아래 버튼을 눌러주세요.</p>", startMath, "시작하기")
+        break
+      case 'math': renderMath(); break
+      case 'final-exam-intro':
+        info('', "<p class=\"instruct-lead\">지금부터는 AI 없이 피부 병변 범주를 분류하는 문제를 풀게 됩니다.</p>\n        <p>피부 병변 이미지가 제시되면, 해당하는 병변의 종류를 보기에서 찾아 선택하세요.</p>\n        <p class=\"instruct-ready\">준비되었으면 아래 버튼을 눌러주세요.</p>", () => go('final-exam', {index:state.finalExam.length}), "시험 시작하기")
+        break
+      case 'final-exam': renderFinalExam(); break
+      default: showError('현재 단계를 불러올 수 없습니다. 처음부터 다시 시작해주세요.')
+    }
+  }
+  function renderInstructionCheck() {
+    if (state.group !== 'intervention') { go('task',{index:state.task.length,phase:'initial'}); return }
+    const check = state.instructionCheck, passed = check.passed, wrong = check.pendingReview
+    const answered = passed || wrong ? check.attempts.at(-1)?.answer ?? config.instructionCheckAccuracy : ''
+    shell('', card(`<form id="instruction-check-form" novalidate><label class="jol-question" for="instruction-check-answer">앞서 제시된 선행연구에서 GPT-4o의 피부질환 진단 정확도는 몇 %였나요?</label><div class="math-input-row"><input id="instruction-check-answer" class="math-input" type="number" min="0" max="100" step="0.1" placeholder="정확도를 입력하세요" value="${answered}" ${passed || wrong ? 'disabled' : ''}/><span>%</span></div>${errorArea()}${passed ? '<p role="status">정답입니다.</p>'+next('btn-checked-task-start','과제 시작하기') : wrong ? '<p role="status">오답입니다.</p>'+next('btn-instruction-read-again','← 다시 읽기') : next('btn-instruction-check','확인')}</form>`))
+    if (wrong) {
+      $('instruction-check-form').onsubmit = e => e.preventDefault()
+      bind('btn-instruction-read-again', () => go('task-notice'))
+      return
+    }
+    if (passed) {
+      $('instruction-check-form').onsubmit = e => e.preventDefault()
+      bind('btn-checked-task-start', () => go('task',{index:state.task.length,phase:'initial'}))
+      return
+    }
+    const submit = event => {
+      event.preventDefault()
+      const raw = $('instruction-check-answer').value.trim(), answer = Number(raw)
+      if (!raw || !Number.isFinite(answer) || answer < 0 || answer > 100) {
+        error('0~100 사이의 숫자로 입력해 주세요.'); $('instruction-check-answer').focus(); return
+      }
+      const correct = answer === config.instructionCheckAccuracy
+      check.attempts.push({attempt:check.attempts.length+1,answer,correct,duration_ms:elapsed(),submitted_at:new Date().toISOString()})
+      check.passed = correct; check.pendingReview = !correct; persist()
+      render()
+    }
+    $('instruction-check-form').onsubmit = submit
+    bind('btn-instruction-check',submit)
+    $('instruction-check-answer').focus()
+  }
+  function renderLearning() {
+    const item = slides[state.index], epoch = renderEpoch
+    shell('', card(`${stimulus(item)}<p class="learn-name">${escape(item.category)}</p>`, 'learning-card'))
+    let advanced = false
+    const advance = () => {
+      if (advanced || epoch !== renderEpoch) return
+      advanced = true
+      state.learning.push({trial_id:item.id, round:state.round, duration_ms:elapsed()})
+      if (state.index+1 < slides.length) go('learning', {index:state.index+1})
+      else go(state.round === 1 ? 'learning-break' : 'jol-initial-exam')
+    }
+    timer = setTimeout(() => {
+      if (epoch !== renderEpoch) return
+      $('experiment-root').querySelector('.card').style.visibility = 'hidden'
+      timer = setTimeout(advance, config.blankMs)
+    }, config.learningMs)
+  }
+  function renderInitialExam() {
+    const item = initialExams[state.index]
+    shell('피부 병변 분류 시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<p id="category-reference"><strong>범주명 보기</strong><br>${config.categories.map(escape).join(' · ')}</p><form id="initial-exam-form"><label for="written-answer">이 사례의 피부 병변 범주명을 입력하세요.</label><div class="math-input-row baseline-answer-row"><input id="written-answer" type="text" class="math-input written-answer" autocomplete="off" spellcheck="false" />${button('btn-initial-exam-next', '다음 →')}</div>${errorArea()}</form>`, 'initial-exam-card'))
+    const submit = e => {
+      e.preventDefault(); const answer = $('written-answer').value
+      if (!config.categories.includes(answer)) { error('보기에서 골라 입력하세요'); $('written-answer').focus(); return }
+      commitResponse('written-answer',answer); state.initialExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen:answer,
+        correct:answer === item.correctCategory, duration_ms:elapsed()})
+      go(state.index+1 < initialExams.length ? 'initial-exam' : 'initial-feedback', {index:state.index+1})
+    }
+    $('initial-exam-form').onsubmit = submit; bind('btn-initial-exam-next', submit); $('written-answer').focus()
+  }
+  function renderTask() {
+    const item = tasks[state.index], pending = state.pendingTask || {trial_id:item.id, correctCategory:item.correctCategory,
+      aiCategory:item.aiCategory, aiReason:item.aiReason, aiCorrect:item.aiCategory == null ? null : item.aiCategory === item.correctCategory, phase_durations_ms:{}}
+    state.pendingTask = pending; persist()
+    const phase = state.phase
+    const initial = `<section id="box-initial" class="task-box ${phase === 'initial' ? 'task-box--active' : 'task-box--locked'}"><p class="task-box-desc">이 이미지의 피부 병변 범주를 선택하세요.</p>${choices('initial', pending.initial, phase !== 'initial')}${phase === 'initial' ? next('btn-initial-next') : ''}</section>`
+    const ai = phase !== 'initial' ? `<section id="box-ai" class="task-box ${phase === 'ai' ? 'task-box--active' : 'task-box--locked'}"><p class="ai-label-row"><span class="ai-badge">AI 분석 결과</span></p><div class="ai-result-empty" aria-label="AI 분석 결과 영역">${item.aiCategory ? `<p>${escape(item.aiCategory)}</p>` : ''}${item.aiReason ? `<p>${escape(item.aiReason)}</p>` : ''}</div>${phase === 'ai' ? next('btn-ai-next') : ''}</section>` : ''
+    const final = phase === 'final' ? `<section id="box-final" class="task-box task-box--active"><p class="task-box-desc">자신의 판단과 AI의 의견을 종합하여 최종 답안을 선택하세요.</p>${choices('final')}${next('btn-final-next', '제출')}</section>` : ''
+    shell('AI 협업 과제', `<div class="review-task-layout">${card(stimulus(item))}<div class="task-boxes">${initial}${ai}${final}</div></div>${errorArea()}`)
+    if (phase === 'initial') {
+      $('btn-initial-next').disabled = true
+      document.querySelectorAll('input[name="initial"]').forEach(r => r.onchange = () => { $('btn-initial-next').disabled = false })
+      bind('btn-initial-next', () => {
+        const chosen = document.querySelector('input[name="initial"]:checked')?.value
+        if (!chosen) return
+        commitResponse('initial',chosen); pending.initial = chosen; pending.phase_durations_ms.initial_ms = elapsed()
+        go('task', {phase:'ai'})
+      }); delayed('btn-initial-next')
+    } else if (phase === 'ai') {
+      bind('btn-ai-next', () => { pending.phase_durations_ms.ai_ms = elapsed(); go('task', {phase:'final'}) }); delayed('btn-ai-next')
+    } else {
+      $('btn-final-next').disabled = true
+      document.querySelectorAll('input[name="final"]').forEach(r => r.onchange = () => { $('btn-final-next').disabled = false })
+      bind('btn-final-next', () => {
+        const chosen = document.querySelector('input[name="final"]:checked')?.value
+        if (!chosen) return
+        commitResponse('final',chosen); pending.final = chosen; pending.phase_durations_ms.final_ms = elapsed()
+        state.task.push(pending); state.pendingTask = null
+        go(state.index+1 < tasks.length ? 'task' : 'jol-task', {index:state.index+1, phase:'initial'})
+      }); delayed('btn-final-next')
+    }
+  }
+  function startMath() {
+    if (!state.math) {
+      const problems = []
+      while (problems.length < 100) {
+        const a = 10+Math.floor(Math.random()*90), b = 10+Math.floor(Math.random()*90), op = Math.random()<.5 ? '+' : '-'
+        const answer = op === '+' ? a+b : a-b
+        if (answer >= 10 && answer <= 99) problems.push({a,b,op,answer})
+      }
+      state.math = {problems, answers:[], started_at:Date.now(), deadline:Date.now()+config.mathDurationMs, score:0}
+    }
+    go('math')
+  }
+  function endMath(skipped = false) {
+    if (state.screen !== 'math') return
+    state.math.duration_ms = Date.now()-state.math.started_at; state.math.skipped = skipped
+    go('final-exam-intro')
+  }
+  function renderMath() {
+    const math = state.math
+    if (Date.now() >= math.deadline || math.answers.length >= math.problems.length) { endMath(); return }
+    const p = math.problems[math.answers.length]
+    shell('수학 문제', card(`<p class="math-question">${p.a} ${p.op} ${p.b} = ?</p><form id="math-form" class="math-input-row"><input id="math-answer" type="number" class="math-input" placeholder="답을 입력하세요" autocomplete="off"/>${button('btn-math-submit','확인')}</form>${errorArea()}`))
+    const submit = e => {
+      e.preventDefault(); if (Date.now() >= math.deadline) { endMath(); return }
+      const raw = $('math-answer').value.trim(), answer = Number(raw)
+      if (!raw || !Number.isInteger(answer)) { error('숫자로 답을 입력해 주세요.'); return }
+      const correct = answer === p.answer; if (correct) math.score++
+      commitResponse('math-answer',answer); math.answers.push({q:`${p.a}${p.op}${p.b}`, userAns:answer, correct, duration_ms:elapsed(), submitted_at:new Date().toISOString()}); persist(); render()
+    }
+    $('math-form').onsubmit = submit; bind('btn-math-submit', submit)
+    const tick = () => {
+      if (Date.now() >= math.deadline) endMath()
+    }
+    tick(); interval = setInterval(tick, 250); $('math-answer').focus()
+  }
+  function renderFinalExam() {
+    const item = finalExams[state.index]
+    shell('NO-AI 최종시험', card(`${stimulus(item)}`, 'exam-image-card') + card(`<fieldset><legend>이 이미지의 피부 병변 범주를 선택하세요.</legend>${choices('exam')}</fieldset>${next('btn-exam-next')}`))
+    $('btn-exam-next').disabled = true
+    document.querySelectorAll('input[name="exam"]').forEach(r => r.onchange = () => { $('btn-exam-next').disabled = false })
+    bind('btn-exam-next', () => {
+      const chosen = document.querySelector('input[name="exam"]:checked')?.value
+      if (!chosen) return
+      commitResponse('exam',chosen); state.finalExam.push({trial_id:item.id, correctCategory:item.correctCategory, chosen, correct:chosen === item.correctCategory, duration_ms:elapsed()})
+      if (state.index+1 < finalExams.length) go('final-exam', {index:state.index+1})
+      else goToPostSurvey()
+    })
+  }
+  function _showErr(id, msg) { const el = $(id); el.textContent = msg; el.style.display = '' }
+  function showStep(id) {
+    clearTimers(); leavePage(); state.screen = id; persist(); activateSurvey(id)
+  }
+  function activateSurvey(id) {
+    phaseStarted = performance.now(); fieldShown.clear()
+    attachSkipControl()
+    $('experiment-root').hidden = true
+    document.querySelectorAll('.step').forEach(el => el.classList.toggle('active', el.id === id)); window.scrollTo(0,0)
+  }
+  function restoreSurvey() {
+    const restore = {'step-ps-0':goToPostSurvey, 'step-ps-1':showPS1, 'step-ps-2':showPS2, 'step-ai-survey':showAiSurvey, 'step-ai-survey-b':showAiSurveyB, 'step-ai-error-belief':showAiErrorBelief, 'step-ps-3':showPS3}
+    if (restore[state.screen]) restore[state.screen]()
+    else {
+      activateSurvey(state.screen)
+      if (state.screen === 'step-done') {
+        if (config.storageMode === 'download') renderDownloadComplete()
+        else $('submission-result').textContent = state.submissionSaved ? '응답해 주신 내용이 제출되었습니다.' : '응답이 서버에 제출되지 않았습니다.'
+      }
+      if (state.screen === 'step-error') bind('btn-retry', () => go('step-ps-3'))
+    }
+  }
+  let psData
+  // 13-0: 안내
+  function goToPostSurvey() {
+    showStep('step-ps-0')
+    const btn = document.getElementById('btn-ps0-next')
+    if (btn) {
+      const nb = btn.cloneNode(true)
+      btn.parentNode.replaceChild(nb, btn)
+      nb.addEventListener('click', () => showPS1(), { once: true })
+    }
+  }
+
+  // 13-1: Q4 사전지식 7점 척도
+  function showPS1() {
+    showStep('step-ps-1')
+    const btnNext = document.getElementById('btn-ps1-next')
+    if (btnNext) {
+      btnNext.disabled = true
+      const nb = btnNext.cloneNode(true)
+      btnNext.parentNode.replaceChild(nb, btnNext)
+      nb.disabled = !document.querySelector('input[name="q4"]:checked')
+      document.querySelectorAll('input[name="q4"]').forEach(r => {
+        r.addEventListener('change', () => { if (nb) nb.disabled = false })
+      })
+      nb.addEventListener('click', () => {
+        const val = document.querySelector('input[name="q4"]:checked')?.value
+        if (!val) { _showErr('ps1-err', '응답을 선택해 주세요.'); return }
+        commitResponse('pk1',Number(val)); psData.pk1 = Number(val)
+        showPS2()
+      }, { once: true })
+    }
+  }
+
+  // 13-2: Q5 초기 정확도
+  function showPS2() {
+    showStep('step-ps-2')
+    const btn = document.getElementById('btn-ps2-next')
+    if (btn) {
+      const nb = btn.cloneNode(true)
+      btn.parentNode.replaceChild(nb, btn)
+      function onPS2Click() {
+        const inp = document.getElementById('q5-input')
+        const val = inp?.value?.trim()
+        if (!val || !Number.isInteger(Number(val)) || Number(val)<0 || Number(val)>100) { _showErr('ps2-err', '0~100 사이의 숫자를 입력해 주세요.'); if (inp) inp.focus(); return }
+        nb.removeEventListener('click', onPS2Click)
+        commitResponse('pk2',Number(val)); psData.pk2 = Number(val)
+        showAiSurvey()   // ← Q5 다음에 AI 설문으로 이동
+      }
+      nb.addEventListener('click', onPS2Click)
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════
+  // ── 13-2b : AI 지식·태도 설문 (순차 문항 공개) ──────────────────
+  // ════════════════════════════════════════════════════════════════
+
+  // ── 섹션 A: 지식 문항 (맞다/틀리다) ────────────────────────────
+  const AI_SURVEY_ITEMS_A = [
+    { type: 'yn', name: 'ai_k1', text: '생성형 AI는 수학적 문제를 신뢰할 만하게 해결할 수 있다.', correct: '틀리다' },
+    { type: 'yn', name: 'ai_k2', text: '생성형 AI는 동일한 질문에 대해 동일한 답변을 제공한다.', correct: '틀리다' },
+    { type: 'yn', name: 'ai_k3', text: '생성형 AI는 인간의 언어 행동을 가능한 한 가깝게 모방하도록 설계되었다.', correct: '맞다' },
+    { type: 'yn', name: 'ai_k4', text: '생성형 AI는 웹 검색을 수행한다.', correct: '틀리다' },
+    { type: 'yn', name: 'ai_k5', text: '생성형 AI는 사실에 근거하지 않은 내용을 제공할 수 있다.', correct: '맞다' },
+    { type: 'yn', name: 'ai_k6', text: '생성형 AI는 매일 업데이트되는 정보를 검색하거나 가져온다.', correct: '틀리다' },
+  ]
+
+  // ── 섹션 B: 태도 문항 (4점 척도) ─────────────────────────────
+  const AI_SURVEY_ITEMS_B = [
+    { type: 'likert4', name: 'ai_a1', text: '생성형 AI는 신뢰할 수 있다.' },
+    { type: 'likert4', name: 'ai_a2', text: '생성형 AI는 개인정보 사용과 관련된 위험을 내포한다.' },
+    { type: 'likert4', name: 'ai_a3', text: '생성형 AI는 고정관념과 편견을 재생산한다.' },
+    { type: 'likert4', name: 'ai_a4', text: '생성형 AI 사용은 저작권 문제를 초래한다.' },
+    { type: 'likert4', name: 'ai_a5', text: '생성형 AI는 너무 많은 전력을 소비한다.' },
+    { type: 'likert4', name: 'ai_a6', text: '생성형 AI는 21세기의 가장 중요한 발명 중 하나이다.' },
+    { type: 'likert4', name: 'ai_a7', text: '생성형 AI는 기반이 되는 텍스트 자료에 대해 투명하지 않다.' },
+    { type: 'likert4', name: 'ai_a8', text: '생성형 AI는 잘못된 정보의 확산에 기여한다.' },
+  ]
+
+  const LIKERT4_LABELS = ['전혀 그렇지 않다', '그렇지 않다', '그렇다', '매우 그렇다']
+
+  // ── 공통: 문항 목록을 카드에 순차 주입하는 헬퍼 ──────────────
+  function _buildSurveyPage(items, cardId, errId, nextRowId, btnId, sectionText, sectionKey, onComplete) {
+    const card = $(cardId), nextRow = $(nextRowId)
+    card.innerHTML = ''; nextRow.style.display = 'none'
+    const answers = psData[sectionKey]
+    let shown = 0
+    const heading = document.createElement('p'); heading.className = 'ai-survey-section'; heading.textContent = sectionText; card.appendChild(heading)
+    function revealNext() {
+      if (shown >= items.length) return
+      const item = items[shown++]
+      const wrap = document.createElement('div'); wrap.className = 'ai-survey-item'; wrap.id = 'ai-item-' + item.name
+      wrap.tabIndex = -1; wrap.setAttribute('role','group'); wrap.setAttribute('aria-labelledby','ai-question-' + item.name)
+      const labels = item.type === 'yn' ? ['맞다','틀리다'] : LIKERT4_LABELS
+      wrap.innerHTML = `<p class="ai-survey-q" id="ai-question-${item.name}">${escape(item.text)}</p><div class="${item.type === 'yn' ? 'ai-choice-yn' : 'ai-choice-likert4'}">${labels.map((label,i) => {
+        const value = item.type === 'yn' ? label : String(i+1)
+        return `<label class="ai-radio-label"><input type="radio" name="${item.name}" value="${value}" ${String(answers[item.name]) === value ? 'checked' : ''}/><span>${label}</span></label>`
+      }).join('')}</div>`
+      card.appendChild(wrap)
+      fieldShown.set(item.name, performance.now())
+      if (!answers[item.name]) {
+        wrap.focus({preventScroll:true})
+        wrap.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth',block:'center'})
+      }
+      wrap.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
+        answers[item.name] = item.type === 'yn' ? r.value : Number(r.value); commitResponse(item.name,answers[item.name]); persist()
+        if (items.slice(0,shown).every(q=>answers[q.name]) && shown < items.length) revealNext()
+        nextRow.style.display = items.every(q=>answers[q.name]) ? '' : 'none'
+      }))
+      if (answers[item.name] && shown < items.length) revealNext()
+      nextRow.style.display = items.every(q=>answers[q.name]) ? '' : 'none'
+    }
+    revealNext()
+    const btn = $(btnId), nb = btn.cloneNode(true); btn.replaceWith(nb)
+    nb.onclick = () => {
+      if (items.some(q=>!answers[q.name])) { _showErr(errId,'모든 문항에 응답해 주세요.'); return }
+      onComplete(Object.fromEntries(items.map(q=>[q.name,answers[q.name]])))
+    }
+  }
+
+  // ── 섹션A 페이지 (맞다/틀리다) ───────────────────────────────
+  function showAiSurvey() {
+    showStep('step-ai-survey')
+    _buildSurveyPage(
+      AI_SURVEY_ITEMS_A,
+      'ai-survey-card', 'ai-survey-err', 'ai-survey-next-row', 'btn-ai-survey-next',
+      '다음 문항들은 생성형 AI에 관한 내용입니다. 각 문장이 맞다고 생각하면 "맞다", 틀리다고 생각하면 "틀리다"를 선택해 주십시오.',
+      'ai_k',
+      (answersA) => {
+        Object.assign(psData.ai_k, answersA)
+        showAiSurveyB()
+      }
+    )
+  }
+
+  // ── 섹션B 페이지 (동의 정도) ──────────────────────────────────
+  function showAiSurveyB() {
+    showStep('step-ai-survey-b')
+    _buildSurveyPage(
+      AI_SURVEY_ITEMS_B,
+      'ai-survey-b-card', 'ai-survey-b-err', 'ai-survey-b-next-row', 'btn-ai-survey-b-next',
+      '다음 문항들은 생성형 AI에 대한 귀하의 생각을 묻는 문항입니다. 각 문장에 대해 동의 정도를 선택해 주십시오.',
+      'ai_a',
+      (answersB) => {
+        Object.assign(psData.ai_a, answersB)
+        showAiErrorBelief()
+      }
+    )
+  }
+
+  function showAiErrorBelief() {
+    showStep('step-ai-error-belief')
+    const followup = $('ai-belief-followup'), input = $('ai-expected-accuracy')
+    const trust = psData.ai_t
+    const selected = trust.ai_t1
+    document.querySelectorAll('input[name="ai_t1"]').forEach(r => {
+      r.checked = r.value === selected
+      r.onchange = () => {
+        commitResponse('ai_t1',r.value); trust.ai_t1 = r.value
+        trust.ai_t2_status = r.value === 'no' ? 'not_applicable' : trust.ai_t2 === null ? 'unanswered' : 'answered'
+        if (r.value === 'no') {
+          trust.ai_t2 = null
+          for (const [key,row] of Object.entries(state.submittedResponses)) if (row.field==='ai_t2') delete state.submittedResponses[key]
+          if (state.surveyDraft) delete state.surveyDraft['ai-expected-accuracy']
+          input.value = ''; showPS3(); return
+        }
+        followup.hidden = false; fieldShown.set('ai_t2',performance.now()); input.focus(); persist()
+      }
+    })
+    followup.hidden = selected !== 'yes'
+    input.value = selected === 'yes' ? (trust.ai_t2 ?? state.surveyDraft?.['ai-expected-accuracy'] ?? '') : ''
+    input.oninput = () => {
+      const raw = input.value.trim(), value = Number(raw)
+      trust.ai_t2 = raw && Number.isInteger(value) && value >= 0 && value <= 100 ? value : null
+      trust.ai_t2_status = trust.ai_t2 === null ? 'unanswered' : 'answered'
+      persist()
+    }
+    bind('btn-ai-belief-next', () => {
+      const raw = input.value.trim(), value = Number(raw)
+      if (!raw || !Number.isInteger(value) || value < 0 || value > 100) {
+        _showErr('ai-belief-err', '0~100 사이의 정수를 입력해 주세요.'); input.focus(); return
+      }
+      commitResponse('ai_t2',value); trust.ai_t2 = value; trust.ai_t2_status = 'answered'; showPS3()
+    })
+  }
+
+  // 13-3: Q6 인구통계 + 최종 제출
+  function showPS3() {
+    showStep('step-ps-3')
+    const btn = document.getElementById('btn-ps3-submit')
+    if (btn) {
+      const nb = btn.cloneNode(true)
+      btn.parentNode.replaceChild(nb, btn)
+      // once 없이 등록 — handlePS3Submit 내부에서 유효성 통과 후 직접 제거
+      nb.addEventListener('click', () => handlePS3Submit(nb))
+    }
+  }
+
+  function requestResponseDownload() {
+    if (!state.downloadSubmission) throw new Error('다운로드할 응답이 없습니다. 최종 제출 버튼을 눌러주세요.')
+    const blob = new Blob([JSON.stringify(state.downloadSubmission,null,2)],{type:'application/json;charset=utf-8'})
+    const url = URL.createObjectURL(blob), link = document.createElement('a')
+    try {
+      link.href=url; link.download=state.downloadFilename; document.body.appendChild(link); link.click()
+    } finally { link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000) }
+    state.downloadRequestedAt = new Date().toISOString(); persist()
+  }
+  function prepareDownloadSubmission(responses, completedAt = new Date().toISOString()) {
+    if (state.downloadSubmission) return
+    state.lastResponses = window.ExperimentScoring.scoreResponses(responses)
+    state.downloadSubmission={schema_version:1,participant_id:state.participantId,group:state.group,started_at:state.startedAt,completed_at:completedAt,storage:'browser_download',responses:state.lastResponses}
+    if (state.recoveredFrom) state.downloadSubmission.recovered_from='legacy_preview_session'
+    state.downloadFilename='response_'+state.participantId+'_'+completedAt.replace(/[:.]/g,'-')+'.json'
+    persist()
+    try { localStorage.setItem('__download_exp_download_backup_'+state.participantId,JSON.stringify(state.downloadSubmission)) } catch (_) { /* The session snapshot and downloadable JSON remain available. */ }
+  }
+  function beginNextParticipant() {
+    clearTimers(); fieldShown.clear()
+    state=freshState(); psData=normalizePostSurvey(state.survey); state.survey=psData
+    document.querySelectorAll('.step input').forEach(input=>{
+      if (input.type==='radio'||input.type==='checkbox') input.checked=false
+      else input.value=''
+    })
+    document.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
+    $('submission-result').textContent=''
+    persist(); render()
+  }
+  function renderDownloadComplete() {
+    const result = $('submission-result')
+    if (!state.downloadSubmission && (state.lastResponses || state.recoveredFrom)) {
+      try { prepareDownloadSubmission(state.lastResponses || collectResponses(),new Date(state.pageEntered).toISOString()) }
+      catch (err) { result.textContent='이전 응답을 복구하지 못했습니다. 이 탭을 닫지 말고 연구자에게 알려주세요. '+err.message; return }
+    }
+    result.innerHTML = state.downloadSubmission
+      ? `<p id="download-status">${state.downloadRequestedAt ? '응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.' : '완료된 응답을 복구했습니다. 아래 버튼을 눌러 JSON 파일을 다운로드해 주세요.'}</p><p>파일명: <strong>${escape(state.downloadFilename)}</strong></p><div class="btn-row">${button('btn-download-again',state.downloadRequestedAt ? '응답 JSON 다시 다운로드' : '응답 JSON 다운로드')}</div><label class="download-confirm"><input id="download-confirm" type="checkbox" /> 다운로드된 파일을 확인했습니다.</label><div class="btn-row">${button('btn-next-participant','다음 참가자 시작','disabled')}</div>${errorArea()}`
+      : '<p>다운로드할 응답이 없습니다. 실험을 완료한 후 최종 제출해 주세요.</p>'
+    if (!state.downloadSubmission) return
+    bind('btn-download-again',()=>{
+      try {
+        requestResponseDownload(); error('')
+        $('download-status').textContent='응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.'
+        $('btn-download-again').textContent='응답 JSON 다시 다운로드'
+      } catch(err) { error('다운로드를 요청하지 못했습니다. '+err.message) }
+    })
+    $('download-confirm').onchange=()=>{ $('btn-next-participant').disabled=!$('download-confirm').checked }
+    bind('btn-next-participant',()=>{
+      if (!$('download-confirm').checked) return
+      beginNextParticipant()
+    })
+  }
+  function collectResponses() {
+    const aiKnowledge = Object.fromEntries(AI_SURVEY_ITEMS_A.map(q => [q.name, psData.ai_k[q.name] === null ? null : psData.ai_k[q.name] === q.correct]))
+    return {
+      _version:config.version, _group:state.group, _survey_schema_version:3, ...normalizePostSurvey(psData),
+      _stimulus_order_version:config.stimulusOrderVersion,
+      _ai_mapping_pending:config.aiMappingPending,
+      _ai_mapping_source:config.aiMappingSource,
+      _stimulus_manifest:[...slides,...initialExams,...tasks,...finalExams].map(({id,imageId,categoryCode,novelty,position,block})=>({id,imageId,categoryCode,novelty,position,block})),
+      _rt_schema_version:2,
+      _submitted_responses:Object.values(state.submittedResponses),
+      _jol_rt_ms:state.jolRT,
+      _rt_definition:{unit:'ms',clock:'performance.now',response:'Time from current screen/item presentation to accepted response; only the final committed value is retained; progressive survey items start when revealed',submission:'Time from current presentation to valid submission; reload starts a new presentation segment'},
+      _instruction_check:state.group === 'intervention' ? state.instructionCheck : null,
+      _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
+      _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
+      _jol:{initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
+      jol1:state.jol.jol1, jol2:state.jol.jol2,
+      _task_answers:state.task, _math:state.math ? {answers:state.math.answers, score:state.math.score, duration_ms:state.math.duration_ms, skipped:state.math.skipped} : null,
+      _exam_answers:state.finalExam,
+      _scoring:{initial_exam_score:score(state.initialExam), exam_score:score(state.finalExam), ai_k_correct:aiKnowledge, ai_k_score:{correct:Object.values(aiKnowledge).filter(Boolean).length,total:6},
+        task:state.task.map(t=>({trial_id:t.trial_id,skipped:!!t.skipped,changed:t.skipped ? null : t.initial!==t.final,initial_correct:t.skipped || !t.initial ? null : t.initial===t.correctCategory,final_correct:t.skipped || !t.final ? null : t.final===t.correctCategory,ai_correct:t.aiCategory == null ? null : t.aiCategory===t.correctCategory,ai_scoring_status:t.aiCategory == null ? 'mapping_missing' : 'scored',final_eq_ai:t.skipped || t.aiCategory == null ? null : t.final===t.aiCategory}))},
+      _page_durations:state.pages, _task_phase_durations:state.task.map(t=>t.phase_durations_ms)
+    }
+  }
+  async function handlePS3Submit(btn, skipped = false) {
+    const age = $('q6-age').value.trim(), gender = document.querySelector('input[name="q6_gender"]:checked')?.value, major = $('q6-major').value.trim()
+    if (!skipped) {
+      if (!age || !Number.isInteger(Number(age)) || Number(age)<0 || Number(age)>120) { _showErr('ps3-err','만 나이를 0~120 사이의 정수로 입력해 주세요.'); return }
+      if (!gender) { _showErr('ps3-err','성별을 선택해 주세요.'); return }
+      if (!major) { _showErr('ps3-err','전공을 입력해 주세요.'); return }
+      commitResponse('q6_age',Number(age)); commitResponse('q6_gender',gender); commitResponse('q6_major',major)
+      Object.assign(psData, {q6_age:age, q6_gender:gender, q6_major:major})
+    } else Object.assign(psData, {q6_age:null,q6_gender:null,q6_major:null})
+    persist(); if (btn) btn.disabled = true
+    leavePage()
+    const responses = collectResponses()
+    if (config.storageMode === 'download') {
+      try {
+        prepareDownloadSubmission(responses)
+        requestResponseDownload(); go('step-done')
+      } catch (err) {
+        if (btn) btn.disabled=false
+        _showErr('ps3-err','JSON 다운로드를 요청하지 못했습니다. 다시 제출해 주세요. '+err.message)
+      }
+      return
+    }
+    state.lastResponses = responses; persist()
+    const submission={participant_id:state.participantId,responses}
+    try { localStorage.setItem('__download_exp_pending_'+state.participantId,JSON.stringify(submission)) } catch (_) {}
+    try { await fetch('/api/backup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,session_raw:{responses}})}) } catch (_) { /* Main submission remains retryable. */ }
+    try {
+      const res = await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:state.participantId,responses})})
+      const data = await res.json(); if (!res.ok || data.error) throw new Error(data.message || '응답 저장에 실패했습니다. 오류 코드: '+(data.error || res.status))
+      state.submissionSaved = data.saved === 'github';
+      if (state.submissionSaved) { try {localStorage.removeItem('__download_exp_pending_'+state.participantId)}catch(_){} }
+      go('step-done')
+    } catch (err) {
+      btn.disabled = false; _showErr('ps3-err',err.message || '제출 중 연결 오류가 발생했습니다. 다시 제출하거나 JSON을 다운로드해 주세요.')
+      if (!$('btn-download-response')) {
+        const download=document.createElement('button'); download.id='btn-download-response'; download.type='button';download.className='btn-secondary';download.textContent='응답 JSON 다운로드'
+        download.onclick=()=>{
+          const blob=new Blob([JSON.stringify(submission,null,2)],{type:'application/json'})
+          const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='response_'+state.participantId+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
+        }
+        $('ps3-err').after(download)
+      }
+    }
+  }
+  function showError(message) {
+    clearTimers(); $('experiment-root').hidden = true
+    attachSkipControl()
+    document.querySelectorAll('.step').forEach(el=>el.classList.toggle('active',el.id==='step-error'))
+    $('error-msg').textContent = message; bind('btn-retry',()=>location.reload())
+  }
+  function commitResponse(field, value) {
+    const now=performance.now(), started=fieldShown.get(field) ?? phaseStarted
+    const trial=state.screen==='initial-exam'?initialExams[state.index]:state.screen==='task'?tasks[state.index]:state.screen==='final-exam'?finalExams[state.index]:null
+    const mathIndex=state.screen==='math'?state.math.answers.length:null
+    const key=[state.screen,trial?.id ?? '',state.phase,mathIndex ?? '',field].join('|')
+    if (state.submittedResponses[key]?.value === value) return
+    // One final committed value per field. Revisions replace it; typing is never logged.
+    state.submittedResponses[key]={screen:state.screen,trial_id:trial?.id ?? null,phase:state.phase,math_index:mathIndex,field,value,rt_ms:Math.max(0,now-started),submitted_at:new Date().toISOString()}
+    persist()
+  }
+  function clearInputError(event) {
+    const input=event.target
+    if (!input.matches('input,textarea,select')) return
+    const container=input.closest('.step.active') || input.closest('#experiment-root')
+    container?.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
+  }
+  function saveSurveyDraft(event) {
+    const input = event.target
+    if (!input.matches('.step input') || !input.closest('.step.active')) return
+    state.surveyDraft ||= {}
+    state.surveyDraft[input.type === 'radio' ? input.name : input.id] = input.value
+    persist()
+  }
+  // Keep decoded images alive throughout the session, before any timed trial starts.
+  const imageCache = new Map()
+  async function preloadStimuli() {
+    const urls = [...new Set([...slides,...initialExams,...tasks,...finalExams].map(t=>t.url).filter(Boolean))]
+    let cursor = 0
+    await Promise.all(Array.from({length:Math.min(6,urls.length)},async () => {
+      while(cursor < urls.length) {
+        const url = urls[cursor++], image = new Image()
+        await new Promise((resolve,reject) => {
+          image.onload = resolve
+          image.onerror = () => reject(new Error('이미지를 불러오지 못했습니다. 연결을 확인한 뒤 새로고침해 주세요.'))
+          image.src = url
+        })
+        if (image.decode) await image.decode()
+        imageCache.set(url,image)
+      }
+    }))
+  }
+  async function init() {
+    if (initStarted) return; initStarted = true
+    try {
+      const get = async path => { const r = await fetch(path); if (!r.ok) throw new Error('실험 설정을 불러올 수 없습니다.'); return r.json() }
+      const data = await Promise.all(['/api/experiment-config','/api/images','/api/initial-exam-images','/api/task-images','/api/exam-images'].map(get))
+      ;[config, {slides}, {exams:initialExams}, {tasks}, {exams:finalExams}] = data
+      await preloadStimuli()
+      try { state = JSON.parse(sessionStorage.getItem(STATE_KEY)) } catch (_) {}
+      if (!state || state.version !== config.version) state = freshState()
+      if (state.group && !config.groups.some(g=>g.id===state.group)) state = freshState()
+      if (state.screen === 'jol-learning') state.screen = 'jol-initial-exam'
+      state.jol ||= {}; delete state.jol.learning
+      state.instructionCheck ||= {passed:false,attempts:[]}
+      delete state.inputEvents; if(state.lastResponses) delete state.lastResponses._input_events
+      state.submittedResponses ||= {}; state.jolRT ||= {}
+      psData = normalizePostSurvey(state.survey); state.survey = psData
+      const drafts = state.surveyDraft || {}
+      document.querySelectorAll('.step input').forEach(input => {
+        const key = input.type === 'radio' ? input.name : input.id
+        if (drafts[key] !== undefined) {
+          if (input.type === 'radio') input.checked = input.value === drafts[key]
+          else input.value = drafts[key]
+        }
+      })
+      document.addEventListener('change',clearInputError,true)
+      document.addEventListener('input',clearInputError,true)
+      document.addEventListener('change', saveSurveyDraft)
+      document.addEventListener('input', saveSurveyDraft)
+      state.pageEntered = Date.now(); persist(); render()
+    } catch (err) { showError(err.message) }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true})
+  else init()
+})()
+</script>
+</body></html>

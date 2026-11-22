@@ -18,6 +18,19 @@ routes['/api/experiment-config'].storageMode = 'download'
 const makeAdapter = routes => `
 ;(() => {
   const routes = ${JSON.stringify(routes).replaceAll('<', '\\u003c')};
+  // Preserve responses completed in the previous preview build on this same origin/tab.
+  if (!sessionStorage.getItem('__download_exp_v2_state__')) {
+    for (const legacyKey of ['__preview_exp_v2_state__','__exp_v2_state__']) {
+      try {
+        const legacy=JSON.parse(sessionStorage.getItem(legacyKey));
+        if (legacy && legacy.version===routes['/api/experiment-config'].version) {
+          legacy.recoveredFrom=legacyKey;
+          sessionStorage.setItem('__download_exp_v2_state__',JSON.stringify(legacy));
+          break;
+        }
+      } catch (_) { /* Never replace a current session with unreadable legacy data. */ }
+    }
+  }
   ${grading}
   window.ExperimentScoring = {
     scoreResponses: responses => gradeResponses(responses, {
@@ -62,6 +75,7 @@ for (const path of Object.keys(routes)) {
   }
 }
 await writeFile(new URL('index.html', output), html.replace(inline(makeAdapter(routes)), inline(makeAdapter(pageRoutes))))
+await writeFile(new URL('experiment-download-v2.html', output), html.replace(inline(makeAdapter(routes)), inline(makeAdapter(pageRoutes))))
 await cp(new URL('../public/static/stimuli/',import.meta.url),new URL('static/stimuli/',output),{recursive:true})
 await writeFile(new URL('../../index.html',import.meta.url),html.replace(inline(makeAdapter(routes)),inline(makeAdapter(embeddedRoutes))))
 await writeFile(new URL('.nojekyll', output), '')

@@ -4,7 +4,7 @@ import {JSDOM,VirtualConsole} from 'jsdom'
 const html=await readFile(new URL('../docs/index.html',import.meta.url),'utf8')
 const embedded=await readFile(new URL('../../index.html',import.meta.url),'utf8')
 const key='__download_exp_v2_state__',wait=()=>new Promise(r=>setTimeout(r,5))
-async function boot(page,snapshot){
+async function boot(page,snapshot,storageKey=key){
  const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message))
  const dom=new JSDOM(page,{url:'https://jennie-ys.github.io/thesis/',runScripts:'outside-only',virtualConsole:vc})
  const w=dom.window,d=w.document,files=[]
@@ -13,7 +13,7 @@ async function boot(page,snapshot){
  w.fetch=()=>{throw Error('Unexpected network request')}
  w.URL.createObjectURL=blob=>{files.push({blob});return 'blob:download-test'}
  w.URL.revokeObjectURL=()=>{};w.HTMLAnchorElement.prototype.click=function(){files.at(-1).filename=this.download}
- if(snapshot)w.sessionStorage.setItem(key,JSON.stringify(snapshot))
+ if(snapshot)w.sessionStorage.setItem(storageKey,JSON.stringify(snapshot))
  for(const script of d.querySelectorAll('script'))w.eval(script.textContent)
  d.dispatchEvent(new w.Event('DOMContentLoaded'));await wait()
  return {dom,w,d,files,errors,state:()=>JSON.parse(w.sessionStorage.getItem(key))}
@@ -54,3 +54,33 @@ assert.notEqual(three.files[0].filename,snapshot.downloadFilename)
 assert.equal(three.state().downloadSubmission.participant_id,nextId)
 assert.deepEqual(three.errors,[]);three.dom.window.close()
 console.log('Browser JSON download, skipped answers, reload recovery, identical re-download, guarded participant reset and unique filenames PASS')
+
+// Recover the exact completed responses from the former preview session on the same tab.
+const legacy={...snapshot};delete legacy.downloadSubmission;delete legacy.downloadFilename;delete legacy.downloadRequestedAt
+legacy.lastResponses._submitted_responses=[{field:'q6_major',value:'복구 확인',rt_ms:123.45}]
+const migrated=await boot(html,legacy,'__preview_exp_v2_state__')
+assert.equal(migrated.state().participantId,legacy.participantId)
+assert.equal(migrated.state().screen,'step-done');assert.equal(migrated.files.length,0)
+assert(migrated.d.getElementById('submission-result').textContent.includes('완료된 응답을 복구했습니다'))
+assert(!migrated.d.getElementById('submission-result').textContent.includes('제출되지 않았습니다'))
+assert.deepEqual(migrated.state().lastResponses._submitted_responses,legacy.lastResponses._submitted_responses)
+assert.equal(migrated.state().downloadSubmission.recovered_from,'legacy_preview_session')
+migrated.d.getElementById('btn-download-again').click();await wait()
+assert.equal(migrated.files.length,1)
+assert.equal(migrated.state().downloadSubmission.participant_id,legacy.participantId)
+assert.deepEqual(migrated.errors,[]);migrated.dom.window.close()
+// The new entry URL ships identical bytes rather than the obsolete preview page.
+assert.equal(await readFile(new URL('../docs/experiment-download-v2.html',import.meta.url),'utf8'),html)
+console.log('Legacy preview completion recovery preserves participant, submitted responses and RT; fresh download entry matches current build PASS')
+
+// Old temporary-skip completion never assembled lastResponses; reconstruct only committed state.
+const partial={...legacy,lastResponses:undefined,skips:[{screen:'step-ps-3'}]}
+const partialSession=await boot(html,partial,'__preview_exp_v2_state__')
+assert.equal(partialSession.state().screen,'step-done')
+assert(partialSession.d.getElementById('btn-download-again'))
+assert.equal(partialSession.state().downloadSubmission.responses.q6_age,null)
+assert.equal(partialSession.state().downloadSubmission.responses._scoring.initial_exam_score.answered,0)
+partialSession.d.getElementById('btn-download-again').click();await wait()
+assert.equal(partialSession.files.length,1);assert.deepEqual(partialSession.errors,[])
+partialSession.dom.window.close()
+console.log('Legacy skipped completion without lastResponses recovers committed state as explicit missing responses PASS')
