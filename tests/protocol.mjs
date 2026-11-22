@@ -170,12 +170,17 @@ for (const group of config.groups.map(g=>g.id)) {
   const originalFetch=w.fetch;const posts=[]
   w.fetch=async(path,init)=>{if(init?.method==='POST')posts.push(path);return originalFetch(path,init)}
   await click('btn-ps3-submit')
-  assert.equal(read().screen,'step-ps-3');assert(d.getElementById('ps3-err').textContent.includes('테스트 다운로드 오류'))
+  assert.equal(read().screen,'step-done');assert.equal(downloaded.length,0)
+  assert(element('#developer-menu').hidden)
+  assert.equal(element('#step-done .card').textContent.replace(/\s+/g,' ').trim(),'실험에 참여해 주셔서 감사합니다.연구자를 불러주세요.')
   const frozen=JSON.stringify(read().downloadSubmission),filename=read().downloadFilename
-  failDownload=false;await click('btn-ps3-submit')
-  for(let i=0;i<200&&read().screen!=='step-done';i++)await tick()
-  assert.equal(read().screen,'step-done');assert.match(element('#submission-result').textContent,/다운로드/)
-  assert.deepEqual(posts,[]);assert.equal(downloaded.length,1)
+  for(const key of 'yepl')d.body.dispatchEvent(new w.KeyboardEvent('keydown',{key,bubbles:true}))
+  assert(!element('#developer-menu').hidden);assert.equal(read().screen,'step-done')
+  assert(element('#developer-menu').contains(element('#btn-download-again')))
+  await click('btn-download-again');assert.equal(downloaded.length,0)
+  assert(element('#developer-download-error').textContent.includes('테스트 다운로드 오류'))
+  failDownload=false;await click('btn-download-again')
+  assert.equal(read().screen,'step-done');assert.deepEqual(posts,[]);assert.equal(downloaded.length,1)
   assert.equal(downloaded[0].filename,filename);assert.equal(JSON.stringify(read().downloadSubmission),frozen)
   const readBlob=blob=>new Promise(resolve=>{const reader=new w.FileReader();reader.onload=()=>resolve(reader.result);reader.readAsText(blob)})
   const saved=JSON.parse(await readBlob(downloaded[0].blob))

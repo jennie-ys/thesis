@@ -57,6 +57,9 @@ for(const screen of expected){
   }
   if(screen==='task')assert(active.textContent.includes('이 이미지의 피부 병변 범주를 선택하세요.')&&!active.textContent.includes('초기 진단'))
   if(screen==='step-done'){
+    assert(d.getElementById('developer-menu').hidden)
+    assert.equal(active.textContent.replace(/\s+/g,' ').trim(),'실험에 참여해 주셔서 감사합니다.연구자를 불러주세요.')
+    for(const key of 'yepl')d.body.dispatchEvent(new w.KeyboardEvent('keydown',{key,bubbles:true}))
     button.click();assert.equal(state().screen,'step-done')
     const confirm=d.getElementById('download-confirm');confirm.checked=true;confirm.dispatchEvent(new w.Event('change'))
   }

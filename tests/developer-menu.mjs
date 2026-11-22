@@ -28,7 +28,7 @@ const oldId=state().participantId;d.getElementById('developer-reset').click()
 assert.equal(state().screen,'group');assert.notEqual(state().participantId,oldId);assert(!menu.hidden)
 assert.deepEqual(state().submittedResponses,{});assert.deepEqual(state().initialExam,[])
 // Each destination opens the first screen without manufacturing participant responses.
-const jump=screen=>{const button=d.querySelector('#developer-pages button[data-screen="'+screen+'"]');assert(button,screen);button.click()}
+const jump=screen=>{if(menu.hidden)type(d.body,'yepl');const button=d.querySelector('#developer-pages button[data-screen="'+screen+'"]');assert(button,screen);button.click()}
 jump('group');d.getElementById('btn-group-intervention').click();assert.equal(state().group,'intervention')
 assert.equal(d.querySelectorAll('#developer-pages button[data-screen="step-ps-3"]').length,1)
 const expectedJOL={

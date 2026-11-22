@@ -1351,7 +1351,7 @@ input::placeholder, textarea::placeholder { color:#808080; -webkit-text-fill-col
 </div>
 
 
-<div id="step-done" class="step"><div class="page-wrap"><div class="card"><p>실험에 참여해 주셔서 감사합니다.</p><div id="submission-result"></div></div></div></div>
+<div id="step-done" class="step"><div class="page-wrap"><div class="card"><p>실험에 참여해 주셔서 감사합니다.</p><p>연구자를 불러주세요.</p><div id="submission-result"></div></div></div></div>
 <div id="step-error" class="step"><div class="page-wrap"><div class="card"><p id="error-msg" class="inline-err"></p><button id="btn-retry" class="btn-secondary">다시 시도</button></div></div></div>
 <script>
 ;(() => {
@@ -1527,6 +1527,8 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
     const close=document.createElement('button'); close.id='developer-close'; close.type='button'
     close.textContent='닫기'; close.onclick=()=>{developerVisible=false;developerTaskAccess=false;controls.hidden=true}
     toolbar.appendChild(close); controls.appendChild(toolbar)
+    const downloads=document.createElement('section'); downloads.id='developer-download'; downloads.hidden=true
+    downloads.setAttribute('aria-label','응답 다운로드'); controls.appendChild(downloads)
     const pages=document.createElement('nav'); pages.id='developer-pages'; pages.className='developer-pages'; pages.setAttribute('aria-label','페이지 이동')
     for (const page of developerPages) {
       const target=document.createElement('button'); target.type='button'; target.dataset.screen=page.screen
@@ -1577,7 +1579,7 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
     if (!state || !config) { location.reload(); return }
     if (config.storageMode === 'download' && state.screen === 'step-done' && state.downloadSubmission) {
       if ($('download-confirm')?.checked) beginNextParticipant()
-      else error('다운로드된 파일을 확인한 후 확인란을 선택해 주세요.')
+      else $('developer-download-error').textContent='다운로드된 파일을 확인한 후 확인란을 선택해 주세요.'
       return
     }
     state.skips ||= []
@@ -2103,6 +2105,7 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
   }
 
   function requestResponseDownload() {
+    if (!developerVisible || $('developer-menu').hidden) throw new Error('개발자메뉴에서만 다운로드할 수 있습니다.')
     if (!state.downloadSubmission) throw new Error('다운로드할 응답이 없습니다. 최종 제출 버튼을 눌러주세요.')
     const blob = new Blob([JSON.stringify(state.downloadSubmission,null,2)],{type:'application/json;charset=utf-8'})
     const url = URL.createObjectURL(blob), link = document.createElement('a')
@@ -2130,24 +2133,27 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
     })
     document.querySelectorAll('.inline-err').forEach(el=>{el.textContent=''})
     $('submission-result').textContent=''
+    $('developer-download').innerHTML=''; $('developer-download').hidden=true
     persist(); render()
   }
   function renderDownloadComplete() {
-    const result = $('submission-result')
+    $('submission-result').textContent=''
+    developerVisible=false; developerKeys=''; developerTaskAccess=false; $('developer-menu').hidden=true
+    const result = $('developer-download'); result.hidden=false
     if (!state.downloadSubmission && (state.lastResponses || state.recoveredFrom)) {
       try { prepareDownloadSubmission(state.lastResponses || collectResponses(),new Date(state.pageEntered).toISOString()) }
       catch (err) { result.textContent='이전 응답을 복구하지 못했습니다. 이 탭을 닫지 말고 연구자에게 알려주세요. '+err.message; return }
     }
     result.innerHTML = state.downloadSubmission
-      ? `<p id="download-status">${state.downloadRequestedAt ? '응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.' : '완료된 응답을 복구했습니다. 아래 버튼을 눌러 JSON 파일을 다운로드해 주세요.'}</p><p>파일명: <strong>${escape(state.downloadFilename)}</strong></p><div class="btn-row">${button('btn-download-again',state.downloadRequestedAt ? '응답 JSON 다시 다운로드' : '응답 JSON 다운로드')}</div><label class="download-confirm"><input id="download-confirm" type="checkbox" /> 다운로드된 파일을 확인했습니다.</label><div class="btn-row">${button('btn-next-participant','다음 참가자 시작','disabled')}</div>${errorArea()}`
+      ? `<p id="download-status">${state.downloadRequestedAt ? '응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.' : '제출된 응답을 JSON 파일로 다운로드할 수 있습니다.'}</p><p>파일명: <strong>${escape(state.downloadFilename)}</strong></p><div class="btn-row">${button('btn-download-again',state.downloadRequestedAt ? '응답 JSON 다시 다운로드' : '응답 JSON 다운로드')}</div><label class="download-confirm"><input id="download-confirm" type="checkbox" /> 다운로드된 파일을 확인했습니다.</label><div class="btn-row">${button('btn-next-participant','다음 참가자 시작','disabled')}</div><p id="developer-download-error" class="inline-err" role="alert"></p>`
       : '<p>다운로드할 응답이 없습니다. 실험을 완료한 후 최종 제출해 주세요.</p>'
     if (!state.downloadSubmission) return
     bind('btn-download-again',()=>{
       try {
-        requestResponseDownload(); error('')
+        requestResponseDownload(); $('developer-download-error').textContent=''
         $('download-status').textContent='응답 JSON 다운로드를 요청했습니다. 다운로드 폴더에서 파일을 확인해 주세요.'
         $('btn-download-again').textContent='응답 JSON 다시 다운로드'
-      } catch(err) { error('다운로드를 요청하지 못했습니다. '+err.message) }
+      } catch(err) { $('developer-download-error').textContent='다운로드를 요청하지 못했습니다. '+err.message }
     })
     $('download-confirm').onchange=()=>{ $('btn-next-participant').disabled=!$('download-confirm').checked }
     bind('btn-next-participant',()=>{
@@ -2194,10 +2200,10 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
     if (config.storageMode === 'download') {
       try {
         prepareDownloadSubmission(responses)
-        requestResponseDownload(); go('step-done')
+        go('step-done')
       } catch (err) {
         if (btn) btn.disabled=false
-        _showErr('ps3-err','JSON 다운로드를 요청하지 못했습니다. 다시 제출해 주세요. '+err.message)
+        _showErr('ps3-err','응답을 준비하지 못했습니다. 다시 제출해 주세요. '+err.message)
       }
       return
     }
