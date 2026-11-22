@@ -56,8 +56,7 @@ const baseHtml = await (await request('/')).text()
 let html = baseHtml
 html = html.replace('<title>온라인 실험 참가</title>', '<title>Thesis · 실험</title>')
 html = html.replace('<link rel="stylesheet" href="/static/style.css" />', `<style>${css}</style>`)
-const footer = '<footer class="preview-footer"><span>실험 완료 후 응답 JSON이 이 컴퓨터에 다운로드됩니다.</span></footer>'
-html = html.replace('<script src="/static/experiment.js"></script>', `${footer}<script>${inline(makeAdapter(routes))}</script>\n<script>${inline(experiment)}</script>`)
+html = html.replace('<script src="/static/experiment.js"></script>', `<script>${inline(makeAdapter(routes))}</script>\n<script>${inline(experiment)}</script>`)
 const output = new URL('../docs/', import.meta.url)
 await mkdir(output, { recursive: true })
 // GitHub Pages uses relative asset URLs; Cloudflare's public assets keep /static URLs.
