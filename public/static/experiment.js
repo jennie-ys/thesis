@@ -5,6 +5,39 @@
   let config, slides, initialExams, tasks, finalExams
   let timer = null, interval = null, renderEpoch = 0, phaseStarted = performance.now(), initStarted = false
   let state
+  let developerVisible = false, developerKeys = '', developerTaskAccess = false
+  const developerPages = [
+    {screen:'group',name:'_group'},
+    {screen:'instruction',name:'instruction'},
+    {screen:'learning-intro',name:'learning-intro'},
+    {screen:'learning',name:'_learning_presentations',round:1},
+    {screen:'learning-break',name:'learning-break'},
+    {screen:'learning',name:'_learning_presentations',round:2},
+    {screen:'jol-initial-exam',name:'_jol.initial_exam_prediction'},
+    {screen:'initial-exam-intro',name:'initial-exam-intro'},
+    {screen:'initial-exam',name:'_initial_exam_answers'},
+    {screen:'initial-feedback',name:'_initial_exam_score'},
+    {screen:'jol-ai-prediction',name:'_jol.ai_exam_prediction'},
+    {screen:'task-intro',name:'task-intro'},
+    {screen:'task-notice',name:'task-notice'},
+    {screen:'task-check',name:'_instruction_check'},
+    {screen:'task',name:'_task_answers'},
+    {screen:'jol-task',name:'jol1'},
+    {screen:'jol-no-ai',name:'jol2'},
+    {screen:'math-intro',name:'math-intro'},
+    {screen:'math',name:'_math'},
+    {screen:'final-exam-intro',name:'final-exam-intro'},
+    {screen:'final-exam',name:'_exam_answers'},
+    {screen:'step-ps-0',name:'step-ps-0'},
+    {screen:'step-ps-1',name:'pk1'},
+    {screen:'step-ps-2',name:'pk2'},
+    {screen:'step-ai-survey',name:'ai_k'},
+    {screen:'step-ai-survey-b',name:'ai_a'},
+    {screen:'step-ai-error-belief',name:'ai_t'},
+    {screen:'step-ps-3',name:'step-ps-3',description:'인구통계: q6_age, q6_gender, q6_major'},
+    {screen:'step-done',name:'step-done'},
+    {screen:'step-error',name:'step-error'},
+  ]
   const $ = id => document.getElementById(id)
   const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]))
   function normalizePostSurvey(source = {}) {
@@ -54,15 +87,73 @@
   }
   function clearTimers() { clearTimeout(timer); clearInterval(interval); timer = interval = null; renderEpoch++ }
   function attachSkipControl() {
-    if ((config && !config.previewControls) || $('temporary-skip')) return
-    const controls = document.createElement('nav')
-    controls.className = 'temporary-controls'; controls.setAttribute('aria-label', '임시 검토 도구')
+    if ($('developer-menu')) return
+    const controls = document.createElement('header')
+    controls.id='developer-menu'; controls.className='developer-menu'; controls.hidden=true
+    controls.setAttribute('aria-label','개발자메뉴')
+    const toolbar=document.createElement('div'); toolbar.className='developer-toolbar'
+    const title=document.createElement('strong'); title.textContent='개발자메뉴'; toolbar.appendChild(title)
     const skip = document.createElement('button')
     skip.id = 'temporary-skip'; skip.type = 'button'; skip.className = 'btn-skip'
     skip.textContent = '(임시) skip →'; skip.onclick = skipCurrentScreen
-    controls.appendChild(skip); document.body.appendChild(controls)
+    toolbar.appendChild(skip)
+    const reset=document.createElement('button'); reset.id='developer-reset'; reset.type='button'
+    reset.textContent='처음부터 다시 보기'; reset.onclick=()=>{
+      if (!developerVisible) return
+      if(state&&config) { beginNextParticipant(); developerVisible=true; controls.hidden=false }
+      else location.reload()
+    }
+    toolbar.appendChild(reset)
+    const close=document.createElement('button'); close.id='developer-close'; close.type='button'
+    close.textContent='닫기'; close.onclick=()=>{developerVisible=false;developerTaskAccess=false;controls.hidden=true}
+    toolbar.appendChild(close); controls.appendChild(toolbar)
+    const pages=document.createElement('nav'); pages.id='developer-pages'; pages.className='developer-pages'; pages.setAttribute('aria-label','페이지 이동')
+    for (const page of developerPages) {
+      const target=document.createElement('button'); target.type='button'; target.dataset.screen=page.screen
+      target.dataset.name=page.name; if(page.round)target.dataset.round=page.round
+      target.textContent=page.name
+      if(page.round) { const round=document.createElement('small');round.textContent='round='+page.round;target.appendChild(round) }
+      target.title=page.description || page.name
+      target.onclick=()=>developerNavigate(page); pages.appendChild(target)
+    }
+    controls.appendChild(pages)
+    const status=document.createElement('p'); status.id='developer-status';status.className='developer-status';status.setAttribute('role','status')
+    controls.appendChild(status); document.body.prepend(controls)
+  }
+  function developerNavigate(page) {
+    if (!developerVisible || !config || !state) return
+    $('developer-status').textContent=''
+    if (page.screen==='task-check' && state.group!=='intervention') {
+      $('developer-status').textContent='이 페이지는 intervention 조건에만 있습니다. _group에서 intervention을 선택해 주세요.'
+      return
+    }
+    developerTaskAccess=page.screen==='task'
+    if (page.screen==='math') {
+      if (state.math && (Date.now()>=state.math.deadline || state.math.answers.length>=state.math.problems.length)) {
+        $('developer-status').textContent='수학 과제는 이미 종료되었습니다. 다시 확인하려면 처음부터 다시 보기를 사용해 주세요.'
+        return
+      }
+      startMath(); return
+    }
+    if (page.screen==='step-error') { go('step-error'); return }
+    const patch={index:0,phase:'initial'}
+    if (page.screen==='learning') patch.round=page.round
+    if (page.screen==='task') {
+      // Reuse a matching draft only; never display one image with another trial's AI metadata.
+      patch.pendingTask=state.pendingTask?.trial_id===tasks[0].id ? state.pendingTask : null
+    }
+    go(page.screen,patch)
+  }
+  function handleDeveloperKeys(event) {
+    if (event.isComposing || event.repeat || event.ctrlKey || event.metaKey || event.altKey || event.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"]),[role="textbox"]')) {
+      developerKeys=''; return
+    }
+    developerKeys=event.key.length===1 ? (developerKeys+event.key.toLowerCase()).slice(-4) : ''
+    if (developerKeys!=='yepl') return
+    developerKeys=''; attachSkipControl(); developerVisible=true; $('developer-menu').hidden=false
   }
   function skipCurrentScreen() {
+    if (!developerVisible) return
     if (!state || !config) { location.reload(); return }
     if (config.storageMode === 'download' && state.screen === 'step-done' && state.downloadSubmission) {
       if ($('download-confirm')?.checked) beginNextParticipant()
@@ -213,7 +304,7 @@
       }
       case 'task-check': renderInstructionCheck(); break
       case 'task':
-        if (state.group === 'intervention' && !state.instructionCheck.passed) go('task-notice')
+        if (state.group === 'intervention' && !state.instructionCheck.passed && !(developerVisible && developerTaskAccess)) go('task-notice')
         else renderTask()
         break
       case 'jol-task':
@@ -611,6 +702,7 @@
   }
   function beginNextParticipant() {
     clearTimers(); fieldShown.clear()
+    developerVisible=false; developerKeys=''; developerTaskAccess=false; if($('developer-menu'))$('developer-menu').hidden=true
     state=freshState(); psData=normalizePostSurvey(state.survey); state.survey=psData
     document.querySelectorAll('.step input').forEach(input=>{
       if (input.type==='radio'||input.type==='checkbox') input.checked=false
@@ -789,6 +881,7 @@
       state.pageEntered = Date.now(); persist(); render()
     } catch (err) { showError(err.message) }
   }
+  document.addEventListener('keydown',handleDeveloperKeys)
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true})
   else init()
 })()

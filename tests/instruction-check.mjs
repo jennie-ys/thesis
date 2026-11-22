@@ -8,6 +8,7 @@ async function open(state){
   w.Image = class { set src(value) { queueMicrotask(()=>this.onload?.()) } async decode() {} }; w.scrollTo=()=>{};w.sessionStorage.setItem(key,JSON.stringify(state))
   for(const script of w.document.querySelectorAll('script'))w.eval(script.textContent)
   w.document.dispatchEvent(new w.Event('DOMContentLoaded'));await new Promise(r=>setTimeout(r,10))
+  for(const key of 'yepl')w.document.body.dispatchEvent(new w.KeyboardEvent('keydown',{key,bubbles:true}))
   return {dom,w,d:w.document,errors,read:()=>JSON.parse(w.sessionStorage.getItem(key))}
 }
 const seed={version:'two-group-six-v1',participantId:'gate-test',group:'intervention',screen:'task-notice',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:{},pages:[],pageEntered:Date.now(),math:null}

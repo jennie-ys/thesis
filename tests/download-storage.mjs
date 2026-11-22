@@ -16,6 +16,7 @@ async function boot(page,snapshot,storageKey=key){
  if(snapshot)w.sessionStorage.setItem(storageKey,JSON.stringify(snapshot))
  for(const script of d.querySelectorAll('script'))w.eval(script.textContent)
  d.dispatchEvent(new w.Event('DOMContentLoaded'));await wait()
+ for(const key of 'yepl')d.body.dispatchEvent(new w.KeyboardEvent('keydown',{key,bubbles:true}))
  return {dom,w,d,files,errors,state:()=>JSON.parse(w.sessionStorage.getItem(key))}
 }
 const seed={version:'two-group-six-v1',participantId:'local-test-001',group:'no-intervention',screen:'step-ps-3',index:0,round:1,phase:'initial',learning:[],initialExam:[],task:[],finalExam:[],jol:{},survey:{},pages:[],submittedResponses:{},jolRT:{},math:null,instructionCheck:{passed:false,attempts:[]},startedAt:'2026-11-23T00:00:00.000Z',pageEntered:Date.now(),submissionSaved:null}
