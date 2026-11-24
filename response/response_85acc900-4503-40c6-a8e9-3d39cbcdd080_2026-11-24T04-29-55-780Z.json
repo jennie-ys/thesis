@@ -1,0 +1,6830 @@
+{
+  "schema_version": 1,
+  "participant_id": "85acc900-4503-40c6-a8e9-3d39cbcdd080",
+  "group": null,
+  "started_at": "2026-11-24T01:33:22.543Z",
+  "completed_at": "2026-11-24T04:29:55.780Z",
+  "storage": "browser_download",
+  "responses": {
+    "_version": "two-group-six-v1",
+    "_group": null,
+    "_survey_schema_version": 3,
+    "pk1": 1,
+    "pk2": 5,
+    "ai_k": {
+      "ai_k1": "틀리다",
+      "ai_k2": "틀리다",
+      "ai_k3": "맞다",
+      "ai_k4": "맞다",
+      "ai_k5": "맞다",
+      "ai_k6": "맞다"
+    },
+    "ai_a": {
+      "ai_a1": 3,
+      "ai_a2": 3,
+      "ai_a3": 3,
+      "ai_a4": 3,
+      "ai_a5": 2,
+      "ai_a6": 3,
+      "ai_a7": 3,
+      "ai_a8": 3
+    },
+    "ai_t": {
+      "ai_t1": "yes",
+      "ai_t2": 80,
+      "ai_t2_status": "answered"
+    },
+    "q6_age": "21",
+    "q6_gender": "female",
+    "q6_major": "정치외교학과",
+    "_stimulus_order_version": "stimuli-six-20261117-v1",
+    "_ai_mapping_pending": false,
+    "_ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+    "_stimulus_manifest": [
+      {
+        "id": "learning-VASC-ISIC_3849096",
+        "imageId": "ISIC_3849096",
+        "categoryCode": "VASC",
+        "novelty": null,
+        "position": 1,
+        "block": 1
+      },
+      {
+        "id": "learning-AK-ISIC_0496864",
+        "imageId": "ISIC_0496864",
+        "categoryCode": "AK",
+        "novelty": null,
+        "position": 2,
+        "block": 1
+      },
+      {
+        "id": "learning-MEL-ISIC_0212251",
+        "imageId": "ISIC_0212251",
+        "categoryCode": "MEL",
+        "novelty": null,
+        "position": 3,
+        "block": 1
+      },
+      {
+        "id": "learning-NV-ISIC_0106322",
+        "imageId": "ISIC_0106322",
+        "categoryCode": "NV",
+        "novelty": null,
+        "position": 4,
+        "block": 1
+      },
+      {
+        "id": "learning-BCC-ISIC_0195347",
+        "imageId": "ISIC_0195347",
+        "categoryCode": "BCC",
+        "novelty": null,
+        "position": 5,
+        "block": 1
+      },
+      {
+        "id": "learning-DF-ISIC_1176432",
+        "imageId": "ISIC_1176432",
+        "categoryCode": "DF",
+        "novelty": null,
+        "position": 6,
+        "block": 1
+      },
+      {
+        "id": "learning-AK-ISIC_0478016",
+        "imageId": "ISIC_0478016",
+        "categoryCode": "AK",
+        "novelty": null,
+        "position": 7,
+        "block": 2
+      },
+      {
+        "id": "learning-VASC-ISIC_0552734",
+        "imageId": "ISIC_0552734",
+        "categoryCode": "VASC",
+        "novelty": null,
+        "position": 8,
+        "block": 2
+      },
+      {
+        "id": "learning-MEL-ISIC_0156507",
+        "imageId": "ISIC_0156507",
+        "categoryCode": "MEL",
+        "novelty": null,
+        "position": 9,
+        "block": 2
+      },
+      {
+        "id": "learning-BCC-ISIC_0377749",
+        "imageId": "ISIC_0377749",
+        "categoryCode": "BCC",
+        "novelty": null,
+        "position": 10,
+        "block": 2
+      },
+      {
+        "id": "learning-NV-ISIC_0101767",
+        "imageId": "ISIC_0101767",
+        "categoryCode": "NV",
+        "novelty": null,
+        "position": 11,
+        "block": 2
+      },
+      {
+        "id": "learning-DF-ISIC_4324758",
+        "imageId": "ISIC_4324758",
+        "categoryCode": "DF",
+        "novelty": null,
+        "position": 12,
+        "block": 2
+      },
+      {
+        "id": "learning-BCC-ISIC_0369681",
+        "imageId": "ISIC_0369681",
+        "categoryCode": "BCC",
+        "novelty": null,
+        "position": 13,
+        "block": 3
+      },
+      {
+        "id": "learning-AK-ISIC_0605910",
+        "imageId": "ISIC_0605910",
+        "categoryCode": "AK",
+        "novelty": null,
+        "position": 14,
+        "block": 3
+      },
+      {
+        "id": "learning-NV-ISIC_0080219",
+        "imageId": "ISIC_0080219",
+        "categoryCode": "NV",
+        "novelty": null,
+        "position": 15,
+        "block": 3
+      },
+      {
+        "id": "learning-VASC-ISIC_5409072",
+        "imageId": "ISIC_5409072",
+        "categoryCode": "VASC",
+        "novelty": null,
+        "position": 16,
+        "block": 3
+      },
+      {
+        "id": "learning-DF-ISIC_0919412",
+        "imageId": "ISIC_0919412",
+        "categoryCode": "DF",
+        "novelty": null,
+        "position": 17,
+        "block": 3
+      },
+      {
+        "id": "learning-MEL-ISIC_0204323",
+        "imageId": "ISIC_0204323",
+        "categoryCode": "MEL",
+        "novelty": null,
+        "position": 18,
+        "block": 3
+      },
+      {
+        "id": "learning-DF-ISIC_4959784",
+        "imageId": "ISIC_4959784",
+        "categoryCode": "DF",
+        "novelty": null,
+        "position": 19,
+        "block": 4
+      },
+      {
+        "id": "learning-AK-ISIC_0707479",
+        "imageId": "ISIC_0707479",
+        "categoryCode": "AK",
+        "novelty": null,
+        "position": 20,
+        "block": 4
+      },
+      {
+        "id": "learning-NV-ISIC_0097262",
+        "imageId": "ISIC_0097262",
+        "categoryCode": "NV",
+        "novelty": null,
+        "position": 21,
+        "block": 4
+      },
+      {
+        "id": "learning-BCC-ISIC_0365517",
+        "imageId": "ISIC_0365517",
+        "categoryCode": "BCC",
+        "novelty": null,
+        "position": 22,
+        "block": 4
+      },
+      {
+        "id": "learning-MEL-ISIC_0320008",
+        "imageId": "ISIC_0320008",
+        "categoryCode": "MEL",
+        "novelty": null,
+        "position": 23,
+        "block": 4
+      },
+      {
+        "id": "learning-VASC-ISIC_5866736",
+        "imageId": "ISIC_5866736",
+        "categoryCode": "VASC",
+        "novelty": null,
+        "position": 24,
+        "block": 4
+      },
+      {
+        "id": "learning-MEL-ISIC_0184224",
+        "imageId": "ISIC_0184224",
+        "categoryCode": "MEL",
+        "novelty": null,
+        "position": 25,
+        "block": 5
+      },
+      {
+        "id": "learning-AK-ISIC_0146067",
+        "imageId": "ISIC_0146067",
+        "categoryCode": "AK",
+        "novelty": null,
+        "position": 26,
+        "block": 5
+      },
+      {
+        "id": "learning-DF-ISIC_0811703",
+        "imageId": "ISIC_0811703",
+        "categoryCode": "DF",
+        "novelty": null,
+        "position": 27,
+        "block": 5
+      },
+      {
+        "id": "learning-BCC-ISIC_0381913",
+        "imageId": "ISIC_0381913",
+        "categoryCode": "BCC",
+        "novelty": null,
+        "position": 28,
+        "block": 5
+      },
+      {
+        "id": "learning-NV-ISIC_0115114",
+        "imageId": "ISIC_0115114",
+        "categoryCode": "NV",
+        "novelty": null,
+        "position": 29,
+        "block": 5
+      },
+      {
+        "id": "learning-VASC-ISIC_1996485",
+        "imageId": "ISIC_1996485",
+        "categoryCode": "VASC",
+        "novelty": null,
+        "position": 30,
+        "block": 5
+      },
+      {
+        "id": "learning-DF-ISIC_1342857",
+        "imageId": "ISIC_1342857",
+        "categoryCode": "DF",
+        "novelty": null,
+        "position": 31,
+        "block": 6
+      },
+      {
+        "id": "learning-VASC-ISIC_0686612",
+        "imageId": "ISIC_0686612",
+        "categoryCode": "VASC",
+        "novelty": null,
+        "position": 32,
+        "block": 6
+      },
+      {
+        "id": "learning-BCC-ISIC_0368554",
+        "imageId": "ISIC_0368554",
+        "categoryCode": "BCC",
+        "novelty": null,
+        "position": 33,
+        "block": 6
+      },
+      {
+        "id": "learning-AK-ISIC_0260732",
+        "imageId": "ISIC_0260732",
+        "categoryCode": "AK",
+        "novelty": null,
+        "position": 34,
+        "block": 6
+      },
+      {
+        "id": "learning-MEL-ISIC_0305865",
+        "imageId": "ISIC_0305865",
+        "categoryCode": "MEL",
+        "novelty": null,
+        "position": 35,
+        "block": 6
+      },
+      {
+        "id": "learning-NV-ISIC_0073863",
+        "imageId": "ISIC_0073863",
+        "categoryCode": "NV",
+        "novelty": null,
+        "position": 36,
+        "block": 6
+      },
+      {
+        "id": "initial-exam-DF-ISIC_1176432",
+        "imageId": "ISIC_1176432",
+        "categoryCode": "DF",
+        "novelty": "old",
+        "position": 1
+      },
+      {
+        "id": "initial-exam-AK-ISIC_0146067",
+        "imageId": "ISIC_0146067",
+        "categoryCode": "AK",
+        "novelty": "old",
+        "position": 2
+      },
+      {
+        "id": "initial-exam-BCC-ISIC_0368554",
+        "imageId": "ISIC_0368554",
+        "categoryCode": "BCC",
+        "novelty": "old",
+        "position": 3
+      },
+      {
+        "id": "initial-exam-DF-ISIC_0919412",
+        "imageId": "ISIC_0919412",
+        "categoryCode": "DF",
+        "novelty": "old",
+        "position": 4
+      },
+      {
+        "id": "initial-exam-MEL-ISIC_0184224",
+        "imageId": "ISIC_0184224",
+        "categoryCode": "MEL",
+        "novelty": "old",
+        "position": 5
+      },
+      {
+        "id": "initial-exam-DF-ISIC_0811703",
+        "imageId": "ISIC_0811703",
+        "categoryCode": "DF",
+        "novelty": "old",
+        "position": 6
+      },
+      {
+        "id": "initial-exam-VASC-ISIC_1996485",
+        "imageId": "ISIC_1996485",
+        "categoryCode": "VASC",
+        "novelty": "old",
+        "position": 7
+      },
+      {
+        "id": "initial-exam-NV-ISIC_0080219",
+        "imageId": "ISIC_0080219",
+        "categoryCode": "NV",
+        "novelty": "old",
+        "position": 8
+      },
+      {
+        "id": "initial-exam-BCC-ISIC_0195347",
+        "imageId": "ISIC_0195347",
+        "categoryCode": "BCC",
+        "novelty": "old",
+        "position": 9
+      },
+      {
+        "id": "initial-exam-MEL-ISIC_0156507",
+        "imageId": "ISIC_0156507",
+        "categoryCode": "MEL",
+        "novelty": "old",
+        "position": 10
+      },
+      {
+        "id": "initial-exam-NV-ISIC_0097262",
+        "imageId": "ISIC_0097262",
+        "categoryCode": "NV",
+        "novelty": "old",
+        "position": 11
+      },
+      {
+        "id": "initial-exam-MEL-ISIC_0204323",
+        "imageId": "ISIC_0204323",
+        "categoryCode": "MEL",
+        "novelty": "old",
+        "position": 12
+      },
+      {
+        "id": "initial-exam-AK-ISIC_0260732",
+        "imageId": "ISIC_0260732",
+        "categoryCode": "AK",
+        "novelty": "old",
+        "position": 13
+      },
+      {
+        "id": "initial-exam-BCC-ISIC_0365517",
+        "imageId": "ISIC_0365517",
+        "categoryCode": "BCC",
+        "novelty": "old",
+        "position": 14
+      },
+      {
+        "id": "initial-exam-NV-ISIC_0073863",
+        "imageId": "ISIC_0073863",
+        "categoryCode": "NV",
+        "novelty": "old",
+        "position": 15
+      },
+      {
+        "id": "initial-exam-VASC-ISIC_0552734",
+        "imageId": "ISIC_0552734",
+        "categoryCode": "VASC",
+        "novelty": "old",
+        "position": 16
+      },
+      {
+        "id": "initial-exam-AK-ISIC_0478016",
+        "imageId": "ISIC_0478016",
+        "categoryCode": "AK",
+        "novelty": "old",
+        "position": 17
+      },
+      {
+        "id": "initial-exam-VASC-ISIC_0686612",
+        "imageId": "ISIC_0686612",
+        "categoryCode": "VASC",
+        "novelty": "old",
+        "position": 18
+      },
+      {
+        "id": "ai-task-AK-ISIC_0723926",
+        "imageId": "ISIC_0723926",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 1,
+        "block": 1
+      },
+      {
+        "id": "ai-task-MEL-ISIC_0410802",
+        "imageId": "ISIC_0410802",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 2,
+        "block": 1
+      },
+      {
+        "id": "ai-task-VASC-ISIC_7134919",
+        "imageId": "ISIC_7134919",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 3,
+        "block": 1
+      },
+      {
+        "id": "ai-task-DF-ISIC_6558326",
+        "imageId": "ISIC_6558326",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 4,
+        "block": 1
+      },
+      {
+        "id": "ai-task-NV-ISIC_0356038",
+        "imageId": "ISIC_0356038",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 5,
+        "block": 1
+      },
+      {
+        "id": "ai-task-BCC-ISIC_1217127",
+        "imageId": "ISIC_1217127",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 6,
+        "block": 1
+      },
+      {
+        "id": "ai-task-AK-ISIC_1099402",
+        "imageId": "ISIC_1099402",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 7,
+        "block": 2
+      },
+      {
+        "id": "ai-task-BCC-ISIC_0913648",
+        "imageId": "ISIC_0913648",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 8,
+        "block": 2
+      },
+      {
+        "id": "ai-task-NV-ISIC_0179367",
+        "imageId": "ISIC_0179367",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 9,
+        "block": 2
+      },
+      {
+        "id": "ai-task-MEL-ISIC_0414164",
+        "imageId": "ISIC_0414164",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 10,
+        "block": 2
+      },
+      {
+        "id": "ai-task-VASC-ISIC_8190843",
+        "imageId": "ISIC_8190843",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 11,
+        "block": 2
+      },
+      {
+        "id": "ai-task-DF-ISIC_5844410",
+        "imageId": "ISIC_5844410",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 12,
+        "block": 2
+      },
+      {
+        "id": "ai-task-AK-ISIC_1115156",
+        "imageId": "ISIC_1115156",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 13,
+        "block": 3
+      },
+      {
+        "id": "ai-task-DF-ISIC_5813817",
+        "imageId": "ISIC_5813817",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 14,
+        "block": 3
+      },
+      {
+        "id": "ai-task-BCC-ISIC_1230479",
+        "imageId": "ISIC_1230479",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 15,
+        "block": 3
+      },
+      {
+        "id": "ai-task-NV-ISIC_0167803",
+        "imageId": "ISIC_0167803",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 16,
+        "block": 3
+      },
+      {
+        "id": "ai-task-VASC-ISIC_8462138",
+        "imageId": "ISIC_8462138",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 17,
+        "block": 3
+      },
+      {
+        "id": "ai-task-MEL-ISIC_0406149",
+        "imageId": "ISIC_0406149",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 18,
+        "block": 3
+      },
+      {
+        "id": "ai-task-AK-ISIC_1119486",
+        "imageId": "ISIC_1119486",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 19,
+        "block": 4
+      },
+      {
+        "id": "ai-task-BCC-ISIC_0382621",
+        "imageId": "ISIC_0382621",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 20,
+        "block": 4
+      },
+      {
+        "id": "ai-task-DF-ISIC_6312345",
+        "imageId": "ISIC_6312345",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 21,
+        "block": 4
+      },
+      {
+        "id": "ai-task-MEL-ISIC_0529633",
+        "imageId": "ISIC_0529633",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 22,
+        "block": 4
+      },
+      {
+        "id": "ai-task-VASC-ISIC_6192197",
+        "imageId": "ISIC_6192197",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 23,
+        "block": 4
+      },
+      {
+        "id": "ai-task-NV-ISIC_0216815",
+        "imageId": "ISIC_0216815",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 24,
+        "block": 4
+      },
+      {
+        "id": "ai-task-MEL-ISIC_1019384",
+        "imageId": "ISIC_1019384",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 25,
+        "block": 5
+      },
+      {
+        "id": "ai-task-NV-ISIC_0125513",
+        "imageId": "ISIC_0125513",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 26,
+        "block": 5
+      },
+      {
+        "id": "ai-task-VASC-ISIC_6141128",
+        "imageId": "ISIC_6141128",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 27,
+        "block": 5
+      },
+      {
+        "id": "ai-task-BCC-ISIC_0962183",
+        "imageId": "ISIC_0962183",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 28,
+        "block": 5
+      },
+      {
+        "id": "ai-task-DF-ISIC_6043617",
+        "imageId": "ISIC_6043617",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 29,
+        "block": 5
+      },
+      {
+        "id": "ai-task-AK-ISIC_1076265",
+        "imageId": "ISIC_1076265",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 30,
+        "block": 5
+      },
+      {
+        "id": "ai-task-BCC-ISIC_1186941",
+        "imageId": "ISIC_1186941",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 31,
+        "block": 6
+      },
+      {
+        "id": "ai-task-NV-ISIC_0174869",
+        "imageId": "ISIC_0174869",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 32,
+        "block": 6
+      },
+      {
+        "id": "ai-task-AK-ISIC_0970615",
+        "imageId": "ISIC_0970615",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 33,
+        "block": 6
+      },
+      {
+        "id": "ai-task-MEL-ISIC_1074795",
+        "imageId": "ISIC_1074795",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 34,
+        "block": 6
+      },
+      {
+        "id": "ai-task-VASC-ISIC_8020470",
+        "imageId": "ISIC_8020470",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 35,
+        "block": 6
+      },
+      {
+        "id": "ai-task-DF-ISIC_6943256",
+        "imageId": "ISIC_6943256",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 36,
+        "block": 6
+      },
+      {
+        "id": "final-exam-MEL-ISIC_0212251",
+        "imageId": "ISIC_0212251",
+        "categoryCode": "MEL",
+        "novelty": "old",
+        "position": 1
+      },
+      {
+        "id": "final-exam-AK-ISIC_0707479",
+        "imageId": "ISIC_0707479",
+        "categoryCode": "AK",
+        "novelty": "old",
+        "position": 2
+      },
+      {
+        "id": "final-exam-MEL-ISIC_0305865",
+        "imageId": "ISIC_0305865",
+        "categoryCode": "MEL",
+        "novelty": "old",
+        "position": 3
+      },
+      {
+        "id": "final-exam-VASC-ISIC_3849096",
+        "imageId": "ISIC_3849096",
+        "categoryCode": "VASC",
+        "novelty": "old",
+        "position": 4
+      },
+      {
+        "id": "final-exam-DF-ISIC_8705648",
+        "imageId": "ISIC_8705648",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 5
+      },
+      {
+        "id": "final-exam-VASC-ISIC_5409072",
+        "imageId": "ISIC_5409072",
+        "categoryCode": "VASC",
+        "novelty": "old",
+        "position": 6
+      },
+      {
+        "id": "final-exam-AK-ISIC_0496864",
+        "imageId": "ISIC_0496864",
+        "categoryCode": "AK",
+        "novelty": "old",
+        "position": 7
+      },
+      {
+        "id": "final-exam-DF-ISIC_4959784",
+        "imageId": "ISIC_4959784",
+        "categoryCode": "DF",
+        "novelty": "old",
+        "position": 8
+      },
+      {
+        "id": "final-exam-NV-ISIC_0115114",
+        "imageId": "ISIC_0115114",
+        "categoryCode": "NV",
+        "novelty": "old",
+        "position": 9
+      },
+      {
+        "id": "final-exam-AK-ISIC_2983004",
+        "imageId": "ISIC_2983004",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 10
+      },
+      {
+        "id": "final-exam-NV-ISIC_0106322",
+        "imageId": "ISIC_0106322",
+        "categoryCode": "NV",
+        "novelty": "old",
+        "position": 11
+      },
+      {
+        "id": "final-exam-DF-ISIC_1342857",
+        "imageId": "ISIC_1342857",
+        "categoryCode": "DF",
+        "novelty": "old",
+        "position": 12
+      },
+      {
+        "id": "final-exam-VASC-ISIC_8600102",
+        "imageId": "ISIC_8600102",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 13
+      },
+      {
+        "id": "final-exam-NV-ISIC_0769255",
+        "imageId": "ISIC_0769255",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 14
+      },
+      {
+        "id": "final-exam-AK-ISIC_3004699",
+        "imageId": "ISIC_3004699",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 15
+      },
+      {
+        "id": "final-exam-BCC-ISIC_2122841",
+        "imageId": "ISIC_2122841",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 16
+      },
+      {
+        "id": "final-exam-AK-ISIC_2977779",
+        "imageId": "ISIC_2977779",
+        "categoryCode": "AK",
+        "novelty": "new",
+        "position": 17
+      },
+      {
+        "id": "final-exam-MEL-ISIC_3642584",
+        "imageId": "ISIC_3642584",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 18
+      },
+      {
+        "id": "final-exam-NV-ISIC_1025100",
+        "imageId": "ISIC_1025100",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 19
+      },
+      {
+        "id": "final-exam-BCC-ISIC_0369681",
+        "imageId": "ISIC_0369681",
+        "categoryCode": "BCC",
+        "novelty": "old",
+        "position": 20
+      },
+      {
+        "id": "final-exam-DF-ISIC_4324758",
+        "imageId": "ISIC_4324758",
+        "categoryCode": "DF",
+        "novelty": "old",
+        "position": 21
+      },
+      {
+        "id": "final-exam-MEL-ISIC_1264034",
+        "imageId": "ISIC_1264034",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 22
+      },
+      {
+        "id": "final-exam-VASC-ISIC_5866736",
+        "imageId": "ISIC_5866736",
+        "categoryCode": "VASC",
+        "novelty": "old",
+        "position": 23
+      },
+      {
+        "id": "final-exam-NV-ISIC_0101767",
+        "imageId": "ISIC_0101767",
+        "categoryCode": "NV",
+        "novelty": "old",
+        "position": 24
+      },
+      {
+        "id": "final-exam-MEL-ISIC_1285798",
+        "imageId": "ISIC_1285798",
+        "categoryCode": "MEL",
+        "novelty": "new",
+        "position": 25
+      },
+      {
+        "id": "final-exam-BCC-ISIC_0381913",
+        "imageId": "ISIC_0381913",
+        "categoryCode": "BCC",
+        "novelty": "old",
+        "position": 26
+      },
+      {
+        "id": "final-exam-DF-ISIC_7009788",
+        "imageId": "ISIC_7009788",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 27
+      },
+      {
+        "id": "final-exam-BCC-ISIC_0377749",
+        "imageId": "ISIC_0377749",
+        "categoryCode": "BCC",
+        "novelty": "old",
+        "position": 28
+      },
+      {
+        "id": "final-exam-AK-ISIC_0605910",
+        "imageId": "ISIC_0605910",
+        "categoryCode": "AK",
+        "novelty": "old",
+        "position": 29
+      },
+      {
+        "id": "final-exam-VASC-ISIC_8614567",
+        "imageId": "ISIC_8614567",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 30
+      },
+      {
+        "id": "final-exam-BCC-ISIC_2231864",
+        "imageId": "ISIC_2231864",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 31
+      },
+      {
+        "id": "final-exam-DF-ISIC_7454975",
+        "imageId": "ISIC_7454975",
+        "categoryCode": "DF",
+        "novelty": "new",
+        "position": 32
+      },
+      {
+        "id": "final-exam-BCC-ISIC_2232926",
+        "imageId": "ISIC_2232926",
+        "categoryCode": "BCC",
+        "novelty": "new",
+        "position": 33
+      },
+      {
+        "id": "final-exam-MEL-ISIC_0320008",
+        "imageId": "ISIC_0320008",
+        "categoryCode": "MEL",
+        "novelty": "old",
+        "position": 34
+      },
+      {
+        "id": "final-exam-VASC-ISIC_8791057",
+        "imageId": "ISIC_8791057",
+        "categoryCode": "VASC",
+        "novelty": "new",
+        "position": 35
+      },
+      {
+        "id": "final-exam-NV-ISIC_1029957",
+        "imageId": "ISIC_1029957",
+        "categoryCode": "NV",
+        "novelty": "new",
+        "position": 36
+      }
+    ],
+    "_rt_schema_version": 2,
+    "_submitted_responses": [
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-DF-ISIC_1176432",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "피부섬유종",
+        "rt_ms": 32474.799999713898,
+        "submitted_at": "2026-11-24T04:05:41.092Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-AK-ISIC_0146067",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "광선각화증",
+        "rt_ms": 28916.800000190735,
+        "submitted_at": "2026-11-24T04:06:10.009Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-BCC-ISIC_0368554",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 10164,
+        "submitted_at": "2026-11-24T04:06:20.173Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-DF-ISIC_0919412",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 33981.5,
+        "submitted_at": "2026-11-24T04:06:54.155Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-MEL-ISIC_0184224",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "혈관 병변",
+        "rt_ms": 12205.699999809265,
+        "submitted_at": "2026-11-24T04:07:06.361Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-DF-ISIC_0811703",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 7059.599999904633,
+        "submitted_at": "2026-11-24T04:07:13.421Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-VASC-ISIC_1996485",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "혈관 병변",
+        "rt_ms": 17487.599999904633,
+        "submitted_at": "2026-11-24T04:07:30.909Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-NV-ISIC_0080219",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 6233.800000190735,
+        "submitted_at": "2026-11-24T04:07:37.143Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-BCC-ISIC_0195347",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "기저세포암",
+        "rt_ms": 32289.400000095367,
+        "submitted_at": "2026-11-24T04:08:09.433Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-MEL-ISIC_0156507",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 4263.699999809265,
+        "submitted_at": "2026-11-24T04:08:13.697Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-NV-ISIC_0097262",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 4415.300000190735,
+        "submitted_at": "2026-11-24T04:08:18.113Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-MEL-ISIC_0204323",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "혈관 병변",
+        "rt_ms": 8919.699999809265,
+        "submitted_at": "2026-11-24T04:08:27.033Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-AK-ISIC_0260732",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 18481.599999904633,
+        "submitted_at": "2026-11-24T04:08:45.515Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-BCC-ISIC_0365517",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "광선각화증",
+        "rt_ms": 8537.599999904633,
+        "submitted_at": "2026-11-24T04:08:54.053Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-NV-ISIC_0073863",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 4091.5999999046326,
+        "submitted_at": "2026-11-24T04:08:58.145Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-VASC-ISIC_0552734",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 4821.599999904633,
+        "submitted_at": "2026-11-24T04:09:02.967Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-AK-ISIC_0478016",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "기저세포암",
+        "rt_ms": 27043.699999809265,
+        "submitted_at": "2026-11-24T04:09:30.011Z"
+      },
+      {
+        "screen": "initial-exam",
+        "trial_id": "initial-exam-VASC-ISIC_0686612",
+        "phase": "initial",
+        "math_index": null,
+        "field": "written-answer",
+        "value": "흑색종",
+        "rt_ms": 4727,
+        "submitted_at": "2026-11-24T04:09:34.739Z"
+      },
+      {
+        "screen": "jol-ai-prediction",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "aiPrediction",
+        "value": 90,
+        "rt_ms": 15557.400000095367,
+        "submitted_at": "2026-11-24T04:09:56.563Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_0723926",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 14439.699999809265,
+        "submitted_at": "2026-11-24T04:10:42.133Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_0723926",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "광선각화증",
+        "rt_ms": 5067.099999904633,
+        "submitted_at": "2026-11-24T04:11:06.193Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0410802",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 4423.400000095367,
+        "submitted_at": "2026-11-24T04:11:10.617Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0410802",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 3467.5,
+        "submitted_at": "2026-11-24T04:11:21.625Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_7134919",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 6137.699999809265,
+        "submitted_at": "2026-11-24T04:11:27.763Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_7134919",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3499.199999809265,
+        "submitted_at": "2026-11-24T04:11:42.635Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6558326",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 10057.5,
+        "submitted_at": "2026-11-24T04:11:52.693Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6558326",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 4217.39999961853,
+        "submitted_at": "2026-11-24T04:12:05.719Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0356038",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 10956.900000095367,
+        "submitted_at": "2026-11-24T04:12:16.677Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0356038",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 8403.5,
+        "submitted_at": "2026-11-24T04:12:41.251Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_1217127",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 9385,
+        "submitted_at": "2026-11-24T04:12:50.637Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_1217127",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3513.4000000953674,
+        "submitted_at": "2026-11-24T04:13:10.647Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1099402",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "광선각화증",
+        "rt_ms": 8041.599999904633,
+        "submitted_at": "2026-11-24T04:13:18.689Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1099402",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "광선각화증",
+        "rt_ms": 3729.4000000953674,
+        "submitted_at": "2026-11-24T04:13:26.049Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_0913648",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 4314.900000095367,
+        "submitted_at": "2026-11-24T04:13:30.365Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_0913648",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3513.800000190735,
+        "submitted_at": "2026-11-24T04:13:37.313Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0179367",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 3647.2000002861023,
+        "submitted_at": "2026-11-24T04:13:40.961Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0179367",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 3691.3999996185303,
+        "submitted_at": "2026-11-24T04:13:53.655Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0414164",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "피부섬유종",
+        "rt_ms": 6231.099999904633,
+        "submitted_at": "2026-11-24T04:13:59.887Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0414164",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 3703.199999809265,
+        "submitted_at": "2026-11-24T04:14:09.877Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_8190843",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 9249.5,
+        "submitted_at": "2026-11-24T04:14:19.127Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_8190843",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3545.6000003814697,
+        "submitted_at": "2026-11-24T04:14:33.533Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_5844410",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 10518.5,
+        "submitted_at": "2026-11-24T04:14:44.053Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_5844410",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "피부섬유종",
+        "rt_ms": 3489.0999999046326,
+        "submitted_at": "2026-11-24T04:15:06.195Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1115156",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "광선각화증",
+        "rt_ms": 3853.2000002861023,
+        "submitted_at": "2026-11-24T04:15:10.048Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1115156",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "광선각화증",
+        "rt_ms": 3473.5999999046326,
+        "submitted_at": "2026-11-24T04:15:17.015Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_5813817",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "피부섬유종",
+        "rt_ms": 4896.900000095367,
+        "submitted_at": "2026-11-24T04:15:21.913Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_5813817",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "피부섬유종",
+        "rt_ms": 3520.800000190735,
+        "submitted_at": "2026-11-24T04:15:29.237Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_1230479",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 4172.799999713898,
+        "submitted_at": "2026-11-24T04:15:33.411Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_1230479",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "광선각화증",
+        "rt_ms": 4781,
+        "submitted_at": "2026-11-24T04:15:50.147Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0167803",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 3838.5,
+        "submitted_at": "2026-11-24T04:15:53.987Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0167803",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3729.199999809265,
+        "submitted_at": "2026-11-24T04:16:01.899Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_8462138",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 3728.7999997138977,
+        "submitted_at": "2026-11-24T04:16:05.629Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_8462138",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3525.300000190735,
+        "submitted_at": "2026-11-24T04:16:12.978Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0406149",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 8983.700000286102,
+        "submitted_at": "2026-11-24T04:16:21.963Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0406149",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 7353.5,
+        "submitted_at": "2026-11-24T04:16:35.694Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1119486",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "광선각화증",
+        "rt_ms": 3486.5999999046326,
+        "submitted_at": "2026-11-24T04:16:39.183Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1119486",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "광선각화증",
+        "rt_ms": 3462.9000000953674,
+        "submitted_at": "2026-11-24T04:16:46.095Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_0382621",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 14454.199999809265,
+        "submitted_at": "2026-11-24T04:17:00.550Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_0382621",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3923,
+        "submitted_at": "2026-11-24T04:17:09.397Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6312345",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 7266.800000190735,
+        "submitted_at": "2026-11-24T04:17:16.665Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6312345",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3468.7000002861023,
+        "submitted_at": "2026-11-24T04:17:24.382Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0529633",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 3492.0999999046326,
+        "submitted_at": "2026-11-24T04:17:27.876Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_0529633",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 3431.3999996185303,
+        "submitted_at": "2026-11-24T04:17:34.750Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_6192197",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 8346.900000095367,
+        "submitted_at": "2026-11-24T04:17:43.099Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_6192197",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3657,
+        "submitted_at": "2026-11-24T04:17:50.661Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0216815",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 5130.400000095367,
+        "submitted_at": "2026-11-24T04:17:55.793Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0216815",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "피부섬유종",
+        "rt_ms": 9788.5,
+        "submitted_at": "2026-11-24T04:18:10.516Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_1019384",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "피부섬유종",
+        "rt_ms": 9396.599999904633,
+        "submitted_at": "2026-11-24T04:18:19.914Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_1019384",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3499.300000190735,
+        "submitted_at": "2026-11-24T04:18:40.073Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0125513",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 3630.5999999046326,
+        "submitted_at": "2026-11-24T04:18:43.704Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0125513",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 4093.0999999046326,
+        "submitted_at": "2026-11-24T04:18:51.910Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_6141128",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 4346.300000190735,
+        "submitted_at": "2026-11-24T04:18:56.259Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_6141128",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3464.9000000953674,
+        "submitted_at": "2026-11-24T04:19:03.482Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_0962183",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "광선각화증",
+        "rt_ms": 8550.199999809265,
+        "submitted_at": "2026-11-24T04:19:12.034Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_0962183",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3720.5,
+        "submitted_at": "2026-11-24T04:19:20.310Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6043617",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "피부섬유종",
+        "rt_ms": 3456.0999999046326,
+        "submitted_at": "2026-11-24T04:19:23.768Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6043617",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3710.5,
+        "submitted_at": "2026-11-24T04:19:32.714Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1076265",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 18716.5,
+        "submitted_at": "2026-11-24T04:19:51.432Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_1076265",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3734.5,
+        "submitted_at": "2026-11-24T04:20:01.044Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_1186941",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 6516.5,
+        "submitted_at": "2026-11-24T04:20:07.562Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-BCC-ISIC_1186941",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "기저세포암",
+        "rt_ms": 3464.5999999046326,
+        "submitted_at": "2026-11-24T04:20:18.028Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0174869",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 3456.9000000953674,
+        "submitted_at": "2026-11-24T04:20:21.486Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-NV-ISIC_0174869",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 4714.400000095367,
+        "submitted_at": "2026-11-24T04:20:36.694Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_0970615",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "광선각화증",
+        "rt_ms": 3465.1000003814697,
+        "submitted_at": "2026-11-24T04:20:40.162Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-AK-ISIC_0970615",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "광선각화증",
+        "rt_ms": 3656.199999809265,
+        "submitted_at": "2026-11-24T04:20:47.510Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_1074795",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "기저세포암",
+        "rt_ms": 10422.900000095367,
+        "submitted_at": "2026-11-24T04:20:57.936Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-MEL-ISIC_1074795",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "흑색종",
+        "rt_ms": 3448.7000002861023,
+        "submitted_at": "2026-11-24T04:21:07.233Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_8020470",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "혈관 병변",
+        "rt_ms": 3437.7999997138977,
+        "submitted_at": "2026-11-24T04:21:10.672Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-VASC-ISIC_8020470",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "혈관 병변",
+        "rt_ms": 3404.5999999046326,
+        "submitted_at": "2026-11-24T04:21:17.640Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6943256",
+        "phase": "initial",
+        "math_index": null,
+        "field": "initial",
+        "value": "흑색종",
+        "rt_ms": 5772,
+        "submitted_at": "2026-11-24T04:21:23.414Z"
+      },
+      {
+        "screen": "task",
+        "trial_id": "ai-task-DF-ISIC_6943256",
+        "phase": "final",
+        "math_index": null,
+        "field": "final",
+        "value": "피부섬유종",
+        "rt_ms": 4308.800000190735,
+        "submitted_at": "2026-11-24T04:21:35.350Z"
+      },
+      {
+        "screen": "jol-task",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "jol1",
+        "value": 90,
+        "rt_ms": 9458.200000286102,
+        "submitted_at": "2026-11-24T04:21:44.810Z"
+      },
+      {
+        "screen": "jol-no-ai",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "jol2",
+        "value": 50,
+        "rt_ms": 7341.900000095367,
+        "submitted_at": "2026-11-24T04:21:52.154Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 0,
+        "field": "math-answer",
+        "value": 16,
+        "rt_ms": 6141.400000095367,
+        "submitted_at": "2026-11-24T04:22:05.582Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 1,
+        "field": "math-answer",
+        "value": 81,
+        "rt_ms": 3079.4000000953674,
+        "submitted_at": "2026-11-24T04:22:08.664Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 2,
+        "field": "math-answer",
+        "value": 64,
+        "rt_ms": 5989.900000095367,
+        "submitted_at": "2026-11-24T04:22:14.656Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 3,
+        "field": "math-answer",
+        "value": 31,
+        "rt_ms": 4253.599999904633,
+        "submitted_at": "2026-11-24T04:22:18.912Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 4,
+        "field": "math-answer",
+        "value": 22,
+        "rt_ms": 4025.300000190735,
+        "submitted_at": "2026-11-24T04:22:22.940Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 5,
+        "field": "math-answer",
+        "value": 50,
+        "rt_ms": 3251.9000000953674,
+        "submitted_at": "2026-11-24T04:22:26.194Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 6,
+        "field": "math-answer",
+        "value": 95,
+        "rt_ms": 4507.599999904633,
+        "submitted_at": "2026-11-24T04:22:30.704Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 7,
+        "field": "math-answer",
+        "value": 69,
+        "rt_ms": 3929.7999997138977,
+        "submitted_at": "2026-11-24T04:22:34.636Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 8,
+        "field": "math-answer",
+        "value": 37,
+        "rt_ms": 6979.5,
+        "submitted_at": "2026-11-24T04:22:41.618Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 9,
+        "field": "math-answer",
+        "value": 95,
+        "rt_ms": 6039.39999961853,
+        "submitted_at": "2026-11-24T04:22:47.660Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 10,
+        "field": "math-answer",
+        "value": 52,
+        "rt_ms": 3983.800000190735,
+        "submitted_at": "2026-11-24T04:22:51.646Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 11,
+        "field": "math-answer",
+        "value": 84,
+        "rt_ms": 3971.699999809265,
+        "submitted_at": "2026-11-24T04:22:55.620Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 12,
+        "field": "math-answer",
+        "value": 98,
+        "rt_ms": 2945.0999999046326,
+        "submitted_at": "2026-11-24T04:22:58.567Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 13,
+        "field": "math-answer",
+        "value": 52,
+        "rt_ms": 4252.599999904633,
+        "submitted_at": "2026-11-24T04:23:02.822Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 14,
+        "field": "math-answer",
+        "value": 31,
+        "rt_ms": 3241.5999999046326,
+        "submitted_at": "2026-11-24T04:23:06.066Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 15,
+        "field": "math-answer",
+        "value": 98,
+        "rt_ms": 4909.5,
+        "submitted_at": "2026-11-24T04:23:10.978Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 16,
+        "field": "math-answer",
+        "value": 45,
+        "rt_ms": 3256,
+        "submitted_at": "2026-11-24T04:23:14.236Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 17,
+        "field": "math-answer",
+        "value": 60,
+        "rt_ms": 2787.5,
+        "submitted_at": "2026-11-24T04:23:17.026Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 18,
+        "field": "math-answer",
+        "value": 86,
+        "rt_ms": 3776.7000002861023,
+        "submitted_at": "2026-11-24T04:23:20.804Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 19,
+        "field": "math-answer",
+        "value": 45,
+        "rt_ms": 7953.400000095367,
+        "submitted_at": "2026-11-24T04:23:28.760Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 20,
+        "field": "math-answer",
+        "value": 98,
+        "rt_ms": 3475.7999997138977,
+        "submitted_at": "2026-11-24T04:23:32.238Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 21,
+        "field": "math-answer",
+        "value": 49,
+        "rt_ms": 2907.0999999046326,
+        "submitted_at": "2026-11-24T04:23:35.148Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 22,
+        "field": "math-answer",
+        "value": 68,
+        "rt_ms": 2872.8999996185303,
+        "submitted_at": "2026-11-24T04:23:38.024Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 23,
+        "field": "math-answer",
+        "value": 63,
+        "rt_ms": 3528.300000190735,
+        "submitted_at": "2026-11-24T04:23:41.554Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 24,
+        "field": "math-answer",
+        "value": 22,
+        "rt_ms": 2927.800000190735,
+        "submitted_at": "2026-11-24T04:23:44.484Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 25,
+        "field": "math-answer",
+        "value": 15,
+        "rt_ms": 3790.699999809265,
+        "submitted_at": "2026-11-24T04:23:48.278Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 26,
+        "field": "math-answer",
+        "value": 84,
+        "rt_ms": 4385.699999809265,
+        "submitted_at": "2026-11-24T04:23:52.666Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 27,
+        "field": "math-answer",
+        "value": 16,
+        "rt_ms": 5816.099999904633,
+        "submitted_at": "2026-11-24T04:23:58.484Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 28,
+        "field": "math-answer",
+        "value": 24,
+        "rt_ms": 3997.300000190735,
+        "submitted_at": "2026-11-24T04:24:02.484Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 29,
+        "field": "math-answer",
+        "value": 75,
+        "rt_ms": 5435,
+        "submitted_at": "2026-11-24T04:24:07.922Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 30,
+        "field": "math-answer",
+        "value": 80,
+        "rt_ms": 3699,
+        "submitted_at": "2026-11-24T04:24:11.624Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 31,
+        "field": "math-answer",
+        "value": 36,
+        "rt_ms": 4018.0999999046326,
+        "submitted_at": "2026-11-24T04:24:15.644Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 32,
+        "field": "math-answer",
+        "value": 15,
+        "rt_ms": 2656,
+        "submitted_at": "2026-11-24T04:24:18.302Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 33,
+        "field": "math-answer",
+        "value": 21,
+        "rt_ms": 3095,
+        "submitted_at": "2026-11-24T04:24:21.400Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 34,
+        "field": "math-answer",
+        "value": 42,
+        "rt_ms": 3259.300000190735,
+        "submitted_at": "2026-11-24T04:24:24.662Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 35,
+        "field": "math-answer",
+        "value": 76,
+        "rt_ms": 6706,
+        "submitted_at": "2026-11-24T04:24:31.371Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 36,
+        "field": "math-answer",
+        "value": 56,
+        "rt_ms": 3472.2999997138977,
+        "submitted_at": "2026-11-24T04:24:34.846Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 37,
+        "field": "math-answer",
+        "value": 72,
+        "rt_ms": 3623.5,
+        "submitted_at": "2026-11-24T04:24:38.472Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 38,
+        "field": "math-answer",
+        "value": 99,
+        "rt_ms": 3761.2999997138977,
+        "submitted_at": "2026-11-24T04:24:42.236Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 39,
+        "field": "math-answer",
+        "value": 84,
+        "rt_ms": 2867.300000190735,
+        "submitted_at": "2026-11-24T04:24:45.106Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 40,
+        "field": "math-answer",
+        "value": 53,
+        "rt_ms": 3606,
+        "submitted_at": "2026-11-24T04:24:48.714Z"
+      },
+      {
+        "screen": "math",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": 41,
+        "field": "math-answer",
+        "value": 62,
+        "rt_ms": 3921,
+        "submitted_at": "2026-11-24T04:24:52.638Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-MEL-ISIC_0212251",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 3667.4000000953674,
+        "submitted_at": "2026-11-24T04:25:08.450Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-AK-ISIC_0707479",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "광선각화증",
+        "rt_ms": 2521.800000190735,
+        "submitted_at": "2026-11-24T04:25:10.974Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-MEL-ISIC_0305865",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "피부섬유종",
+        "rt_ms": 8262.099999904633,
+        "submitted_at": "2026-11-24T04:25:19.238Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-VASC-ISIC_3849096",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "기저세포암",
+        "rt_ms": 15117.199999809265,
+        "submitted_at": "2026-11-24T04:25:34.358Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-DF-ISIC_8705648",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 3633.199999809265,
+        "submitted_at": "2026-11-24T04:25:37.994Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-VASC-ISIC_5409072",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "혈관 병변",
+        "rt_ms": 1643,
+        "submitted_at": "2026-11-24T04:25:39.640Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-AK-ISIC_0496864",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "기저세포암",
+        "rt_ms": 22570.300000190735,
+        "submitted_at": "2026-11-24T04:26:02.214Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-DF-ISIC_4959784",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "기저세포암",
+        "rt_ms": 6827.5,
+        "submitted_at": "2026-11-24T04:26:09.044Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-NV-ISIC_0115114",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 11869.599999904633,
+        "submitted_at": "2026-11-24T04:26:20.916Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-AK-ISIC_2983004",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "광선각화증",
+        "rt_ms": 2231,
+        "submitted_at": "2026-11-24T04:26:23.150Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-NV-ISIC_0106322",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 5869.199999809265,
+        "submitted_at": "2026-11-24T04:26:29.022Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-DF-ISIC_1342857",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "피부섬유종",
+        "rt_ms": 3640.3999996185303,
+        "submitted_at": "2026-11-24T04:26:32.666Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-VASC-ISIC_8600102",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "혈관 병변",
+        "rt_ms": 3640.7000002861023,
+        "submitted_at": "2026-11-24T04:26:36.309Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-NV-ISIC_0769255",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 5061.5,
+        "submitted_at": "2026-11-24T04:26:41.373Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-AK-ISIC_3004699",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "광선각화증",
+        "rt_ms": 3638.7999997138977,
+        "submitted_at": "2026-11-24T04:26:45.015Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-BCC-ISIC_2122841",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "피부섬유종",
+        "rt_ms": 8197.800000190735,
+        "submitted_at": "2026-11-24T04:26:53.216Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-AK-ISIC_2977779",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "광선각화증",
+        "rt_ms": 2001.0999999046326,
+        "submitted_at": "2026-11-24T04:26:55.220Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-MEL-ISIC_3642584",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 2985.9000000953674,
+        "submitted_at": "2026-11-24T04:26:58.208Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-NV-ISIC_1025100",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 3340.5999999046326,
+        "submitted_at": "2026-11-24T04:27:01.552Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-BCC-ISIC_0369681",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "혈관 병변",
+        "rt_ms": 8086.60000038147,
+        "submitted_at": "2026-11-24T04:27:09.641Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-DF-ISIC_4324758",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "광선각화증",
+        "rt_ms": 4587.199999809265,
+        "submitted_at": "2026-11-24T04:27:14.232Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-MEL-ISIC_1264034",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 6068.400000095367,
+        "submitted_at": "2026-11-24T04:27:20.304Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-VASC-ISIC_5866736",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "혈관 병변",
+        "rt_ms": 2076.699999809265,
+        "submitted_at": "2026-11-24T04:27:22.384Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-NV-ISIC_0101767",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 2772.2999997138977,
+        "submitted_at": "2026-11-24T04:27:25.160Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-MEL-ISIC_1285798",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 3952.9000000953674,
+        "submitted_at": "2026-11-24T04:27:29.116Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-BCC-ISIC_0381913",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "광선각화증",
+        "rt_ms": 4386.799999713898,
+        "submitted_at": "2026-11-24T04:27:33.506Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-DF-ISIC_7009788",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 8832.699999809265,
+        "submitted_at": "2026-11-24T04:27:42.342Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-BCC-ISIC_0377749",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "피부섬유종",
+        "rt_ms": 6697.900000095367,
+        "submitted_at": "2026-11-24T04:27:49.044Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-AK-ISIC_0605910",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "기저세포암",
+        "rt_ms": 2552.699999809265,
+        "submitted_at": "2026-11-24T04:27:51.600Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-VASC-ISIC_8614567",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "혈관 병변",
+        "rt_ms": 1566.2000002861023,
+        "submitted_at": "2026-11-24T04:27:53.169Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-BCC-ISIC_2231864",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "피부섬유종",
+        "rt_ms": 12824,
+        "submitted_at": "2026-11-24T04:28:05.996Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-DF-ISIC_7454975",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 7830.599999904633,
+        "submitted_at": "2026-11-24T04:28:13.830Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-BCC-ISIC_2232926",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "기저세포암",
+        "rt_ms": 2346.5999999046326,
+        "submitted_at": "2026-11-24T04:28:16.179Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-MEL-ISIC_0320008",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "흑색종",
+        "rt_ms": 2408.7999997138977,
+        "submitted_at": "2026-11-24T04:28:18.592Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-VASC-ISIC_8791057",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "혈관 병변",
+        "rt_ms": 1587.0999999046326,
+        "submitted_at": "2026-11-24T04:28:20.182Z"
+      },
+      {
+        "screen": "final-exam",
+        "trial_id": "final-exam-NV-ISIC_1029957",
+        "phase": "initial",
+        "math_index": null,
+        "field": "exam",
+        "value": "멜라닌세포성 모반",
+        "rt_ms": 3236.300000190735,
+        "submitted_at": "2026-11-24T04:28:23.422Z"
+      },
+      {
+        "screen": "step-ps-1",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "pk1",
+        "value": 1,
+        "rt_ms": 2650.8999996185303,
+        "submitted_at": "2026-11-24T04:28:31.277Z"
+      },
+      {
+        "screen": "step-ps-2",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "pk2",
+        "value": 5,
+        "rt_ms": 10874.599999904633,
+        "submitted_at": "2026-11-24T04:28:42.156Z"
+      },
+      {
+        "screen": "step-ai-survey",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_k1",
+        "value": "틀리다",
+        "rt_ms": 8239.700000286102,
+        "submitted_at": "2026-11-24T04:28:50.398Z"
+      },
+      {
+        "screen": "step-ai-survey",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_k2",
+        "value": "틀리다",
+        "rt_ms": 3253.5999999046326,
+        "submitted_at": "2026-11-24T04:28:53.654Z"
+      },
+      {
+        "screen": "step-ai-survey",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_k3",
+        "value": "맞다",
+        "rt_ms": 3562.6000003814697,
+        "submitted_at": "2026-11-24T04:28:57.219Z"
+      },
+      {
+        "screen": "step-ai-survey",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_k4",
+        "value": "맞다",
+        "rt_ms": 2269.5999999046326,
+        "submitted_at": "2026-11-24T04:28:59.491Z"
+      },
+      {
+        "screen": "step-ai-survey",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_k5",
+        "value": "맞다",
+        "rt_ms": 2333.699999809265,
+        "submitted_at": "2026-11-24T04:29:01.826Z"
+      },
+      {
+        "screen": "step-ai-survey",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_k6",
+        "value": "맞다",
+        "rt_ms": 5463.10000038147,
+        "submitted_at": "2026-11-24T04:29:06.554Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a1",
+        "value": 3,
+        "rt_ms": 4139.599999904633,
+        "submitted_at": "2026-11-24T04:29:11.897Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a2",
+        "value": 3,
+        "rt_ms": 3014,
+        "submitted_at": "2026-11-24T04:29:14.913Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a3",
+        "value": 3,
+        "rt_ms": 2685.199999809265,
+        "submitted_at": "2026-11-24T04:29:17.600Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a4",
+        "value": 3,
+        "rt_ms": 2705.800000190735,
+        "submitted_at": "2026-11-24T04:29:20.308Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a5",
+        "value": 2,
+        "rt_ms": 2483.3999996185303,
+        "submitted_at": "2026-11-24T04:29:22.794Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a6",
+        "value": 3,
+        "rt_ms": 2082,
+        "submitted_at": "2026-11-24T04:29:24.878Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a7",
+        "value": 3,
+        "rt_ms": 7025.300000190735,
+        "submitted_at": "2026-11-24T04:29:31.906Z"
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_a8",
+        "value": 3,
+        "rt_ms": 3612.300000190735,
+        "submitted_at": "2026-11-24T04:29:35.520Z"
+      },
+      {
+        "screen": "step-ai-error-belief",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_t1",
+        "value": "yes",
+        "rt_ms": 1833.8000001907349,
+        "submitted_at": "2026-11-24T04:29:38.476Z"
+      },
+      {
+        "screen": "step-ai-error-belief",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "ai_t2",
+        "value": 80,
+        "rt_ms": 6539.800000190735,
+        "submitted_at": "2026-11-24T04:29:45.018Z"
+      },
+      {
+        "screen": "step-ps-3",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "q6_age",
+        "value": 21,
+        "rt_ms": 10753.400000095367,
+        "submitted_at": "2026-11-24T04:29:55.774Z"
+      },
+      {
+        "screen": "step-ps-3",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "q6_gender",
+        "value": "female",
+        "rt_ms": 10755,
+        "submitted_at": "2026-11-24T04:29:55.776Z"
+      },
+      {
+        "screen": "step-ps-3",
+        "trial_id": null,
+        "phase": "initial",
+        "math_index": null,
+        "field": "q6_major",
+        "value": "정치외교학과",
+        "rt_ms": 10756.199999809265,
+        "submitted_at": "2026-11-24T04:29:55.777Z"
+      }
+    ],
+    "_jol_rt_ms": {
+      "aiPrediction": 15557.700000286102,
+      "jol1": 9459.900000095367,
+      "jol2": 7343.5
+    },
+    "_rt_definition": {
+      "unit": "ms",
+      "clock": "performance.now",
+      "response": "Time from current screen/item presentation to accepted response; only the final committed value is retained; progressive survey items start when revealed",
+      "submission": "Time from current presentation to valid submission; reload starts a new presentation segment"
+    },
+    "_instruction_check": null,
+    "_skipped_pages": [],
+    "_stimuli_pending": false,
+    "_learning_presentations": [],
+    "_initial_exam_answers": [
+      {
+        "trial_id": "initial-exam-DF-ISIC_1176432",
+        "correctCategory": "피부섬유종",
+        "chosen": "피부섬유종",
+        "correct": true,
+        "duration_ms": 32475,
+        "image_id": "ISIC_1176432",
+        "category_code": "DF",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-AK-ISIC_0146067",
+        "correctCategory": "광선각화증",
+        "chosen": "광선각화증",
+        "correct": true,
+        "duration_ms": 28916.900000095367,
+        "image_id": "ISIC_0146067",
+        "category_code": "AK",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-BCC-ISIC_0368554",
+        "correctCategory": "기저세포암",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 10164.200000286102,
+        "image_id": "ISIC_0368554",
+        "category_code": "BCC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-DF-ISIC_0919412",
+        "correctCategory": "피부섬유종",
+        "chosen": "멜라닌세포성 모반",
+        "correct": false,
+        "duration_ms": 33981.7000002861,
+        "image_id": "ISIC_0919412",
+        "category_code": "DF",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-MEL-ISIC_0184224",
+        "correctCategory": "흑색종",
+        "chosen": "혈관 병변",
+        "correct": false,
+        "duration_ms": 12205.900000095367,
+        "image_id": "ISIC_0184224",
+        "category_code": "MEL",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-DF-ISIC_0811703",
+        "correctCategory": "피부섬유종",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 7059.800000190735,
+        "image_id": "ISIC_0811703",
+        "category_code": "DF",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-VASC-ISIC_1996485",
+        "correctCategory": "혈관 병변",
+        "chosen": "혈관 병변",
+        "correct": true,
+        "duration_ms": 17487.800000190735,
+        "image_id": "ISIC_1996485",
+        "category_code": "VASC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-NV-ISIC_0080219",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 6234,
+        "image_id": "ISIC_0080219",
+        "category_code": "NV",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-BCC-ISIC_0195347",
+        "correctCategory": "기저세포암",
+        "chosen": "기저세포암",
+        "correct": true,
+        "duration_ms": 32289.700000286102,
+        "image_id": "ISIC_0195347",
+        "category_code": "BCC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-MEL-ISIC_0156507",
+        "correctCategory": "흑색종",
+        "chosen": "흑색종",
+        "correct": true,
+        "duration_ms": 4264,
+        "image_id": "ISIC_0156507",
+        "category_code": "MEL",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-NV-ISIC_0097262",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 4415.599999904633,
+        "image_id": "ISIC_0097262",
+        "category_code": "NV",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-MEL-ISIC_0204323",
+        "correctCategory": "흑색종",
+        "chosen": "혈관 병변",
+        "correct": false,
+        "duration_ms": 8919.89999961853,
+        "image_id": "ISIC_0204323",
+        "category_code": "MEL",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-AK-ISIC_0260732",
+        "correctCategory": "광선각화증",
+        "chosen": "멜라닌세포성 모반",
+        "correct": false,
+        "duration_ms": 18481.900000095367,
+        "image_id": "ISIC_0260732",
+        "category_code": "AK",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-BCC-ISIC_0365517",
+        "correctCategory": "기저세포암",
+        "chosen": "광선각화증",
+        "correct": false,
+        "duration_ms": 8538,
+        "image_id": "ISIC_0365517",
+        "category_code": "BCC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-NV-ISIC_0073863",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 4091.9000000953674,
+        "image_id": "ISIC_0073863",
+        "category_code": "NV",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-VASC-ISIC_0552734",
+        "correctCategory": "혈관 병변",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 4821.900000095367,
+        "image_id": "ISIC_0552734",
+        "category_code": "VASC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-AK-ISIC_0478016",
+        "correctCategory": "광선각화증",
+        "chosen": "기저세포암",
+        "correct": false,
+        "duration_ms": 27044.099999904633,
+        "image_id": "ISIC_0478016",
+        "category_code": "AK",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "initial-exam-VASC-ISIC_0686612",
+        "correctCategory": "혈관 병변",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 4727.400000095367,
+        "image_id": "ISIC_0686612",
+        "category_code": "VASC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      }
+    ],
+    "_initial_exam_score": {
+      "correct": 5,
+      "answered": 18,
+      "total": 18,
+      "accuracy_answered": 0.2777777777777778
+    },
+    "_jol": {
+      "ai_exam_prediction": 90,
+      "after_ai_task": {
+        "jol1": 90,
+        "jol2": 50
+      }
+    },
+    "jol1": 90,
+    "jol2": 50,
+    "_task_answers": [
+      {
+        "trial_id": "ai-task-AK-ISIC_0723926",
+        "correctCategory": "광선각화증",
+        "aiCategory": "광선각화증",
+        "aiReason": "붉은 바탕 위에 흰 각질이 넓게 붙어 있습니다. 색소성 종양보다는 햇빛 손상 피부에서 보이는 각화성 병변 양상입니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 14440.199999809265,
+          "ai_ms": 18991.099999904633,
+          "final_ms": 5067.5
+        },
+        "initial": "멜라닌세포성 모반",
+        "final": "광선각화증",
+        "image_id": "ISIC_0723926",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-MEL-ISIC_0410802",
+        "correctCategory": "흑색종",
+        "aiCategory": "흑색종",
+        "aiReason": "병변의 좌우 색조와 구조가 뚜렷하게 다르고, 갈색과 붉은색이 불규칙하게 섞여 있습니다. 가장자리도 고르지 않아 흑색종을 의심했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 4423.800000190735,
+          "ai_ms": 7539.5,
+          "final_ms": 3468
+        },
+        "initial": "흑색종",
+        "final": "흑색종",
+        "image_id": "ISIC_0410802",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-VASC-ISIC_7134919",
+        "correctCategory": "혈관 병변",
+        "aiCategory": "혈관 병변",
+        "aiReason": "병변 전체가 진한 보라색이며, 내부에 혈관성 덩어리들이 모여 있는 형태입니다. 색소 병변보다 혈관성 병변의 색과 구조가 우세합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 6138.199999809265,
+          "ai_ms": 11371,
+          "final_ms": 3499.5999999046326
+        },
+        "initial": "혈관 병변",
+        "final": "혈관 병변",
+        "image_id": "ISIC_7134919",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-DF-ISIC_6558326",
+        "correctCategory": "피부섬유종",
+        "aiCategory": "기저세포암",
+        "aiReason": "한쪽에 진한 갈색 색소가 뭉쳐 있고 주변은 옅은 분홍색 반흔성 바탕입니다. 색소성 기저세포암에서 보이는 비대칭적 색소 덩어리와 반투명 구조로 판단했습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 10058,
+          "ai_ms": 8807.099999904633,
+          "final_ms": 4218.099999904633
+        },
+        "initial": "흑색종",
+        "final": "기저세포암",
+        "image_id": "ISIC_6558326",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-NV-ISIC_0356038",
+        "correctCategory": "멜라닌세포성 모반",
+        "aiCategory": "광선각화증",
+        "aiReason": "연갈색과 분홍색이 넓게 섞여 있고, 표면에 미세한 각질성 변화가 보입니다. 색소성 종양보다는 햇빛 손상에 따른 표재성 각화 병변으로 보았습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 10957.599999904633,
+          "ai_ms": 16169.099999904633,
+          "final_ms": 8404.200000286102
+        },
+        "initial": "기저세포암",
+        "final": "기저세포암",
+        "image_id": "ISIC_0356038",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": false,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-BCC-ISIC_1217127",
+        "correctCategory": "기저세포암",
+        "aiCategory": "기저세포암",
+        "aiReason": "작고 붉은 중심부와 주변의 반투명한 분홍색 영역이 보입니다. 중심 미란과 주변 진주빛 구조가 기저세포암을 시사합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 9385.5,
+          "ai_ms": 16495.299999713898,
+          "final_ms": 3513.7000002861023
+        },
+        "initial": "멜라닌세포성 모반",
+        "final": "기저세포암",
+        "image_id": "ISIC_1217127",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-AK-ISIC_1099402",
+        "correctCategory": "광선각화증",
+        "aiCategory": "광선각화증",
+        "aiReason": "붉은색과 주황색 바탕 위에 작은 출혈점과 각질이 보입니다. 햇빛 손상 피부의 염증성 각화 병변으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 8042.200000286102,
+          "ai_ms": 3629,
+          "final_ms": 3730.1000003814697
+        },
+        "initial": "광선각화증",
+        "final": "광선각화증",
+        "image_id": "ISIC_1099402",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-BCC-ISIC_0913648",
+        "correctCategory": "기저세포암",
+        "aiCategory": "기저세포암",
+        "aiReason": "넓은 흰색 구조와 분홍색 바탕, 가는 혈관이 함께 보입니다. 색소 병변보다는 얕게 퍼지는 기저세포암의 양상으로 보았습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 4315.700000286102,
+          "ai_ms": 3432.9000000953674,
+          "final_ms": 3514.5
+        },
+        "initial": "기저세포암",
+        "final": "기저세포암",
+        "image_id": "ISIC_0913648",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-NV-ISIC_0179367",
+        "correctCategory": "멜라닌세포성 모반",
+        "aiCategory": "흑색종",
+        "aiReason": "매우 진한 검은색 중심부와 불규칙한 가장자리 색소 돌기가 있습니다. 색조가 짙고 구조가 비대칭적이어서 흑색종 가능성이 높습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 3647.9000000953674,
+          "ai_ms": 9000.599999904633,
+          "final_ms": 3691.7999997138977
+        },
+        "initial": "혈관 병변",
+        "final": "흑색종",
+        "image_id": "ISIC_0179367",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-MEL-ISIC_0414164",
+        "correctCategory": "흑색종",
+        "aiCategory": "흑색종",
+        "aiReason": "갈색 색소 병변 내부에 분홍색, 회청색, 진갈색이 함께 보입니다. 다색성과 비대칭성이 강해 흑색종으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 6231.900000095367,
+          "ai_ms": 6285,
+          "final_ms": 3703.7999997138977
+        },
+        "initial": "피부섬유종",
+        "final": "흑색종",
+        "image_id": "ISIC_0414164",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-VASC-ISIC_8190843",
+        "correctCategory": "혈관 병변",
+        "aiCategory": "혈관 병변",
+        "aiReason": "둥근 결절 내부에 붉은색과 보라색의 혈관성 공간들이 여러 개 보입니다. 색소성 병변이 아니라 혈관이 증식하거나 확장된 병변으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 9250.199999809265,
+          "ai_ms": 10858.700000286102,
+          "final_ms": 3546.5
+        },
+        "initial": "멜라닌세포성 모반",
+        "final": "혈관 병변",
+        "image_id": "ISIC_8190843",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-DF-ISIC_5844410",
+        "correctCategory": "피부섬유종",
+        "aiCategory": "피부섬유종",
+        "aiReason": "중심부가 흰색 반흔처럼 보이고, 주변에 갈색 색소가 비교적 둥글게 둘러져 있습니다. 피부섬유종의 전형적인 중심 섬유화와 주변 색소 침착 양상입니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 10519.300000190735,
+          "ai_ms": 18650.599999904633,
+          "final_ms": 3489.5
+        },
+        "initial": "기저세포암",
+        "final": "피부섬유종",
+        "image_id": "ISIC_5844410",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-AK-ISIC_1115156",
+        "correctCategory": "광선각화증",
+        "aiCategory": "광선각화증",
+        "aiReason": "중심부에 두꺼운 흰 각질이 있고 주변 피부가 옅은 분홍색입니다. 거친 각질과 홍반성 배경이 광선각화증에 부합합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3853.9000000953674,
+          "ai_ms": 3490.5999999046326,
+          "final_ms": 3474.5999999046326
+        },
+        "initial": "광선각화증",
+        "final": "광선각화증",
+        "image_id": "ISIC_1115156",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-DF-ISIC_5813817",
+        "correctCategory": "피부섬유종",
+        "aiCategory": "피부섬유종",
+        "aiReason": "중심부에 흰색 반흔 모양 부위가 있고, 주변부에 옅은 갈색 색소가 둘러져 있습니다. 중심 흰색 섬유화와 주변 색소 침착의 조합이 피부섬유종에 잘 맞습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 4897.800000190735,
+          "ai_ms": 3800.5999999046326,
+          "final_ms": 3521.800000190735
+        },
+        "initial": "피부섬유종",
+        "final": "피부섬유종",
+        "image_id": "ISIC_5813817",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-BCC-ISIC_1230479",
+        "correctCategory": "기저세포암",
+        "aiCategory": "광선각화증",
+        "aiReason": "넓은 햇빛 손상 배경 위에 옅은 분홍색과 갈색이 섞인 얕은 병변입니다. 뚜렷한 종괴 없이 표면 변화가 중심이라 광선각화증으로 판단했습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 4173.599999904633,
+          "ai_ms": 11952.800000190735,
+          "final_ms": 4781.700000286102
+        },
+        "initial": "기저세포암",
+        "final": "광선각화증",
+        "image_id": "ISIC_1230479",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-NV-ISIC_0167803",
+        "correctCategory": "멜라닌세포성 모반",
+        "aiCategory": "흑색종",
+        "aiReason": "검은색이 넓게 차지하고 가장자리에 방사상으로 불규칙한 색소 돌기가 있습니다. 짙은 색조와 경계 불규칙성이 흑색종을 시사합니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 3839.5999999046326,
+          "ai_ms": 4180.5,
+          "final_ms": 3730.2999997138977
+        },
+        "initial": "혈관 병변",
+        "final": "혈관 병변",
+        "image_id": "ISIC_0167803",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": false,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-VASC-ISIC_8462138",
+        "correctCategory": "혈관 병변",
+        "aiCategory": "혈관 병변",
+        "aiReason": "작고 둥근 검붉은 결절이며 주변 색소 구조가 거의 없습니다. 혈액이 차 있는 병변의 색과 형태에 가깝습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3729.699999809265,
+          "ai_ms": 3822.4000000953674,
+          "final_ms": 3526.199999809265
+        },
+        "initial": "혈관 병변",
+        "final": "혈관 병변",
+        "image_id": "ISIC_8462138",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-MEL-ISIC_0406149",
+        "correctCategory": "흑색종",
+        "aiCategory": "흑색종",
+        "aiReason": "갈색 병변 안에 더 짙은 중심부와 불규칙한 색소 분포가 있습니다. 전체 윤곽과 내부 구조가 균일하지 않아 흑색종으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 8984.599999904633,
+          "ai_ms": 6375.5,
+          "final_ms": 7354.599999904633
+        },
+        "initial": "기저세포암",
+        "final": "흑색종",
+        "image_id": "ISIC_0406149",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-AK-ISIC_1119486",
+        "correctCategory": "광선각화증",
+        "aiCategory": "광선각화증",
+        "aiReason": "햇빛 손상으로 보이는 피부 위에 붉은 반점과 얕은 각질이 있습니다. 뚜렷한 종괴보다는 표재성 각화 병변으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3487.699999809265,
+          "ai_ms": 3446.4000000953674,
+          "final_ms": 3463.9000000953674
+        },
+        "initial": "광선각화증",
+        "final": "광선각화증",
+        "image_id": "ISIC_1119486",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-BCC-ISIC_0382621",
+        "correctCategory": "기저세포암",
+        "aiCategory": "기저세포암",
+        "aiReason": "중심부에 얕은 궤양과 출혈이 있고, 주변이 진주빛으로 살짝 융기되어 보입니다. 얼굴 피부의 작은 궤양성 병변이라는 점도 기저세포암에 부합합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 14455.400000095367,
+          "ai_ms": 4919.900000095367,
+          "final_ms": 3923.7999997138977
+        },
+        "initial": "혈관 병변",
+        "final": "기저세포암",
+        "image_id": "ISIC_0382621",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-DF-ISIC_6312345",
+        "correctCategory": "피부섬유종",
+        "aiCategory": "기저세포암",
+        "aiReason": "중심부에 흰색 반흔성 구조와 주변의 붉은 혈관 확장이 있습니다. 색소성 병변보다 기저세포암의 반흔성·혈관성 양상이 두드러집니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 7267.900000095367,
+          "ai_ms": 4246.5,
+          "final_ms": 3469.9000000953674
+        },
+        "initial": "기저세포암",
+        "final": "기저세포암",
+        "image_id": "ISIC_6312345",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-MEL-ISIC_0529633",
+        "correctCategory": "흑색종",
+        "aiCategory": "흑색종",
+        "aiReason": "넓은 갈색 바탕에 검은색 점상 색소가 불규칙하게 흩어져 있습니다. 색소 분포가 균일하지 않고 경계도 흐려 흑색종으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3493.199999809265,
+          "ai_ms": 3440.3999996185303,
+          "final_ms": 3432.2999997138977
+        },
+        "initial": "흑색종",
+        "final": "흑색종",
+        "image_id": "ISIC_0529633",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-VASC-ISIC_6192197",
+        "correctCategory": "혈관 병변",
+        "aiCategory": "혈관 병변",
+        "aiReason": "보라색과 자주색이 중심 색조이고, 내부가 혈액으로 채워진 듯한 덩어리 형태입니다. 색소망보다는 혈관성 공간이 우세합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 8348.10000038147,
+          "ai_ms": 3902.0999999046326,
+          "final_ms": 3658.0999999046326
+        },
+        "initial": "기저세포암",
+        "final": "혈관 병변",
+        "image_id": "ISIC_6192197",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-NV-ISIC_0216815",
+        "correctCategory": "멜라닌세포성 모반",
+        "aiCategory": "피부섬유종",
+        "aiReason": "중심부가 옅은 분홍색 또는 흰색으로 보이고, 주변에 갈색 고리 모양 색소가 있습니다. 중심부 섬유화와 주변부 색소 침착이 피부섬유종에 맞습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 5131.400000095367,
+          "ai_ms": 4932.5,
+          "final_ms": 9789.599999904633
+        },
+        "initial": "흑색종",
+        "final": "피부섬유종",
+        "image_id": "ISIC_0216815",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-MEL-ISIC_1019384",
+        "correctCategory": "흑색종",
+        "aiCategory": "기저세포암",
+        "aiReason": "갈색 색소가 불규칙하게 있으나 전체적으로 반투명한 바탕과 기저세포암에서 보이는 색소성 구조가 보입니다. 흑색종보다 색소성 기저세포암 양상으로 보았습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 9398,
+          "ai_ms": 16656.099999904633,
+          "final_ms": 3499.7000002861023
+        },
+        "initial": "피부섬유종",
+        "final": "기저세포암",
+        "image_id": "ISIC_1019384",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-NV-ISIC_0125513",
+        "correctCategory": "멜라닌세포성 모반",
+        "aiCategory": "흑색종",
+        "aiReason": "병변 내부에 매우 진한 갈색에서 검은색까지의 색조 차이가 있고, 모양과 색 분포가 비대칭적입니다. 경계도 고르지 않아 단순 모반보다는 흑색종을 우선 의심했습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 3631.7999997138977,
+          "ai_ms": 4110.300000190735,
+          "final_ms": 4094.4000000953674
+        },
+        "initial": "흑색종",
+        "final": "흑색종",
+        "image_id": "ISIC_0125513",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-VASC-ISIC_6141128",
+        "correctCategory": "혈관 병변",
+        "aiCategory": "혈관 병변",
+        "aiReason": "보라색과 검붉은색이 주된 색조이고, 융기된 결절 형태를 보입니다. 색소성 병변보다는 혈액이 고인 혈관성 구조에 가깝습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 4347.599999904633,
+          "ai_ms": 3755.9000000953674,
+          "final_ms": 3466.2000002861023
+        },
+        "initial": "혈관 병변",
+        "final": "혈관 병변",
+        "image_id": "ISIC_6141128",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-BCC-ISIC_0962183",
+        "correctCategory": "기저세포암",
+        "aiCategory": "기저세포암",
+        "aiReason": "분홍색 바탕에 굵고 구불구불한 혈관이 뚜렷합니다. 이러한 혈관 양상은 기저세포암에서 자주 관찰됩니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 8551.699999809265,
+          "ai_ms": 4552.199999809265,
+          "final_ms": 3721.9000000953674
+        },
+        "initial": "광선각화증",
+        "final": "기저세포암",
+        "image_id": "ISIC_0962183",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-DF-ISIC_6043617",
+        "correctCategory": "피부섬유종",
+        "aiCategory": "기저세포암",
+        "aiReason": "중심부가 흰색과 분홍색으로 반흔처럼 보이고, 주변에 붉은색과 갈색이 섞여 있습니다. 반투명하고 반흔성인 구조가 기저세포암 가능성을 높입니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 3457.5999999046326,
+          "ai_ms": 5232,
+          "final_ms": 3711.5999999046326
+        },
+        "initial": "피부섬유종",
+        "final": "기저세포암",
+        "image_id": "ISIC_6043617",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-AK-ISIC_1076265",
+        "correctCategory": "광선각화증",
+        "aiCategory": "기저세포암",
+        "aiReason": "분홍색 바탕에 작은 붉은 점상 구조와 옅은 반흔성 부위가 넓게 퍼져 있습니다. 비색소성 기저세포암에서 보일 수 있는 얕고 불규칙한 표재성 병변으로 보았습니다.",
+        "aiCorrect": false,
+        "phase_durations_ms": {
+          "initial_ms": 18718.800000190735,
+          "ai_ms": 5873.099999904633,
+          "final_ms": 3735.2000002861023
+        },
+        "initial": "기저세포암",
+        "final": "기저세포암",
+        "image_id": "ISIC_1076265",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": false,
+        "ai_correct": false,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-BCC-ISIC_1186941",
+        "correctCategory": "기저세포암",
+        "aiCategory": "기저세포암",
+        "aiReason": "붉고 융기된 결절성 병변이며 중심부에 미란 또는 출혈이 보입니다. 주변 피부의 햇빛 손상과 결절성 형태가 기저세포암을 시사합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 6518.400000095367,
+          "ai_ms": 6997.699999809265,
+          "final_ms": 3465.4000000953674
+        },
+        "initial": "혈관 병변",
+        "final": "기저세포암",
+        "image_id": "ISIC_1186941",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-NV-ISIC_0174869",
+        "correctCategory": "멜라닌세포성 모반",
+        "aiCategory": "멜라닌세포성 모반",
+        "aiReason": "두 개의 갈색 색소성 부위가 있으나 전체적으로 비교적 균일한 갈색 구조를 보입니다. 뚜렷한 궤양, 혈관성 결절, 심한 색조 다양성이 부족해 모반으로 판단했습니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3458.199999809265,
+          "ai_ms": 10490.099999904633,
+          "final_ms": 4716.5
+        },
+        "initial": "흑색종",
+        "final": "멜라닌세포성 모반",
+        "image_id": "ISIC_0174869",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-AK-ISIC_0970615",
+        "correctCategory": "광선각화증",
+        "aiCategory": "광선각화증",
+        "aiReason": "붉은 바탕 위에 흰 각질이 뭉쳐 있고 표면이 거칠어 보입니다. 색소성 종양보다 각질 형성이 두드러지는 전암성 병변 양상입니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3465.6000003814697,
+          "ai_ms": 3689.6000003814697,
+          "final_ms": 3658
+        },
+        "initial": "광선각화증",
+        "final": "광선각화증",
+        "image_id": "ISIC_0970615",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-MEL-ISIC_1074795",
+        "correctCategory": "흑색종",
+        "aiCategory": "흑색종",
+        "aiReason": "회청색, 갈색, 붉은색이 한 병변 안에 혼재하고 결절성 융기가 있습니다. 다색성, 비대칭성, 두꺼운 종괴 양상이 흑색종을 강하게 시사합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 10424.400000095367,
+          "ai_ms": 5844.199999809265,
+          "final_ms": 3450.2000002861023
+        },
+        "initial": "기저세포암",
+        "final": "흑색종",
+        "image_id": "ISIC_1074795",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      },
+      {
+        "trial_id": "ai-task-VASC-ISIC_8020470",
+        "correctCategory": "혈관 병변",
+        "aiCategory": "혈관 병변",
+        "aiReason": "병변이 보라색과 자주색으로 구성되어 있고, 내부가 혈액성 공간처럼 보입니다. 갈색 색소망보다 혈관성 색조가 우세합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 3439.7999997138977,
+          "ai_ms": 3558.8999996185303,
+          "final_ms": 3406.0999999046326
+        },
+        "initial": "혈관 병변",
+        "final": "혈관 병변",
+        "image_id": "ISIC_8020470",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": true,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": true,
+        "final_eq_ai": true,
+        "changed": false
+      },
+      {
+        "trial_id": "ai-task-DF-ISIC_6943256",
+        "correctCategory": "피부섬유종",
+        "aiCategory": "피부섬유종",
+        "aiReason": "둥근 갈색 병변의 중심부가 옅고 반흔처럼 보입니다. 주변부 갈색 침착과 중심부 흰색 섬유화가 피부섬유종에 부합합니다.",
+        "aiCorrect": true,
+        "phase_durations_ms": {
+          "initial_ms": 5773.400000095367,
+          "ai_ms": 7623.599999904633,
+          "final_ms": 4310.099999904633
+        },
+        "initial": "흑색종",
+        "final": "피부섬유종",
+        "image_id": "ISIC_6943256",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored",
+        "ai_mapping_source": "https://3000-iud3ncq7xzf5hotxtl119-82b888ba.sandbox.novita.ai/api/task-images",
+        "initial_correct": false,
+        "final_correct": true,
+        "ai_correct": true,
+        "ai_scoring_status": "scored",
+        "initial_eq_ai": false,
+        "final_eq_ai": true,
+        "changed": true
+      }
+    ],
+    "_math": {
+      "answers": [
+        {
+          "q": "84-68",
+          "userAns": 16,
+          "correct": true,
+          "duration_ms": 6143.099999904633,
+          "submitted_at": "2026-11-24T04:22:05.584Z"
+        },
+        {
+          "q": "61+20",
+          "userAns": 81,
+          "correct": true,
+          "duration_ms": 3081,
+          "submitted_at": "2026-11-24T04:22:08.666Z"
+        },
+        {
+          "q": "90-26",
+          "userAns": 64,
+          "correct": true,
+          "duration_ms": 5991.599999904633,
+          "submitted_at": "2026-11-24T04:22:14.658Z"
+        },
+        {
+          "q": "70-39",
+          "userAns": 31,
+          "correct": true,
+          "duration_ms": 4255.5,
+          "submitted_at": "2026-11-24T04:22:18.914Z"
+        },
+        {
+          "q": "89-67",
+          "userAns": 22,
+          "correct": true,
+          "duration_ms": 4026.9000000953674,
+          "submitted_at": "2026-11-24T04:22:22.942Z"
+        },
+        {
+          "q": "77-27",
+          "userAns": 50,
+          "correct": true,
+          "duration_ms": 3253.6000003814697,
+          "submitted_at": "2026-11-24T04:22:26.196Z"
+        },
+        {
+          "q": "28+67",
+          "userAns": 95,
+          "correct": true,
+          "duration_ms": 4509.199999809265,
+          "submitted_at": "2026-11-24T04:22:30.706Z"
+        },
+        {
+          "q": "22+47",
+          "userAns": 69,
+          "correct": true,
+          "duration_ms": 3931.3999996185303,
+          "submitted_at": "2026-11-24T04:22:34.638Z"
+        },
+        {
+          "q": "84-47",
+          "userAns": 37,
+          "correct": true,
+          "duration_ms": 6981.299999713898,
+          "submitted_at": "2026-11-24T04:22:41.620Z"
+        },
+        {
+          "q": "35+60",
+          "userAns": 95,
+          "correct": true,
+          "duration_ms": 6041.099999904633,
+          "submitted_at": "2026-11-24T04:22:47.662Z"
+        },
+        {
+          "q": "37+15",
+          "userAns": 52,
+          "correct": true,
+          "duration_ms": 3985.300000190735,
+          "submitted_at": "2026-11-24T04:22:51.647Z"
+        },
+        {
+          "q": "65+19",
+          "userAns": 84,
+          "correct": true,
+          "duration_ms": 3973.0999999046326,
+          "submitted_at": "2026-11-24T04:22:55.621Z"
+        },
+        {
+          "q": "20+78",
+          "userAns": 98,
+          "correct": true,
+          "duration_ms": 2946.5999999046326,
+          "submitted_at": "2026-11-24T04:22:58.569Z"
+        },
+        {
+          "q": "67-15",
+          "userAns": 52,
+          "correct": true,
+          "duration_ms": 4254.599999904633,
+          "submitted_at": "2026-11-24T04:23:02.824Z"
+        },
+        {
+          "q": "19+12",
+          "userAns": 31,
+          "correct": true,
+          "duration_ms": 3243.199999809265,
+          "submitted_at": "2026-11-24T04:23:06.068Z"
+        },
+        {
+          "q": "29+69",
+          "userAns": 98,
+          "correct": true,
+          "duration_ms": 4911.200000286102,
+          "submitted_at": "2026-11-24T04:23:10.979Z"
+        },
+        {
+          "q": "85-40",
+          "userAns": 45,
+          "correct": true,
+          "duration_ms": 3257.5999999046326,
+          "submitted_at": "2026-11-24T04:23:14.238Z"
+        },
+        {
+          "q": "29+31",
+          "userAns": 60,
+          "correct": true,
+          "duration_ms": 2788.300000190735,
+          "submitted_at": "2026-11-24T04:23:17.027Z"
+        },
+        {
+          "q": "56+30",
+          "userAns": 86,
+          "correct": true,
+          "duration_ms": 3778.7000002861023,
+          "submitted_at": "2026-11-24T04:23:20.806Z"
+        },
+        {
+          "q": "63-18",
+          "userAns": 45,
+          "correct": true,
+          "duration_ms": 7955,
+          "submitted_at": "2026-11-24T04:23:28.762Z"
+        },
+        {
+          "q": "51+47",
+          "userAns": 98,
+          "correct": true,
+          "duration_ms": 3477.699999809265,
+          "submitted_at": "2026-11-24T04:23:32.240Z"
+        },
+        {
+          "q": "24+25",
+          "userAns": 49,
+          "correct": true,
+          "duration_ms": 2908.8999996185303,
+          "submitted_at": "2026-11-24T04:23:35.150Z"
+        },
+        {
+          "q": "15+53",
+          "userAns": 68,
+          "correct": true,
+          "duration_ms": 2873.5999999046326,
+          "submitted_at": "2026-11-24T04:23:38.025Z"
+        },
+        {
+          "q": "47+16",
+          "userAns": 63,
+          "correct": true,
+          "duration_ms": 3530.1000003814697,
+          "submitted_at": "2026-11-24T04:23:41.555Z"
+        },
+        {
+          "q": "90-68",
+          "userAns": 22,
+          "correct": true,
+          "duration_ms": 2929.7000002861023,
+          "submitted_at": "2026-11-24T04:23:44.486Z"
+        },
+        {
+          "q": "41-26",
+          "userAns": 15,
+          "correct": true,
+          "duration_ms": 3792.0999999046326,
+          "submitted_at": "2026-11-24T04:23:48.279Z"
+        },
+        {
+          "q": "59+25",
+          "userAns": 84,
+          "correct": true,
+          "duration_ms": 4387.199999809265,
+          "submitted_at": "2026-11-24T04:23:52.667Z"
+        },
+        {
+          "q": "69-53",
+          "userAns": 16,
+          "correct": true,
+          "duration_ms": 5817.799999713898,
+          "submitted_at": "2026-11-24T04:23:58.486Z"
+        },
+        {
+          "q": "79-55",
+          "userAns": 24,
+          "correct": true,
+          "duration_ms": 3999.2000002861023,
+          "submitted_at": "2026-11-24T04:24:02.486Z"
+        },
+        {
+          "q": "94-19",
+          "userAns": 75,
+          "correct": true,
+          "duration_ms": 5436.900000095367,
+          "submitted_at": "2026-11-24T04:24:07.924Z"
+        },
+        {
+          "q": "37+43",
+          "userAns": 80,
+          "correct": true,
+          "duration_ms": 3699.8999996185303,
+          "submitted_at": "2026-11-24T04:24:11.625Z"
+        },
+        {
+          "q": "89-53",
+          "userAns": 36,
+          "correct": true,
+          "duration_ms": 4019.9000000953674,
+          "submitted_at": "2026-11-24T04:24:15.645Z"
+        },
+        {
+          "q": "29-14",
+          "userAns": 15,
+          "correct": true,
+          "duration_ms": 2658.0999999046326,
+          "submitted_at": "2026-11-24T04:24:18.304Z"
+        },
+        {
+          "q": "48-27",
+          "userAns": 21,
+          "correct": true,
+          "duration_ms": 3096.7999997138977,
+          "submitted_at": "2026-11-24T04:24:21.402Z"
+        },
+        {
+          "q": "26+16",
+          "userAns": 42,
+          "correct": true,
+          "duration_ms": 3261.300000190735,
+          "submitted_at": "2026-11-24T04:24:24.664Z"
+        },
+        {
+          "q": "18+58",
+          "userAns": 76,
+          "correct": true,
+          "duration_ms": 6707.599999904633,
+          "submitted_at": "2026-11-24T04:24:31.372Z"
+        },
+        {
+          "q": "34+22",
+          "userAns": 56,
+          "correct": true,
+          "duration_ms": 3474.0999999046326,
+          "submitted_at": "2026-11-24T04:24:34.848Z"
+        },
+        {
+          "q": "53+19",
+          "userAns": 72,
+          "correct": true,
+          "duration_ms": 3625.2999997138977,
+          "submitted_at": "2026-11-24T04:24:38.474Z"
+        },
+        {
+          "q": "78+21",
+          "userAns": 99,
+          "correct": true,
+          "duration_ms": 3763.0999999046326,
+          "submitted_at": "2026-11-24T04:24:42.238Z"
+        },
+        {
+          "q": "54+30",
+          "userAns": 84,
+          "correct": true,
+          "duration_ms": 2868.7000002861023,
+          "submitted_at": "2026-11-24T04:24:45.107Z"
+        },
+        {
+          "q": "21+32",
+          "userAns": 53,
+          "correct": true,
+          "duration_ms": 3608.2000002861023,
+          "submitted_at": "2026-11-24T04:24:48.716Z"
+        },
+        {
+          "q": "24+38",
+          "userAns": 62,
+          "correct": true,
+          "duration_ms": 3922.7999997138977,
+          "submitted_at": "2026-11-24T04:24:52.640Z"
+        }
+      ],
+      "score": 42,
+      "duration_ms": 180211,
+      "skipped": false
+    },
+    "_exam_answers": [
+      {
+        "trial_id": "final-exam-MEL-ISIC_0212251",
+        "correctCategory": "흑색종",
+        "chosen": "흑색종",
+        "correct": true,
+        "duration_ms": 3669,
+        "image_id": "ISIC_0212251",
+        "category_code": "MEL",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-AK-ISIC_0707479",
+        "correctCategory": "광선각화증",
+        "chosen": "광선각화증",
+        "correct": true,
+        "duration_ms": 2522.699999809265,
+        "image_id": "ISIC_0707479",
+        "category_code": "AK",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-MEL-ISIC_0305865",
+        "correctCategory": "흑색종",
+        "chosen": "피부섬유종",
+        "correct": false,
+        "duration_ms": 8264,
+        "image_id": "ISIC_0305865",
+        "category_code": "MEL",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-VASC-ISIC_3849096",
+        "correctCategory": "혈관 병변",
+        "chosen": "기저세포암",
+        "correct": false,
+        "duration_ms": 15119.199999809265,
+        "image_id": "ISIC_3849096",
+        "category_code": "VASC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-DF-ISIC_8705648",
+        "correctCategory": "피부섬유종",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 3635.2999997138977,
+        "image_id": "ISIC_8705648",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-VASC-ISIC_5409072",
+        "correctCategory": "혈관 병변",
+        "chosen": "혈관 병변",
+        "correct": true,
+        "duration_ms": 1645.3000001907349,
+        "image_id": "ISIC_5409072",
+        "category_code": "VASC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-AK-ISIC_0496864",
+        "correctCategory": "광선각화증",
+        "chosen": "기저세포암",
+        "correct": false,
+        "duration_ms": 22572.10000038147,
+        "image_id": "ISIC_0496864",
+        "category_code": "AK",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-DF-ISIC_4959784",
+        "correctCategory": "피부섬유종",
+        "chosen": "기저세포암",
+        "correct": false,
+        "duration_ms": 6829.300000190735,
+        "image_id": "ISIC_4959784",
+        "category_code": "DF",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-NV-ISIC_0115114",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 11871.700000286102,
+        "image_id": "ISIC_0115114",
+        "category_code": "NV",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-AK-ISIC_2983004",
+        "correctCategory": "광선각화증",
+        "chosen": "광선각화증",
+        "correct": true,
+        "duration_ms": 2233.0999999046326,
+        "image_id": "ISIC_2983004",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-NV-ISIC_0106322",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 5872,
+        "image_id": "ISIC_0106322",
+        "category_code": "NV",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-DF-ISIC_1342857",
+        "correctCategory": "피부섬유종",
+        "chosen": "피부섬유종",
+        "correct": true,
+        "duration_ms": 3642.5,
+        "image_id": "ISIC_1342857",
+        "category_code": "DF",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-VASC-ISIC_8600102",
+        "correctCategory": "혈관 병변",
+        "chosen": "혈관 병변",
+        "correct": true,
+        "duration_ms": 3642.300000190735,
+        "image_id": "ISIC_8600102",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-NV-ISIC_0769255",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 5063.900000095367,
+        "image_id": "ISIC_0769255",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-AK-ISIC_3004699",
+        "correctCategory": "광선각화증",
+        "chosen": "광선각화증",
+        "correct": true,
+        "duration_ms": 3640.5999999046326,
+        "image_id": "ISIC_3004699",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-BCC-ISIC_2122841",
+        "correctCategory": "기저세포암",
+        "chosen": "피부섬유종",
+        "correct": false,
+        "duration_ms": 8199.900000095367,
+        "image_id": "ISIC_2122841",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-AK-ISIC_2977779",
+        "correctCategory": "광선각화증",
+        "chosen": "광선각화증",
+        "correct": true,
+        "duration_ms": 2002.1999998092651,
+        "image_id": "ISIC_2977779",
+        "category_code": "AK",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-MEL-ISIC_3642584",
+        "correctCategory": "흑색종",
+        "chosen": "흑색종",
+        "correct": true,
+        "duration_ms": 2988.5999999046326,
+        "image_id": "ISIC_3642584",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-NV-ISIC_1025100",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 3342.800000190735,
+        "image_id": "ISIC_1025100",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-BCC-ISIC_0369681",
+        "correctCategory": "기저세포암",
+        "chosen": "혈관 병변",
+        "correct": false,
+        "duration_ms": 8088.900000095367,
+        "image_id": "ISIC_0369681",
+        "category_code": "BCC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-DF-ISIC_4324758",
+        "correctCategory": "피부섬유종",
+        "chosen": "광선각화증",
+        "correct": false,
+        "duration_ms": 4590,
+        "image_id": "ISIC_4324758",
+        "category_code": "DF",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-MEL-ISIC_1264034",
+        "correctCategory": "흑색종",
+        "chosen": "흑색종",
+        "correct": true,
+        "duration_ms": 6070.800000190735,
+        "image_id": "ISIC_1264034",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-VASC-ISIC_5866736",
+        "correctCategory": "혈관 병변",
+        "chosen": "혈관 병변",
+        "correct": true,
+        "duration_ms": 2078.9000000953674,
+        "image_id": "ISIC_5866736",
+        "category_code": "VASC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-NV-ISIC_0101767",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 2774.5999999046326,
+        "image_id": "ISIC_0101767",
+        "category_code": "NV",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-MEL-ISIC_1285798",
+        "correctCategory": "흑색종",
+        "chosen": "흑색종",
+        "correct": true,
+        "duration_ms": 3955.300000190735,
+        "image_id": "ISIC_1285798",
+        "category_code": "MEL",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-BCC-ISIC_0381913",
+        "correctCategory": "기저세포암",
+        "chosen": "광선각화증",
+        "correct": false,
+        "duration_ms": 4389.099999904633,
+        "image_id": "ISIC_0381913",
+        "category_code": "BCC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-DF-ISIC_7009788",
+        "correctCategory": "피부섬유종",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 8835.900000095367,
+        "image_id": "ISIC_7009788",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-BCC-ISIC_0377749",
+        "correctCategory": "기저세포암",
+        "chosen": "피부섬유종",
+        "correct": false,
+        "duration_ms": 6700.300000190735,
+        "image_id": "ISIC_0377749",
+        "category_code": "BCC",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-AK-ISIC_0605910",
+        "correctCategory": "광선각화증",
+        "chosen": "기저세포암",
+        "correct": false,
+        "duration_ms": 2555.199999809265,
+        "image_id": "ISIC_0605910",
+        "category_code": "AK",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-VASC-ISIC_8614567",
+        "correctCategory": "혈관 병변",
+        "chosen": "혈관 병변",
+        "correct": true,
+        "duration_ms": 1567.5,
+        "image_id": "ISIC_8614567",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-BCC-ISIC_2231864",
+        "correctCategory": "기저세포암",
+        "chosen": "피부섬유종",
+        "correct": false,
+        "duration_ms": 12826.5,
+        "image_id": "ISIC_2231864",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-DF-ISIC_7454975",
+        "correctCategory": "피부섬유종",
+        "chosen": "흑색종",
+        "correct": false,
+        "duration_ms": 7832.900000095367,
+        "image_id": "ISIC_7454975",
+        "category_code": "DF",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-BCC-ISIC_2232926",
+        "correctCategory": "기저세포암",
+        "chosen": "기저세포암",
+        "correct": true,
+        "duration_ms": 2348.8999996185303,
+        "image_id": "ISIC_2232926",
+        "category_code": "BCC",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-MEL-ISIC_0320008",
+        "correctCategory": "흑색종",
+        "chosen": "흑색종",
+        "correct": true,
+        "duration_ms": 2410.5999999046326,
+        "image_id": "ISIC_0320008",
+        "category_code": "MEL",
+        "novelty": "old",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-VASC-ISIC_8791057",
+        "correctCategory": "혈관 병변",
+        "chosen": "혈관 병변",
+        "correct": true,
+        "duration_ms": 1589.6999998092651,
+        "image_id": "ISIC_8791057",
+        "category_code": "VASC",
+        "novelty": "new",
+        "scoring_status": "scored"
+      },
+      {
+        "trial_id": "final-exam-NV-ISIC_1029957",
+        "correctCategory": "멜라닌세포성 모반",
+        "chosen": "멜라닌세포성 모반",
+        "correct": true,
+        "duration_ms": 3238.800000190735,
+        "image_id": "ISIC_1029957",
+        "category_code": "NV",
+        "novelty": "new",
+        "scoring_status": "scored"
+      }
+    ],
+    "_scoring": {
+      "initial_exam_score": {
+        "correct": 5,
+        "answered": 18,
+        "total": 18,
+        "accuracy_answered": 0.2777777777777778
+      },
+      "exam_score": {
+        "correct": 17,
+        "answered": 36,
+        "total": 36,
+        "accuracy_answered": 0.4722222222222222
+      },
+      "ai_k_correct": {
+        "ai_k1": true,
+        "ai_k2": true,
+        "ai_k3": true,
+        "ai_k4": false,
+        "ai_k5": true,
+        "ai_k6": false
+      },
+      "ai_k_score": {
+        "correct": 4,
+        "total": 6
+      },
+      "task": [
+        {
+          "trial_id": "ai-task-AK-ISIC_0723926",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-MEL-ISIC_0410802",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-VASC-ISIC_7134919",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-DF-ISIC_6558326",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-NV-ISIC_0356038",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": false,
+          "final_eq_ai": false
+        },
+        {
+          "trial_id": "ai-task-BCC-ISIC_1217127",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-AK-ISIC_1099402",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-BCC-ISIC_0913648",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-NV-ISIC_0179367",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-MEL-ISIC_0414164",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-VASC-ISIC_8190843",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-DF-ISIC_5844410",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-AK-ISIC_1115156",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-DF-ISIC_5813817",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-BCC-ISIC_1230479",
+          "initial_correct": true,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-NV-ISIC_0167803",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": false,
+          "final_eq_ai": false
+        },
+        {
+          "trial_id": "ai-task-VASC-ISIC_8462138",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-MEL-ISIC_0406149",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-AK-ISIC_1119486",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-BCC-ISIC_0382621",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-DF-ISIC_6312345",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-MEL-ISIC_0529633",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-VASC-ISIC_6192197",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-NV-ISIC_0216815",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-MEL-ISIC_1019384",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-NV-ISIC_0125513",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-VASC-ISIC_6141128",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-BCC-ISIC_0962183",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-DF-ISIC_6043617",
+          "initial_correct": true,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-AK-ISIC_1076265",
+          "initial_correct": false,
+          "final_correct": false,
+          "ai_correct": false,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-BCC-ISIC_1186941",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-NV-ISIC_0174869",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-AK-ISIC_0970615",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-MEL-ISIC_1074795",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-VASC-ISIC_8020470",
+          "initial_correct": true,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": false,
+          "initial_eq_ai": true,
+          "final_eq_ai": true
+        },
+        {
+          "trial_id": "ai-task-DF-ISIC_6943256",
+          "initial_correct": false,
+          "final_correct": true,
+          "ai_correct": true,
+          "ai_scoring_status": "scored",
+          "changed": true,
+          "initial_eq_ai": false,
+          "final_eq_ai": true
+        }
+      ],
+      "source": "browser_stimulus_manifest",
+      "version": 1,
+      "task_initial_score": {
+        "correct": 14,
+        "answered": 36,
+        "total": 36,
+        "accuracy_answered": 0.3888888888888889
+      },
+      "task_final_score": {
+        "correct": 25,
+        "answered": 36,
+        "total": 36,
+        "accuracy_answered": 0.6944444444444444
+      },
+      "ai_score": {
+        "correct": 25,
+        "answered": 36,
+        "total": 36,
+        "accuracy_answered": 0.6944444444444444
+      }
+    },
+    "_page_durations": [
+      {
+        "screen": "group",
+        "index": 0,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T01:33:22.548Z",
+        "duration_ms": 725723
+      },
+      {
+        "screen": "jol-initial-exam",
+        "index": 0,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T01:45:28.271Z",
+        "duration_ms": 1809
+      },
+      {
+        "screen": "initial-exam-intro",
+        "index": 0,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T01:45:30.081Z",
+        "duration_ms": 8378535
+      },
+      {
+        "screen": "initial-exam",
+        "index": 0,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:05:08.616Z",
+        "duration_ms": 32476
+      },
+      {
+        "screen": "initial-exam",
+        "index": 1,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:05:41.092Z",
+        "duration_ms": 28917
+      },
+      {
+        "screen": "initial-exam",
+        "index": 2,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:06:10.009Z",
+        "duration_ms": 10165
+      },
+      {
+        "screen": "initial-exam",
+        "index": 3,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:06:20.174Z",
+        "duration_ms": 33981
+      },
+      {
+        "screen": "initial-exam",
+        "index": 4,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:06:54.155Z",
+        "duration_ms": 12206
+      },
+      {
+        "screen": "initial-exam",
+        "index": 5,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:07:06.361Z",
+        "duration_ms": 7060
+      },
+      {
+        "screen": "initial-exam",
+        "index": 6,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:07:13.421Z",
+        "duration_ms": 17489
+      },
+      {
+        "screen": "initial-exam",
+        "index": 7,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:07:30.910Z",
+        "duration_ms": 6234
+      },
+      {
+        "screen": "initial-exam",
+        "index": 8,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:07:37.144Z",
+        "duration_ms": 32290
+      },
+      {
+        "screen": "initial-exam",
+        "index": 9,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:09.434Z",
+        "duration_ms": 4264
+      },
+      {
+        "screen": "initial-exam",
+        "index": 10,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:13.698Z",
+        "duration_ms": 4415
+      },
+      {
+        "screen": "initial-exam",
+        "index": 11,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:18.113Z",
+        "duration_ms": 8920
+      },
+      {
+        "screen": "initial-exam",
+        "index": 12,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:27.033Z",
+        "duration_ms": 18482
+      },
+      {
+        "screen": "initial-exam",
+        "index": 13,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:45.515Z",
+        "duration_ms": 8538
+      },
+      {
+        "screen": "initial-exam",
+        "index": 14,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:54.053Z",
+        "duration_ms": 4092
+      },
+      {
+        "screen": "initial-exam",
+        "index": 15,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:08:58.145Z",
+        "duration_ms": 4822
+      },
+      {
+        "screen": "initial-exam",
+        "index": 16,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:09:02.967Z",
+        "duration_ms": 27045
+      },
+      {
+        "screen": "initial-exam",
+        "index": 17,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:09:30.012Z",
+        "duration_ms": 4727
+      },
+      {
+        "screen": "initial-feedback",
+        "index": 18,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:09:34.739Z",
+        "duration_ms": 6266
+      },
+      {
+        "screen": "jol-ai-prediction",
+        "index": 18,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:09:41.005Z",
+        "duration_ms": 15559
+      },
+      {
+        "screen": "task-intro",
+        "index": 18,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:09:56.564Z",
+        "duration_ms": 23487
+      },
+      {
+        "screen": "task-notice",
+        "index": 18,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:10:20.051Z",
+        "duration_ms": 7642
+      },
+      {
+        "screen": "task",
+        "index": 0,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:10:27.693Z",
+        "duration_ms": 14441
+      },
+      {
+        "screen": "task",
+        "index": 0,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:10:42.134Z",
+        "duration_ms": 18991
+      },
+      {
+        "screen": "task",
+        "index": 0,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:01.125Z",
+        "duration_ms": 5068
+      },
+      {
+        "screen": "task",
+        "index": 1,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:06.193Z",
+        "duration_ms": 4424
+      },
+      {
+        "screen": "task",
+        "index": 1,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:10.617Z",
+        "duration_ms": 7540
+      },
+      {
+        "screen": "task",
+        "index": 1,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:18.157Z",
+        "duration_ms": 3468
+      },
+      {
+        "screen": "task",
+        "index": 2,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:21.625Z",
+        "duration_ms": 6139
+      },
+      {
+        "screen": "task",
+        "index": 2,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:27.764Z",
+        "duration_ms": 11371
+      },
+      {
+        "screen": "task",
+        "index": 2,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:39.135Z",
+        "duration_ms": 3500
+      },
+      {
+        "screen": "task",
+        "index": 3,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:42.635Z",
+        "duration_ms": 10058
+      },
+      {
+        "screen": "task",
+        "index": 3,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:11:52.693Z",
+        "duration_ms": 8808
+      },
+      {
+        "screen": "task",
+        "index": 3,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:12:01.501Z",
+        "duration_ms": 4219
+      },
+      {
+        "screen": "task",
+        "index": 4,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:12:05.720Z",
+        "duration_ms": 10957
+      },
+      {
+        "screen": "task",
+        "index": 4,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:12:16.677Z",
+        "duration_ms": 16170
+      },
+      {
+        "screen": "task",
+        "index": 4,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:12:32.847Z",
+        "duration_ms": 8404
+      },
+      {
+        "screen": "task",
+        "index": 5,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:12:41.251Z",
+        "duration_ms": 9386
+      },
+      {
+        "screen": "task",
+        "index": 5,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:12:50.637Z",
+        "duration_ms": 16496
+      },
+      {
+        "screen": "task",
+        "index": 5,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:07.133Z",
+        "duration_ms": 3514
+      },
+      {
+        "screen": "task",
+        "index": 6,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:10.647Z",
+        "duration_ms": 8042
+      },
+      {
+        "screen": "task",
+        "index": 6,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:18.689Z",
+        "duration_ms": 3630
+      },
+      {
+        "screen": "task",
+        "index": 6,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:22.319Z",
+        "duration_ms": 3730
+      },
+      {
+        "screen": "task",
+        "index": 7,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:26.049Z",
+        "duration_ms": 4316
+      },
+      {
+        "screen": "task",
+        "index": 7,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:30.365Z",
+        "duration_ms": 3434
+      },
+      {
+        "screen": "task",
+        "index": 7,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:33.799Z",
+        "duration_ms": 3515
+      },
+      {
+        "screen": "task",
+        "index": 8,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:37.314Z",
+        "duration_ms": 3648
+      },
+      {
+        "screen": "task",
+        "index": 8,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:40.962Z",
+        "duration_ms": 9001
+      },
+      {
+        "screen": "task",
+        "index": 8,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:49.963Z",
+        "duration_ms": 3692
+      },
+      {
+        "screen": "task",
+        "index": 9,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:53.655Z",
+        "duration_ms": 6232
+      },
+      {
+        "screen": "task",
+        "index": 9,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:13:59.887Z",
+        "duration_ms": 6286
+      },
+      {
+        "screen": "task",
+        "index": 9,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:14:06.173Z",
+        "duration_ms": 3704
+      },
+      {
+        "screen": "task",
+        "index": 10,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:14:09.877Z",
+        "duration_ms": 9251
+      },
+      {
+        "screen": "task",
+        "index": 10,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:14:19.128Z",
+        "duration_ms": 10859
+      },
+      {
+        "screen": "task",
+        "index": 10,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:14:29.987Z",
+        "duration_ms": 3547
+      },
+      {
+        "screen": "task",
+        "index": 11,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:14:33.534Z",
+        "duration_ms": 10519
+      },
+      {
+        "screen": "task",
+        "index": 11,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:14:44.053Z",
+        "duration_ms": 18652
+      },
+      {
+        "screen": "task",
+        "index": 11,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:02.705Z",
+        "duration_ms": 3490
+      },
+      {
+        "screen": "task",
+        "index": 12,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:06.195Z",
+        "duration_ms": 3854
+      },
+      {
+        "screen": "task",
+        "index": 12,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:10.049Z",
+        "duration_ms": 3491
+      },
+      {
+        "screen": "task",
+        "index": 12,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:13.540Z",
+        "duration_ms": 3476
+      },
+      {
+        "screen": "task",
+        "index": 13,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:17.016Z",
+        "duration_ms": 4898
+      },
+      {
+        "screen": "task",
+        "index": 13,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:21.914Z",
+        "duration_ms": 3801
+      },
+      {
+        "screen": "task",
+        "index": 13,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:25.715Z",
+        "duration_ms": 3523
+      },
+      {
+        "screen": "task",
+        "index": 14,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:29.238Z",
+        "duration_ms": 4174
+      },
+      {
+        "screen": "task",
+        "index": 14,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:33.412Z",
+        "duration_ms": 11953
+      },
+      {
+        "screen": "task",
+        "index": 14,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:45.365Z",
+        "duration_ms": 4782
+      },
+      {
+        "screen": "task",
+        "index": 15,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:50.147Z",
+        "duration_ms": 3841
+      },
+      {
+        "screen": "task",
+        "index": 15,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:53.988Z",
+        "duration_ms": 4181
+      },
+      {
+        "screen": "task",
+        "index": 15,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:15:58.169Z",
+        "duration_ms": 3731
+      },
+      {
+        "screen": "task",
+        "index": 16,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:01.900Z",
+        "duration_ms": 3730
+      },
+      {
+        "screen": "task",
+        "index": 16,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:05.630Z",
+        "duration_ms": 3823
+      },
+      {
+        "screen": "task",
+        "index": 16,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:09.453Z",
+        "duration_ms": 3526
+      },
+      {
+        "screen": "task",
+        "index": 17,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:12.979Z",
+        "duration_ms": 8985
+      },
+      {
+        "screen": "task",
+        "index": 17,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:21.964Z",
+        "duration_ms": 6376
+      },
+      {
+        "screen": "task",
+        "index": 17,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:28.340Z",
+        "duration_ms": 7356
+      },
+      {
+        "screen": "task",
+        "index": 18,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:35.696Z",
+        "duration_ms": 3488
+      },
+      {
+        "screen": "task",
+        "index": 18,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:39.184Z",
+        "duration_ms": 3447
+      },
+      {
+        "screen": "task",
+        "index": 18,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:42.631Z",
+        "duration_ms": 3465
+      },
+      {
+        "screen": "task",
+        "index": 19,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:16:46.096Z",
+        "duration_ms": 14456
+      },
+      {
+        "screen": "task",
+        "index": 19,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:00.552Z",
+        "duration_ms": 4920
+      },
+      {
+        "screen": "task",
+        "index": 19,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:05.472Z",
+        "duration_ms": 3925
+      },
+      {
+        "screen": "task",
+        "index": 20,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:09.397Z",
+        "duration_ms": 7269
+      },
+      {
+        "screen": "task",
+        "index": 20,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:16.666Z",
+        "duration_ms": 4247
+      },
+      {
+        "screen": "task",
+        "index": 20,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:20.913Z",
+        "duration_ms": 3471
+      },
+      {
+        "screen": "task",
+        "index": 21,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:24.384Z",
+        "duration_ms": 3493
+      },
+      {
+        "screen": "task",
+        "index": 21,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:27.877Z",
+        "duration_ms": 3441
+      },
+      {
+        "screen": "task",
+        "index": 21,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:31.318Z",
+        "duration_ms": 3433
+      },
+      {
+        "screen": "task",
+        "index": 22,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:34.751Z",
+        "duration_ms": 8349
+      },
+      {
+        "screen": "task",
+        "index": 22,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:43.100Z",
+        "duration_ms": 3902
+      },
+      {
+        "screen": "task",
+        "index": 22,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:47.002Z",
+        "duration_ms": 3660
+      },
+      {
+        "screen": "task",
+        "index": 23,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:50.662Z",
+        "duration_ms": 5132
+      },
+      {
+        "screen": "task",
+        "index": 23,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:17:55.794Z",
+        "duration_ms": 4932
+      },
+      {
+        "screen": "task",
+        "index": 23,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:00.726Z",
+        "duration_ms": 9791
+      },
+      {
+        "screen": "task",
+        "index": 24,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:10.517Z",
+        "duration_ms": 9399
+      },
+      {
+        "screen": "task",
+        "index": 24,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:19.916Z",
+        "duration_ms": 16656
+      },
+      {
+        "screen": "task",
+        "index": 24,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:36.572Z",
+        "duration_ms": 3501
+      },
+      {
+        "screen": "task",
+        "index": 25,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:40.073Z",
+        "duration_ms": 3632
+      },
+      {
+        "screen": "task",
+        "index": 25,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:43.705Z",
+        "duration_ms": 4111
+      },
+      {
+        "screen": "task",
+        "index": 25,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:47.816Z",
+        "duration_ms": 4096
+      },
+      {
+        "screen": "task",
+        "index": 26,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:51.912Z",
+        "duration_ms": 4348
+      },
+      {
+        "screen": "task",
+        "index": 26,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:18:56.260Z",
+        "duration_ms": 3756
+      },
+      {
+        "screen": "task",
+        "index": 26,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:00.016Z",
+        "duration_ms": 3468
+      },
+      {
+        "screen": "task",
+        "index": 27,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:03.484Z",
+        "duration_ms": 8552
+      },
+      {
+        "screen": "task",
+        "index": 27,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:12.036Z",
+        "duration_ms": 4552
+      },
+      {
+        "screen": "task",
+        "index": 27,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:16.588Z",
+        "duration_ms": 3724
+      },
+      {
+        "screen": "task",
+        "index": 28,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:20.312Z",
+        "duration_ms": 3458
+      },
+      {
+        "screen": "task",
+        "index": 28,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:23.770Z",
+        "duration_ms": 5232
+      },
+      {
+        "screen": "task",
+        "index": 28,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:29.002Z",
+        "duration_ms": 3713
+      },
+      {
+        "screen": "task",
+        "index": 29,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:32.715Z",
+        "duration_ms": 18720
+      },
+      {
+        "screen": "task",
+        "index": 29,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:51.435Z",
+        "duration_ms": 5873
+      },
+      {
+        "screen": "task",
+        "index": 29,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:19:57.308Z",
+        "duration_ms": 3737
+      },
+      {
+        "screen": "task",
+        "index": 30,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:01.045Z",
+        "duration_ms": 6519
+      },
+      {
+        "screen": "task",
+        "index": 30,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:07.564Z",
+        "duration_ms": 6998
+      },
+      {
+        "screen": "task",
+        "index": 30,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:14.562Z",
+        "duration_ms": 3467
+      },
+      {
+        "screen": "task",
+        "index": 31,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:18.029Z",
+        "duration_ms": 3459
+      },
+      {
+        "screen": "task",
+        "index": 31,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:21.488Z",
+        "duration_ms": 10490
+      },
+      {
+        "screen": "task",
+        "index": 31,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:31.978Z",
+        "duration_ms": 4718
+      },
+      {
+        "screen": "task",
+        "index": 32,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:36.696Z",
+        "duration_ms": 3466
+      },
+      {
+        "screen": "task",
+        "index": 32,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:40.162Z",
+        "duration_ms": 3691
+      },
+      {
+        "screen": "task",
+        "index": 32,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:43.853Z",
+        "duration_ms": 3659
+      },
+      {
+        "screen": "task",
+        "index": 33,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:47.512Z",
+        "duration_ms": 10425
+      },
+      {
+        "screen": "task",
+        "index": 33,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:20:57.937Z",
+        "duration_ms": 5845
+      },
+      {
+        "screen": "task",
+        "index": 33,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:03.782Z",
+        "duration_ms": 3452
+      },
+      {
+        "screen": "task",
+        "index": 34,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:07.234Z",
+        "duration_ms": 3440
+      },
+      {
+        "screen": "task",
+        "index": 34,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:10.674Z",
+        "duration_ms": 3560
+      },
+      {
+        "screen": "task",
+        "index": 34,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:14.234Z",
+        "duration_ms": 3408
+      },
+      {
+        "screen": "task",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:17.642Z",
+        "duration_ms": 5774
+      },
+      {
+        "screen": "task",
+        "index": 35,
+        "phase": "ai",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:23.416Z",
+        "duration_ms": 7624
+      },
+      {
+        "screen": "task",
+        "index": 35,
+        "phase": "final",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:31.040Z",
+        "duration_ms": 4311
+      },
+      {
+        "screen": "jol-task",
+        "index": 36,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:35.351Z",
+        "duration_ms": 9461
+      },
+      {
+        "screen": "jol-no-ai",
+        "index": 36,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:44.812Z",
+        "duration_ms": 7344
+      },
+      {
+        "screen": "math-intro",
+        "index": 36,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:52.156Z",
+        "duration_ms": 7283
+      },
+      {
+        "screen": "math",
+        "index": 36,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:21:59.439Z",
+        "duration_ms": 180211
+      },
+      {
+        "screen": "final-exam-intro",
+        "index": 36,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:24:59.650Z",
+        "duration_ms": 5130
+      },
+      {
+        "screen": "final-exam",
+        "index": 0,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:04.780Z",
+        "duration_ms": 3671
+      },
+      {
+        "screen": "final-exam",
+        "index": 1,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:08.451Z",
+        "duration_ms": 2524
+      },
+      {
+        "screen": "final-exam",
+        "index": 2,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:10.975Z",
+        "duration_ms": 8265
+      },
+      {
+        "screen": "final-exam",
+        "index": 3,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:19.240Z",
+        "duration_ms": 15120
+      },
+      {
+        "screen": "final-exam",
+        "index": 4,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:34.360Z",
+        "duration_ms": 3636
+      },
+      {
+        "screen": "final-exam",
+        "index": 5,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:37.996Z",
+        "duration_ms": 1646
+      },
+      {
+        "screen": "final-exam",
+        "index": 6,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:25:39.642Z",
+        "duration_ms": 22573
+      },
+      {
+        "screen": "final-exam",
+        "index": 7,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:02.215Z",
+        "duration_ms": 6831
+      },
+      {
+        "screen": "final-exam",
+        "index": 8,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:09.046Z",
+        "duration_ms": 11872
+      },
+      {
+        "screen": "final-exam",
+        "index": 9,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:20.918Z",
+        "duration_ms": 2234
+      },
+      {
+        "screen": "final-exam",
+        "index": 10,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:23.152Z",
+        "duration_ms": 5873
+      },
+      {
+        "screen": "final-exam",
+        "index": 11,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:29.025Z",
+        "duration_ms": 3643
+      },
+      {
+        "screen": "final-exam",
+        "index": 12,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:32.668Z",
+        "duration_ms": 3643
+      },
+      {
+        "screen": "final-exam",
+        "index": 13,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:36.311Z",
+        "duration_ms": 5065
+      },
+      {
+        "screen": "final-exam",
+        "index": 14,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:41.376Z",
+        "duration_ms": 3641
+      },
+      {
+        "screen": "final-exam",
+        "index": 15,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:45.017Z",
+        "duration_ms": 8201
+      },
+      {
+        "screen": "final-exam",
+        "index": 16,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:53.218Z",
+        "duration_ms": 2003
+      },
+      {
+        "screen": "final-exam",
+        "index": 17,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:55.221Z",
+        "duration_ms": 2989
+      },
+      {
+        "screen": "final-exam",
+        "index": 18,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:26:58.210Z",
+        "duration_ms": 3344
+      },
+      {
+        "screen": "final-exam",
+        "index": 19,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:01.554Z",
+        "duration_ms": 8090
+      },
+      {
+        "screen": "final-exam",
+        "index": 20,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:09.644Z",
+        "duration_ms": 4591
+      },
+      {
+        "screen": "final-exam",
+        "index": 21,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:14.235Z",
+        "duration_ms": 6071
+      },
+      {
+        "screen": "final-exam",
+        "index": 22,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:20.306Z",
+        "duration_ms": 2080
+      },
+      {
+        "screen": "final-exam",
+        "index": 23,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:22.386Z",
+        "duration_ms": 2776
+      },
+      {
+        "screen": "final-exam",
+        "index": 24,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:25.162Z",
+        "duration_ms": 3956
+      },
+      {
+        "screen": "final-exam",
+        "index": 25,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:29.118Z",
+        "duration_ms": 4390
+      },
+      {
+        "screen": "final-exam",
+        "index": 26,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:33.508Z",
+        "duration_ms": 8837
+      },
+      {
+        "screen": "final-exam",
+        "index": 27,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:42.345Z",
+        "duration_ms": 6701
+      },
+      {
+        "screen": "final-exam",
+        "index": 28,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:49.046Z",
+        "duration_ms": 2556
+      },
+      {
+        "screen": "final-exam",
+        "index": 29,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:51.602Z",
+        "duration_ms": 1569
+      },
+      {
+        "screen": "final-exam",
+        "index": 30,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:27:53.171Z",
+        "duration_ms": 12827
+      },
+      {
+        "screen": "final-exam",
+        "index": 31,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:05.998Z",
+        "duration_ms": 7834
+      },
+      {
+        "screen": "final-exam",
+        "index": 32,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:13.832Z",
+        "duration_ms": 2350
+      },
+      {
+        "screen": "final-exam",
+        "index": 33,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:16.182Z",
+        "duration_ms": 2412
+      },
+      {
+        "screen": "final-exam",
+        "index": 34,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:18.594Z",
+        "duration_ms": 1590
+      },
+      {
+        "screen": "final-exam",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:20.184Z",
+        "duration_ms": 3240
+      },
+      {
+        "screen": "step-ps-0",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:23.424Z",
+        "duration_ms": 5200
+      },
+      {
+        "screen": "step-ps-1",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:28.624Z",
+        "duration_ms": 2655
+      },
+      {
+        "screen": "step-ps-2",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:31.279Z",
+        "duration_ms": 10878
+      },
+      {
+        "screen": "step-ai-survey",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:28:42.157Z",
+        "duration_ms": 25599
+      },
+      {
+        "screen": "step-ai-survey-b",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:29:07.756Z",
+        "duration_ms": 28884
+      },
+      {
+        "screen": "step-ai-error-belief",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:29:36.640Z",
+        "duration_ms": 8379
+      },
+      {
+        "screen": "step-ps-3",
+        "index": 35,
+        "phase": "initial",
+        "round": 1,
+        "entered_at": "2026-11-24T04:29:45.019Z",
+        "duration_ms": 10760
+      }
+    ],
+    "_task_phase_durations": [
+      {
+        "initial_ms": 14440.199999809265,
+        "ai_ms": 18991.099999904633,
+        "final_ms": 5067.5
+      },
+      {
+        "initial_ms": 4423.800000190735,
+        "ai_ms": 7539.5,
+        "final_ms": 3468
+      },
+      {
+        "initial_ms": 6138.199999809265,
+        "ai_ms": 11371,
+        "final_ms": 3499.5999999046326
+      },
+      {
+        "initial_ms": 10058,
+        "ai_ms": 8807.099999904633,
+        "final_ms": 4218.099999904633
+      },
+      {
+        "initial_ms": 10957.599999904633,
+        "ai_ms": 16169.099999904633,
+        "final_ms": 8404.200000286102
+      },
+      {
+        "initial_ms": 9385.5,
+        "ai_ms": 16495.299999713898,
+        "final_ms": 3513.7000002861023
+      },
+      {
+        "initial_ms": 8042.200000286102,
+        "ai_ms": 3629,
+        "final_ms": 3730.1000003814697
+      },
+      {
+        "initial_ms": 4315.700000286102,
+        "ai_ms": 3432.9000000953674,
+        "final_ms": 3514.5
+      },
+      {
+        "initial_ms": 3647.9000000953674,
+        "ai_ms": 9000.599999904633,
+        "final_ms": 3691.7999997138977
+      },
+      {
+        "initial_ms": 6231.900000095367,
+        "ai_ms": 6285,
+        "final_ms": 3703.7999997138977
+      },
+      {
+        "initial_ms": 9250.199999809265,
+        "ai_ms": 10858.700000286102,
+        "final_ms": 3546.5
+      },
+      {
+        "initial_ms": 10519.300000190735,
+        "ai_ms": 18650.599999904633,
+        "final_ms": 3489.5
+      },
+      {
+        "initial_ms": 3853.9000000953674,
+        "ai_ms": 3490.5999999046326,
+        "final_ms": 3474.5999999046326
+      },
+      {
+        "initial_ms": 4897.800000190735,
+        "ai_ms": 3800.5999999046326,
+        "final_ms": 3521.800000190735
+      },
+      {
+        "initial_ms": 4173.599999904633,
+        "ai_ms": 11952.800000190735,
+        "final_ms": 4781.700000286102
+      },
+      {
+        "initial_ms": 3839.5999999046326,
+        "ai_ms": 4180.5,
+        "final_ms": 3730.2999997138977
+      },
+      {
+        "initial_ms": 3729.699999809265,
+        "ai_ms": 3822.4000000953674,
+        "final_ms": 3526.199999809265
+      },
+      {
+        "initial_ms": 8984.599999904633,
+        "ai_ms": 6375.5,
+        "final_ms": 7354.599999904633
+      },
+      {
+        "initial_ms": 3487.699999809265,
+        "ai_ms": 3446.4000000953674,
+        "final_ms": 3463.9000000953674
+      },
+      {
+        "initial_ms": 14455.400000095367,
+        "ai_ms": 4919.900000095367,
+        "final_ms": 3923.7999997138977
+      },
+      {
+        "initial_ms": 7267.900000095367,
+        "ai_ms": 4246.5,
+        "final_ms": 3469.9000000953674
+      },
+      {
+        "initial_ms": 3493.199999809265,
+        "ai_ms": 3440.3999996185303,
+        "final_ms": 3432.2999997138977
+      },
+      {
+        "initial_ms": 8348.10000038147,
+        "ai_ms": 3902.0999999046326,
+        "final_ms": 3658.0999999046326
+      },
+      {
+        "initial_ms": 5131.400000095367,
+        "ai_ms": 4932.5,
+        "final_ms": 9789.599999904633
+      },
+      {
+        "initial_ms": 9398,
+        "ai_ms": 16656.099999904633,
+        "final_ms": 3499.7000002861023
+      },
+      {
+        "initial_ms": 3631.7999997138977,
+        "ai_ms": 4110.300000190735,
+        "final_ms": 4094.4000000953674
+      },
+      {
+        "initial_ms": 4347.599999904633,
+        "ai_ms": 3755.9000000953674,
+        "final_ms": 3466.2000002861023
+      },
+      {
+        "initial_ms": 8551.699999809265,
+        "ai_ms": 4552.199999809265,
+        "final_ms": 3721.9000000953674
+      },
+      {
+        "initial_ms": 3457.5999999046326,
+        "ai_ms": 5232,
+        "final_ms": 3711.5999999046326
+      },
+      {
+        "initial_ms": 18718.800000190735,
+        "ai_ms": 5873.099999904633,
+        "final_ms": 3735.2000002861023
+      },
+      {
+        "initial_ms": 6518.400000095367,
+        "ai_ms": 6997.699999809265,
+        "final_ms": 3465.4000000953674
+      },
+      {
+        "initial_ms": 3458.199999809265,
+        "ai_ms": 10490.099999904633,
+        "final_ms": 4716.5
+      },
+      {
+        "initial_ms": 3465.6000003814697,
+        "ai_ms": 3689.6000003814697,
+        "final_ms": 3658
+      },
+      {
+        "initial_ms": 10424.400000095367,
+        "ai_ms": 5844.199999809265,
+        "final_ms": 3450.2000002861023
+      },
+      {
+        "initial_ms": 3439.7999997138977,
+        "ai_ms": 3558.8999996185303,
+        "final_ms": 3406.0999999046326
+      },
+      {
+        "initial_ms": 5773.400000095367,
+        "ai_ms": 7623.599999904633,
+        "final_ms": 4310.099999904633
+      }
+    ]
+  }
+}
