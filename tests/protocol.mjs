@@ -79,7 +79,7 @@ for (const group of config.groups.map(g=>g.id)) {
     await click('btn-initial-exam-next')
   }
   assert.equal(read().screen,'initial-feedback'); assert.match(element('.score-display').textContent,/12\s*\/ 18점/)
-  await click('btn-next'); await jol('jol-ai-prediction',70); await click('btn-next')
+  await click('btn-next'); assert.equal(read().screen,'task-intro'); await click('btn-next')
   assert.equal(read().screen,'task-notice')
   const groupConfig=config.groups.find(g=>g.id===group)
   assert.deepEqual([...element('#experiment-root').querySelectorAll('strong')].map(e=>e.textContent),groupConfig.boldPhrases)
@@ -125,7 +125,6 @@ for (const group of config.groups.map(g=>g.id)) {
     await click('btn-ai-next'); assert.equal(read().phase,'final'); assert(element('#box-final').textContent.includes('자신의 판단과 AI의 의견을 종합하여 최종 답안을 선택하세요.')); assert(!element('#box-final').textContent.includes('최종 진단'))
     check('input[name="final"]'); await click('btn-final-next')
   }
-  await jol('jol-task',80); await jol('jol-no-ai',60)
   assert.equal(read().screen,'math-intro'); await click('btn-next'); assert.equal(read().screen,'math'); assert(!d.getElementById('math-timer'))
   if(group==='intervention'){
     for(let i=0;i<100;i++){
@@ -204,11 +203,13 @@ for (const group of config.groups.map(g=>g.id)) {
   assert(!('_ai_survey' in responses));assert(!('ai_can_be_wrong' in responses));assert(!('ai_expected_accuracy' in responses))
   assert.equal(responses._instruction_check?.passed ?? null,group==='intervention'?true:null)
   if(group==='intervention')assert.deepEqual(responses._instruction_check.attempts.map(a=>[a.answer,a.correct]),[[70,false],[67.8,true]])
-  assert(!('_input_events' in responses));assert(responses._submitted_responses.length>0);assert(responses._submitted_responses.every(e=>Number.isFinite(e.rt_ms)&&e.rt_ms>=0));assert(responses._submitted_responses.some(e=>e.field==='ai_t1'));assert.equal(Object.keys(responses._jol_rt_ms).length,4)
+  assert(!('_input_events' in responses));assert(responses._submitted_responses.length>0);assert(responses._submitted_responses.every(e=>Number.isFinite(e.rt_ms)&&e.rt_ms>=0));assert(responses._submitted_responses.some(e=>e.field==='ai_t1'));assert.equal(Object.keys(responses._jol_rt_ms).length,1)
   assert.equal(responses._group,group);assert.equal(responses._initial_exam_score.correct,12)
   assert.equal(responses._learning_presentations.length,72);assert.equal(responses._task_answers.length,36);assert.equal(responses._exam_answers.length,36)
-  assert.deepEqual(Object.keys(responses._jol),['initial_exam_prediction','ai_exam_prediction','after_ai_task'])
-  assert.deepEqual(responses._jol.after_ai_task,{jol1:80,jol2:60})
+  assert.deepEqual(responses._jol,{initial_exam_prediction:100})
+  assert(!('jol1' in responses));assert(!('jol2' in responses))
+  assert(responses._submitted_responses.every(r=>!['aiPrediction','jol1','jol2'].includes(r.field)))
+  assert.deepEqual(read().pages.filter(p=>p.screen.startsWith('jol-')).map(p=>p.screen),['jol-initial-exam'])
   assert(responses._task_answers.every(t=>Object.keys(t.phase_durations_ms).join(',')==='initial_ms,ai_ms,final_ms'))
   assert.equal(responses.ai_k.ai_k1,'틀리다')
   assert.deepEqual(Object.keys(responses.ai_k),Array.from({length:6},(_,i)=>'ai_k'+(i+1)))
@@ -226,7 +227,7 @@ for (const group of config.groups.map(g=>g.id)) {
   assert.equal(d.querySelectorAll('.step input:checked').length,0)
   assert(w.localStorage.getItem('__download_exp_download_backup_'+previousId))
 
-  process.stdout.write(group+': 72 learning presentations, 4 JOLs, 18 written trials, score, 36 T-format tasks, math, 36 final trials and unchanged surveys PASS\n')
+  process.stdout.write(group+': 72 learning presentations, 1 baseline prediction JOL, 18 written trials, score, 36 T-format tasks, math, 36 final trials and unchanged surveys PASS\n')
   dom.window.close()
 }
 // Exclude the different number of math practice responses used by the two tests.

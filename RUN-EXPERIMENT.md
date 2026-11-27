@@ -29,11 +29,10 @@
 
 메뉴의 페이지 버튼은 해당 단계 첫 화면으로 이동하며 문항 번호를 선택하지 않습니다. 학습은 같은 저장명 `_learning_presentations`에 `round=1` 또는 `round=2`를 표시합니다. 인구통계는 기존 페이지 기록명 `step-ps-3`의 버튼 하나로 연결하고, 응답은 기존 `q6_age`, `q6_gender`, `q6_major`에 각각 저장합니다. 안내 페이지는 `_page_durations[].screen`에 기록되는 기존 이름을 표시합니다. JSON 키와 저장 구조는 바꾸지 않습니다.
 
-| JOL 화면 | 개발자메뉴 이름 및 기존 JSON 저장 경로 |
+| 유일하게 남은 JOL 화면 | 개발자메뉴 이름 및 JSON 저장 경로 |
 |---|---|
 | 첫 시험 수행 예측 | `_jol.initial_exam_prediction` |
-| AI 참고 시험 수행 예측 | `_jol.ai_exam_prediction` |
-| AI 협업 후 정확도 판단 | `jol1` (기존 중첩 경로 `_jol.after_ai_task.jol1`도 유지) |
-| AI 없이 수행할 때의 예측 | `jol2` (기존 중첩 경로 `_jol.after_ai_task.jol2`도 유지) |
 
 개발자 이동은 테스트를 위한 기능이며 응답이나 정답 확인 결과를 자동으로 채우지 않습니다. intervention 확인 문항은 해당 조건을 선택한 경우에만 열립니다. 이미 종료된 수학 단계의 시간 제한은 개발자 이동으로 초기화하지 않으며, 새 실험으로 확인하려면 **처음부터 다시 보기**를 사용합니다. 실제 참가자 사이의 **다음 참가자 시작** 기능과 다운로드 확인 절차는 유지합니다.
+
+두 집단 모두 baseline prediction 한 문항만 제시합니다. JSON에는 `_jol.initial_exam_prediction`과 해당 RT만 저장하며, 삭제한 세 JOL의 응답 키는 새 제출에 포함하지 않습니다.

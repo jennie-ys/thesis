@@ -1437,13 +1437,10 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
     {screen:'initial-exam-intro',name:'initial-exam-intro'},
     {screen:'initial-exam',name:'_initial_exam_answers'},
     {screen:'initial-feedback',name:'_initial_exam_score'},
-    {screen:'jol-ai-prediction',name:'_jol.ai_exam_prediction'},
     {screen:'task-intro',name:'task-intro'},
     {screen:'task-notice',name:'task-notice'},
     {screen:'task-check',name:'_instruction_check'},
     {screen:'task',name:'_task_answers'},
-    {screen:'jol-task',name:'jol1'},
-    {screen:'jol-no-ai',name:'jol2'},
     {screen:'math-intro',name:'math-intro'},
     {screen:'math',name:'_math'},
     {screen:'final-exam-intro',name:'final-exam-intro'},
@@ -1598,8 +1595,7 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
       case 'jol-initial-exam': state.jol.initialExamPrediction = null; go('initial-exam-intro'); break
       case 'initial-exam-intro': go('initial-exam',{index:state.initialExam.length}); break
       case 'initial-exam': missingTrials(initialExams,state.initialExam); go('initial-feedback'); break
-      case 'initial-feedback': go('jol-ai-prediction'); break
-      case 'jol-ai-prediction': state.jol.aiPrediction = null; go('task-intro'); break
+      case 'initial-feedback': go('task-intro'); break
       case 'task-intro': go('task-notice'); break
       case 'task-notice': go(state.group === 'intervention' ? 'task-check' : 'task',{index:state.task.length,phase:'initial'}); break
       case 'task-check': go('task-notice'); break
@@ -1609,9 +1605,7 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
           state.task.push({trial_id:item.id,correctCategory:item.correctCategory,aiCategory:item.aiCategory,aiReason:item.aiReason,
             initial:null,final:null,phase_durations_ms:{},...pending,skipped:true})
         }
-        state.pendingTask = null; go('jol-task',{phase:'initial'}); break
-      case 'jol-task': state.jol.jol1 = null; go('jol-no-ai'); break
-      case 'jol-no-ai': state.jol.jol2 = null; go('math-intro'); break
+        state.pendingTask = null; go('math-intro',{phase:'initial'}); break
       case 'math-intro': startMath(); break
       case 'math': endMath(true); break
       case 'final-exam-intro': go('final-exam',{index:state.finalExam.length}); break
@@ -1702,12 +1696,9 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
       case 'initial-exam': renderInitialExam(); break
       case 'initial-feedback': {
         const result = score(state.initialExam)
-        info('시험 총점', `<div class="score-display"><strong>${result.correct}</strong><span> / ${result.total}점</span></div><p>정답률 ${result.total ? (result.correct/result.total*100).toFixed(1) : '0.0'}%</p>${config.stimuliPending ? '<p class="preview-score-note">현재 점수는 이미지가 없는 상태에서 절차를 확인하기 위한 점수입니다.</p>' : ''}`, () => go('jol-ai-prediction'), '다음 →')
+        info('시험 총점', `<div class="score-display"><strong>${result.correct}</strong><span> / ${result.total}점</span></div><p>정답률 ${result.total ? (result.correct/result.total*100).toFixed(1) : '0.0'}%</p>${config.stimuliPending ? '<p class="preview-score-note">현재 점수는 이미지가 없는 상태에서 절차를 확인하기 위한 점수입니다.</p>' : ''}`, () => go('task-intro'), '다음 →')
         break
       }
-      case 'jol-ai-prediction':
-        jolScreen('AI 협업 과제 수행 예측', '다음에는 AI 분석 결과를 참고하여 피부 병변 분류 시험을 다시 볼 수 있습니다. AI 분석 결과를 참고한다면, 몇 %의 문제를 맞힐 수 있을 것이라고 생각하나요?', 'aiPrediction', 'task-intro')
-        break
       case 'task-intro':
         info('', "<p class=\"instruct-lead\">학습이 끝났습니다. 지금부터 피부 병변에 대한 AI 협업 분류 과제를 시작합니다</p>\n        <p>이 과제에서는 피부 병변 이미지를 보고 해당 병변의 범주를 판단하게 됩니다.</p>\n        <p>각 이미지에 대해 아래의 순서대로 진행합니다.</p>\n        <!-- 집단별 순서 안내 (JS가 채움) -->\n        <ol class=\"lesion-list\"><li>이미지를 충분히 관찰한 후, 해당 병변의 범주를 선택하여 <strong>초기 답안</strong>을 제출하십시오.</li>\n<li>동일한 이미지에 대한 <strong>AI 분석 결과</strong>를 확인하십시오.</li>\n<li>초기 판단과 AI의 의견을 종합하여 <strong>최종 답안</strong>을 제출하십시오.</li></ol>\n        <p>위 과정을 모든 이미지에 대해 반복합니다.</p>\n        <p class=\"instruct-ready\">준비되었으면 <strong>다음 버튼을 눌러주세요.</strong></p>", () => go('task-notice'), "다음→")
         break
@@ -1728,12 +1719,6 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
       case 'task':
         if (state.group === 'intervention' && !state.instructionCheck.passed && !(developerVisible && developerTaskAccess)) go('task-notice')
         else renderTask()
-        break
-      case 'jol-task':
-        jolScreen('AI 협업 과제 정확도 추정', '앞서 진행된 AI 협업 피부 병변 분류 과제에서 얼마나 정답을 맞혔다고 생각하나요? 0에서 100 사이의 값으로 표시하십시오.<br><span>최종적으로 제출한 답변에 대한 정답률을 예측해보세요</span>', 'jol1', 'jol-no-ai')
-        break
-      case 'jol-no-ai':
-        jolScreen('AI 없이 수행할 때의 판단', '만약 지금부터 AI 없이 스스로 피부 병변 분류 과제를 하게 된다면, 얼마나 많은 문제를 맞힐 수 있을 것이라고 생각하나요?', 'jol2', 'math-intro')
         break
       case 'math-intro':
         info('', "<p class=\"instruct-lead\">피부 병변 분류 과제를 마쳤습니다. 이제 간단한 수학 문제를 풉니다.</p>\n        <p>3분 동안 문제를 풀 수 있으며, 3분이 되면 자동으로 페이지가 넘어갑니다.<br>문제를 가능한 한 빠르고 정확하게 풀어주세요.</p>\n        <p class=\"instruct-ready\">준비 되었으면 아래 버튼을 눌러주세요.</p>", startMath, "시작하기")
@@ -1833,7 +1818,7 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
         if (!chosen) return
         commitResponse('final',chosen); pending.final = chosen; pending.phase_durations_ms.final_ms = elapsed()
         state.task.push(pending); state.pendingTask = null
-        go(state.index+1 < tasks.length ? 'task' : 'jol-task', {index:state.index+1, phase:'initial'})
+        go(state.index+1 < tasks.length ? 'task' : 'math-intro', {index:state.index+1, phase:'initial'})
       }); delayed('btn-final-next')
     }
   }
@@ -2170,14 +2155,13 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
       _ai_mapping_source:config.aiMappingSource,
       _stimulus_manifest:[...slides,...initialExams,...tasks,...finalExams].map(({id,imageId,categoryCode,novelty,position,block})=>({id,imageId,categoryCode,novelty,position,block})),
       _rt_schema_version:2,
-      _submitted_responses:Object.values(state.submittedResponses),
-      _jol_rt_ms:state.jolRT,
+      _submitted_responses:Object.values(state.submittedResponses).filter(response=>!['aiPrediction','jol1','jol2'].includes(response.field)),
+      _jol_rt_ms:Object.fromEntries(Object.entries(state.jolRT).filter(([key])=>key==='initialExamPrediction')),
       _rt_definition:{unit:'ms',clock:'performance.now',response:'Time from current screen/item presentation to accepted response; only the final committed value is retained; progressive survey items start when revealed',submission:'Time from current presentation to valid submission; reload starts a new presentation segment'},
       _instruction_check:state.group === 'intervention' ? state.instructionCheck : null,
       _skipped_pages:state.skips || [], _stimuli_pending:config.stimuliPending, _learning_presentations:state.learning,
       _initial_exam_answers:state.initialExam, _initial_exam_score:score(state.initialExam),
-      _jol:{initial_exam_prediction:state.jol.initialExamPrediction, ai_exam_prediction:state.jol.aiPrediction, after_ai_task:{jol1:state.jol.jol1, jol2:state.jol.jol2}},
-      jol1:state.jol.jol1, jol2:state.jol.jol2,
+      _jol:{initial_exam_prediction:state.jol.initialExamPrediction},
       _task_answers:state.task, _math:state.math ? {answers:state.math.answers, score:state.math.score, duration_ms:state.math.duration_ms, skipped:state.math.skipped} : null,
       _exam_answers:state.finalExam,
       _scoring:{initial_exam_score:score(state.initialExam), exam_score:score(state.finalExam), ai_k_correct:aiKnowledge, ai_k_score:{correct:Object.values(aiKnowledge).filter(Boolean).length,total:6},
@@ -2287,6 +2271,8 @@ function gradeResponses(source, {initialExams, tasks, finalExams}, scoringSource
       if (!state || state.version !== config.version) state = freshState()
       if (state.group && !config.groups.some(g=>g.id===state.group)) state = freshState()
       if (state.screen === 'jol-learning') state.screen = 'jol-initial-exam'
+      const retiredJolScreens={'jol-ai-prediction':'task-intro','jol-task':'math-intro','jol-no-ai':'math-intro'}
+      if (retiredJolScreens[state.screen]) state.screen=retiredJolScreens[state.screen]
       state.jol ||= {}; delete state.jol.learning
       state.instructionCheck ||= {passed:false,attempts:[]}
       delete state.inputEvents; if(state.lastResponses) delete state.lastResponses._input_events
